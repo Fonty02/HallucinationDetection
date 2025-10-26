@@ -134,7 +134,7 @@ First of all, you have to train collect artifacts and train hallucination probin
 cd llm-hallucinations-factual-qa
 source .venv/bin/activate
 
-python -m result_collector_kc
+python -m result_collector
 python -W ignore -m classifier_model
 ```
 
