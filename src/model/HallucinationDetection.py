@@ -1,17 +1,13 @@
 import os
 import json
+import time
 import torch
-import pandas as pd
 from tqdm import tqdm
 import src.model.utils as ut
-from src.model.KCProbing import KCProbing
-from src.data.MushroomDataset import MushroomDataset
-from src.data.HaluEvalDataset import HaluEvalDataset
-from src.data.HaluBenchDataset import HaluBenchDataset
+from src.data.SimpleQADataset import SimpleQADataset
 from src.model.InspectOutputContext import InspectOutputContext
 from src.model.prompts import PROMPT_CORRECT as prompt
-from sklearn.metrics import auc
-from sklearn.metrics import roc_auc_score, precision_recall_curve
+from src.model.gemini_autorater import GeminiAutorater
 
 class HallucinationDetection:
     # -------------
@@ -19,16 +15,9 @@ class HallucinationDetection:
     # -------------
     TARGET_LAYERS = list(range(0, 32))     # Upper bound excluded
     MAX_NEW_TOKENS = 100
-    DEFAULT_DATASET = "mushroom"
+    DEFAULT_DATASET = "simpleqa"
     CACHE_DIR_NAME = "activation_cache"
     ACTIVATION_TARGET = ["hidden", "mlp", "attn"]
-    PREDICTION_DIR = "predictions"
-    RESULTS_DIR = "results"
-    PREDICTIONS_FILE_NAME = "kc_predictions_layer{layer}.jsonl"
-    LABELS = {
-        0: "not_hallucinated",
-        1: "hallucinated"
-    }
 
     # -------------
     # Constructor
@@ -37,62 +26,82 @@ class HallucinationDetection:
         self.project_dir = project_dir
 
     
-    def load_dataset(self, dataset_name=DEFAULT_DATASET, use_local=False, label=1):
+    def load_dataset(self, dataset_name=DEFAULT_DATASET, use_local=False):
         print("--"*50)
         print(f"Loading dataset {dataset_name}")
         print("--"*50)
-        self.label = label
         
-        if dataset_name == "mushroom":
+        if dataset_name == "simpleqa":
             self.dataset_name = dataset_name
-            val_path = os.path.join(self.project_dir, "data", "processed", "labeled.jsonl")
-            self.dataset = MushroomDataset(data_path=val_path)
-
-        elif dataset_name == "halu_eval":
-            self.dataset_name = dataset_name
-            self.dataset = HaluEvalDataset(use_local=use_local, label=label)
-
-        elif dataset_name == "halu_bench":
-            self.dataset_name = dataset_name
-            self.dataset = HaluBenchDataset(use_local=use_local, label=label)
-
+            self.dataset = SimpleQADataset(use_local=use_local)
         else:
-            raise ValueError(f"Dataset {dataset_name} not supported.")
+            raise ValueError(f"Dataset {dataset_name} not supported. Only 'simpleqa' is available.")
 
 
-    def load_llm(self, llm_name, use_local=False, dtype=torch.bfloat16, use_device_map=True, use_flash_attn=False):
+    def load_llm(self, llm_name, use_local=False, dtype=torch.bfloat16, use_device_map=True, use_flash_attn=False, quantization=False):
         print("--"*50)
         print(f"Loading LLM {llm_name}")
+        if quantization:
+            print("Using 4-bit quantization")
+        else:
+            print(f"Using full precision ({dtype})")
         print("--"*50)
         self.llm_name = llm_name
         self.tokenizer = ut.load_tokenizer(llm_name, local=use_local)
-        self.llm = ut.load_llm(llm_name, ut.create_bnb_config(), local=use_local, dtype=dtype, use_device_map=use_device_map, use_flash_attention=use_flash_attn)
+        bnb_config = ut.create_bnb_config() if quantization else None
+        self.llm = ut.load_llm(llm_name, bnb_config, local=use_local, dtype=dtype, use_device_map=use_device_map, use_flash_attention=use_flash_attn)
+        
+        # Auto-detect number of layers
+        if hasattr(self.llm.config, 'num_hidden_layers'):
+            num_layers = self.llm.config.num_hidden_layers
+            self.TARGET_LAYERS = list(range(0, num_layers))
+            print(f"Detected {num_layers} layers in model")
+        
         print("--"*50)
 
     
-    def load_kc_probing(self, activation, layer):
-        print("--"*50)
-        print(f"Loading KC probing model for layer {layer} of {activation} activations")
-        print("--"*50)
-        self.kc_layer = layer
-        self.kc_model = KCProbing(self.project_dir, activation=activation, layer=layer)
-        print("--"*50)
+
 
 
     # -------------
     # Main Methods
     # -------------
     @torch.no_grad()
-    def predict_llm(self, llm_name, data_name=DEFAULT_DATASET, label=1, use_local=False, dtype=torch.bfloat16, use_device_map=True, use_flash_attn=False):
-        self.load_dataset(dataset_name=data_name, use_local=use_local, label=label)
-        self.load_llm(llm_name, use_local=use_local, dtype=dtype, use_device_map=use_device_map, use_flash_attn=use_flash_attn)
+    def save_model_activations(self, llm_name, data_name=DEFAULT_DATASET, use_local=False, 
+                              dtype=torch.bfloat16, use_device_map=True, use_flash_attn=False,
+                              use_gemini_autorater=False, gemini_model="gemini-2.0-flash-lite",
+                              max_samples=None, quantization=False):
+        """Save LLM activations for the SimpleQA dataset.
+        
+        Args:
+            use_gemini_autorater: If True, use Gemini API to evaluate hallucinations
+            gemini_model: Gemini model name (gemini-2.0-flash-exp, gemini-1.5-pro, etc.)
+            max_samples: Number of samples to process (None = all samples)
+            quantization: If True, use 4-bit quantization; if False, use full precision
+        """
+        self.load_dataset(dataset_name=data_name, use_local=use_local)
+        self.max_samples = max_samples
+        self.load_llm(llm_name, use_local=use_local, dtype=dtype, use_device_map=use_device_map, 
+                     use_flash_attn=use_flash_attn, quantization=quantization)
+        
+        # Initialize Gemini autorater if requested
+        self.gemini_autorater = None
+        if use_gemini_autorater:
+            print(f"Initializing Gemini autorater with model: {gemini_model}")
+            try:
+                self.gemini_autorater = GeminiAutorater(model_name=gemini_model)
+                print("✓ Gemini autorater initialized successfully")
+            except Exception as e:
+                print(f"⚠ Warning: Could not initialize Gemini autorater: {e}")
+                print("Falling back to substring matching")
+                self.gemini_autorater = None
 
         print("--"*50)
         print("Hallucination Detection - Saving LLM's activations")
         print("--"*50)
         
         print("\n0. Prepare folders")
-        self._create_folders_if_not_exists(label=label)
+        self._create_folders_if_not_exists()
     
         print(f"\n1. Saving {self.llm_name} activations for layers {self.TARGET_LAYERS}")
         self.save_activations()
@@ -100,73 +109,10 @@ class HallucinationDetection:
         print("--"*50)
 
     
-    @torch.no_grad()
-    def predict_kc(self, target, layer, llm_name, data_name=DEFAULT_DATASET, use_local=False, label=1):
-        self.load_kc_probing(target, layer)
-        self.load_dataset(dataset_name=data_name, use_local=use_local, label=label)
-
-        print("--"*50)
-        print("Hallucination Detection - Saving KC Probing Predictions")
-        print(f"Activation: {target}, Layer: {self.kc_layer}, Label: {self.LABELS[label]}")
-        print("--"*50)
-        
-        result_path = os.path.join(self.project_dir, self.PREDICTION_DIR, llm_name)
-        
-        activations, instance_ids = ut.load_activations(
-            model_name=llm_name,
-            data_name=self.dataset_name,
-            analyse_activation=target,
-            activation_type=self.LABELS[label],
-            layer_idx=self.kc_layer,
-            results_dir=os.path.join(self.project_dir, self.CACHE_DIR_NAME)
-        )
-
-        preds = []
-        for activation, instance_id in zip(activations, instance_ids):
-            pred = {
-                "instance_id": instance_id,
-                "lang": self.dataset.get_language_by_instance_id(instance_id),
-                "prediction": self.kc_model.predict(activation).item(),
-                "label": label
-            }
-            preds.append(pred)
-        
-        path_to_save = os.path.join(result_path, self.dataset_name, target, self.PREDICTIONS_FILE_NAME.format(layer=self.kc_layer))
-
-        if not os.path.exists(os.path.dirname(path_to_save)):
-            os.makedirs(os.path.dirname(path_to_save))
-        else:
-            # If the file already exists, load existing predictions and add the new ones
-            if os.path.exists(path_to_save):
-                existing_preds = json.load(open(path_to_save, "r"))
-                preds.extend(existing_preds)
-
-        json.dump(preds, open(path_to_save, "w"), indent=4)
-        
-        print(f"\t -> Predictions saved to {path_to_save}")
 
 
-    def eval(self, target, llm_name, data_name=DEFAULT_DATASET):
-        result_path = os.path.join(self.project_dir, self.PREDICTION_DIR, llm_name)
-        print("--"*50)
-        print("Hallucination Detection - Evaluation")
-        print(f"Activation: {target}, Layer: {self.kc_layer}")
-        print("--"*50)
 
-        print(f"\n1. Load predictions for layer {self.kc_layer}")
-        preds_path = os.path.join(result_path, data_name, target, self.PREDICTIONS_FILE_NAME.format(layer=self.kc_layer))
-        if not os.path.exists(preds_path):
-            raise FileNotFoundError(f"Predictions file not found: {preds_path}")
-        
-        preds = json.load(open(preds_path, "r"))
 
-        print("\n2. Compute metrics")
-        metrics = HallucinationDetection.compute_all_metrics(preds, data_name)
-
-        print("\n3. Save results")
-        self._save_metrics(metrics, target, data_name, llm_name)        
-        
-        print("--"*50)
 
     
     def save_activations(self):
@@ -175,7 +121,14 @@ class HallucinationDetection:
         module_names += [f'model.layers.{idx}.self_attn' for idx in self.TARGET_LAYERS]
         module_names += [f'model.layers.{idx}.mlp' for idx in self.TARGET_LAYERS]
 
-        for idx in tqdm(range(len(self.dataset)), desc="Saving activations"):
+        # Track hallucination labels
+        hallucination_labels = []
+        
+        # Determine how many samples to process
+        num_samples = min(self.max_samples, len(self.dataset)) if self.max_samples else len(self.dataset)
+        print(f"Processing {num_samples} samples out of {len(self.dataset)} total")
+
+        for idx in tqdm(range(num_samples), desc="Saving activations"):
             question, answer, instance_id = self.dataset[idx]
 
             model_input = prompt.format(question=question, answer=answer)
@@ -198,6 +151,38 @@ class HallucinationDetection:
                 generated_ids = output.sequences[0][tokens["input_ids"].shape[1]:]
                 generated_text = self.tokenizer.decode(generated_ids, skip_special_tokens=True)
                 
+                # Determine if this is a hallucination
+                if self.gemini_autorater is not None:
+                    # Use Gemini API for evaluation
+                    eval_result = self.gemini_autorater.evaluate(
+                        question=question,
+                        gold_answer=answer,
+                        generated_answer=generated_text
+                    )
+                    is_hallucination = eval_result["is_hallucination"]
+                    gemini_response = eval_result["gemini_response"]
+                    confidence = eval_result["confidence"]
+                else:
+                    # Fallback to simple substring matching
+                    is_hallucination = answer.lower().strip() not in generated_text.lower().strip()
+                    gemini_response = None
+                    confidence = "substring_matching"
+                
+                # Store label information
+                label_info = {
+                    "instance_id": instance_id,
+                    "is_hallucination": int(is_hallucination),  # 1 = hallucination, 0 = correct
+                    "gold_answer": answer,
+                    "generated_answer": generated_text,
+                    "evaluation_method": "gemini" if self.gemini_autorater else "substring"
+                }
+                
+                if gemini_response is not None:
+                    label_info["gemini_response"] = gemini_response
+                    label_info["confidence"] = confidence
+                
+                hallucination_labels.append(label_info)
+                
                 ut.save_generation_output(generated_text, model_input, instance_id, self.generation_save_dir)
                 
                 if hasattr(output, 'scores') and output.scores:
@@ -218,6 +203,16 @@ class HallucinationDetection:
                     save_path = os.path.join(self.hidden_save_dir, save_name)
 
                 torch.save(ac_last, save_path)
+            
+            # Sleep 1 second between dataset elements to avoid API rate limits
+            if idx < num_samples - 1:  # Don't sleep after the last element
+                time.sleep(5)
+
+        # Save hallucination labels
+        labels_path = os.path.join(self.generation_save_dir, "hallucination_labels.json")
+        with open(labels_path, 'w') as f:
+            json.dump(hallucination_labels, f, indent=4)
+        print(f"\nSaved hallucination labels to: {labels_path}")
 
         self.combine_activations()
 
@@ -225,11 +220,9 @@ class HallucinationDetection:
     def combine_activations(self):
         results_dir = os.path.join(self.project_dir, self.CACHE_DIR_NAME)
         model_name = self.llm_name.split("/")[-1]
-        
-        task = self._get_task_name(self.label)
 
         for aa in self.ACTIVATION_TARGET:
-            act_dir = os.path.join(results_dir, model_name, self.dataset_name, f"activation_{aa}", task)
+            act_dir = os.path.join(results_dir, model_name, self.dataset_name, f"activation_{aa}")
 
             act_files = list(os.listdir(act_dir))
             act_files = [f for f in act_files if len(f.split("-")) == 2]
@@ -269,66 +262,22 @@ class HallucinationDetection:
                     os.remove(p)
 
 
-    @staticmethod
-    def compute_all_metrics(preds, data_name):
-        # Convert preds to a df
-        preds_df = pd.DataFrame(preds)
-        
-        # Compute metrics at dataset level
-        all_preds = preds_df["prediction"].tolist()
-
-        if data_name == HallucinationDetection.DEFAULT_DATASET:
-            labels = [1.] * len(all_preds)  # All instances are hallucinations
-        else:
-            labels = preds_df["label"].tolist()
-
-        metrics = HallucinationDetection.compute_metrics(all_preds, labels)
-
-        # Compute metrics for each language - Only MashRoom has multiple languages
-        if data_name == HallucinationDetection.DEFAULT_DATASET:
-            langs = preds_df["lang"].unique()
-            for lang in langs:
-                lang_preds = preds_df[preds_df["lang"] == lang]["prediction"].tolist()
-                labels = [1.] * len(lang_preds)  # All instances are hallucinations
-                lang_metrics = HallucinationDetection.compute_metrics(lang_preds, labels)
-                metrics[lang] = lang_metrics["ACC"]
-
-        return metrics
-
-
-    @staticmethod
-    def compute_metrics(preds, labels):
-        correct = sum([1 for p, l in zip(preds, labels) if p == l])
-
-        AUC = roc_auc_score(labels, preds)
-        precision, recall, thresholds = precision_recall_curve(labels, preds)
-        AUPRC = auc(recall, precision)
-        ACC = correct / len(labels)
-
-        return {"ACC": ACC, "AUC": AUC, "AUPRC": AUPRC}
-    
-
     # -------------
     # Utility Methods
     # -------------
-    def _get_task_name(self, label):
-        return self.LABELS[label]
 
 
-    def _create_folders_if_not_exists(self, label=1):
+    def _create_folders_if_not_exists(self):
         model_name = self.llm_name.split("/")[-1]
 
         results_dir = os.path.join(self.project_dir, self.CACHE_DIR_NAME)
 
-        task = self._get_task_name(label=label)
-        print(f"Task: {task}")
+        self.hidden_save_dir = os.path.join(results_dir, model_name, self.dataset_name, "activation_hidden")
+        self.mlp_save_dir = os.path.join(results_dir, model_name, self.dataset_name, "activation_mlp")
+        self.attn_save_dir = os.path.join(results_dir, model_name, self.dataset_name, "activation_attn")
 
-        self.hidden_save_dir = os.path.join(results_dir, model_name, self.dataset_name, "activation_hidden", task)
-        self.mlp_save_dir = os.path.join(results_dir, model_name, self.dataset_name, "activation_mlp", task)
-        self.attn_save_dir = os.path.join(results_dir, model_name, self.dataset_name, "activation_attn", task)
-
-        self.generation_save_dir = os.path.join(results_dir, model_name, self.dataset_name, "generations", task)
-        self.logits_save_dir = os.path.join(results_dir, model_name, self.dataset_name, "logits", task)
+        self.generation_save_dir = os.path.join(results_dir, model_name, self.dataset_name, "generations")
+        self.logits_save_dir = os.path.join(results_dir, model_name, self.dataset_name, "logits")
         
         for sd in [self.hidden_save_dir, self.mlp_save_dir, self.attn_save_dir, self.generation_save_dir, self.logits_save_dir]:
             print(f"Creating directory: {sd}")
@@ -336,19 +285,3 @@ class HallucinationDetection:
                 os.makedirs(sd)
 
         print("\n\n")
-
-    
-    def _save_metrics(self, metrics, target, data_name, llm_name):
-        metrics_path = os.path.join(self.project_dir, self.RESULTS_DIR, llm_name, data_name, target, f"metrics_layer{self.kc_layer}.json")
-
-        if not os.path.exists(os.path.dirname(metrics_path)):
-            os.makedirs(os.path.dirname(metrics_path))
-        else:
-            # If the file already exists, load existing metrics and add the new ones
-            if os.path.exists(metrics_path):
-                existing_metrics = json.load(open(metrics_path, "r"))
-                metrics.update(existing_metrics)
-
-        json.dump(metrics, open(metrics_path, "w"), indent=4)
-        
-        print(f"\t -> Metrics saved to {metrics_path}")
