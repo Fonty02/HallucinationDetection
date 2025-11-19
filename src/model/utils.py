@@ -4,9 +4,8 @@ import torch
 from pathlib import Path
 from typing import Union, Any
 from accelerate import PartialState
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer, AutoModelForCausalLM
 from transformers import BitsAndBytesConfig
-from src.model.LlaMa import LlamaForCausalLM
 from src.model.InspectOutputContext import InspectOutputContext
 
 
@@ -72,7 +71,7 @@ def load_llm(model_name, bnb_config, local=False, dtype=torch.bfloat16, use_devi
     max_memory_config = max_memory if use_device_map else None
 
     if not local:
-        model = LlamaForCausalLM.from_pretrained(
+        model = AutoModelForCausalLM.from_pretrained(
             model_name,
             use_cache=False,
             attn_implementation=attention,
@@ -83,7 +82,7 @@ def load_llm(model_name, bnb_config, local=False, dtype=torch.bfloat16, use_devi
         )
     else:
         model_local_path = get_weight_dir(model_name)
-        model = LlamaForCausalLM.from_pretrained(
+        model = AutoModelForCausalLM.from_pretrained(
             model_local_path,
             local_files_only=True,
             use_cache=False,
