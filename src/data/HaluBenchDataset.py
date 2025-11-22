@@ -19,7 +19,7 @@ class HaluBenchDataset(Dataset):
         if ('instance_id' not in self.dataset.column_names) or recreate_ids:
             self.dataset = self.create_instance_ids()
 
-        self.dataset = self.remove_instances_by_label(label)
+       # self.dataset = self.remove_instances_by_label(label)
         self.dataset = self.dataset.shuffle(seed=42)
 
 
