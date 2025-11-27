@@ -1,0 +1,186 @@
+[
+  {
+    "scenario": "Qwen2.5-7B (teacher) \u2192 Falcon3-7B-Base (student)",
+    "results": [
+      {
+        "layer_type": "attn",
+        "teacher_model": "Qwen2.5-7B",
+        "student_model": "Falcon3-7B-Base",
+        "teacher": {
+          "accuracy": 0.9888,
+          "precision": 0.99,
+          "recall": 0.9908,
+          "f1_score": 0.9904,
+          "confusion_matrix": {
+            "TN": 3384,
+            "FP": 48,
+            "FN": 44,
+            "TP": 4749
+          }
+        },
+        "student_on_teacher": {
+          "accuracy": 0.7198,
+          "precision": 0.8034,
+          "recall": 0.7132,
+          "f1_score": 0.7556,
+          "confusion_matrix": {
+            "TN": 2356,
+            "FP": 872,
+            "FN": 1433,
+            "TP": 3564
+          }
+        }
+      },
+      {
+        "layer_type": "mlp",
+        "teacher_model": "Qwen2.5-7B",
+        "student_model": "Falcon3-7B-Base",
+        "teacher": {
+          "accuracy": 0.9906,
+          "precision": 0.9904,
+          "recall": 0.9935,
+          "f1_score": 0.992,
+          "confusion_matrix": {
+            "TN": 3386,
+            "FP": 46,
+            "FN": 31,
+            "TP": 4762
+          }
+        },
+        "student_on_teacher": {
+          "accuracy": 0.7263,
+          "precision": 0.8106,
+          "recall": 0.717,
+          "f1_score": 0.761,
+          "confusion_matrix": {
+            "TN": 2391,
+            "FP": 837,
+            "FN": 1414,
+            "TP": 3583
+          }
+        }
+      },
+      {
+        "layer_type": "hidden",
+        "teacher_model": "Qwen2.5-7B",
+        "student_model": "Falcon3-7B-Base",
+        "teacher": {
+          "accuracy": 0.9903,
+          "precision": 0.9914,
+          "recall": 0.9919,
+          "f1_score": 0.9917,
+          "confusion_matrix": {
+            "TN": 3391,
+            "FP": 41,
+            "FN": 39,
+            "TP": 4754
+          }
+        },
+        "student_on_teacher": {
+          "accuracy": 0.71,
+          "precision": 0.7997,
+          "recall": 0.6974,
+          "f1_score": 0.7451,
+          "confusion_matrix": {
+            "TN": 2355,
+            "FP": 873,
+            "FN": 1512,
+            "TP": 3485
+          }
+        }
+      }
+    ]
+  },
+  {
+    "scenario": "Falcon3-7B-Base (teacher) \u2192 Qwen2.5-7B (student)",
+    "results": [
+      {
+        "layer_type": "attn",
+        "teacher_model": "Falcon3-7B-Base",
+        "student_model": "Qwen2.5-7B",
+        "teacher": {
+          "accuracy": 0.9234,
+          "precision": 0.9378,
+          "recall": 0.936,
+          "f1_score": 0.9369,
+          "confusion_matrix": {
+            "TN": 2918,
+            "FP": 310,
+            "FN": 320,
+            "TP": 4677
+          }
+        },
+        "student_on_teacher": {
+          "accuracy": 0.7029,
+          "precision": 0.7524,
+          "recall": 0.7304,
+          "f1_score": 0.7413,
+          "confusion_matrix": {
+            "TN": 2280,
+            "FP": 1152,
+            "FN": 1292,
+            "TP": 3501
+          }
+        }
+      },
+      {
+        "layer_type": "mlp",
+        "teacher_model": "Falcon3-7B-Base",
+        "student_model": "Qwen2.5-7B",
+        "teacher": {
+          "accuracy": 0.9103,
+          "precision": 0.9246,
+          "recall": 0.928,
+          "f1_score": 0.9263,
+          "confusion_matrix": {
+            "TN": 2850,
+            "FP": 378,
+            "FN": 360,
+            "TP": 4637
+          }
+        },
+        "student_on_teacher": {
+          "accuracy": 0.7093,
+          "precision": 0.767,
+          "recall": 0.7198,
+          "f1_score": 0.7427,
+          "confusion_matrix": {
+            "TN": 2384,
+            "FP": 1048,
+            "FN": 1343,
+            "TP": 3450
+          }
+        }
+      },
+      {
+        "layer_type": "hidden",
+        "teacher_model": "Falcon3-7B-Base",
+        "student_model": "Qwen2.5-7B",
+        "teacher": {
+          "accuracy": 0.9102,
+          "precision": 0.9253,
+          "recall": 0.927,
+          "f1_score": 0.9261,
+          "confusion_matrix": {
+            "TN": 2854,
+            "FP": 374,
+            "FN": 365,
+            "TP": 4632
+          }
+        },
+        "student_on_teacher": {
+          "accuracy": 0.7092,
+          "precision": 0.7515,
+          "recall": 0.7484,
+          "f1_score": 0.7499,
+          "confusion_matrix": {
+            "TN": 2246,
+            "FP": 1186,
+            "FN": 1206,
+            "TP": 3587
+          }
+        }
+      }
+    ]
+  }
+]
