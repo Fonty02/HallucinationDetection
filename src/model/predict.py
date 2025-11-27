@@ -1,9 +1,10 @@
 import os
 import argparse
+PROJECT_ROOT = os.getcwd()
+print(f"Project root: {PROJECT_ROOT}")
 from src.model.HallucinationDetection import HallucinationDetection
 
 
-PROJECT_ROOT = os.getcwd()
 
 
 def main(args):
@@ -37,14 +38,10 @@ def main(args):
     print("=="*50)
     
     hallucination_detector.save_model_activations(
-        llm_name=model_name, 
-        use_local=use_local, 
-        data_name=data_name,
+        llm_name=model_name,  
         use_gemini_autorater=use_gemini,
-        gemini_model=gemini_model,
         max_samples=max_samples,
-        quantization=quantization,
-        belief_bank_data_type=belief_bank_data_type
+        quantization=quantization, 
     )
 
 
