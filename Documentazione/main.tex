@@ -1,7 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-% A template for PhD and Master's degree theses
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \documentclass[12pt,twoside]{book}
 \usepackage[margin=1.2in]{geometry}
 \usepackage[toc,page]{appendix}
@@ -13,12 +9,19 @@
 \usepackage{url}
 \usepackage{MnSymbol,wasysym}
 \usepackage{xcolor}
+\usepackage{booktabs} % Per linee orizzontali professionali (\toprule, etc.)
+\usepackage{graphicx} % Per il comando \resizebox
+\usepackage{amsmath}  % Per simboli matematici
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{booktabs}     % per \toprule, \midrule, \bottomrule
+\usepackage{array}
 
 \begin{document}
 
-\captionsetup[figure]{margin=1.5cm,font=small,labelfont={bf},name={Figure},labelsep=colon,textfont={it}}
-\captionsetup[table]{margin=1.5cm,font=small,labelfont={bf},name={Table},labelsep=colon,textfont={it}}
-\SetLipsumDefault{1}
+%\captionsetup[figure]{margin=1.5cm,font=small,labelfont={bf},name={Figure},labelsep=colon,textfont={it}}
+%\captionsetup[table]{margin=1.5cm,font=small,labelfont={bf},name={Table},labelsep=colon,textfont={it}}
+%\SetLipsumDefault{1}
 
 \frontmatter
 
@@ -32,7 +35,7 @@
 {\LARGE University of Bari Aldo Moro}\\[0.25cm]
 {\Large Department of Computer Science}\\[1cm]
 %{\large \emph{A thesis submitted in partial fulfillment of the requirements for the\\degree of Doctor of Philosophy in Computer Science}}\\[2.5cm]
-\linespread{1.2}\huge {\bfseries LLM e allucinazioni: Tentativo di costruzione di un classificatore generale}\\[1.5cm]
+\linespread{1.2}\huge {\bfseries One-For-All: Un prober per riconoscerli tutti}\\[1.5cm]
 \linespread{1}
 \includegraphics[width=3.5cm]{images/uniba-logo.png}\\[1.5cm]
 {\Large\bf Emanuele Fontana}\\[1cm]
@@ -70,7 +73,7 @@
 % Abstract
 % -------------------------------------------------------------------
 
-%\input{sections/0_ii_abstract.tex}
+\input{sections/0_ii_abstract.tex}
 
 % -------------------------------------------------------------------
 % Contents, list of figures, list of tables
@@ -103,9 +106,9 @@
 % Appendices
 % -------------------------------------------------------------------
 
-\begin{appendices}
-\input{sections/appendixA.tex}
+%\begin{appendices}
+%\input{sections/appendixA.tex}
 %\input{sections/appendixB.tex}
-\end{appendices}
+%\end{appendices}
 
 \end{document}

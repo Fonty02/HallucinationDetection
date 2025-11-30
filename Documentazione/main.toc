@@ -1,23 +1,46 @@
-\contentsline {chapter}{\numberline {1}Introduction}{1}{}%
-\contentsline {section}{\numberline {1.1}Aims and Objectives}{1}{}%
-\contentsline {section}{\numberline {1.2}Overview of the Thesis}{1}{}%
+\contentsline {chapter}{\numberline {1}Introduzione}{1}{}%
+\contentsline {section}{\numberline {1.1}Scopi e Obiettivi}{1}{}%
+\contentsline {section}{\numberline {1.2}Panoramica del documento}{2}{}%
 \contentsline {chapter}{\numberline {2}Background}{3}{}%
-\contentsline {section}{\numberline {2.1}Activation Probing}{3}{}%
-\contentsline {section}{\numberline {2.2}Latent Space Alignment}{3}{}%
-\contentsline {chapter}{\numberline {3}Methodology}{5}{}%
-\contentsline {section}{\numberline {3.1}Dataset and Preprocessing}{5}{}%
-\contentsline {section}{\numberline {3.2}Approaches}{5}{}%
-\contentsline {subsection}{\numberline {3.2.1}Approach 1: Linear Alignment (Baseline)}{5}{}%
-\contentsline {subsection}{\numberline {3.2.2}Approach 2: Non-linear AdapterMLP}{5}{}%
-\contentsline {subsection}{\numberline {3.2.3}Approach 3: Autoencoder-based Alignment (EtE)}{6}{}%
-\contentsline {subsection}{\numberline {3.2.4}Approach 4: Student-Teacher Learning}{6}{}%
-\contentsline {chapter}{\numberline {4}Results}{7}{}%
-\contentsline {section}{\numberline {4.1}Linear Baseline Results}{7}{}%
-\contentsline {section}{\numberline {4.2}Autoencoder and End-to-End Results}{7}{}%
-\contentsline {section}{\numberline {4.3}Performance Comparison}{7}{}%
-\contentsline {chapter}{\numberline {5}Discussion}{9}{}%
-\contentsline {chapter}{\numberline {6}Conclusions}{11}{}%
-\contentsline {chapter}{Appendices}{15}{}%
-\contentsline {chapter}{\numberline {A}Visualizzazioni PCA}{17}{}%
-\contentsline {section}{\numberline {A.1}Qwen2.5-7B}{17}{}%
-\contentsline {section}{\numberline {A.2}Falcon3-7B-Base}{21}{}%
+\contentsline {section}{\numberline {2.1}Deep Learning}{3}{}%
+\contentsline {subsection}{\numberline {2.1.1}Cenni storici}{4}{}%
+\contentsline {subsection}{\numberline {2.1.2}Architettura e addestramento delle DNN}{5}{}%
+\contentsline {section}{\numberline {2.2}Panoramica sui Transformer}{6}{}%
+\contentsline {subsection}{\numberline {2.2.1}Architettura dei Transformer}{7}{}%
+\contentsline {subsubsection}{Encoder}{8}{}%
+\contentsline {subsubsection}{Decoder}{8}{}%
+\contentsline {subsection}{\numberline {2.2.2}Meccanismo di Self-Attention}{9}{}%
+\contentsline {section}{\numberline {2.3}Large Language Models (LLM)}{9}{}%
+\contentsline {section}{\numberline {2.4}Allucinazioni nei LLM}{10}{}%
+\contentsline {section}{\numberline {2.5}Probing}{11}{}%
+\contentsline {section}{\numberline {2.6}Large Language Models utilizzati}{11}{}%
+\contentsline {subsection}{\numberline {2.6.1}Qwen2.5-7B}{12}{}%
+\contentsline {subsection}{\numberline {2.6.2}Falcon3-7B-Base}{12}{}%
+\contentsline {chapter}{\numberline {3}Methodology}{13}{}%
+\contentsline {section}{\numberline {3.1}Introduzione}{13}{}%
+\contentsline {section}{\numberline {3.2}Dataset}{13}{}%
+\contentsline {subsection}{\numberline {3.2.1}BeliefBank}{13}{}%
+\contentsline {paragraph}{Struttura del Dataset Originale}{13}{}%
+\contentsline {paragraph}{Pre-elaborazione e Implementazione}{14}{}%
+\contentsline {subsection}{\numberline {3.2.2}Creazione dataset di attivazioni}{14}{}%
+\contentsline {section}{\numberline {3.3}Studi preliminari}{15}{}%
+\contentsline {subsection}{\numberline {3.3.1}Statistiche sulle allucinazioni}{15}{}%
+\contentsline {subsection}{\numberline {3.3.2}Studio delle singole componenti di layer}{15}{}%
+\contentsline {section}{\numberline {3.4}Metodologie per la costruzione del prober universale}{25}{}%
+\contentsline {subsection}{\numberline {3.4.1}Approccio Lineare (Baseline)}{25}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{25}{}%
+\contentsline {subsection}{\numberline {3.4.2}Approccio Ibrido con AdapterMLP e Classificatore Lineare}{26}{}%
+\contentsline {subsubsection}{Architettura e loss}{26}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{27}{}%
+\contentsline {subsection}{\numberline {3.4.3}Approccio con AlignmentNetwork e Classificatore MLP}{28}{}%
+\contentsline {subsubsection}{Architettura, componenti e Loss}{28}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{28}{}%
+\contentsline {subsection}{\numberline {3.4.4}Approccio Autoencoder e MLP}{29}{}%
+\contentsline {subsubsection}{Architettura e componenti principali}{29}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{29}{}%
+\contentsline {subsection}{\numberline {3.4.5}Approccio One‑For‑All (Frozen Head + Adapter Encoder)}{30}{}%
+\contentsline {chapter}{\numberline {4}Results}{35}{}%
+\contentsline {section}{\numberline {4.1}Experiment 1}{35}{}%
+\contentsline {section}{\numberline {4.2}Experiment 2}{36}{}%
+\contentsline {chapter}{\numberline {5}Discussion}{39}{}%
+\contentsline {chapter}{\numberline {6}Conclusions}{41}{}%
