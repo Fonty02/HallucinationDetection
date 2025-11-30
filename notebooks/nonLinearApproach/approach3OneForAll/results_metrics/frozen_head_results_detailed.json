@@ -1,0 +1,500 @@
+[
+    {
+        "layer_type": "attn",
+        "teacher_model": "Qwen2.5-7B",
+        "student_model": "Falcon3-7B-Base",
+        "encoder_config": {
+            "latent_dim": 256,
+            "hidden_dim": 512,
+            "dropout": 0.3,
+            "learning_rate": 0.001,
+            "weight_decay": 0.01,
+            "batch_size": 64,
+            "max_epochs": 100,
+            "early_stopping_patience": 15,
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_function": "BCEWithLogitsLoss",
+            "use_class_weights": true
+        },
+        "head_config": {
+            "latent_dim": 256,
+            "hidden_dim": 128,
+            "dropout": 0.3,
+            "learning_rate": 0.001,
+            "weight_decay": 0.01,
+            "batch_size": 64,
+            "max_epochs": 100,
+            "early_stopping_patience": 15,
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_function": "BCEWithLogitsLoss",
+            "use_class_weights": true
+        },
+        "teacher_encoder": {
+            "architecture": {
+                "input_dim": null,
+                "latent_dim": 256,
+                "hidden_dim": 512,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.991,
+                "model_saved_path": "models_frozen_head\\attn\\frozen_head_encoder_Qwen2.5-7B.pt"
+            }
+        },
+        "shared_head": {
+            "architecture": {
+                "latent_dim": 256,
+                "hidden_dim": 128,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.991,
+                "model_saved_path": "models_frozen_head\\attn\\frozen_head_shared_head_Qwen2.5-7B.pt"
+            }
+        },
+        "student_encoder": {
+            "architecture": {
+                "input_dim": null,
+                "latent_dim": 256,
+                "hidden_dim": 512,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.9257,
+                "model_saved_path": "models_frozen_head\\attn\\frozen_head_encoder_Falcon3-7B-Base_adapter.pt"
+            }
+        },
+        "teacher_performance": {
+            "accuracy": 0.991,
+            "f1_score": 0.9923
+        },
+        "student_adapter_performance": {
+            "accuracy": 0.9257,
+            "f1_score": 0.9386
+        },
+        "transfer_gap": {
+            "accuracy_gap": 0.0653
+        }
+    },
+    {
+        "layer_type": "attn",
+        "teacher_model": "Falcon3-7B-Base",
+        "student_model": "Qwen2.5-7B",
+        "encoder_config": {
+            "latent_dim": 256,
+            "hidden_dim": 512,
+            "dropout": 0.3,
+            "learning_rate": 0.001,
+            "weight_decay": 0.01,
+            "batch_size": 64,
+            "max_epochs": 100,
+            "early_stopping_patience": 15,
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_function": "BCEWithLogitsLoss",
+            "use_class_weights": true
+        },
+        "head_config": {
+            "latent_dim": 256,
+            "hidden_dim": 128,
+            "dropout": 0.3,
+            "learning_rate": 0.001,
+            "weight_decay": 0.01,
+            "batch_size": 64,
+            "max_epochs": 100,
+            "early_stopping_patience": 15,
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_function": "BCEWithLogitsLoss",
+            "use_class_weights": true
+        },
+        "teacher_encoder": {
+            "architecture": {
+                "input_dim": null,
+                "latent_dim": 256,
+                "hidden_dim": 512,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.9252,
+                "model_saved_path": "models_frozen_head\\attn\\frozen_head_encoder_Falcon3-7B-Base.pt"
+            }
+        },
+        "shared_head": {
+            "architecture": {
+                "latent_dim": 256,
+                "hidden_dim": 128,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.9252,
+                "model_saved_path": "models_frozen_head\\attn\\frozen_head_shared_head_Falcon3-7B-Base.pt"
+            }
+        },
+        "student_encoder": {
+            "architecture": {
+                "input_dim": null,
+                "latent_dim": 256,
+                "hidden_dim": 512,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.9902,
+                "model_saved_path": "models_frozen_head\\attn\\frozen_head_encoder_Qwen2.5-7B_adapter.pt"
+            }
+        },
+        "teacher_performance": {
+            "accuracy": 0.9252,
+            "f1_score": 0.9383
+        },
+        "student_adapter_performance": {
+            "accuracy": 0.9902,
+            "f1_score": 0.9916
+        },
+        "transfer_gap": {
+            "accuracy_gap": -0.0649
+        }
+    },
+    {
+        "layer_type": "mlp",
+        "teacher_model": "Qwen2.5-7B",
+        "student_model": "Falcon3-7B-Base",
+        "encoder_config": {
+            "latent_dim": 256,
+            "hidden_dim": 512,
+            "dropout": 0.3,
+            "learning_rate": 0.001,
+            "weight_decay": 0.01,
+            "batch_size": 64,
+            "max_epochs": 100,
+            "early_stopping_patience": 15,
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_function": "BCEWithLogitsLoss",
+            "use_class_weights": true
+        },
+        "head_config": {
+            "latent_dim": 256,
+            "hidden_dim": 128,
+            "dropout": 0.3,
+            "learning_rate": 0.001,
+            "weight_decay": 0.01,
+            "batch_size": 64,
+            "max_epochs": 100,
+            "early_stopping_patience": 15,
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_function": "BCEWithLogitsLoss",
+            "use_class_weights": true
+        },
+        "teacher_encoder": {
+            "architecture": {
+                "input_dim": null,
+                "latent_dim": 256,
+                "hidden_dim": 512,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.9908,
+                "model_saved_path": "models_frozen_head\\mlp\\frozen_head_encoder_Qwen2.5-7B.pt"
+            }
+        },
+        "shared_head": {
+            "architecture": {
+                "latent_dim": 256,
+                "hidden_dim": 128,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.9908,
+                "model_saved_path": "models_frozen_head\\mlp\\frozen_head_shared_head_Qwen2.5-7B.pt"
+            }
+        },
+        "student_encoder": {
+            "architecture": {
+                "input_dim": null,
+                "latent_dim": 256,
+                "hidden_dim": 512,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.9134,
+                "model_saved_path": "models_frozen_head\\mlp\\frozen_head_encoder_Falcon3-7B-Base_adapter.pt"
+            }
+        },
+        "teacher_performance": {
+            "accuracy": 0.9908,
+            "f1_score": 0.9921
+        },
+        "student_adapter_performance": {
+            "accuracy": 0.9134,
+            "f1_score": 0.929
+        },
+        "transfer_gap": {
+            "accuracy_gap": 0.0773
+        }
+    },
+    {
+        "layer_type": "mlp",
+        "teacher_model": "Falcon3-7B-Base",
+        "student_model": "Qwen2.5-7B",
+        "encoder_config": {
+            "latent_dim": 256,
+            "hidden_dim": 512,
+            "dropout": 0.3,
+            "learning_rate": 0.001,
+            "weight_decay": 0.01,
+            "batch_size": 64,
+            "max_epochs": 100,
+            "early_stopping_patience": 15,
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_function": "BCEWithLogitsLoss",
+            "use_class_weights": true
+        },
+        "head_config": {
+            "latent_dim": 256,
+            "hidden_dim": 128,
+            "dropout": 0.3,
+            "learning_rate": 0.001,
+            "weight_decay": 0.01,
+            "batch_size": 64,
+            "max_epochs": 100,
+            "early_stopping_patience": 15,
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_function": "BCEWithLogitsLoss",
+            "use_class_weights": true
+        },
+        "teacher_encoder": {
+            "architecture": {
+                "input_dim": null,
+                "latent_dim": 256,
+                "hidden_dim": 512,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.906,
+                "model_saved_path": "models_frozen_head\\mlp\\frozen_head_encoder_Falcon3-7B-Base.pt"
+            }
+        },
+        "shared_head": {
+            "architecture": {
+                "latent_dim": 256,
+                "hidden_dim": 128,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.906,
+                "model_saved_path": "models_frozen_head\\mlp\\frozen_head_shared_head_Falcon3-7B-Base.pt"
+            }
+        },
+        "student_encoder": {
+            "architecture": {
+                "input_dim": null,
+                "latent_dim": 256,
+                "hidden_dim": 512,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.9893,
+                "model_saved_path": "models_frozen_head\\mlp\\frozen_head_encoder_Qwen2.5-7B_adapter.pt"
+            }
+        },
+        "teacher_performance": {
+            "accuracy": 0.906,
+            "f1_score": 0.9215
+        },
+        "student_adapter_performance": {
+            "accuracy": 0.9893,
+            "f1_score": 0.9909
+        },
+        "transfer_gap": {
+            "accuracy_gap": -0.0833
+        }
+    },
+    {
+        "layer_type": "hidden",
+        "teacher_model": "Qwen2.5-7B",
+        "student_model": "Falcon3-7B-Base",
+        "encoder_config": {
+            "latent_dim": 256,
+            "hidden_dim": 512,
+            "dropout": 0.3,
+            "learning_rate": 0.001,
+            "weight_decay": 0.01,
+            "batch_size": 64,
+            "max_epochs": 100,
+            "early_stopping_patience": 15,
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_function": "BCEWithLogitsLoss",
+            "use_class_weights": true
+        },
+        "head_config": {
+            "latent_dim": 256,
+            "hidden_dim": 128,
+            "dropout": 0.3,
+            "learning_rate": 0.001,
+            "weight_decay": 0.01,
+            "batch_size": 64,
+            "max_epochs": 100,
+            "early_stopping_patience": 15,
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_function": "BCEWithLogitsLoss",
+            "use_class_weights": true
+        },
+        "teacher_encoder": {
+            "architecture": {
+                "input_dim": null,
+                "latent_dim": 256,
+                "hidden_dim": 512,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.9906,
+                "model_saved_path": "models_frozen_head\\hidden\\frozen_head_encoder_Qwen2.5-7B.pt"
+            }
+        },
+        "shared_head": {
+            "architecture": {
+                "latent_dim": 256,
+                "hidden_dim": 128,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.9906,
+                "model_saved_path": "models_frozen_head\\hidden\\frozen_head_shared_head_Qwen2.5-7B.pt"
+            }
+        },
+        "student_encoder": {
+            "architecture": {
+                "input_dim": null,
+                "latent_dim": 256,
+                "hidden_dim": 512,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.9046,
+                "model_saved_path": "models_frozen_head\\hidden\\frozen_head_encoder_Falcon3-7B-Base_adapter.pt"
+            }
+        },
+        "teacher_performance": {
+            "accuracy": 0.9906,
+            "f1_score": 0.992
+        },
+        "student_adapter_performance": {
+            "accuracy": 0.9046,
+            "f1_score": 0.921
+        },
+        "transfer_gap": {
+            "accuracy_gap": 0.0861
+        }
+    },
+    {
+        "layer_type": "hidden",
+        "teacher_model": "Falcon3-7B-Base",
+        "student_model": "Qwen2.5-7B",
+        "encoder_config": {
+            "latent_dim": 256,
+            "hidden_dim": 512,
+            "dropout": 0.3,
+            "learning_rate": 0.001,
+            "weight_decay": 0.01,
+            "batch_size": 64,
+            "max_epochs": 100,
+            "early_stopping_patience": 15,
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_function": "BCEWithLogitsLoss",
+            "use_class_weights": true
+        },
+        "head_config": {
+            "latent_dim": 256,
+            "hidden_dim": 128,
+            "dropout": 0.3,
+            "learning_rate": 0.001,
+            "weight_decay": 0.01,
+            "batch_size": 64,
+            "max_epochs": 100,
+            "early_stopping_patience": 15,
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_function": "BCEWithLogitsLoss",
+            "use_class_weights": true
+        },
+        "teacher_encoder": {
+            "architecture": {
+                "input_dim": null,
+                "latent_dim": 256,
+                "hidden_dim": 512,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.9024,
+                "model_saved_path": "models_frozen_head\\hidden\\frozen_head_encoder_Falcon3-7B-Base.pt"
+            }
+        },
+        "shared_head": {
+            "architecture": {
+                "latent_dim": 256,
+                "hidden_dim": 128,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.9024,
+                "model_saved_path": "models_frozen_head\\hidden\\frozen_head_shared_head_Falcon3-7B-Base.pt"
+            }
+        },
+        "student_encoder": {
+            "architecture": {
+                "input_dim": null,
+                "latent_dim": 256,
+                "hidden_dim": 512,
+                "dropout": 0.3
+            },
+            "training_results": {
+                "best_val_acc": 0.9899,
+                "model_saved_path": "models_frozen_head\\hidden\\frozen_head_encoder_Qwen2.5-7B_adapter.pt"
+            }
+        },
+        "teacher_performance": {
+            "accuracy": 0.9024,
+            "f1_score": 0.919
+        },
+        "student_adapter_performance": {
+            "accuracy": 0.9899,
+            "f1_score": 0.9913
+        },
+        "transfer_gap": {
+            "accuracy_gap": -0.0875
+        }
+    }
+]

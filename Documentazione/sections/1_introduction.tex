@@ -1,25 +1,40 @@
-\chapter{Introduction}
+\chapter{Introduzione}
 
-The introduction should present the topic of the thesis to specify the purpose and importance of the work. It is common practice to have a summary at the beginning of each chapter, like this one.
 
-\section{Aims and Objectives}
 
-The introduction should familiarize the reader with the problem to be addressed and describes:
+\section{Scopi e Obiettivi}
+Il rilascio di GPT-3 aperto al pubblico da parte di OpenAI ha segnato una svolta significativa nel NLP (Natural Language Processing), aprendo la strada a una nuova era di modelli di linguaggio di grandi dimensioni (LLM) in grado poter mantenere una conversazione in maniera fluida e naturale come una persona. Il rilascio del ChatBot è stato solo l'inizio: ora gli LLM sono utilizzati in una vasta gamma di applicazioni e sono ormai uno strumento irrinunciabili sia in ambito privato che accademico che industriale, il loro utilizzo è pressocchè sconfinato.
+
+Tuttavia, uno dei principali ostacoli all'adozione diffusa e sicura di queste tecnologie in ambiti critici (e.g. medico,legale) è il fenomeno delle
+ \textit{allucinazioni}. Nonostante la coerenza sintattica, gli LLM tendono occasionalmente a generare informazioni fattualmente errate o inventate con un alto grado di confidenza. Questo comportamento deriva dalla natura stocastica degli LLM: questi ultimi non sanno contare o effettuare un ragionamento logico basato su regole e fatti: la loro abilità nel produrre il testo dipende esclusivamente dalle statistiche apprese durante la fase di addestramento su grandi corpora testuali. Si parla di \textit{next token prediction}: un LLM dunque, dato il contesto (cioè l'insieme dei token precedenti), predice il token successivo più probabile in base alle distribuzioni apprese (possiamo pensare a un token come a una parola o parte di essa).
+Un esempio classico di allucinazione presente nei primissimi LLM è:
+\begin{quote}
+    \textbf{Utente:} How many r's are there in the word strawberries?\\
+    \textbf{LLM:} 2
+\end{quote}
+
+Attualmente, le tecniche per mitigare questo problema si basano spesso sulla verifica fattuale esterna (\textit{retrieval-augmented generation}), sul \textit{fine-tuning} specifico o sulle \textit{CoT: Chain of Thought}, ma queste tecniche non sono infallibili ed è dunque cruciale capire quando un modello sta allucinando e quando no.
+
+Il \textit{probing} delle attivazioni interne (o \textit{probing classifiers}) rappresenta una soluzione innovativa a questo problema. Questa metodologia consente di analizzare lo ``stato interno'' del modello durante la generazione, ipotizzando che l'informazione sulla veridicità di un'affermazione sia codificata nello spazio latente dei neuroni, indipendentemente dall'output testuale finale il quale viene generato stocasticamente in quanto influenzato da molteplici fattori (temperature, top-k sampling, ecc.). 
+Diversi studi recenti hanno dimostrato che è possibile addestrare classificatori lineari semplici per distinguere le affermazioni vere da quelle false osservando le attivazioni dei layer interni e che in genere le attivazioni relative alle allucinazioni e quelle relative alle risposte corrette tendono a essere facilmente separabili \textcolor{red}{TODO: citare paper}. 
+
+La maggior parte delle ricerche si è concentrata sulla creazione di probe specifici per un singolo modello o una specifica architettura, lasciando relativamente inesplorato il problema della trasferibilità.
+Questo lavoro si propone di studiare se esiste una rappresentazione universale delle allucinazioni nei LLM, indipendentemente dall'architettura sottostante. In particolare, si mira a sviluppare un \textit{prober} generale capace di rilevare le allucinazioni in diversi modelli senza la necessità di un addestramento specifico per ciascuno di essi (al più con un allineamento preliminare tra gli spazi latenti, essendo questi ultimi diversi tra modelli differenti).
+
+Gli obiettivi principali di questa progetto sono:
 \begin{itemize}
-    \item The current level of knowledge (with references) as a basis for the work;
-    \item The knowledge gap the study wants to fill;
-    \item Outline of the objectives without anticipating results.
+    \item Analizzare e confrontare le attivazioni interne di diverse famiglie di LLM (es. Qwen, Falcon) per identificare pattern comuni associati al fenomeno dell'allucinazione.
+    \item Sviluppare e valutare metodologie di allineamento (lineari e non lineari) tra gli spazi latenti di un modello ``insegnante'' e un modello ``studente''.
+    \item Costruire un \textit{prober} universale capace di trasferire la capacità di rilevamento delle allucinazioni da un modello all'altro senza supervisione aggiuntiva sul modello target.
 \end{itemize}
-And possibly:
-\begin{itemize}
-	\item The chosen approach;
-	\item The structure of the thesis.
-\end{itemize}
 
-\section{Overview of the Thesis}
 
-The rest of this thesis is structured as follows: 
+\section{Panoramica del documento}
+
+Il resto del progetto è strutturato come seguee:
 \begin{itemize}
-    \item Chapter~2 discusses background knowledge\ldots
-    \item \ldots
+    \item \textbf{Capitolo 2: Background e Lavori Correlati} - Una panoramica delle tecniche esistenti per il rilevamento delle allucinazioni nei LLM.
+    \item \textbf{Capitolo 3: Metodologia} - Descrizione dettagliata delle architetture utilizzate, delle tecniche di allineamento e del design del prober universale.
+    \item \textbf{Capitolo 4: Esperimenti e Risultati} - Presentazione dei risultati ottenuti, analisi delle prestazioni del prober e discussione sui pattern comuni identificati.
+    \item \textbf{Capitolo 5: Conclusioni e Lavori Futuri} - Sintesi dei contributi del progetto e suggerimenti per ricerche future in questo ambito.
 \end{itemize}
