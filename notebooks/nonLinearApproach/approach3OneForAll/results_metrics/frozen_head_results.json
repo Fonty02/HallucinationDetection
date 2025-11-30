@@ -1,0 +1,62 @@
+[
+    {
+        "layer": "attn",
+        "teacher": "Qwen2.5-7B",
+        "student": "Falcon3-7B-Base",
+        "teacher_acc": 0.9910030395136779,
+        "teacher_f1": 0.992290060429256,
+        "student_acc": 0.9243768996960486,
+        "student_f1": 0.9378124375124975,
+        "gap_acc": 0.06662613981762922
+    },
+    {
+        "layer": "attn",
+        "teacher": "Falcon3-7B-Base",
+        "student": "Qwen2.5-7B",
+        "teacher_acc": 0.9299696048632219,
+        "teacher_f1": 0.9429477020602218,
+        "student_acc": 0.9911246200607903,
+        "student_f1": 0.992382343733695,
+        "gap_acc": -0.061155015197568385
+    },
+    {
+        "layer": "mlp",
+        "teacher": "Qwen2.5-7B",
+        "student": "Falcon3-7B-Base",
+        "teacher_acc": 0.9906382978723405,
+        "teacher_f1": 0.9919682903932409,
+        "student_acc": 0.910516717325228,
+        "student_f1": 0.9266347687400319,
+        "gap_acc": 0.08012158054711249
+    },
+    {
+        "layer": "mlp",
+        "teacher": "Falcon3-7B-Base",
+        "student": "Qwen2.5-7B",
+        "teacher_acc": 0.9044376899696048,
+        "teacher_f1": 0.9209255533199195,
+        "student_acc": 0.9895440729483282,
+        "student_f1": 0.9910379324718632,
+        "gap_acc": -0.08510638297872342
+    },
+    {
+        "layer": "hidden",
+        "teacher": "Qwen2.5-7B",
+        "student": "Falcon3-7B-Base",
+        "teacher_acc": 0.987355623100304,
+        "teacher_f1": 0.9891327063740857,
+        "student_acc": 0.9068693009118541,
+        "student_f1": 0.9239777689559349,
+        "gap_acc": 0.08048632218844987
+    },
+    {
+        "layer": "hidden",
+        "teacher": "Falcon3-7B-Base",
+        "student": "Qwen2.5-7B",
+        "teacher_acc": 0.9011550151975684,
+        "teacher_f1": 0.9182668141148085,
+        "student_acc": 0.9908814589665653,
+        "student_f1": 0.9921850578305721,
+        "gap_acc": -0.08972644376899697
+    }
+]
