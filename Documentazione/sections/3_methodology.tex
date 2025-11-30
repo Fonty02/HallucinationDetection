@@ -156,21 +156,21 @@ Successivamente è stata effettuata un'analisi relativa alla distribuzione di al
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/PCA_Plots/Qwen2.5-7B_belief_bank_attn_activations_PCA.png}
+    \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{images/PCA_Plots/Qwen2.5-7B_belief_bank_attn_activations_PCA.png}
     \caption{PCA delle attivazioni Attention del layer di Qwen2.5-7B}
     \label{fig:qwen-pca-attn}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/PCA_Plots/Qwen2.5-7B_belief_bank_hidden_activations_PCA.png}
+    \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{images/PCA_Plots/Qwen2.5-7B_belief_bank_hidden_activations_PCA.png}
     \caption{PCA delle attivazioni Hidden del layer di Qwen2.5-7B}
     \label{fig:qwen-pca-hidden}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/PCA_Plots/Qwen2.5-7B_belief_bank_mlp_activations_PCA.png}
+    \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{images/PCA_Plots/Qwen2.5-7B_belief_bank_mlp_activations_PCA.png}
     \caption{PCA delle attivazioni MLP del layer di Qwen2.5-7B}
     \label{fig:qwen-pca-mlp}
 \end{figure}
@@ -178,21 +178,21 @@ Successivamente è stata effettuata un'analisi relativa alla distribuzione di al
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/PCA_Plots/Falcon3-7B-Base_belief_bank_attn_activations_PCA.png}
+    \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{images/PCA_Plots/Falcon3-7B-Base_belief_bank_attn_activations_PCA.png}
     \caption{PCA delle attivazioni Attention del layer di Falcon3-7B-Base}
     \label{fig:falcon-pca-attn}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/PCA_Plots/Falcon3-7B-Base_belief_bank_hidden_activations_PCA.png}
+    \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{images/PCA_Plots/Falcon3-7B-Base_belief_bank_hidden_activations_PCA.png}
     \caption{PCA delle attivazioni Hidden del layer di Falcon3-7B-Base}
     \label{fig:falcon-pca-hidden}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/PCA_Plots/Falcon3-7B-Base_belief_bank_mlp_activations_PCA.png}
+    \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{images/PCA_Plots/Falcon3-7B-Base_belief_bank_mlp_activations_PCA.png}
     \caption{PCA delle attivazioni MLP del layer di Falcon3-7B-Base}
     \label{fig:falcon-pca-mlp}
 \end{figure}
@@ -286,7 +286,7 @@ Per il Logistic Regressor sono stati utilizzati i seguenti iperparametri:
 
 
 Di seguito sono riportati gli iperparametri principali utilizzati per l'addestramento dell'AlignmentNetwork:
-\clearpage
+
 \begin{table}[H]
 \centering
 \scriptsize  % Font piccolo ma leggibile
@@ -393,7 +393,7 @@ Di seguito sono riportati gli iperparametri principali utilizzati per l'addestra
 
 \subsection{Approccio Autoencoder e MLP}
 
-Questo approccio riduce la dimensionalità delle attivazioni tramite autoencoder e introduce una fase di allineamento nel dominio latente, seguita dalla fase di validazione.
+Questo approccio riduce la dimensionalità delle attivazioni tramite autoencoder. Per quanto riguarda il resto viene mantenuta la stessa pipeline sperimentale dell'approccio precedente, con un accortezza: l'AlignmentNetwork ora mappa tra gli spazi latenti degli autoencoder del teacher e dello student e il prober MLP opera nello spazio latente del teacher.
 
 \subsubsection{Architettura e componenti principali}
 \textcolor{red}{TODO:Inserire immagine architettura rete}
@@ -496,67 +496,74 @@ Di seguito sono riportati gli iperparametri principali utilizzati per l'addestra
 
 \subsection{Approccio One‑For‑All (Frozen Head + Adapter Encoder)}
 
-In questo approccio si adotta una procedura in due fasi pensata per valutare la trasferibilità di una funzione decisionale (la \emph{head} di classificazione) tra due modelli differenti mantenendo la stessa testa e adattando soltanto l'encoder dello studente. L'idea è addestrare inizialmente un modello \emph{teacher} completo (Encoder + Head) sulle rappresentazioni latenti ottenute concatenando le attivazioni dei layer selezionati; successivamente si congela la Head addestrata e si addestra un nuovo Encoder \emph{student} a emettere latenti compatibili con la Head del teacher. Misurando le prestazioni del teacher e dello student sullo stesso test set si quantifica il gap di trasferimento e si valuta quanto le informazioni discriminative siano recuperabili da un encoder diverso quando la regola decisionale rimane invariata.
+In questo approccio si adotta una procedura in due fasi pensata per valutare la trasferibilità di una funzione decisionale (la \emph{head} di classificazione) tra due modelli differenti mantenendo la stessa testa e adattando soltanto l'encoder dello studente. Si parte inizialmente addestrando un modello \emph{teacher} completo (Encoder + Head); successivamente si congela la Head addestrata e si addestra un nuovo Encoder \emph{student} a emettere latenti compatibili con la Head del teacher. 
+\subsubsection{Architettura e componenti principali}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/IDEA.png}
+    \caption{Architettura del prober One‑For‑All}
+    \label{fig:OfA-architecture}
+\end{figure}
 
-Architettura e componenti implementate
+\textcolor{red}{TODO:Inserire vera immagine architettura rete,questo è un esempio generato con AI per far comprendere l'idea}
 \begin{itemize}
-\item \textbf{Encoder:} rete feed‑forward a più blocchi che mappa lo spazio di input (features ottenute dalla concatenazione delle attivazioni dei layer selezionati) in uno spazio latente di dimensione \texttt{LATENT\_DIM}. L'encoder utilizza layer fully‑connected, normalizzazione tramite \texttt{LayerNorm}, attivazione \texttt{GELU} e dropout intermedio; la topologia impiegata nel notebook è composta da due livelli intermedi (es. dimensione interna \texttt{HIDDEN\_DIM} e sua metà) che conducono al vettore latente normalizzato.
-\item \textbf{Classification Head:} modulo compatto che prende in input il vettore latente e restituisce un logit binario. Implementato come una piccola MLP con LayerNorm, GELU e un ultimo layer lineare che produce il singolo logit; la predizione binaria è ottenuta con soglia su sigmoid ($> 0.5$).
-\item \textbf{SimpleDataset \& DataLoaders:} wrapper PyTorch per batch, con conversione da numpy a tensori float e uso di un generatore deterministico (\texttt{torch.Generator}) per assicurare riproducibilità nelle operazioni di shuffle.
+\item \textbf{Encoder:} rete feed‑forward a più blocchi che mappa lo spazio di input in uno spazio latente di dimensione ridotta
+\item \textbf{Classification Head:} modulo compatto che prende in input il vettore latente e restituisce un logit binario. Implementato come una piccola MLP. 
 \end{itemize}
 
-Dati, preprocessamento e splitting
-\begin{itemize}
-\item Le etichette di riferimento (campo \texttt{is\_hallucination}) sono lette da \texttt{activation\_cache/<model>/belief\_bank/generations/hallucination\_labels.json}; ad ogni esempio è associato un \texttt{instance\_id} usato per allineare etichette e attivazioni.
-\item Per ciascun modello e tipo di componente (attn, mlp, hidden) le attivazioni dei layer selezionati (vedi Tabella \ref{tab:layer-config} già presente) vengono caricate da file \texttt{activation\_<type>/layer\{n\}\_activations.pt}, appiattite quando necessario e concatenate lungo la dimensione delle feature.
-\item Normalizzazione: scaling indipendente per teacher e student tramite StandardScaler fit sul rispettivo training set.
-\item Suddivisione dei dati: split iniziale train/test (70/30) ottenuto con seed fissato (\texttt{SEED=42}); sul training set si ricava uno split interno train/val (es. 85/15) per il monitoraggio dell'early stopping.
-\end{itemize}
-
-Funzione di perdita e bilanciamento
-\begin{itemize}
-\item Per l'addestramento sia del teacher che dell'adapter student si utilizza \texttt{BCEWithLogitsLoss} con peso della classe positiva \texttt{pos\_weight} calcolato come rapporto $n_{neg}/n_{pos}$ sui campioni di training, in modo da compensare eventuali sbilanciamenti nella classe ``hallucination''.
-\item Questo criterio garantisce stabilità numerica combinando la sigmoid interna con la cross‑entropy binaria.
-\end{itemize}
-
-Protocollo sperimentale (pipeline)
+\subsubsection{Pipeline sperimentale}
 \begin{enumerate}
-\item \textbf{Preprocessing:} per il layer type corrente vengono caricate e preprocessate le attivazioni di entrambi i modelli (scaling e splitting).
-\item \textbf{Fase 1 — Training Teacher:} si addestrano congiuntamente \texttt{Encoder} e \texttt{Head} del teacher con ottimizzatore \texttt{AdamW} (weight decay impostato), scheduler \texttt{CosineAnnealingLR} e early stopping monitorando l'\texttt{accuracy} (o valida loss) sul validation set. Il miglior stato (\texttt{best state dict}) viene mantenuto in memoria e usato per la valutazione finale sul test set. Si salvano le confusion matrix nella cartella \texttt{confusion\_matrices\_frozen\_head/}.
-\item \textbf{Valutazione Teacher:} si calcolano metriche di riferimento su test set: \texttt{accuracy}, \texttt{precision}, \texttt{recall}, \texttt{F1} e confusion matrix.
-\item \textbf{Fase 2 — Training Student Adapter (Frozen Head):} si congela la \texttt{Head} del teacher (tutti i parametri con \texttt{requires\_grad=False}) e si inizializza un nuovo \texttt{Encoder} per lo student; si addestra solamente l'encoder usando lo stesso criterio di perdita e gli stessi meccanismi di early stopping e scheduler. In questo modo la Head rimane identica tra teacher e student, e l'addestramento mira a trovare una funzione di codifica dello student che produca latenti interpretabili dalla Head del teacher.
-\item \textbf{Valutazione Student:} si valuta l'encoder student con la Head congelata sul test set e si calcolano le medesime metriche; per ogni scenario si registra il \texttt{gap} di accuracy tra teacher e student.
-\item \textbf{Logging e salvataggio risultati:} per ogni combinazione layer\_type e scenario teacher$\to$student si registra un entry con \texttt{teacher\_acc}, \texttt{teacher\_f1}, \texttt{student\_acc}, \texttt{student\_f1}, \texttt{gap\_acc} nel file \texttt{results\_metrics/frozen\_head\_results.json}.
+\item Addestramento Teacher Encoder + Head: si addestra un encoder e una head partendo dalle attivazioni del modello teacher.
+\item Congelamento Head: si congela la head addestrata per mantenere la funzione decisionale.
+\item Addestramento Student Encoder: si addestra un nuovo encoder sulle attivazioni del modello student. Questo encoder è direttamente collegato alla head congelata del teacher, dunque la loss viene calcolata sui logit prodotti dalla head.
+\item Valutazione: si valuta la performance del sistema Encoder student + Head teacher sulle attivazioni di test del modello student.
 \end{enumerate}
 
-Iperparametri usati (valori presenti nel notebook)
-\begin{itemize}
-\item \textbf{LATENT\_DIM}: 256
-\item \textbf{HIDDEN\_DIM}: 1024
-\item \textbf{BATCH\_SIZE}: 64
-\item \textbf{EPOCHS}: 100
-\item \textbf{LR}: 1e-3
-\item \textbf{PATIENCE} (early stopping): 15
-\item \textbf{Ottimizzatore}: AdamW con \texttt{weight\_decay=1e-2}; scheduler: \texttt{CosineAnnealingLR(T\_max=EPOCHS)}.
-\end{itemize}
+Di seguito sono riportati gli iperparametri principali utilizzati per l'addestramento degli Encoder e della Classification Head:
+% --- TABELLA 1: Encoder Parameters ---
+\begin{table}[h!]
+\scriptsize
+\centering
+\setlength{\tabcolsep}{3pt}
+\caption{Iperparametri dell' Encoder}
+\label{tab:hyperparams-OfA-encoder}
+\begin{tabular}{llll | cccccccccc}
+\toprule
+\textbf{ID} & \textbf{Teach} & \textbf{Stud} & \textbf{Typ} & \textbf{Lat} & \textbf{Hid} & \textbf{Drp} & \textbf{LR} & \textbf{WD} & \textbf{Btc} & \textbf{ES} & \textbf{Clp} & \textbf{Opt} & \textbf{Sch} \\
+\midrule
+1 & Qwen & Falc & attn & 256 & 512 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+2 & Qwen & Falc & mlp & 256 & 512 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+3 & Qwen & Falc & hidden & 256 & 512 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+4 & Falc & Qwen & attn & 256 & 512 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+5 & Falc & Qwen & mlp & 256 & 512 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+6 & Falc & Qwen & hidden & 256 & 512 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+\bottomrule
+\end{tabular}
+\vspace{0.5em} \\
+\scriptsize
+\textbf{Legenda:} \textit{Lat}: Latent Dim, \textit{Hid}: Hidden Dim, \textit{Drp}: Dropout, \textit{WD}: Weight Decay, \textit{Btc}: Batch Size, \textit{ES}: Early Stopping Delta, \textit{Clp}: Grad Clip, \textit{Sch}: Scheduler.
+\end{table}
 
-Considerazioni implementative e buone pratiche adottate
-\begin{itemize}
-\item \textbf{Riproducibilità:} la funzione \texttt{set\_seed(SEED)} imposta i semi per Python, NumPy e PyTorch e disabilita le ottimizzazioni non deterministiche di cuDNN; ciò garantisce che gli split e l'addestramento siano ripetibili.
-\item \textbf{Gestione memoria:} dopo ogni iterazione di layer vengono eseguiti \texttt{gc.collect()} e \texttt{torch.cuda.empty\_cache()} per ridurre il picco di memoria e permettere l'esecuzione su GPU con risorse limitate.
-\item \textbf{Bilanciamento classi:} \texttt{pos\_weight} in \texttt{BCEWithLogitsLoss} evita che la classe maggioritaria domini la funzione di perdita, migliorando la sensibilità sulle allucinazioni.
-\item \textbf{Salvataggio artefatti:} il notebook salva le confusion matrix in \texttt{confusion\_matrices\_frozen\_head/} e un JSON aggregato in \texttt{results\_metrics/frozen\_head\_results.json}. I pesi migliori vengono mantenuti in memoria per la valutazione; se si desidera conservare i modelli su disco, è consigliato serializzare gli \texttt{state\_dict()} in \texttt{models/} con convenzioni chiare (es. \texttt{models/frozen\_head/\{teacher\}\_\{layer\_type\}\_best.pth}).
-\end{itemize}
-
-Vantaggi e limiti del metodo
-\begin{itemize}
-\item \textbf{Vantaggi:} è un approccio semplice e interpretabile che isola la capacità dell'encoder di generare rappresentazioni compatibili con una regola decisionale fissa. Permette di quantificare in modo chiaro il contributo dell'encoder al processo decisionale e di stimare la trasferibilità della head.
-\item \textbf{Limiti:} la Head non può adattarsi a differenze strutturali significative tra gli spazi latenti dei due modelli: se lo student necessita di una funzione decisionale differente per massimizzare le performance, il protocollo la impedisce, limitando l'upper bound delle prestazioni ottenibili dallo student. Inoltre, la strategia dipende fortemente dalla scelta dei layer e dallo scaling delle feature.
-\end{itemize}
-
-Percorsi e output principali generati dal notebook
-\begin{itemize}
-\item \texttt{results\_metrics/frozen\_head\_results.json} — file JSON con le metriche aggregate per ogni scenario e layer type.
-\item \texttt{confusion\_matrices\_frozen\_head/cm\_\{layer\_type\}\_teacher\_\{t\_name\}.png} — confusion matrix del teacher per ciascun layer type.
-\item \texttt{confusion\_matrices\_frozen\_head/cm\_\{layer\_type\}\_\{s\_name\}\_adapter.png} — confusion matrix del student con head congelata.
-\end{itemize}
+% --- TABELLA 2: Classification Head Parameters ---
+\begin{table}[h!]
+\scriptsize
+\centering
+\setlength{\tabcolsep}{3pt}
+\caption{Iperparametri della Classification Head}
+\label{tab:hyperparams-OfA-head}
+\begin{tabular}{llll | ccccccccc}
+\toprule
+\textbf{ID} & \textbf{Teach} & \textbf{Stud} & \textbf{Typ} & \textbf{Hid} & \textbf{Drp} & \textbf{LR} & \textbf{WD} & \textbf{Btc} & \textbf{ES} & \textbf{Clp} & \textbf{Opt} & \textbf{Sch} \\
+\midrule
+1 & Qwen & Falc & attn & 128 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+2 & Qwen & Falc & mlp & 128 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+3 & Qwen & Falc & hidden & 128 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+4 & Falc & Qwen & attn & 128 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+5 & Falc & Qwen & mlp & 128 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+6 & Falc & Qwen & hidden & 128 & 0.3 &  1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+\bottomrule
+\end{tabular}
+\vspace{0.5em} \\
+\scriptsize
+\textbf{Legenda:} \textit{Hid}: Hidden Dim, \textit{Drp}: Dropout, \textit{WD}: Weight Decay, \textit{Btc}: Batch Size, \textit{ES}: Early Stopping Delta, \textit{Clp}: Grad Clip, \textit{Sch}: Scheduler.
+\end{table}
