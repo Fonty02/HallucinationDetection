@@ -1,50 +1,19 @@
-\chapter{Metodologia}
+\chapter{Methodology}
 
-In questo capitolo viene descritta la metodologia impiegata per rilevare le allucinazioni nei Large Language Models (LLM) utilizzando le attivazioni interne. Vengono dettagliati il dataset utilizzato, il processo di raccolta dati e le tecniche di probing e allineamento applicate.
+It is worth noting that the structure of this chapter is highly general and can be modified to suit specific needs. For example, in a Computer Vision and Deep Learning thesis, you may want to describe the proposed method(s).
 
-\section{Dataset: BeliefBank}
+\section{Requirements}
 
-Il dataset principale utilizzato per questo studio è BeliefBank {\color{red}TODO: citare}, un dataset strutturato di credenze progettato per valutare la coerenza e la veridicità dei modelli di IA\@. BeliefBank è costituito da due componenti principali: fatti e vincoli (constraints).
+\lipsum  % Replace with your text
 
+\section{Analysis}
 
+\lipsum  % Replace with your text
 
-\section{Raccolta Dati ed Estrazione delle Attivazioni}
+\section{Design}
 
-In questo studio sono stati impiegati due LLM:
-\begin{itemize}
-    \item \textbf{Qwen2.5-7B}: Un potente modello open-weights.
-    \item \textbf{Falcon3-7B-Base}: Un altro modello base allo stato dell'arte.
-\end{itemize}
+\lipsum  % Replace with your text
 
-Per ogni fatto nel dataset, ogni modello è stato interrogato determinare la veridicità dell'affermazione. Durante questo processo di generazione, sono state catturate le attivazioni interne da tre tipi di layer:
-\begin{itemize}
-    \item \textbf{Hidden States}: L'output dei blocchi transformer.
-    \item \textbf{MLP Layers}: Gli output delle reti feed-forward all'interno dei blocchi transformer.
-    \item \textbf{Attention Layers}: Gli output dei meccanismi di self-attention.
-\end{itemize}
+\section{Implementation}
 
-Le risposte generate sono state confrontate con le etichette ground truth di BeliefBank per determinare se il modello stesse allucinando (ovvero, affermando una falsità come verità o viceversa).
-
-\section{Probing e Allineamento}
-
-Per rilevare le allucinazioni, è stato impiegato un approccio di probing lineare.
-
-\subsection{Linear Probing}
-È stato addestrato un classificatore di Regressione Logistica (il ``Probe'') sulle attivazioni di un modello ``Teacher''. L'input per il probe è il vettore di attivazione di uno specifico layer, e l'output è un'etichetta binaria che indica se il modello sta allucinando. Il metodo utilizzato per rilevare le allucinazioni è una semplice substring: se la ground\_truth è contenuta nella risposta generata allora l'istanza è etichettata come ``corretta'' (0), altrimenti come ``allucinata'' (1).
-Al modello è stato fornito il seguente prompt:
-\begin{quote}
- Answer the following question with just the essential information, without explanations.
-\end{quote}
-
-\subsection{Allineamento Cross-Model}
-Per indagare la trasferibilità del rilevamento delle allucinazioni tra modelli, è stata eseguita una fase di allineamento: un modello ``Teacher'' e l'altro ``Student''. È stato addestrato un modello di Regressione Ridge per mappare le attivazioni del modello Student nello spazio delle attivazioni del modello Teacher.
-
-La pipeline sperimentale procede come segue:
-\begin{enumerate}
-    \item Addestramento di un Probe sulle attivazioni del Teacher.
-    \item Addestramento di un Aligner per mappare le attivazioni dello Student su quelle del Teacher.
-    \item Proiezione delle attivazioni dello Student utilizzando l'Aligner.
-    \item Test del Probe del Teacher sulle attivazioni proiettate dello Student.
-\end{enumerate}
-
-Ciò ci consente di valutare se la rappresentazione interna della veridicità (o dell'allucinazione) è condivisa tra diverse architetture LLM.
+\lipsum  % Replace with your text
