@@ -297,13 +297,12 @@ Di seguito sono riportati gli iperparametri principali utilizzati per l'addestra
 \toprule
 \textbf{ID} & \textbf{Teacher} & \textbf{Student} & \textbf{Type} & \textbf{Hidden} & \textbf{Drop.} & \textbf{LR} & \textbf{W.D.} & \textbf{Batch} & \textbf{ES $\delta$} & \textbf{Clip} & \textbf{Opt.} & \textbf{Sched.} & \textbf{$\alpha$} & \textbf{$\beta$} \\
 \midrule
-1 & Qwen2.5-7B & Falcon3-7B & attn & 128 & 0.5 & $1\text{e-}3$ & $1\text{e-}1$ & 32 & $1\text{e-}4$ & 1.0 & AdamW & CosineAnnealingLR & 1 & 1e-2 \\
-2 & Qwen2.5-7B & Falcon3-7B & mlp & 128 & 0.5 & $1\text{e-}3$ & $1\text{e-}1$ & 32 & $1\text{e-}4$ & 1.0 & AdamW & CosineAnnealingLR & 1 & 1e-2 \\
-3 & Qwen2.5-7B & Falcon3-7B & hidden & 128 & 0.5 & $1\text{e-}3$ & $1\text{e-}1$ & 32 & $1\text{e-}4$ & 1.0 & AdamW & CosineAnnealingLR & 1 & 1e-2 \\
-4 & Falcon3-7B & Qwen2.5-7B & attn & 128 & 0.5 & $1\text{e-}3$ & $1\text{e-}1$ & 32 & $1\text{e-}4$ & 1.0 & AdamW & CosineAnnealingLR & 1 & 1e-2 \\
-5 & Falcon3-7B & Qwen2.5-7B & mlp & 128 & 0.5 & $1\text{e-}3$ & $1\text{e-}1$ & 32 & $1\text{e-}4$ & 1.0 & AdamW & CosineAnnealingLR & 1 & 1e-2 \\
-6 & Falcon3-7B & Qwen2.5-7B & hidden & 128 & 0.5 & $1\text{e-}3$ & $1\text{e-}1$ & 32 & $1\text{e-}4$ & 1.0 & AdamW & CosineAnnealingLR & 1 & 1e-2 \\
-% Aggiungi qui le altre righe
+1 & Qwen2.5-7B & Falcon3-7B & attn & 128 & 0.5 & $1\text{e-}3$ & $1\text{e-}1$ & 32 & $1\text{e-}4$ & 1.0 & AdamW & CosineAnnealingLR & 0.01 & 1.0 \\
+2 & Qwen2.5-7B & Falcon3-7B & mlp & 128 & 0.5 & $1\text{e-}3$ & $1\text{e-}1$ & 32 & $1\text{e-}4$ & 1.0 & AdamW & CosineAnnealingLR & 0.01 & 1.0 \\
+3 & Qwen2.5-7B & Falcon3-7B & hidden & 128 & 0.5 & $1\text{e-}3$ & $1\text{e-}1$ & 32 & $1\text{e-}4$ & 1.0 & AdamW & CosineAnnealingLR & 0.01 & 1.0 \\
+4 & Falcon3-7B & Qwen2.5-7B & attn & 128 & 0.5 & $1\text{e-}3$ & $1\text{e-}1$ & 32 & $1\text{e-}4$ & 1.0 & AdamW & CosineAnnealingLR & 0.01 & 1.0 \\
+5 & Falcon3-7B & Qwen2.5-7B & mlp & 128 & 0.5 & $1\text{e-}3$ & $1\text{e-}1$ & 32 & $1\text{e-}4$ & 1.0 & AdamW & CosineAnnealingLR & 0.01 & 1.0 \\
+6 & Falcon3-7B & Qwen2.5-7B & hidden & 128 & 0.5 & $1\text{e-}3$ & $1\text{e-}1$ & 32 & $1\text{e-}4$ & 1.0 & AdamW & CosineAnnealingLR & 0.01 & 1.0 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -350,12 +349,12 @@ Di seguito sono riportati gli iperparametri principali utilizzati per l'addestra
 \textbf{Hid} & \textbf{Drp} & \textbf{LR} & \textbf{WD} & \textbf{Btc} & \textbf{ES} & \textbf{Clp} & \textbf{Opt} & \textbf{Sch} &
 \textbf{$\alpha$} & \textbf{$\beta$} \\
 \midrule
-1 & Qwen & Falc & attn & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnn & 1 & 1e-2 \\
-2 & Qwen & Falc & mlp & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnn & 1 & 1e-2 \\
-3 & Qwen & Falc & hidden & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnn & 1 & 1e-2 \\
-4 & Falc & Qwen & attn & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnn & 1 & 1e-2 \\
-5 & Falc & Qwen & mlp & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnn & 1 & 1e-2 \\
-6 & Falc & Qwen & hidden & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnn & 1 & 1e-2 \\
+1 & Qwen & Falc & attn & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnn & 0.01 & 1.0 \\
+2 & Qwen & Falc & mlp & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnn & 0.01 & 1.0 \\
+3 & Qwen & Falc & hidden & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnn & 0.01 & 1.0 \\
+4 & Falc & Qwen & attn & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnn & 0.01 & 1.0 \\
+5 & Falc & Qwen & mlp & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnn & 0.01 & 1.0 \\
+6 & Falc & Qwen & hidden & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnn & 0.01 & 1.0 \\
 \bottomrule
 \end{tabular}
 \vspace{0.5em} \\
@@ -377,12 +376,12 @@ Di seguito sono riportati gli iperparametri principali utilizzati per l'addestra
 \textbf{ID} & \textbf{Teach} & \textbf{Stud} & \textbf{Typ} & 
 \textbf{Hid} & \textbf{Drp} & \textbf{LR} & \textbf{WD} & \textbf{Btc} & \textbf{ES} & \textbf{Clp} & \textbf{Opt} & \textbf{Sch} \\
 \midrule
-1 & Qwen & Falc & attn & 64 & 0.5 & 1e-2 & 1e-4 & 64 & 1e-4 & 1.0 & AdamW & CosAnn \\
-2 & Qwen & Falc & mlp & 64 & 0.5 & 1e-2 & 1e-4 & 64 & 1e-4 & 1.0 & AdamW & CosAnn \\
-3 & Qwen & Falc & hidden & 64 & 0.5 & 1e-2 & 1e-4 & 64 & 1e-4 & 1.0 & AdamW & CosAnn \\
-4 & Falc & Qwen & attn & 64 & 0.5 & 1e-2 & 1e-4 & 64 & 1e-4 & 1.0 & AdamW & CosAnn \\
-5 & Falc & Qwen & mlp & 64 & 0.5 & 1e-2 & 1e-4 & 64 & 1e-4 & 1.0 & AdamW & CosAnn \\
-6 & Falc & Qwen & hidden & 64 & 0.5 & 1e-2 & 1e-4 & 64 & 1e-4 & 1.0 & AdamW & CosAnn \\
+1 & Qwen & Falc & attn & 64 & 0.5 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnn \\
+2 & Qwen & Falc & mlp & 64 & 0.5 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnn \\
+3 & Qwen & Falc & hidden & 64 & 0.5 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnn \\
+4 & Falc & Qwen & attn & 64 & 0.5 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnn \\
+5 & Falc & Qwen & mlp & 64 & 0.5 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnn \\
+6 & Falc & Qwen & hidden & 64 & 0.5 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnn \\
 \bottomrule
 \end{tabular}
 \vspace{0.5em} \\
@@ -391,7 +390,7 @@ Di seguito sono riportati gli iperparametri principali utilizzati per l'addestra
 \end{table}
 
 
-\subsection{Approccio Autoencoder e MLP}
+\subsection{Approccio con Autoencoder, AlignmentNetwork e Classificatore MLP}
 
 Questo approccio riduce la dimensionalità delle attivazioni tramite autoencoder. Per quanto riguarda il resto viene mantenuta la stessa pipeline sperimentale dell'approccio precedente, con un accortezza: l'AlignmentNetwork ora mappa tra gli spazi latenti degli autoencoder del teacher e dello student e il prober MLP opera nello spazio latente del teacher.
 
@@ -427,12 +426,12 @@ Di seguito sono riportati gli iperparametri principali utilizzati per l'addestra
 \toprule
 \textbf{ID} & \textbf{Teach} & \textbf{Stud} & \textbf{Typ} & \textbf{Lat} & \textbf{Hid} & \textbf{Drp} & \textbf{LR} & \textbf{WD} & \textbf{Btc} & \textbf{ES} & \textbf{Clp} & \textbf{Opt} & \textbf{Sch} \\
 \midrule
-1 & Qwen & Falc & attn & 128 & 256 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
-2 & Qwen & Falc & mlp & 128 & 256 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
-3 & Qwen & Falc & hidden & 128 & 256 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
-4 & Falc & Qwen & attn & 128 & 256 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
-5 & Falc & Qwen & mlp & 128 & 256 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
-6 & Falc & Qwen & hidden & 128 & 256 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+1 & Qwen & Falc & attn & 128 & 256 & 0.2 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+2 & Qwen & Falc & mlp & 128 & 256 & 0.2 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+3 & Qwen & Falc & hidden & 128 & 256 & 0.2 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+4 & Falc & Qwen & attn & 128 & 256 & 0.2 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+5 & Falc & Qwen & mlp & 128 & 256 & 0.2 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+6 & Falc & Qwen & hidden & 128 & 256 & 0.2 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
 \bottomrule
 \end{tabular}
 \vspace{0.5em} \\
@@ -451,12 +450,12 @@ Di seguito sono riportati gli iperparametri principali utilizzati per l'addestra
 \toprule
 \textbf{ID} & \textbf{Teach} & \textbf{Stud} & \textbf{Typ} & \textbf{Hid} & \textbf{Drp} & \textbf{LR} & \textbf{WD} & \textbf{Btc} & \textbf{ES} & \textbf{Clp} & \textbf{Opt} & \textbf{Sch} & \textbf{$\alpha$} & \textbf{$\beta$} \\
 \midrule
-1 & Qwen & Falc & attn & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnnLR & 1 & 1e-2 \\
-2 & Qwen & Falc & mlp & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnnLR & 1 & 1e-2 \\
-3 & Qwen & Falc & hidden & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnnLR & 1 & 1e-2 \\
-4 & Falc & Qwen & attn & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnnLR & 1 & 1e-2 \\
-5 & Falc & Qwen & mlp & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnnLR & 1 & 1e-2 \\
-6 & Falc & Qwen & hidden & 128 & 0.5 & 1e-3 & 1e-1 & 32 & 1e-4 & 1.0 & AdamW & CosAnnLR & 1 & 1e-2 \\
+1 & Qwen & Falc & attn & 256 & 0.3 & 1e-3 & 1e-2 & 32 & 1e-4 & 1.0 & AdamW & CosAnnLR & 0.5 & 0.5 \\
+2 & Qwen & Falc & mlp & 256 & 0.3 & 1e-3 & 1e-2 & 32 & 1e-4 & 1.0 & AdamW & CosAnnLR & 0.5 & 0.5 \\
+3 & Qwen & Falc & hidden & 256 & 0.3 & 1e-3 & 1e-2 & 32 & 1e-4 & 1.0 & AdamW & CosAnnLR & 0.5 & 0.5 \\
+4 & Falc & Qwen & attn & 256 & 0.3 & 1e-3 & 1e-2 & 32 & 1e-4 & 1.0 & AdamW & CosAnnLR & 0.5 & 0.5 \\
+5 & Falc & Qwen & mlp & 256 & 0.3 & 1e-3 & 1e-2 & 32 & 1e-4 & 1.0 & AdamW & CosAnnLR & 0.5 & 0.5 \\
+6 & Falc & Qwen & hidden & 256 & 0.3 & 1e-3 & 1e-2 & 32 & 1e-4 & 1.0 & AdamW & CosAnnLR & 0.5 & 0.5 \\
 \bottomrule
 \end{tabular}
 \vspace{0.5em} \\
@@ -475,12 +474,12 @@ Di seguito sono riportati gli iperparametri principali utilizzati per l'addestra
 \toprule
 \textbf{ID} & \textbf{Teach} & \textbf{Stud} & \textbf{Typ} & \textbf{Hid} & \textbf{Drp} & \textbf{LR} & \textbf{WD} & \textbf{Btc} & \textbf{ES} & \textbf{Clp} & \textbf{Opt} & \textbf{Sch} \\
 \midrule
-1 & Qwen & Falc & attn & 64 & 0.5 & 1e-2 & 1e-4 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
-2 & Qwen & Falc & mlp & 64 & 0.5 & 1e-2 & 1e-4 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
-3 & Qwen & Falc & hidden & 64 & 0.5 & 1e-2 & 1e-4 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
-4 & Falc & Qwen & attn & 64 & 0.5 & 1e-2 & 1e-4 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
-5 & Falc & Qwen & mlp & 64 & 0.5 & 1e-2 & 1e-4 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
-6 & Falc & Qwen & hidden & 64 & 0.5 & 1e-2 & 1e-4 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+1 & Qwen & Falc & attn & 64 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+2 & Qwen & Falc & mlp & 64 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+3 & Qwen & Falc & hidden & 64 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+4 & Falc & Qwen & attn & 64 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+5 & Falc & Qwen & mlp & 64 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
+6 & Falc & Qwen & hidden & 64 & 0.3 & 1e-3 & 1e-2 & 64 & 1e-4 & 1.0 & AdamW & CosAnnLR \\
 \bottomrule
 \end{tabular}
 \vspace{0.5em} \\
