@@ -1,53 +1,51 @@
 \contentsline {chapter}{\numberline {1}Introduzione}{1}{}%
 \contentsline {section}{\numberline {1.1}Scopi e Obiettivi}{1}{}%
 \contentsline {section}{\numberline {1.2}Panoramica del documento}{2}{}%
-\contentsline {chapter}{\numberline {2}Background}{3}{}%
-\contentsline {section}{\numberline {2.1}Deep Learning}{3}{}%
-\contentsline {subsection}{\numberline {2.1.1}Cenni storici}{4}{}%
-\contentsline {subsection}{\numberline {2.1.2}Architettura e addestramento delle DNN}{5}{}%
-\contentsline {section}{\numberline {2.2}Panoramica sui Transformer}{6}{}%
-\contentsline {subsection}{\numberline {2.2.1}Architettura dei Transformer}{7}{}%
-\contentsline {subsubsection}{Encoder}{8}{}%
-\contentsline {subsubsection}{Decoder}{8}{}%
-\contentsline {subsection}{\numberline {2.2.2}Meccanismo di Self-Attention}{9}{}%
-\contentsline {section}{\numberline {2.3}Large Language Models (LLM)}{9}{}%
-\contentsline {section}{\numberline {2.4}Allucinazioni nei LLM}{10}{}%
-\contentsline {section}{\numberline {2.5}Probing}{11}{}%
-\contentsline {section}{\numberline {2.6}Large Language Models utilizzati}{11}{}%
-\contentsline {subsection}{\numberline {2.6.1}Qwen2.5-7B}{12}{}%
-\contentsline {subsection}{\numberline {2.6.2}Falcon3-7B-Base}{12}{}%
-\contentsline {chapter}{\numberline {3}Methodology}{13}{}%
-\contentsline {section}{\numberline {3.1}Introduzione}{13}{}%
-\contentsline {section}{\numberline {3.2}Dataset}{13}{}%
-\contentsline {subsection}{\numberline {3.2.1}BeliefBank}{13}{}%
-\contentsline {paragraph}{Struttura del Dataset Originale}{13}{}%
-\contentsline {paragraph}{Pre-elaborazione e Implementazione}{14}{}%
-\contentsline {subsection}{\numberline {3.2.2}Creazione dataset di attivazioni}{14}{}%
-\contentsline {section}{\numberline {3.3}Studi preliminari}{15}{}%
-\contentsline {subsection}{\numberline {3.3.1}Statistiche sulle allucinazioni}{15}{}%
-\contentsline {subsection}{\numberline {3.3.2}Studio delle singole componenti di layer}{15}{}%
-\contentsline {section}{\numberline {3.4}Metodologie per la costruzione del prober universale}{25}{}%
-\contentsline {subsection}{\numberline {3.4.1}Approccio Lineare (Baseline)}{25}{}%
+\contentsline {chapter}{\numberline {2}Background}{5}{}%
+\contentsline {section}{\numberline {2.1}Panoramica sui Transformer}{5}{}%
+\contentsline {subsection}{\numberline {2.1.1}Architettura dei Transformer}{6}{}%
+\contentsline {subsubsection}{Encoder}{6}{}%
+\contentsline {subsubsection}{Decoder}{7}{}%
+\contentsline {subsection}{\numberline {2.1.2}Meccanismo di Self-Attention}{7}{}%
+\contentsline {section}{\numberline {2.2}Large Language Models (LLM)}{8}{}%
+\contentsline {section}{\numberline {2.3}Allucinazioni nei LLM}{9}{}%
+\contentsline {section}{\numberline {2.4}Probing}{9}{}%
+\contentsline {chapter}{\numberline {3}Methodology}{11}{}%
+\contentsline {section}{\numberline {3.1}Dataset}{11}{}%
+\contentsline {subsection}{\numberline {3.1.1}BeliefBank}{11}{}%
+\contentsline {paragraph}{Struttura del Dataset Originale}{11}{}%
+\contentsline {paragraph}{Pre-elaborazione e Implementazione}{12}{}%
+\contentsline {subsection}{\numberline {3.1.2}Creazione dataset di attivazioni}{12}{}%
+\contentsline {section}{\numberline {3.2}Large Language Models utilizzati}{13}{}%
+\contentsline {subsection}{\numberline {3.2.1}Qwen2.5-7B}{13}{}%
+\contentsline {subsection}{\numberline {3.2.2}Falcon3-7B-Base}{13}{}%
+\contentsline {section}{\numberline {3.3}Studi preliminari}{14}{}%
+\contentsline {subsection}{\numberline {3.3.1}Statistiche sulle allucinazioni}{14}{}%
+\contentsline {subsection}{\numberline {3.3.2}Studio delle singole componenti di layer}{14}{}%
+\contentsline {section}{\numberline {3.4}Metodologie per la costruzione del prober universale}{17}{}%
+\contentsline {subsection}{\numberline {3.4.1}Baseline}{17}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{17}{}%
+\contentsline {subsection}{\numberline {3.4.2}Approccio Ibrido}{18}{}%
+\contentsline {subsubsection}{Architettura e loss}{18}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{19}{}%
+\contentsline {subsection}{\numberline {3.4.3}Approccio non-lineare Completo}{19}{}%
+\contentsline {subsubsection}{Architettura, componenti e Loss}{20}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{20}{}%
+\contentsline {subsection}{\numberline {3.4.4}Approccio non-lineare ridotto}{21}{}%
+\contentsline {subsubsection}{Architettura e componenti principali}{22}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{22}{}%
+\contentsline {subsection}{\numberline {3.4.5}Approccio One‑For‑All}{24}{}%
+\contentsline {subsubsection}{Architettura e componenti principali}{24}{}%
 \contentsline {subsubsection}{Pipeline sperimentale}{25}{}%
-\contentsline {subsection}{\numberline {3.4.2}Approccio Ibrido con AdapterMLP e Classificatore Lineare}{26}{}%
-\contentsline {subsubsection}{Architettura e loss}{26}{}%
-\contentsline {subsubsection}{Pipeline sperimentale}{27}{}%
-\contentsline {subsection}{\numberline {3.4.3}Approccio con AlignmentNetwork e Classificatore MLP}{27}{}%
-\contentsline {subsubsection}{Architettura, componenti e Loss}{27}{}%
-\contentsline {subsubsection}{Pipeline sperimentale}{28}{}%
-\contentsline {subsection}{\numberline {3.4.4}Approccio con Autoencoder, AlignmentNetwork e Classificatore MLP}{28}{}%
-\contentsline {subsubsection}{Architettura e componenti principali}{29}{}%
-\contentsline {subsubsection}{Pipeline sperimentale}{29}{}%
-\contentsline {subsection}{\numberline {3.4.5}Approccio One‑For‑All (Frozen Head + Adapter Encoder)}{30}{}%
-\contentsline {subsubsection}{Architettura e componenti principali}{31}{}%
-\contentsline {subsubsection}{Pipeline sperimentale}{31}{}%
-\contentsline {chapter}{\numberline {4}Risultati}{33}{}%
-\contentsline {section}{\numberline {4.1}Approccio Lineare (Baseline)}{33}{}%
-\contentsline {section}{\numberline {4.2}Approccio Ibrido con AdapterMLP e Classificatore Lineare}{34}{}%
-\contentsline {section}{\numberline {4.3}Approccio con AlignmentNetwork e Classificatore MLP}{34}{}%
-\contentsline {section}{\numberline {4.4}Approccio con Autoencoder, AlignmentNetwork e Classificatore MLP}{35}{}%
-\contentsline {section}{\numberline {4.5}Approccio One-For-All}{35}{}%
-\contentsline {chapter}{\numberline {5}Discussione}{37}{}%
-\contentsline {chapter}{\numberline {6}Conclusioni}{39}{}%
-\contentsline {section}{\numberline {6.1}Sintesi dei Risultati}{39}{}%
-\contentsline {section}{\numberline {6.2}Lavori Futuri}{39}{}%
+\contentsline {chapter}{\numberline {4}Risultati}{27}{}%
+\contentsline {section}{\numberline {4.1}Baseline}{27}{}%
+\contentsline {section}{\numberline {4.2}Approccio Ibrido}{28}{}%
+\contentsline {section}{\numberline {4.3}Approccio non-lineare completo}{28}{}%
+\contentsline {section}{\numberline {4.4}Approccio non-lineare ridotto}{28}{}%
+\contentsline {section}{\numberline {4.5}Approccio One-For-All}{29}{}%
+\contentsline {chapter}{\numberline {5}Discussione}{31}{}%
+\contentsline {chapter}{\numberline {6}Conclusioni}{33}{}%
+\contentsline {section}{\numberline {6.1}Sintesi dei Risultati}{33}{}%
+\contentsline {section}{\numberline {6.2}Lavori Futuri}{33}{}%
+\contentsline {chapter}{Appendices}{37}{}%
+\contentsline {chapter}{\numberline {A}Attivazioni dei Modelli}{39}{}%

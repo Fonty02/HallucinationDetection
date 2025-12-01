@@ -5,26 +5,26 @@
 \section{Scopi e Obiettivi}
 Il rilascio di GPT-3 aperto al pubblico da parte di OpenAI ha segnato una svolta significativa nel NLP (Natural Language Processing), aprendo la strada a una nuova era di modelli di linguaggio di grandi dimensioni (LLM) in grado poter mantenere una conversazione in maniera fluida e naturale come una persona. Il rilascio del ChatBot è stato solo l'inizio: ora gli LLM sono utilizzati in una vasta gamma di applicazioni e sono ormai uno strumento irrinunciabili sia in ambito privato che accademico che industriale, il loro utilizzo è pressocchè sconfinato.
 
-Tuttavia, uno dei principali ostacoli all'adozione diffusa e sicura di queste tecnologie in ambiti critici (e.g. medico,legale) è il fenomeno delle
- \textit{allucinazioni}. Nonostante la coerenza sintattica, gli LLM tendono occasionalmente a generare informazioni fattualmente errate o inventate con un alto grado di confidenza. Questo comportamento deriva dalla natura stocastica degli LLM: questi ultimi non sanno contare o effettuare un ragionamento logico basato su regole e fatti: la loro abilità nel produrre il testo dipende esclusivamente dalle statistiche apprese durante la fase di addestramento su grandi corpora testuali. Si parla di \textit{next token prediction}: un LLM dunque, dato il contesto (cioè l'insieme dei token precedenti), predice il token successivo più probabile in base alle distribuzioni apprese (possiamo pensare a un token come a una parola o parte di essa).
+Tuttavia, uno dei principali ostacoli all'adozione diffusa e sicura di queste tecnologie in ambiti critici è il fenomeno delle
+ \textit{allucinazioni}. Nonostante la coerenza sintattica, gli LLM tendono occasionalmente a generare informazioni fattualmente errate o inventate con un alto grado di confidenza. In contesti come l'assistenza sanitaria, il supporto legale o l'educazione, tali allucinazioni possono portare a conseguenze gravi (es. diagnosi errate, consigli legali sbagliati o diffusione di disinformazione). Questo comportamento deriva dalla natura stocastica degli LLM: questi ultimi non sanno contare o effettuare un ragionamento logico basato su regole e fatti: la loro abilità nel produrre il testo dipende esclusivamente dalle statistiche apprese durante la fase di addestramento su grandi corpora testuali. Si parla di \textit{next token prediction}: un LLM dunque, dato il contesto (cioè l'insieme dei token precedenti), predice il token successivo più probabile in base alle distribuzioni apprese (possiamo pensare a un token come a una parola o parte di essa).
 Un esempio classico di allucinazione presente nei primissimi LLM è:
 \begin{quote}
     \textbf{Utente:} How many r's are there in the word strawberries?\\
     \textbf{LLM:} 2
 \end{quote}
 
-Attualmente, le tecniche per mitigare questo problema si basano spesso sulla verifica fattuale esterna (\textit{retrieval-augmented generation}), sul \textit{fine-tuning} specifico o sulle \textit{CoT: Chain of Thought}, ma queste tecniche non sono infallibili ed è dunque cruciale capire quando un modello sta allucinando e quando no.
+Attualmente, le tecniche per mitigare questo problema si basano spesso sulla verifica fattuale esterna (\textit{retrieval-augmented generation}), sul \textit{fine-tuning} specifico o sulle \textit{Chain of Thought} (CoT), ma queste tecniche non sono infallibili ed è dunque cruciale capire quando un modello sta allucinando e quando no.
 
 Il \textit{probing} delle attivazioni interne (o \textit{probing classifiers}) rappresenta una soluzione innovativa a questo problema. Questa metodologia consente di analizzare lo ``stato interno'' del modello durante la generazione, ipotizzando che l'informazione sulla veridicità di un'affermazione sia codificata nello spazio latente dei neuroni, indipendentemente dall'output testuale finale il quale viene generato stocasticamente in quanto influenzato da molteplici fattori (temperature, top-k sampling, ecc.). 
 Diversi studi recenti hanno dimostrato che è possibile addestrare classificatori lineari semplici per distinguere le affermazioni vere da quelle false osservando le attivazioni dei layer interni e che in genere le attivazioni relative alle allucinazioni e quelle relative alle risposte corrette tendono a essere facilmente separabili \textcolor{red}{TODO: citare paper}. 
 
-La maggior parte delle ricerche si è concentrata sulla creazione di probe specifici per un singolo modello o una specifica architettura, lasciando relativamente inesplorato il problema della trasferibilità.
+Tuttavia, la maggior parte delle ricerche si è concentrata sulla creazione di probe specifici per un singolo modello o una specifica architettura, lasciando relativamente inesplorato il problema della trasferibilità.
 Questo lavoro si propone di studiare se esiste una rappresentazione universale delle allucinazioni nei LLM, indipendentemente dall'architettura sottostante. In particolare, si mira a sviluppare un \textit{prober} generale capace di rilevare le allucinazioni in diversi modelli senza la necessità di un addestramento specifico per ciascuno di essi (al più con un allineamento preliminare tra gli spazi latenti, essendo questi ultimi diversi tra modelli differenti).
 
 Gli obiettivi principali di questa progetto sono:
 \begin{itemize}
     \item Analizzare e confrontare le attivazioni interne di diverse famiglie di LLM (es. Qwen, Falcon) per identificare pattern comuni associati al fenomeno dell'allucinazione.
-    \item Sviluppare e valutare metodologie di allineamento (lineari e non lineari) tra gli spazi latenti di un modello ``insegnante'' e un modello ``studente''.
+    \item Sviluppare e valutare metodologie di allineamento (lineari e non lineari) tra gli spazi latenti di un modello \textit{teacher} e un modello \textit{studente}.
     \item Costruire un \textit{prober} universale capace di trasferire la capacità di rilevamento delle allucinazioni da un modello all'altro senza supervisione aggiuntiva sul modello target.
 \end{itemize}
 

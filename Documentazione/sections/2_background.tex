@@ -3,44 +3,13 @@
 In questo capitolo verranno introdotti i concetti di base necessari per comprendere il lavoro svolto. Verranno dunque presentati il concetto di Deep Learning, il concetto dell'attenzione, i Large Language Models (LLM), il fenomeno delle allucinazioni e il probing.
 
 
-\section{Deep Learning}
-Negli ultimi anni il \textit{Deep Learning} ha rivoluzionato il campo dell'intelligenza artificiale, permettendo di raggiungere risultati straordinari in molteplici ambiti, tra cui il riconoscimento delle immagini, l'elaborazione del linguaggio naturale e i giochi. Il Deep Learning non è altro che una brance del Machine Learning (a sua volta branca dell'Intelligenza Artificiale) ed è basato sull'utilizzo di reti neurali profonde (Deep Neural Networks, DNN) per apprendere rappresentazioni complesse dei dati. La sostanziale differenza tra il Deep Learning e il Machine Learning tradizionale è nella rappresentazione dei dati da fornire all'algoritmo: nel Machine Learning tradizionale (DecisionTrees, SVM, etc.) è necessario fornire delle feature ingegnerizzate a mano, mentre nel Deep Learning le reti neurali sono in grado di apprendere automaticamente le rappresentazioni più utili per il compito da svolgere direttamente dai dati grezzi.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{images/AI.png}
-    \caption{Rappresentazione delle branche dell'Intelligenza Artificiale}
-    \label{fig:Artificial Intelligence}
-\end{figure}
 
-\subsection{Cenni storici}
-Molti pensano che il Deep Learning sia una tecnologia estremamente recente, fantascienza fino a prima di ChatGPT. in realtà le basi teoriche del Deep Learning risalgono agli anni '40 con i primi modelli come il Perceptron di Rosenblatt. Tuttavia a causa limitazioni computazionali, teoriche (Vanishing Gradient Problem) e di disponibilità dei dati, il Deep Learning non ha potuto esprimere tutto il suo potenziale fino agli anni 2000. Con l'avvento delle Graphics Processing Units (GPU), nate per il rendering grafico e il gaming, è stato possibile accelerare notevolmente i calcoli necessari per l'addestramento delle reti neurali profonde. Le GPU, a differenza delle CPU, sono progettate per eseguire un set limitato di operazioni semplici in parallelo, rendendole ideali per le operazioni matriciali e vettoriali tipiche del Deep Learning. Inoltre, la disponibilità di grandi dataset, come ImageNet, ha permesso alle reti neurali di apprendere rappresentazioni più robuste e generalizzabili. Infine, i progressi teorici, come l'introduzione di nuove funzioni di attivazione (ReLU), tecniche di regolarizzazione (Dropout) e algoritmi di ottimizzazione (Adam), hanno ulteriormente migliorato le prestazioni delle reti neurali profonde.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/DLTimeline.png}
-    \caption{Timeline dei principali eventi storici nel campo del Deep Learning}
-    \label{fig:Deep Learning Timeline}
-    
-\end{figure}
-\
-\subsection{Architettura e addestramento delle DNN}
-Le reti neurali profonde sono costituite da molti strati (layer) di neuroni artificiali collegati tra loro (come fossero neuroni di un cervello biologico). Il primo layer è l'input layer, che riceve i dati grezzi, mentre l'ultimo layer è l'output layer, che produce le predizioni finali: la configurazione dell'output layer dipende dal tipo di compito da svolgere (classificazione, regressione, etc.). Tra l'input e l'output layer ci sono diversi hidden layer, che trasformano progressivamente i dati attraverso operazioni lineari (pesi e bias) e non lineari (funzioni di attivazione come ReLU, Sigmoid, Tanh). L'addestramento delle DNN avviene in 2 fasi principali:
-\begin{itemize}
-    \item \textbf{Forward propagation}: i dati di input vengono propagati attraverso la rete, calcolando le attivazioni di ogni neurone fino a produrre l'output finale. Questo output viene confrontato con il valore target (ground truth) utilizzando una funzione di perdita (loss function) che misura l'errore della predizione. I dati scorrono dunque dall'input layer all'output layer.
-    \item \textbf{Backward propagation}: utilizzando l'algoritmo di backpropagation, l'errore calcolato viene propagato all'indietro attraverso la rete. Utilizzando la regola della catena, si calcolano i gradienti rispetto alla loss function e questi vengono propagati all'indietro per aggiornare i pesi e i bias della rete utilizzando un algoritmo di ottimizzazione (come Stochastic Gradient Descent, Adam, etc.). I dati scorrono dunque dall'output layer all'input layer.
-\end{itemize}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/BackProp.png}
-    \caption{Rappresentazione della forward e backward propagation in una rete neurale}
-    \label{fig:Neural Network Forward Backward}
-\end{figure}
 \section{Panoramica sui Transformer}
-Il meccannismo della self-attention è stato introdotto per la prima volta nel 2017 da Vaswani et al. nel paper "Attention is All You Need" \textcolor{red}{TODO:cita} ed è alla base dell'architettura Transformer, i quali hanno rivoluzionato il campo dell'elaborazione del linguaggio naturale (NLP) e non solo, grazie alla loro capacità di catturare relazioni a lungo raggio nei dati sequenziali in modo più efficiente rispetto ai modelli precedenti come RNN e loro varianti. La differenza cruciale tra i transformer e i modelli precendenti risiede nell'elaborazione dell'input: le RNN elaborato i dati in modo sequenziale, mantenendo uno stato nascosto che cattura le informazioni precedenti, mentre i transformer utilizzano il meccanismo di self-attention per elaborare l'intera sequenza contemporaneamente, permettendo di catturare relazioni tra parole indipendentemente dalla loro distanza nella sequenza. Con un input motlo lungo le RNN tendono a dimenticare le informazioni iniziali mentre i transformer non hanno questo problema. 
+Il meccannismo della self-attention è stato introdotto per la prima volta nel 2017 da Vaswani et al. nel paper Attention is All You Need \textcolor{red}{TODO:cita} ed è alla base dell'architettura Transformer, i quali hanno rivoluzionato il campo dell'elaborazione del linguaggio naturale (NLP) e non solo, grazie alla loro capacità di catturare relazioni a lungo raggio nei dati sequenziali in modo più efficiente rispetto ai modelli precedenti come RNN e loro varianti. La differenza cruciale tra i transformer e i modelli precendenti risiede nell'elaborazione dell'input: le RNN elaborato i dati in modo sequenziale, mantenendo uno stato nascosto che cattura le informazioni precedenti, mentre i transformer utilizzano il meccanismo di self-attention per elaborare l'intera sequenza contemporaneamente, permettendo di catturare relazioni tra parole indipendentemente dalla loro distanza nella sequenza. Con un input motlo lungo le RNN tendono a dimenticare le informazioni iniziali mentre i transformer non hanno questo problema. 
 \subsection{Architettura dei Transformer}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/Transformer.png}
+    \includegraphics[width=0.4\textwidth, height=0.6\textwidth]{images/Transformer.png}
     \caption{Architettura di un Transformer}
     \label{fig:Transformer Architecture}
 \end{figure}
@@ -70,7 +39,7 @@ Il decoder è anch'esso costituito da una serie di strati identici posti in sequ
 \subsection{Meccanismo di Self-Attention}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{images/Attn.png}
+    \includegraphics[width=0.6\textwidth ,height=0.4\textwidth]{images/Attn.png}
     \caption{Rappresentazione del meccanismo di Self-Attention}
     \label{fig:Self Attention Mechanism}
 \end{figure}
@@ -90,9 +59,9 @@ L'evoluzione dagli scorsi modelli di NLP agli attuali LLM (come la serie GPT, Ll
 
 Il ciclo di vita tipico di un LLM si divide in fasi distinte:
 \begin{enumerate}
-    \item \textbf{Pre-training}: È la fase più costosa computazionalmente. Il modello viene addestrato in modo auto-supervisionato su vasti dataset (web crawl, libri, codice) per apprendere la struttura del linguaggio, la logica e una vasta gamma di conoscenze generali. L'obiettivo è minimizzare la \textit{Cross-Entropy Loss} tra la distribuzione prevista e il token reale successivo.
+    \item \textbf{Pre-training (unsupervised)}: È la fase più costosa computazionalmente. Il modello viene addestrato in modo auto-supervisionato su vasti dataset (web crawl, libri, codice) per apprendere la struttura del linguaggio, la logica e una vasta gamma di conoscenze generali. L'obiettivo è minimizzare la \textit{Cross-Entropy Loss} tra la distribuzione prevista e il token reale successivo.
     \item \textbf{Supervised Fine-Tuning (SFT)}: Il modello pre-addestrato (detto "Base") viene ulteriormente addestrato su un dataset più piccolo e curato di istruzioni e risposte (formato prompt-response). Questo permette al modello di imparare a seguire le istruzioni dell'utente e di adottare un formato conversazionale.
-    \item \textbf{Alignment (RLHF/DPO)}: Per garantire che il modello sia sicuro e allineato con i valori umani, vengono applicate tecniche come il \textit{Reinforcement Learning from Human Feedback} (RLHF) o la \textit{Direct Preference Optimization} (DPO). In questa fase, il modello viene penalizzato se genera contenuti tossici, bias o non utili.
+    \item \textbf{Alignment}: Per garantire che il modello sia sicuro e allineato con i valori umani, vengono applicate tecniche come il \textit{Reinforcement Learning from Human Feedback} (RLHF) o la \textit{Direct Preference Optimization} (DPO). In questa fase, il modello viene penalizzato se genera contenuti tossici, bias o non utili.
 \end{enumerate}
 
 Una caratteristica emergente degli LLM è la capacità di \textit{In-Context Learning}, ovvero la capacità di apprendere nuovi task semplicemente osservando alcuni esempi nel prompt, senza aggiornare i pesi del modello.
@@ -123,23 +92,6 @@ La metodologia standard di probing prevede i seguenti passi:
 \end{enumerate}
 
 Nel contesto delle allucinazioni, il probing viene utilizzato per investigare se esiste una ``direzione della verità'' nello spazio latente del modello. L'ipotesi è che il modello, internamente, ``sappia'' se sta generando un fatto vero o un'allucinazione, e che questa informazione possa essere decodificata analizzando gli stati interni prima che venga generato l'output testuale finale.
-
-\section{Large Language Models utilizzati}
-Per gli esperimenti condotti in questo lavoro, sono stati selezionati due modelli open-weights che rappresentano lo stato dell'arte per le rispettive dimensioni e famiglie architetturali.
-
-\subsection{Qwen2.5-7B}
-Qwen2.5-7B è un modello sviluppato da Alibaba Cloud ed è parte della serie Qwen2.5. È un modello \textit{Decoder-only} basato su Transformer con 7 miliardi di parametri. Rispetto ai suoi predecessori, Qwen2.5 introduce diverse ottimizzazioni architetturali:
-\begin{itemize}
-    \item \textbf{Grouped Query Attention (GQA)}: Utilizza GQA invece della standard Multi-Head Attention per ottimizzare l'uso della memoria della cache KV durante l'inferenza, permettendo contesti più lunghi e una generazione più veloce.
-    \item \textbf{SwiGLU Activation}: Sostituisce la classica funzione di attivazione GeLU con SwiGLU, che ha dimostrato empiricamente di migliorare le prestazioni di convergenza.
-    \item \textbf{RoPE (Rotary Positional Embeddings)}: Utilizza embeddings posizionali rotativi per gestire meglio le posizioni relative dei token e supportare finestre di contesto molto ampie (fino a 128k token).
-\end{itemize}
-Il modello è stato pre-addestrato su un corpus massivo e multilingua, dimostrando eccellenti capacità non solo nel ragionamento e nella comprensione del linguaggio, ma anche nel coding e nella matematica, spesso superando modelli di dimensioni simili come Llama-3-8B in vari benchmark.
-
-\subsection{Falcon3-7B-Base}
-Falcon3-7B-Base è l'ultima iterazione della famiglia di modelli sviluppati dal Technology Innovation Institute (TII) di Abu Dhabi. Come Qwen, è un modello \textit{causal decoder-only} da 7 miliardi di parametri, ma si distingue per scelte progettuali orientate all'efficienza.
-Falcon3 continua la tradizione della serie Falcon concentrandosi sulla qualità dei dati di pre-training (basati sul dataset RefinedWeb, un dataset web rigorosamente filtrato e deduplicato).
-A livello architetturale, Falcon3-7B adotta soluzioni moderne per massimizzare il throughput in inferenza. Sebbene le specifiche esatte possano variare tra le versioni (es. l'uso di \textit{Multi-Query Attention} o \textit{FlashAttention}), l'obiettivo principale di Falcon è fornire un modello performante che sia facilmente deployabile su hardware di consumo. Nel contesto di questo lavoro, Falcon3 viene utilizzato come termine di paragone (o modello ``studente'') per verificare la generalizzabilità dei prober addestrati su architetture diverse come Qwen.
 
 
 

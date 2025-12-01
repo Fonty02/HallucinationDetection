@@ -1,83 +1,83 @@
 \chapter{Risultati}
 
-In questo capitolo vengono presentati i risultati ottenuti dagli esperimenti condotti per valutare l'efficacia del prober universale nel rilevamento delle allucinazioni nei modelli di linguaggio di grandi dimensioni (LLM). Per ogni approccio viene riportata una tabella con le metriche principali: accuratezza del teacher (Acc$_T$), accuratezza dello student dopo allineamento (Acc$_S$), differenza assoluta ($\Delta$Acc) e differenza percentuale ($\Delta$\%).
+In questo capitolo vengono presentati i risultati ottenuti dagli esperimenti condotti per valutare l'efficacia del prober universale nel rilevamento delle allucinazioni negli LLM. Per ogni approccio viene riportata una tabella con le metriche principali: accuratezza del teacher (Acc$_T$), accuratezza dello student dopo allineamento (Acc$_S$), differenza ($\Delta$Acc) e differenza percentuale ($\Delta$\%).
 
-\section{Approccio Lineare (Baseline)}
+\section{Baseline}
 
 \begin{table}[H]
 \centering
-\caption{Risultati dell'approccio Lineare (Baseline)}
+\caption{In grassetto i migliori risultati, in rosso i peggiori}
 \label{tab:results-linear}
 \begin{tabular}{clllcccc}
 \toprule
 \textbf{ID} & \textbf{Teacher} & \textbf{Student} & \textbf{Type} & \textbf{Acc$_T$} & \textbf{Acc$_S$} & \textbf{$\Delta$Acc} & \textbf{$\Delta$\%} \\
 \midrule
 1 & Qwen & Falcon & attn & 0.9888 & 0.7455 & 0.2433 & 24.61\% \\
-2 & Qwen & Falcon & mlp & 0.9906 & 0.7375 & 0.2531 & 25.55\% \\
+2 & Qwen & Falcon & mlp & \textbf{0.9906} & \textcolor{red}{0.7375} & \textcolor{red}{0.2531} & \textcolor{red}{25.55\%} \\
 3 & Qwen & Falcon & hidden & 0.9903 & 0.7397 & 0.2506 & 25.31\% \\
 4 & Falcon & Qwen & attn & 0.9234 & 0.7658 & 0.1576 & 17.07\% \\
 5 & Falcon & Qwen & mlp & 0.9103 & 0.7649 & 0.1454 & 15.97\% \\
-6 & Falcon & Qwen & hidden & 0.9102 & 0.7728 & 0.1374 & 15.10\% \\
+6 & Falcon & Qwen & hidden & \textcolor{red}{0.9102} & \textbf{0.7728} & \textbf{0.1374} & \textbf{15.10\%} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\section{Approccio Ibrido con AdapterMLP e Classificatore Lineare}
+\section{Approccio Ibrido}
 
 \begin{table}[H]
 \centering
-\caption{Risultati dell'approccio Ibrido (AdapterMLP + Logistic Regression)}
+\caption{In grassetto i migliori risultati, in rosso i peggiori}
 \label{tab:results-hybrid}
 \begin{tabular}{clllcccc}
 \toprule
 \textbf{ID} & \textbf{Teacher} & \textbf{Student} & \textbf{Type} & \textbf{Acc$_T$} & \textbf{Acc$_S$} & \textbf{$\Delta$Acc} & \textbf{$\Delta$\%} \\
 \midrule
 1 & Qwen & Falcon & attn & 0.9888 & 0.7387 & 0.2501 & 25.29\% \\
-2 & Qwen & Falcon & mlp & 0.9906 & 0.7174 & 0.2732 & 27.58\% \\
+2 & Qwen & Falcon & mlp & \textbf{0.9906} & \textcolor{red}{0.7174} & \textcolor{red}{0.2732} & \textcolor{red}{27.58\%} \\
 3 & Qwen & Falcon & hidden & 0.9903 & 0.7371 & 0.2532 & 25.57\% \\
 4 & Falcon & Qwen & attn & 0.9234 & 0.7605 & 0.1629 & 17.64\% \\
 5 & Falcon & Qwen & mlp & 0.9103 & 0.7430 & 0.1673 & 18.38\% \\
-6 & Falcon & Qwen & hidden & 0.9102 & 0.7679 & 0.1423 & 15.63\% \\
+6 & Falcon & Qwen & hidden & \textcolor{red}{0.9102} & \textbf{0.7679} & \textbf{0.1423} & \textbf{15.63\%} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\section{Approccio con AlignmentNetwork e Classificatore MLP}
+\section{Approccio non-lineare completo}
 
 \begin{table}[H]
 \centering
-\caption{Risultati dell'approccio AlignmentNetwork + MLP Prober}
+\caption{In grassetto i migliori risultati, in rosso i peggiori}
 \label{tab:results-alignment-mlp}
 \begin{tabular}{clllcccc}
 \toprule
 \textbf{ID} & \textbf{Teacher} & \textbf{Student} & \textbf{Type} & \textbf{Acc$_T$} & \textbf{Acc$_S$} & \textbf{$\Delta$Acc} & \textbf{$\Delta$\%} \\
 \midrule
 1 & Qwen & Falcon & attn & 0.9910 & 0.7517 & 0.2393 & 24.15\% \\
-2 & Qwen & Falcon & mlp & 0.9908 & 0.7070 & 0.2838 & 28.64\% \\
-3 & Qwen & Falcon & hidden & 0.9917 & 0.7454 & 0.2463 & 24.84\% \\
+2 & Qwen & Falcon & mlp & 0.9908 & \textcolor{red}{0.7070} & \textcolor{red}{0.2838} & \textcolor{red}{28.64\%} \\
+3 & Qwen & Falcon & hidden & \textbf{0.9917} & 0.7454 & 0.2463 & 24.84\% \\
 4 & Falcon & Qwen & attn & 0.9297 & 0.7550 & 0.1747 & 18.79\% \\
-5 & Falcon & Qwen & mlp & 0.9087 & 0.7747 & 0.1340 & 14.75\% \\
-6 & Falcon & Qwen & hidden & 0.9112 & 0.7939 & 0.1173 & 12.87\% \\
+5 & Falcon & Qwen & mlp & \textcolor{red}{0.9087} & 0.7747 & 0.1340 & 14.75\% \\
+6 & Falcon & Qwen & hidden & 0.9112 & \textbf{0.7939} & \textbf{0.1173} & \textbf{12.87\%} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\section{Approccio con Autoencoder, AlignmentNetwork e Classificatore MLP}
+\section{Approccio non-lineare ridotto}
 
 \begin{table}[H]
 \centering
-\caption{Risultati dell'approccio Autoencoder + AlignmentNetwork + MLP Prober}
+\caption{In grassetto i migliori risultati, in rosso i peggiori}
 \label{tab:results-autoencoder}
 \begin{tabular}{clllcccc}
 \toprule
 \textbf{ID} & \textbf{Teacher} & \textbf{Student} & \textbf{Type} & \textbf{Acc$_T$} & \textbf{Acc$_S$} & \textbf{$\Delta$Acc} & \textbf{$\Delta$\%} \\
 \midrule
-1 & Qwen & Falcon & attn & 0.9831 & 0.7112 & 0.2719 & 27.66\% \\
-2 & Qwen & Falcon & mlp & 0.9792 & 0.7098 & 0.2694 & 27.51\% \\
+1 & Qwen & Falcon & attn & \textbf{0.9831} & 0.7112 & \textcolor{red}{0.2719} & \textcolor{red}{27.66\%} \\
+2 & Qwen & Falcon & mlp & 0.9792 & \textcolor{red}{0.7098} & 0.2694 & 27.51\% \\
 3 & Qwen & Falcon & hidden & 0.9793 & 0.7128 & 0.2665 & 27.21\% \\
-4 & Falcon & Qwen & attn & 0.9054 & 0.7753 & 0.1301 & 14.37\% \\
+4 & Falcon & Qwen & attn & 0.9054 & \textbf{0.7753} & 0.1301 & 14.37\% \\
 5 & Falcon & Qwen & mlp & 0.8902 & 0.7587 & 0.1315 & 14.77\% \\
-6 & Falcon & Qwen & hidden & 0.8850 & 0.7639 & 0.1211 & 13.68\% \\
+6 & Falcon & Qwen & hidden & \textcolor{red}{0.8850} & 0.7639 & \textbf{0.1211} & \textbf{13.68\%} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -86,22 +86,21 @@ In questo capitolo vengono presentati i risultati ottenuti dagli esperimenti con
 
 \begin{table}[H]
 \centering
-\caption{Risultati dell'approccio One-For-All (Frozen Head + Adapter Encoder)}
+\caption{In grassetto i migliori risultati, in rosso i peggiori}
 \label{tab:results-one-for-all}
 \begin{tabular}{clllcccc}
 \toprule
 \textbf{ID} & \textbf{Teacher} & \textbf{Student} & \textbf{Type} & \textbf{Acc$_T$} & \textbf{Acc$_S$} & \textbf{$\Delta$Acc} & \textbf{$\Delta$\%} \\
 \midrule
-1 & Qwen & Falcon & attn & 0.9910 & 0.9257 & 0.0653 & 6.59\% \\
+1 & Qwen & Falcon & attn & \textbf{0.9910} & 0.9257 & 0.0653 & 6.59\% \\
 2 & Qwen & Falcon & mlp & 0.9866 & 0.9139 & 0.0727 & 7.37\% \\
-3 & Qwen & Falcon & hidden & 0.9863 & 0.9067 & 0.0795 & 8.06\% \\
-4 & Falcon & Qwen & attn & 0.9266 & 0.9920 & -0.0654 & -7.06\% \\
+3 & Qwen & Falcon & hidden & 0.9863 & \textcolor{red}{0.9067} & \textcolor{red}{0.0795} & \textcolor{red}{8.06\%} \\
+4 & Falcon & Qwen & attn & 0.9266 & \textbf{0.9920} & -0.0654 & -7.06\% \\
 5 & Falcon & Qwen & mlp & 0.9091 & 0.9894 & -0.0804 & -8.84\% \\
-6 & Falcon & Qwen & hidden & 0.9063 & 0.9912 & -0.0850 & -9.38\% \\
+6 & Falcon & Qwen & hidden & \textcolor{red}{0.9063} & 0.9912 & \textbf{-0.0850} & \textbf{-9.38\%} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Nota:} I valori negativi di $\Delta$Acc indicano che lo student ha ottenuto prestazioni migliori del teacher. Questo fenomeno si verifica quando Falcon è il teacher e Qwen lo student, suggerendo che le attivazioni di Qwen sono più facilmente adattabili alla head addestrata su Falcon.
 
 
