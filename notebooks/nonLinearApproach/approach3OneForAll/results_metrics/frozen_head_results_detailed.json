@@ -126,7 +126,7 @@
                 "dropout": 0.3
             },
             "training_results": {
-                "best_val_acc": 0.9252,
+                "best_val_acc": 0.9266,
                 "model_saved_path": "models_frozen_head\\attn\\frozen_head_encoder_Falcon3-7B-Base.pt"
             }
         },
@@ -137,7 +137,7 @@
                 "dropout": 0.3
             },
             "training_results": {
-                "best_val_acc": 0.9252,
+                "best_val_acc": 0.9266,
                 "model_saved_path": "models_frozen_head\\attn\\frozen_head_shared_head_Falcon3-7B-Base.pt"
             }
         },
@@ -149,20 +149,20 @@
                 "dropout": 0.3
             },
             "training_results": {
-                "best_val_acc": 0.9902,
+                "best_val_acc": 0.992,
                 "model_saved_path": "models_frozen_head\\attn\\frozen_head_encoder_Qwen2.5-7B_adapter.pt"
             }
         },
         "teacher_performance": {
-            "accuracy": 0.9252,
-            "f1_score": 0.9383
+            "accuracy": 0.9266,
+            "f1_score": 0.9406
         },
         "student_adapter_performance": {
-            "accuracy": 0.9902,
-            "f1_score": 0.9916
+            "accuracy": 0.992,
+            "f1_score": 0.9931
         },
         "transfer_gap": {
-            "accuracy_gap": -0.0649
+            "accuracy_gap": -0.0654
         }
     },
     {
@@ -209,7 +209,7 @@
                 "dropout": 0.3
             },
             "training_results": {
-                "best_val_acc": 0.9908,
+                "best_val_acc": 0.9866,
                 "model_saved_path": "models_frozen_head\\mlp\\frozen_head_encoder_Qwen2.5-7B.pt"
             }
         },
@@ -220,7 +220,7 @@
                 "dropout": 0.3
             },
             "training_results": {
-                "best_val_acc": 0.9908,
+                "best_val_acc": 0.9866,
                 "model_saved_path": "models_frozen_head\\mlp\\frozen_head_shared_head_Qwen2.5-7B.pt"
             }
         },
@@ -232,20 +232,20 @@
                 "dropout": 0.3
             },
             "training_results": {
-                "best_val_acc": 0.9134,
+                "best_val_acc": 0.9139,
                 "model_saved_path": "models_frozen_head\\mlp\\frozen_head_encoder_Falcon3-7B-Base_adapter.pt"
             }
         },
         "teacher_performance": {
-            "accuracy": 0.9908,
-            "f1_score": 0.9921
+            "accuracy": 0.9866,
+            "f1_score": 0.9885
         },
         "student_adapter_performance": {
-            "accuracy": 0.9134,
-            "f1_score": 0.929
+            "accuracy": 0.9139,
+            "f1_score": 0.9295
         },
         "transfer_gap": {
-            "accuracy_gap": 0.0773
+            "accuracy_gap": 0.0727
         }
     },
     {
@@ -292,7 +292,7 @@
                 "dropout": 0.3
             },
             "training_results": {
-                "best_val_acc": 0.906,
+                "best_val_acc": 0.9091,
                 "model_saved_path": "models_frozen_head\\mlp\\frozen_head_encoder_Falcon3-7B-Base.pt"
             }
         },
@@ -303,7 +303,7 @@
                 "dropout": 0.3
             },
             "training_results": {
-                "best_val_acc": 0.906,
+                "best_val_acc": 0.9091,
                 "model_saved_path": "models_frozen_head\\mlp\\frozen_head_shared_head_Falcon3-7B-Base.pt"
             }
         },
@@ -315,20 +315,20 @@
                 "dropout": 0.3
             },
             "training_results": {
-                "best_val_acc": 0.9893,
+                "best_val_acc": 0.9894,
                 "model_saved_path": "models_frozen_head\\mlp\\frozen_head_encoder_Qwen2.5-7B_adapter.pt"
             }
         },
         "teacher_performance": {
-            "accuracy": 0.906,
-            "f1_score": 0.9215
+            "accuracy": 0.9091,
+            "f1_score": 0.9251
         },
         "student_adapter_performance": {
-            "accuracy": 0.9893,
+            "accuracy": 0.9894,
             "f1_score": 0.9909
         },
         "transfer_gap": {
-            "accuracy_gap": -0.0833
+            "accuracy_gap": -0.0804
         }
     },
     {
@@ -375,7 +375,7 @@
                 "dropout": 0.3
             },
             "training_results": {
-                "best_val_acc": 0.9906,
+                "best_val_acc": 0.9863,
                 "model_saved_path": "models_frozen_head\\hidden\\frozen_head_encoder_Qwen2.5-7B.pt"
             }
         },
@@ -386,7 +386,7 @@
                 "dropout": 0.3
             },
             "training_results": {
-                "best_val_acc": 0.9906,
+                "best_val_acc": 0.9863,
                 "model_saved_path": "models_frozen_head\\hidden\\frozen_head_shared_head_Qwen2.5-7B.pt"
             }
         },
@@ -398,20 +398,20 @@
                 "dropout": 0.3
             },
             "training_results": {
-                "best_val_acc": 0.9046,
+                "best_val_acc": 0.9067,
                 "model_saved_path": "models_frozen_head\\hidden\\frozen_head_encoder_Falcon3-7B-Base_adapter.pt"
             }
         },
         "teacher_performance": {
-            "accuracy": 0.9906,
-            "f1_score": 0.992
+            "accuracy": 0.9863,
+            "f1_score": 0.9882
         },
         "student_adapter_performance": {
-            "accuracy": 0.9046,
-            "f1_score": 0.921
+            "accuracy": 0.9067,
+            "f1_score": 0.9228
         },
         "transfer_gap": {
-            "accuracy_gap": 0.0861
+            "accuracy_gap": 0.0795
         }
     },
     {
@@ -458,7 +458,7 @@
                 "dropout": 0.3
             },
             "training_results": {
-                "best_val_acc": 0.9024,
+                "best_val_acc": 0.9063,
                 "model_saved_path": "models_frozen_head\\hidden\\frozen_head_encoder_Falcon3-7B-Base.pt"
             }
         },
@@ -469,7 +469,7 @@
                 "dropout": 0.3
             },
             "training_results": {
-                "best_val_acc": 0.9024,
+                "best_val_acc": 0.9063,
                 "model_saved_path": "models_frozen_head\\hidden\\frozen_head_shared_head_Falcon3-7B-Base.pt"
             }
         },
@@ -481,20 +481,20 @@
                 "dropout": 0.3
             },
             "training_results": {
-                "best_val_acc": 0.9899,
+                "best_val_acc": 0.9912,
                 "model_saved_path": "models_frozen_head\\hidden\\frozen_head_encoder_Qwen2.5-7B_adapter.pt"
             }
         },
         "teacher_performance": {
-            "accuracy": 0.9024,
-            "f1_score": 0.919
+            "accuracy": 0.9063,
+            "f1_score": 0.9238
         },
         "student_adapter_performance": {
-            "accuracy": 0.9899,
-            "f1_score": 0.9913
+            "accuracy": 0.9912,
+            "f1_score": 0.9925
         },
         "transfer_gap": {
-            "accuracy_gap": -0.0875
+            "accuracy_gap": -0.085
         }
     }
 ]
