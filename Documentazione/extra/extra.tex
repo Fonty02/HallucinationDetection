@@ -1,0 +1,34 @@
+%BACKGROUND EXTRA MATERIAL
+
+\section{Deep Learning}
+Negli ultimi anni il \textit{Deep Learning} ha rivoluzionato il campo dell'intelligenza artificiale, permettendo di raggiungere risultati straordinari in molteplici ambiti, tra cui il riconoscimento delle immagini, l'elaborazione del linguaggio naturale e i giochi. Il Deep Learning non è altro che una brance del Machine Learning (a sua volta branca dell'Intelligenza Artificiale) ed è basato sull'utilizzo di reti neurali profonde (Deep Neural Networks, DNN) per apprendere rappresentazioni complesse dei dati. La sostanziale differenza tra il Deep Learning e il Machine Learning tradizionale è nella rappresentazione dei dati da fornire all'algoritmo: nel Machine Learning tradizionale (DecisionTrees, SVM, etc.) è necessario fornire delle feature ingegnerizzate a mano, mentre nel Deep Learning le reti neurali sono in grado di apprendere automaticamente le rappresentazioni più utili per il compito da svolgere direttamente dai dati grezzi.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/AI.png}
+    \caption{Rappresentazione delle branche dell'Intelligenza Artificiale}
+    \label{fig:Artificial Intelligence}
+\end{figure}
+
+\subsection{Cenni storici}
+Molti pensano che il Deep Learning sia una tecnologia estremamente recente, fantascienza fino a prima di ChatGPT. in realtà le basi teoriche del Deep Learning risalgono agli anni '40 con i primi modelli come il Perceptron di Rosenblatt. Tuttavia a causa limitazioni computazionali, teoriche (Vanishing Gradient Problem) e di disponibilità dei dati, il Deep Learning non ha potuto esprimere tutto il suo potenziale fino agli anni 2000. Con l'avvento delle Graphics Processing Units (GPU), nate per il rendering grafico e il gaming, è stato possibile accelerare notevolmente i calcoli necessari per l'addestramento delle reti neurali profonde. Le GPU, a differenza delle CPU, sono progettate per eseguire un set limitato di operazioni semplici in parallelo, rendendole ideali per le operazioni matriciali e vettoriali tipiche del Deep Learning. Inoltre, la disponibilità di grandi dataset, come ImageNet, ha permesso alle reti neurali di apprendere rappresentazioni più robuste e generalizzabili. Infine, i progressi teorici, come l'introduzione di nuove funzioni di attivazione (ReLU), tecniche di regolarizzazione (Dropout) e algoritmi di ottimizzazione (Adam), hanno ulteriormente migliorato le prestazioni delle reti neurali profonde.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/DLTimeline.png}
+    \caption{Timeline dei principali eventi storici nel campo del Deep Learning}
+    \label{fig:Deep Learning Timeline}
+    
+\end{figure}
+\
+\subsection{Architettura e addestramento delle DNN}
+Le reti neurali profonde sono costituite da molti strati (layer) di neuroni artificiali collegati tra loro (come fossero neuroni di un cervello biologico). Il primo layer è l'input layer, che riceve i dati grezzi, mentre l'ultimo layer è l'output layer, che produce le predizioni finali: la configurazione dell'output layer dipende dal tipo di compito da svolgere (classificazione, regressione, etc.). Tra l'input e l'output layer ci sono diversi hidden layer, che trasformano progressivamente i dati attraverso operazioni lineari (pesi e bias) e non lineari (funzioni di attivazione come ReLU, Sigmoid, Tanh). L'addestramento delle DNN avviene in 2 fasi principali:
+\begin{itemize}
+    \item \textbf{Forward propagation}: i dati di input vengono propagati attraverso la rete, calcolando le attivazioni di ogni neurone fino a produrre l'output finale. Questo output viene confrontato con il valore target (ground truth) utilizzando una funzione di perdita (loss function) che misura l'errore della predizione. I dati scorrono dunque dall'input layer all'output layer.
+    \item \textbf{Backward propagation}: utilizzando l'algoritmo di backpropagation, l'errore calcolato viene propagato all'indietro attraverso la rete. Utilizzando la regola della catena, si calcolano i gradienti rispetto alla loss function e questi vengono propagati all'indietro per aggiornare i pesi e i bias della rete utilizzando un algoritmo di ottimizzazione (come Stochastic Gradient Descent, Adam, etc.). I dati scorrono dunque dall'output layer all'input layer.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/BackProp.png}
+    \caption{Rappresentazione della forward e backward propagation in una rete neurale}
+    \label{fig:Neural Network Forward Backward}
+\end{figure}

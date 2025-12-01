@@ -1,3 +1,53 @@
-\chapter{An Appendix of Some Kind}
+\chapter{Attivazioni dei Modelli}
 
-\lipsum[1-3]  % Replace with your text
+Nelle seguenti figure vengono mostrate le rappresentazioni PCA delle attivazioni estratte dai modelli Qwen2.5-7B e Falcon3-7B-Base durante l'elaborazione del dataset Belief Bank. Le attivazioni sono state ottenute da tre tipi di layer: Attention, MLP e Hidden. In rosso sono indicate le istanze allucinatorie, mentre in blu quelle veritiere.
+
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Qwen2.5-7B_belief_bank_attn_activations_PCA.jpg}
+    \caption{PCA delle attivazioni Attention del layer di Qwen2.5-7B}
+    \label{fig:qwen-pca-attn}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Qwen2.5-7B_belief_bank_hidden_activations_PCA.jpg}
+    \caption{PCA delle attivazioni Hidden del layer di Qwen2.5-7B}
+
+    \label{fig:qwen-pca-hidden}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Qwen2.5-7B_belief_bank_mlp_activations_PCA.jpg}
+    \caption{PCA delle attivazioni MLP del layer di Qwen2.5-7B}
+
+    \label{fig:qwen-pca-mlp}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Falcon3-7B-Base_belief_bank_attn_activations_PCA.jpg}
+    \caption{PCA delle attivazioni Attention del layer di Falcon3-7B-Base}
+
+    \label{fig:falcon-pca-attn}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Falcon3-7B-Base_belief_bank_hidden_activations_PCA.jpg}
+    \caption{PCA delle attivazioni Hidden del layer di Falcon3-7B-Base}
+
+    \label{fig:falcon-pca-hidden}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Falcon3-7B-Base_belief_bank_mlp_activations_PCA.jpg}
+    \caption{PCA delle attivazioni MLP del layer di Falcon3-7B-Base}
+
+    \label{fig:falcon-pca-mlp}
+\end{figure}
+
