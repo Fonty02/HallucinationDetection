@@ -40,7 +40,7 @@ Per ogni affermazione nel dataset, sono state registrate le attivazioni corrispo
 se la risposta reale (``yes'' o ``no'') è una substring (cioè è contenuta) nella risposta generata dal modello, allora l'affermazione è considerata vera (non allucinazione); altrimenti è considerata falsa (allucinazione).
 
 
-\section{Large Language Models utilizzati}
+\section{LLM utilizzati}
 Per gli esperimenti condotti in questo lavoro, sono stati selezionati due modelli open-weights che rappresentano lo stato dell'arte per le rispettive dimensioni e famiglie architetturali.
 
 \subsection{Qwen2.5-7B}
@@ -157,6 +157,12 @@ La riproducibilità degli esperimenti e l'utilizzo degli stessi set di dati per 
 Come baseline per la costruzione del prober universale, è stato adottato un approccio lineare. In questo scenario, le attivazioni interne dei modelli Qwen2.5-7B e Falcon3-7B-Base, estratte dai layer e componenti selezionati, sono state utilizzate per addestrare e valutare un classificatore Logistic Regression.  L'obiettivo è verificare le performance utilizzando solo metodi lineari
 
 \subsubsection{Pipeline sperimentale}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AppL.png}
+    \caption{Pipeline sperimentale della baseline}
+    \label{fig:linear-pipeline}
+\end{figure}
 La pipeline sperimentale consiste nell'addestramento di un classificatore Logistic Regression sullo spazio delle attivazioni del modello teacher per rilevare le allucinazioni, seguito dalla valutazione delle sue prestazioni tramite metriche di accuratezza. Successivamente, viene effettuato un allineamento lineare tra lo spazio latente del modello student e quello del modello teacher tramite una proiezione lineare (Ridge Regression). Infine, si valuta la capacità del classificatore di discriminare le allucinazioni sui dati del modello student dopo l'allineamento. Gli LLM utilizzati come teacher e student sono rispettivamente Qwen2.5-7B e Falcon3-7B-Base e successivamente viceversa.
 
 Per il Logistic Regressor sono stati utilizzati i seguenti iperparametri:
@@ -172,7 +178,12 @@ In questo approccio si esplora una procedura di adattamento non lineare dello sp
 
 \subsubsection{Architettura e loss}
 
-\textcolor{red}{TODO:immagine architettura rete}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AlignApp1.png}
+    \caption{Architettura dell'AlignmentNetwork dell'approccio ibrido}
+    \label{fig:alignmentnetwork-architecture-hybrid}
+\end{figure}
 Alcune caratteristiche chiave dell'AlignmentNetwork includono:
 \begin{itemize}
 \item \textbf{Zero-init:} gli ultimi layer della decompressione sono inizializzati a zero in modo che la rete parta vicino a una trasformazione lineare identità, permettendo alla componente non-lineare di emergere solo se realmente utile.
@@ -194,6 +205,12 @@ e la similarità coseno è definita come:
 \subsubsection{Pipeline sperimentale}
 La pipeline sperimentale prevede innanzitutto l'addestramento di un probe (Logistic Regression) sullo spazio delle attivazioni del teacher utilizzando l'intero training set; questo classificatore rimane fisso durante la successiva fase di allineamento. Successivamente, si crea una validazione interna per l'allineamento (split 90/10 dal training set del student) e si addestra l'AlignmentNetwork per proiettare le attivazioni del student nello spazio del teacher, minimizzando la loss tra le attivazioni proiettate e quelle originali del teacher. Infine, le attivazioni di test del student vengono proiettate tramite l'AlignmentNetwork e classificate utilizzando il probe addestrato sul teacher. Gli LLM utilizzati come teacher e student sono rispettivamente Qwen2.5-7B e Falcon3-7B-Base e successivamente viceversa.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/PipeApp1.png}
+    \caption{Pipeline sperimentale dell'approccio ibrido}
+    \label{fig:hybrid-pipeline}
+\end{figure}
 
 Per il Logistic Regressor sono stati utilizzati i seguenti iperparametri:
 \begin{itemize}
@@ -231,13 +248,24 @@ Di seguito sono riportati gli iperparametri principali utilizzati per l'addestra
 Questo approccio segue il precedente per quanto riguarda la parte di allineamento tra i due LLM. La differenza risiede nel prober non-lineare (MLP) come classificatore sul teacher. L'obiettivo è verificare le performance utilizzando entrambe le componenti non-lineari seguendo la stessa pipeline sperimentale.
 
 \subsubsection{Architettura, componenti e Loss}
-\textcolor{red}{TODO:Inserire immagine architettura rete}
-\begin{itemize}
-\item \textbf{AlignmentNetwork (AdapterMLP):} Viene utilizzata la stessa architettura descritta nell'approccio precedente con la stessa loss
-\end{itemize}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AlignApp1.png}
+    \caption{Architettura dell'AlignmentNetwork dell'approccio non-lineare completo}
+    \label{fig:alignmentnetwork-architecture-full}
+    
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/MLPApp1.png}
+    \caption{Architettura del Prober MLP dell'approccio non-lineare completo}
+    \label{fig:mlp-prober-architecture-full}
+\end{figure}
 
 \begin{itemize}
+\item \textbf{AlignmentNetwork:} Viene utilizzata la stessa architettura descritta nell'approccio precedente con la stessa loss
 \item \textbf{MLP Prober:} Classificatore non-lineare per rilevamento della allucinazione: rete fully-connected con layer intermedi normalizzati (LayerNorm), attivazione GELU e dropout.
 \item \textbf{BCEWithLogitsLoss:} combina una funzione sigmoide e la Binary Cross Entropy per stabilità numerica. Dato un input (logit) $x$ e un target $y$, la perdita è definita come:
 \[
@@ -247,6 +275,13 @@ dove $\sigma(x_i) = \frac{1}{1 + e^{-x_i}}$ è la funzione sigmoide, $N$ è la d
 \end{itemize}
 \subsubsection{Pipeline sperimentale}
 La pipeline sperimentale prevede innanzitutto l'addestramento del prober MLP sullo spazio delle attivazioni del teacher, utilizzando un validation split interno per l'early stopping. Successivamente, si procede con la fase di training dell'Alignment Network, che segue la stessa procedura descritta nell'approccio precedente. Infine, le attivazioni di test del modello student vengono proiettate tramite l'Alignment Network e classificate utilizzando il prober MLP addestrato sul teacher. Gli LLM utilizzati come teacher e student sono rispettivamente Qwen2.5-7B e Falcon3-7B-Base e successivamente viceversa.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/PipeApp1.png}
+    \caption{Pipeline sperimentale dell'approccio non-lineare completo}
+    \label{fig:non-linear-complete-pipeline}    
+\end{figure}
 
 Di seguito sono riportati gli iperparametri principali utilizzati per l'addestramento dell'AlignmentNetwork e del Prober MLP:
 
@@ -304,7 +339,29 @@ Di seguito sono riportati gli iperparametri principali utilizzati per l'addestra
 Questo approccio riduce la dimensionalità delle attivazioni tramite autoencoder. Per quanto riguarda il resto viene mantenuta la stessa pipeline sperimentale dell'approccio precedente, con un accortezza: l'AlignmentNetwork ora mappa tra gli spazi latenti degli autoencoder del teacher e dello student e il prober MLP opera nello spazio latente del teacher.
 
 \subsubsection{Architettura e componenti principali}
-\textcolor{red}{TODO:Inserire immagine architettura rete}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AutoEncApp2.png}
+    \caption{Architettura dell'autoencoder dell'approccio non-lineare ridotto}
+    \label{fig:autoencoder-architecture}
+\end{figure}    
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AlignApp2.png}
+    \caption{Architettura dell'AlignmentNetwork dell'approccio non-lineare ridotto}
+    \label{fig:alignmentnetwork-architecture-reduced}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/MLPApp2.png}
+    \caption{Architettura del Prober MLP dell'approccio non-lineare ridotto}
+    \label{fig:mlp-prober-architecture-reduced}
+\end{figure}
+
+
 \begin{itemize}
 \item \textbf{Autoencoder (Teacher \& Student)}: si addestra un autoencoder sullo spazio delle attivazioni del teacher e uno sullo spazio delle attivazioni dello student. Gli encoder producono rappresentazioni latenti di dimensione comune ai due. La loss utilizzata è la Mean Squared Error (MSE):
 \item \textbf{Alignment Network (latent)}: La rete utilizzata è la stessa degli approcci precedenti con la stessa Loss
@@ -312,6 +369,13 @@ Questo approccio riduce la dimensionalità delle attivazioni tramite autoencoder
 \end{itemize}
 \subsubsection{Pipeline sperimentale}
 La pipeline prevede innanzitutto l'addestramento di un autoencoder separato sia sullo spazio delle attivazioni del teacher che su quello dello student, ottenendo così due spazi latenti distinti ($Z_T$ per il teacher e $Z_S$ per lo student). Successivamente, le attivazioni vengono codificate nei rispettivi spazi latenti. Sullo spazio latente del teacher viene addestrato un classificatore MLP, utilizzando una procedura di early stopping su un set di validazione interno. In seguito, si addestra una Alignment Network che mappa le rappresentazioni latenti dello student ($Z_S$) nello spazio latente del teacher ($Z_T$). Infine, per la valutazione, il classificatore MLP addestrato sul teacher viene utilizzato per classificare le rappresentazioni dello student dopo l'allineamento. Gli LLM utilizzati come teacher e student sono rispettivamente Qwen2.5-7B e Falcon3-7B-Base e successivamente viceversa.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/PipeApp2.png}
+    \caption{Pipeline sperimentale dell'approccio non-lineare ridotto}
+    \label{fig:non-linear-reduced-pipeline}
+\end{figure}
 
 Di seguito sono riportati gli iperparametri principali utilizzati per l'addestramento dell'Autoencoder, dell'AlignmentNetwork e del Prober MLP:
 
@@ -401,12 +465,21 @@ In questo approccio si adotta una procedura in due fasi pensata per valutare la 
 \subsubsection{Architettura e componenti principali}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/IDEA.png}
-    \caption{Architettura del prober One‑For‑All}
+    \includegraphics[width=0.7\textwidth]{images/modelsss/EncoderApp3.png}
+    \caption{Architettura encoder One-For-All}
     \label{fig:OfA-architecture}
 \end{figure}
 
-\textcolor{red}{TODO:Inserire vera immagine architettura rete,questo è un esempio generato con AI per far comprendere l'idea}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/modelsss/MLPApp3.png}
+    \caption{Architettura Classification Head One-For-All}
+    \label{fig:OfA-head-architecture}
+\end{figure}
+
+
+
+
 \begin{itemize}
 \item \textbf{Encoder:} rete feed‑forward a più blocchi che mappa lo spazio di input in uno spazio latente di dimensione ridotta
 \item \textbf{Classification Head:} modulo compatto che prende in input il vettore latente e restituisce un logit binario. Implementato come una piccola MLP. 
@@ -414,6 +487,12 @@ In questo approccio si adotta una procedura in due fasi pensata per valutare la 
 \subsubsection{Pipeline sperimentale}
 La pipeline sperimentale prevede innanzitutto l'addestramento congiunto dell'encoder e della head di classificazione sullo spazio delle attivazioni del modello teacher. Una volta completato l'addestramento, la head viene congelata per mantenere invariata la funzione decisionale. Successivamente, si procede con l'addestramento di un nuovo encoder sullo spazio delle attivazioni del modello student, collegando direttamente l'encoder alla head congelata del teacher: la funzione di perdita viene calcolata sui logit prodotti dalla head. Infine, la valutazione consiste nell'analizzare le prestazioni del sistema composto dall'encoder dello student e dalla head del teacher sulle attivazioni di test del modello student. Gli LLM utilizzati come teacher e student sono rispettivamente Qwen2.5-7B e Falcon3-7B-Base e successivamente viceversa.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/modelsss/PipeApp3.png}
+    \caption{Pipeline sperimentale One-For-All}
+    \label{fig:OfA-pipeline}
+\end{figure}
 Di seguito sono riportati gli iperparametri principali utilizzati per l'addestramento degli Encoder e della Classification Head:
 
 

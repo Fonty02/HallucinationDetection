@@ -28,7 +28,7 @@
 \@writefile{toc}{\contentsline {paragraph}{Struttura del Dataset Originale}{11}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Pre-elaborazione e Implementazione}{12}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Creazione dataset di attivazioni}{12}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}Large Language Models utilizzati}{13}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}LLM utilizzati}{13}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Qwen2.5-7B}{13}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Falcon3-7B-Base}{13}{}\protected@file@percent }
 \citation{HallOpenAI}
@@ -49,80 +49,104 @@
 \newlabel{tab:layer-config}{{3.2}{17}{}{table.3.2}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3.4}Metodologie per la costruzione del prober universale}{17}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}Baseline}{17}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{17}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{18}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Pipeline sperimentale della baseline}}{18}{}\protected@file@percent }
+\newlabel{fig:linear-pipeline}{{3.5}{18}{}{figure.3.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Approccio Ibrido}{18}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Architettura e loss}{18}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{19}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces I valori degli iperparametri dell'AlignmentNetwork si applicano a tutte le combinazioni di Teacher, Student e Layer Type.}}{19}{}\protected@file@percent }
-\newlabel{tab:hyperparameters-common}{{3.3}{19}{}{table.3.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.3}Approccio non-lineare Completo}{19}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Architettura, componenti e Loss}{20}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Architettura e loss}{19}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces Architettura dell'AlignmentNetwork dell'approccio ibrido}}{19}{}\protected@file@percent }
+\newlabel{fig:alignmentnetwork-architecture-hybrid}{{3.6}{19}{}{figure.3.6}{}}
 \@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{20}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.4}{\ignorespaces I valori degli iperparametri dell'AlignmentNetwork si applicano a tutte le combinazioni di Teacher, Student e Layer Type.}}{21}{}\protected@file@percent }
-\newlabel{tab:hyperparams-align-loss-clean}{{3.4}{21}{}{table.3.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.5}{\ignorespaces I valori degli iperparametri dell' MLP si applicano a tutte le combinazioni di Teacher, Student e Layer Type.}}{21}{}\protected@file@percent }
-\newlabel{tab:hyperparams-prober-clean}{{3.5}{21}{}{table.3.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.4}Approccio non-lineare ridotto}{21}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Architettura e componenti principali}{22}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{22}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.6}{\ignorespaces I valori degli iperparametri dell'AutoEncoder si applicano a tutte le combinazioni di Teacher, Student e Layer Type.}}{23}{}\protected@file@percent }
-\newlabel{tab:hyperparams-autoencoder-clean}{{3.6}{23}{}{table.3.6}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.7}{\ignorespaces I valori degli iperparametri dell'AlignmentNetwork si applicano a tutte le combinazioni di Teacher, Student e Layer Type.}}{23}{}\protected@file@percent }
-\newlabel{tab:hyperparams-alignment-clean}{{3.7}{23}{}{table.3.7}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.8}{\ignorespaces I valori degli iperparametri dell' MLP si applicano a tutte le combinazioni di Teacher, Student e Layer Type.}}{24}{}\protected@file@percent }
-\newlabel{tab:hyperparams-prober-clean}{{3.8}{24}{}{table.3.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.5}Approccio One‑For‑All}{24}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Architettura e componenti principali}{24}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Architettura del prober One‑For‑All}}{24}{}\protected@file@percent }
-\newlabel{fig:OfA-architecture}{{3.5}{24}{}{figure.3.5}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{25}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.9}{\ignorespaces Iperparametri dell'Encoder. I valori si applicano a tutte le configurazioni di Teacher, Student e Layer Type.}}{25}{}\protected@file@percent }
-\newlabel{tab:hyperparams-OfA-encoder-clean}{{3.9}{25}{}{table.3.9}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.10}{\ignorespaces Iperparametri della Classification Head. I valori si applicano a tutte le configurazioni di Teacher, Student e Layer Type.}}{26}{}\protected@file@percent }
-\newlabel{tab:hyperparams-OfA-head-clean}{{3.10}{26}{}{table.3.10}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Risultati}{27}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces Pipeline sperimentale dell'approccio ibrido}}{20}{}\protected@file@percent }
+\newlabel{fig:hybrid-pipeline}{{3.7}{20}{}{figure.3.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces I valori degli iperparametri dell'AlignmentNetwork si applicano a tutte le combinazioni di Teacher, Student e Layer Type.}}{21}{}\protected@file@percent }
+\newlabel{tab:hyperparameters-common}{{3.3}{21}{}{table.3.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.3}Approccio non-lineare Completo}{21}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Architettura, componenti e Loss}{22}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces Architettura dell'AlignmentNetwork dell'approccio non-lineare completo}}{22}{}\protected@file@percent }
+\newlabel{fig:alignmentnetwork-architecture-full}{{3.8}{22}{}{figure.3.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces Architettura del Prober MLP dell'approccio non-lineare completo}}{22}{}\protected@file@percent }
+\newlabel{fig:mlp-prober-architecture-full}{{3.9}{22}{}{figure.3.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{23}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces Pipeline sperimentale dell'approccio non-lineare completo}}{23}{}\protected@file@percent }
+\newlabel{fig:non-linear-complete-pipeline}{{3.10}{23}{}{figure.3.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.4}{\ignorespaces I valori degli iperparametri dell'AlignmentNetwork si applicano a tutte le combinazioni di Teacher, Student e Layer Type.}}{24}{}\protected@file@percent }
+\newlabel{tab:hyperparams-align-loss-clean}{{3.4}{24}{}{table.3.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.5}{\ignorespaces I valori degli iperparametri dell' MLP si applicano a tutte le combinazioni di Teacher, Student e Layer Type.}}{24}{}\protected@file@percent }
+\newlabel{tab:hyperparams-prober-clean}{{3.5}{24}{}{table.3.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.4}Approccio non-lineare ridotto}{24}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Architettura e componenti principali}{25}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.11}{\ignorespaces Architettura dell'autoencoder dell'approccio non-lineare ridotto}}{25}{}\protected@file@percent }
+\newlabel{fig:autoencoder-architecture}{{3.11}{25}{}{figure.3.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.12}{\ignorespaces Architettura dell'AlignmentNetwork dell'approccio non-lineare ridotto}}{25}{}\protected@file@percent }
+\newlabel{fig:alignmentnetwork-architecture-reduced}{{3.12}{25}{}{figure.3.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.13}{\ignorespaces Architettura del Prober MLP dell'approccio non-lineare ridotto}}{26}{}\protected@file@percent }
+\newlabel{fig:mlp-prober-architecture-reduced}{{3.13}{26}{}{figure.3.13}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{26}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.14}{\ignorespaces Pipeline sperimentale dell'approccio non-lineare ridotto}}{27}{}\protected@file@percent }
+\newlabel{fig:non-linear-reduced-pipeline}{{3.14}{27}{}{figure.3.14}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.6}{\ignorespaces I valori degli iperparametri dell'AutoEncoder si applicano a tutte le combinazioni di Teacher, Student e Layer Type.}}{27}{}\protected@file@percent }
+\newlabel{tab:hyperparams-autoencoder-clean}{{3.6}{27}{}{table.3.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.7}{\ignorespaces I valori degli iperparametri dell'AlignmentNetwork si applicano a tutte le combinazioni di Teacher, Student e Layer Type.}}{28}{}\protected@file@percent }
+\newlabel{tab:hyperparams-alignment-clean}{{3.7}{28}{}{table.3.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.8}{\ignorespaces I valori degli iperparametri dell' MLP si applicano a tutte le combinazioni di Teacher, Student e Layer Type.}}{28}{}\protected@file@percent }
+\newlabel{tab:hyperparams-prober-clean}{{3.8}{28}{}{table.3.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.5}Approccio One‑For‑All}{28}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Architettura e componenti principali}{29}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.15}{\ignorespaces Architettura encoder One-For-All}}{29}{}\protected@file@percent }
+\newlabel{fig:OfA-architecture}{{3.15}{29}{}{figure.3.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.16}{\ignorespaces Architettura Classification Head One-For-All}}{29}{}\protected@file@percent }
+\newlabel{fig:OfA-head-architecture}{{3.16}{29}{}{figure.3.16}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{29}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.17}{\ignorespaces Pipeline sperimentale One-For-All}}{30}{}\protected@file@percent }
+\newlabel{fig:OfA-pipeline}{{3.17}{30}{}{figure.3.17}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.9}{\ignorespaces Iperparametri dell'Encoder. I valori si applicano a tutte le configurazioni di Teacher, Student e Layer Type.}}{30}{}\protected@file@percent }
+\newlabel{tab:hyperparams-OfA-encoder-clean}{{3.9}{30}{}{table.3.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.10}{\ignorespaces Iperparametri della Classification Head. I valori si applicano a tutte le configurazioni di Teacher, Student e Layer Type.}}{31}{}\protected@file@percent }
+\newlabel{tab:hyperparams-OfA-head-clean}{{3.10}{31}{}{table.3.10}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Risultati}{33}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Baseline}{27}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Risultati Baseline}}{27}{}\protected@file@percent }
-\newlabel{tab:results-linear}{{4.1}{27}{}{table.4.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Approccio Ibrido}{28}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Risultati Approccio Ibrido}}{28}{}\protected@file@percent }
-\newlabel{tab:results-hybrid}{{4.2}{28}{}{table.4.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Approccio non-lineare completo}{28}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Risultati Approccio non-lineare completo}}{28}{}\protected@file@percent }
-\newlabel{tab:results-alignment-mlp}{{4.3}{28}{}{table.4.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}Approccio non-lineare ridotto}{28}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces Risultati Approccio non-lineare ridotto}}{28}{}\protected@file@percent }
-\newlabel{tab:results-autoencoder}{{4.4}{28}{}{table.4.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.5}Approccio One-For-All}{29}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Risultati Approccio One-For-All}}{29}{}\protected@file@percent }
-\newlabel{tab:results-one-for-all}{{4.5}{29}{}{table.4.5}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Discussione}{31}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Baseline}{33}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Risultati Baseline}}{33}{}\protected@file@percent }
+\newlabel{tab:results-linear}{{4.1}{33}{}{table.4.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Approccio Ibrido}{34}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Risultati Approccio Ibrido}}{34}{}\protected@file@percent }
+\newlabel{tab:results-hybrid}{{4.2}{34}{}{table.4.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Approccio non-lineare completo}{34}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Risultati Approccio non-lineare completo}}{34}{}\protected@file@percent }
+\newlabel{tab:results-alignment-mlp}{{4.3}{34}{}{table.4.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Approccio non-lineare ridotto}{34}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces Risultati Approccio non-lineare ridotto}}{34}{}\protected@file@percent }
+\newlabel{tab:results-autoencoder}{{4.4}{34}{}{table.4.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.5}Approccio One-For-All}{35}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Risultati Approccio One-For-All}}{35}{}\protected@file@percent }
+\newlabel{tab:results-one-for-all}{{4.5}{35}{}{table.4.5}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Discussione}{37}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \bibstyle{plainnat}
 \bibdata{main}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusioni}{33}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusioni}{39}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Sintesi dei Risultati}{33}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Lavori Futuri}{33}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Sintesi dei Risultati}{39}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Lavori Futuri}{39}{}\protected@file@percent }
 \bibcite{HallOpenAI}{{1}{2025}{{Kalai et~al.}}{{Kalai, Nachum, Vempala, and Zhang}}}
-\@writefile{toc}{\contentsline {chapter}{Appendices}{37}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Attivazioni dei Modelli}{39}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Appendices}{43}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Attivazioni dei Modelli}{45}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces PCA delle attivazioni Attention del layer di Qwen2.5-7B}}{40}{}\protected@file@percent }
-\newlabel{fig:qwen-pca-attn}{{A.1}{40}{}{figure.1.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.2}{\ignorespaces PCA delle attivazioni Hidden del layer di Qwen2.5-7B}}{41}{}\protected@file@percent }
-\newlabel{fig:qwen-pca-hidden}{{A.2}{41}{}{figure.1.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.3}{\ignorespaces PCA delle attivazioni MLP del layer di Qwen2.5-7B}}{42}{}\protected@file@percent }
-\newlabel{fig:qwen-pca-mlp}{{A.3}{42}{}{figure.1.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.4}{\ignorespaces PCA delle attivazioni Attention del layer di Falcon3-7B-Base}}{43}{}\protected@file@percent }
-\newlabel{fig:falcon-pca-attn}{{A.4}{43}{}{figure.1.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.5}{\ignorespaces PCA delle attivazioni Hidden del layer di Falcon3-7B-Base}}{44}{}\protected@file@percent }
-\newlabel{fig:falcon-pca-hidden}{{A.5}{44}{}{figure.1.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.6}{\ignorespaces PCA delle attivazioni MLP del layer di Falcon3-7B-Base}}{45}{}\protected@file@percent }
-\newlabel{fig:falcon-pca-mlp}{{A.6}{45}{}{figure.1.6}{}}
-\gdef \@abspage@last{55}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces PCA delle attivazioni Attention del layer di Qwen2.5-7B}}{46}{}\protected@file@percent }
+\newlabel{fig:qwen-pca-attn}{{A.1}{46}{}{figure.1.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.2}{\ignorespaces PCA delle attivazioni Hidden del layer di Qwen2.5-7B}}{47}{}\protected@file@percent }
+\newlabel{fig:qwen-pca-hidden}{{A.2}{47}{}{figure.1.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.3}{\ignorespaces PCA delle attivazioni MLP del layer di Qwen2.5-7B}}{48}{}\protected@file@percent }
+\newlabel{fig:qwen-pca-mlp}{{A.3}{48}{}{figure.1.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.4}{\ignorespaces PCA delle attivazioni Attention del layer di Falcon3-7B-Base}}{49}{}\protected@file@percent }
+\newlabel{fig:falcon-pca-attn}{{A.4}{49}{}{figure.1.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.5}{\ignorespaces PCA delle attivazioni Hidden del layer di Falcon3-7B-Base}}{50}{}\protected@file@percent }
+\newlabel{fig:falcon-pca-hidden}{{A.5}{50}{}{figure.1.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.6}{\ignorespaces PCA delle attivazioni MLP del layer di Falcon3-7B-Base}}{51}{}\protected@file@percent }
+\newlabel{fig:falcon-pca-mlp}{{A.6}{51}{}{figure.1.6}{}}
+\gdef \@abspage@last{61}

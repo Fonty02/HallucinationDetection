@@ -1,0 +1,36 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.2.2">
+  <diagram name="Hybrid Pipeline" id="zeeAg-Hosma4uyt9ASPV">
+    <mxGraphModel dx="1426" dy="777" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="BpgtsWqKG1eo1fKZ3yIM-16" parent="1" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#fbc02d;startSize=20;rounded=1;" value="PHASE 1: Teacher Probe" vertex="1">
+          <mxGeometry height="200" width="220" x="60" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="BpgtsWqKG1eo1fKZ3yIM-17" parent="BpgtsWqKG1eo1fKZ3yIM-16" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#fbc02d;fontStyle=1" value="Logistic Regression&lt;br&gt;(Training)" vertex="1">
+          <mxGeometry height="50" width="140" x="40" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BpgtsWqKG1eo1fKZ3yIM-18" parent="BpgtsWqKG1eo1fKZ3yIM-16" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontStyle=1;dashed=1" value="Teacher Probe&lt;br&gt;(Frozen)" vertex="1">
+          <mxGeometry height="40" width="140" x="40" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="BpgtsWqKG1eo1fKZ3yIM-19" edge="1" parent="BpgtsWqKG1eo1fKZ3yIM-16" source="BpgtsWqKG1eo1fKZ3yIM-17" target="BpgtsWqKG1eo1fKZ3yIM-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="BpgtsWqKG1eo1fKZ3yIM-21" parent="1" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#7b1fa2;startSize=20;rounded=1;" value="PHASE 2: Alignment Training" vertex="1">
+          <mxGeometry height="200" width="180" x="300" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="BpgtsWqKG1eo1fKZ3yIM-46" parent="BpgtsWqKG1eo1fKZ3yIM-21" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-weight: 700;&quot;&gt;Ridge Regression&lt;/span&gt;&lt;br style=&quot;font-weight: 700;&quot;&gt;&lt;span style=&quot;font-weight: 700;&quot;&gt;(Training)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="30" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="BpgtsWqKG1eo1fKZ3yIM-47" parent="BpgtsWqKG1eo1fKZ3yIM-21" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontStyle=1;dashed=1" value="Aligner&lt;br&gt;(Frozen)" vertex="1">
+          <mxGeometry height="40" width="140" x="20" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="BpgtsWqKG1eo1fKZ3yIM-48" edge="1" parent="BpgtsWqKG1eo1fKZ3yIM-21" target="BpgtsWqKG1eo1fKZ3yIM-47">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="90" y="110" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
