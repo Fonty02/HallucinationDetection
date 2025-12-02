@@ -1,9 +1,11 @@
 \relax 
+\citation{GPT3}
 \@writefile{toc}{\contentsline {chapter}{\numberline {1}Introduzione}{1}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {1.1}Scopi e Obiettivi}{1}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {1.2}Panoramica del documento}{2}{}\protected@file@percent }
+\citation{AttentionIsAllYouNeed}
 \@writefile{toc}{\contentsline {chapter}{\numberline {2}Background}{5}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -13,13 +15,25 @@
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:Transformer Architecture}{{2.1}{6}{}{figure.2.1}{}}
 \@writefile{toc}{\contentsline {subsubsection}{Encoder}{6}{}\protected@file@percent }
+\citation{AttentionIsAllYouNeed}
 \@writefile{toc}{\contentsline {subsubsection}{Decoder}{7}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1.2}Meccanismo di Self-Attention}{7}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Rappresentazione del meccanismo di Self-Attention}}{7}{}\protected@file@percent }
 \newlabel{fig:Self Attention Mechanism}{{2.2}{7}{}{figure.2.2}{}}
+\citation{ScalingLaws}
+\citation{surveyHallucination}
 \@writefile{toc}{\contentsline {section}{\numberline {2.2}Large Language Models (LLM)}{8}{}\protected@file@percent }
+\citation{AllucType}
+\citation{sycophancyLLM}
+\citation{Geometry}
 \@writefile{toc}{\contentsline {section}{\numberline {2.3}Allucinazioni nei LLM}{9}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2.4}Probing}{9}{}\protected@file@percent }
+\citation{CPP}
+\citation{MDL}
+\citation{structuralProbe}
+\citation{BeliefBank}
+\citation{ConceptNet}
+\citation{WordNet}
 \@writefile{toc}{\contentsline {chapter}{\numberline {3}Methodology}{11}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -28,6 +42,8 @@
 \@writefile{toc}{\contentsline {paragraph}{Struttura del Dataset Originale}{11}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Pre-elaborazione e Implementazione}{12}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Creazione dataset di attivazioni}{12}{}\protected@file@percent }
+\citation{GQA}
+\citation{RoPE}
 \@writefile{toc}{\contentsline {section}{\numberline {3.2}LLM utilizzati}{13}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Qwen2.5-7B}{13}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Falcon3-7B-Base}{13}{}\protected@file@percent }
@@ -41,17 +57,17 @@
 \newlabel{fig:qwen-layer-performance}{{3.1}{15}{}{figure.3.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Performance dei componenti di Qwen2.5-7B su Belief Bank}}{15}{}\protected@file@percent }
 \newlabel{fig:qwen-layer-performance}{{3.2}{15}{}{figure.3.2}{}}
-\newlabel{fig:qwen-pca-attn}{{\caption@xref {fig:qwen-pca-attn}{ on input line 120}}{16}{}{figure.3.2}{}}
+\newlabel{fig:qwen-pca-attn}{{\caption@xref {fig:qwen-pca-attn}{ on input line 119}}{16}{}{figure.3.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces PCA delle attivazioni Attention del layer 12 di Falcon3-7B-Base}}{16}{}\protected@file@percent }
-\newlabel{fig:qwen-pca-attn}{{\caption@xref {fig:qwen-pca-attn}{ on input line 127}}{16}{}{figure.3.3}{}}
+\newlabel{fig:qwen-pca-attn}{{\caption@xref {fig:qwen-pca-attn}{ on input line 126}}{16}{}{figure.3.3}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces PCA delle attivazioni Hidden del layer 18 di Qwen2.5-7B}}{16}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces Configurazione dei layer selezionati per modello e componente}}{17}{}\protected@file@percent }
-\newlabel{tab:layer-config}{{3.2}{17}{}{table.3.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces Configurazione dei layer selezionati per modello e componente}}{16}{}\protected@file@percent }
+\newlabel{tab:layer-config}{{3.2}{16}{}{table.3.2}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3.4}Metodologie per la costruzione del prober universale}{17}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}Baseline}{17}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{18}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Pipeline sperimentale della baseline}}{18}{}\protected@file@percent }
-\newlabel{fig:linear-pipeline}{{3.5}{18}{}{figure.3.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{17}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Pipeline sperimentale della baseline}}{17}{}\protected@file@percent }
+\newlabel{fig:linear-pipeline}{{3.5}{17}{}{figure.3.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Approccio Ibrido}{18}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Architettura e loss}{19}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces Architettura dell'AlignmentNetwork dell'approccio ibrido}}{19}{}\protected@file@percent }
@@ -132,7 +148,21 @@
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {6.1}Sintesi dei Risultati}{39}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {6.2}Lavori Futuri}{39}{}\protected@file@percent }
-\bibcite{HallOpenAI}{{1}{2025}{{Kalai et~al.}}{{Kalai, Nachum, Vempala, and Zhang}}}
+\bibcite{GQA}{{1}{2023}{{Ainslie et~al.}}{{Ainslie, Lee-Thorp, De~Jong, Zemlyanskiy, Lebr{\'o}n, and Sanghai}}}
+\bibcite{GPT3}{{2}{2020}{{Brown et~al.}}{{Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal, Neelakantan, Shyam, Sastry, Askell, et~al.}}}
+\bibcite{structuralProbe}{{3}{2019}{{Hewitt and Manning}}{{}}}
+\bibcite{surveyHallucination}{{4}{2025}{{Huang et~al.}}{{Huang, Yu, Ma, Zhong, Feng, Wang, Chen, Peng, Feng, Qin, et~al.}}}
+\bibcite{HallOpenAI}{{5}{2025}{{Kalai et~al.}}{{Kalai, Nachum, Vempala, and Zhang}}}
+\bibcite{ScalingLaws}{{6}{2020}{{Kaplan et~al.}}{{Kaplan, McCandlish, Henighan, Brown, Chess, Child, Gray, Radford, Wu, and Amodei}}}
+\bibcite{BeliefBank}{{7}{2021}{{Kassner et~al.}}{{Kassner, Tafjord, Sch{\"u}tze, and Clark}}}
+\bibcite{AllucType}{{8}{2025}{{Kazlaris et~al.}}{{Kazlaris, Antoniou, Diamantaras, and Bratsas}}}
+\bibcite{Geometry}{{9}{2023}{{Marks and Tegmark}}{{}}}
+\bibcite{WordNet}{{10}{1995}{{Miller}}{{}}}
+\bibcite{sycophancyLLM}{{11}{2023}{{Sharma et~al.}}{{Sharma, Tong, Korbak, Duvenaud, Askell, Bowman, Cheng, Durmus, Hatfield-Dodds, Johnston, et~al.}}}
+\bibcite{ConceptNet}{{12}{2017}{{Speer et~al.}}{{Speer, Chin, and Havasi}}}
+\bibcite{RoPE}{{13}{2024}{{Su et~al.}}{{Su, Ahmed, Lu, Pan, Bo, and Liu}}}
+\bibcite{AttentionIsAllYouNeed}{{14}{2017}{{Vaswani et~al.}}{{Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin}}}
+\bibcite{MDL}{{15}{2020}{{Voita and Titov}}{{}}}
 \@writefile{toc}{\contentsline {chapter}{Appendices}{43}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {A}Attivazioni dei Modelli}{45}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}

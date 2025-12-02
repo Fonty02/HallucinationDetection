@@ -14,3 +14,181 @@
   journal={arXiv preprint arXiv:2509.04664},
   year={2025}
 }
+
+@article{AttentionIsAllYouNeed,
+  title={Attention is all you need},
+  author={Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N and Kaiser, {\L}ukasz and Polosukhin, Illia},
+  journal={Advances in neural information processing systems},
+  volume={30},
+  year={2017}
+}
+
+
+@article{ScalingLaws,
+  title={Scaling laws for neural language models},
+  author={Kaplan, Jared and McCandlish, Sam and Henighan, Tom and Brown, Tom B and Chess, Benjamin and Child, Rewon and Gray, Scott and Radford, Alec and Wu, Jeffrey and Amodei, Dario},
+  journal={arXiv preprint arXiv:2001.08361},
+  year={2020}
+}
+
+
+@article{surveyHallucination,
+  title={A survey on hallucination in large language models: Principles, taxonomy, challenges, and open questions},
+  author={Huang, Lei and Yu, Weijiang and Ma, Weitao and Zhong, Weihong and Feng, Zhangyin and Wang, Haotian and Chen, Qianglong and Peng, Weihua and Feng, Xiaocheng and Qin, Bing and others},
+  journal={ACM Transactions on Information Systems},
+  volume={43},
+  number={2},
+  pages={1--55},
+  year={2025},
+  publisher={ACM New York, NY}
+}
+
+
+@Article{AllucType,
+AUTHOR = {Kazlaris, Ioannis and Antoniou, Efstathios and Diamantaras, Konstantinos and Bratsas, Charalampos},
+TITLE = {From Illusion to Insight: A Taxonomic Survey of Hallucination Mitigation Techniques in LLMs},
+JOURNAL = {AI},
+VOLUME = {6},
+YEAR = {2025},
+NUMBER = {10},
+ARTICLE-NUMBER = {260},
+URL = {https://www.mdpi.com/2673-2688/6/10/260},
+ISSN = {2673-2688},
+ABSTRACT = {Large Language Models (LLMs) exhibit remarkable generative capabilities but remain vulnerable to hallucinations—outputs that are fluent yet inaccurate, ungrounded, or inconsistent with source material. To address the lack of methodologically grounded surveys, this paper introduces a novel method-oriented taxonomy of hallucination mitigation strategies in text-based LLMs. The taxonomy organizes over 300 studies into six principled categories: Training and Learning Approaches, Architectural Modifications, Input/Prompt Optimization, Post-Generation Quality Control, Interpretability and Diagnostic Methods, and Agent-Based Orchestration. Beyond mapping the field, we identify persistent challenges such as the absence of standardized evaluation benchmarks, attribution difficulties in multi-method systems, and the fragility of retrieval-based methods when sources are noisy or outdated. We also highlight emerging directions, including knowledge-grounded fine-tuning and hybrid retrieval–generation pipelines integrated with self-reflective reasoning agents. This taxonomy provides a methodological framework for advancing reliable, context-sensitive LLM deployment in high-stakes domains such as healthcare, law, and defense.},
+DOI = {10.3390/ai6100260}
+}
+
+
+@article{sycophancyLLM,
+  title={Towards understanding sycophancy in language models},
+  author={Sharma, Mrinank and Tong, Meg and Korbak, Tomasz and Duvenaud, David and Askell, Amanda and Bowman, Samuel R and Cheng, Newton and Durmus, Esin and Hatfield-Dodds, Zac and Johnston, Scott R and others},
+  journal={arXiv preprint arXiv:2310.13548},
+  year={2023}
+}
+
+
+
+@inproceedings{BeliefBank,
+    title = "{B}elief{B}ank: Adding Memory to a Pre-Trained Language Model for a Systematic Notion of Belief",
+    author = {Kassner, Nora  and
+      Tafjord, Oyvind  and
+      Sch{\"u}tze, Hinrich  and
+      Clark, Peter},
+    editor = "Moens, Marie-Francine  and
+      Huang, Xuanjing  and
+      Specia, Lucia  and
+      Yih, Scott Wen-tau",
+    booktitle = "Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing",
+    month = nov,
+    year = "2021",
+    address = "Online and Punta Cana, Dominican Republic",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2021.emnlp-main.697/",
+    doi = "10.18653/v1/2021.emnlp-main.697",
+    pages = "8849--8861",
+    abstract = "Although pretrained language models (PTLMs) contain significant amounts of world knowledge, they can still produce inconsistent answers to questions when probed, even after specialized training. As a result, it can be hard to identify what the model actually ``believes'' about the world, making it susceptible to inconsistent behavior and simple errors. Our goal is to reduce these problems. Our approach is to embed a PTLM in a broader system that also includes an evolving, symbolic memory of beliefs {--} a BeliefBank {--} that records but then may modify the raw PTLM answers. We describe two mechanisms to improve belief consistency in the overall system. First, a reasoning component {--} a weighted MaxSAT solver {--} revises beliefs that significantly clash with others. Second, a feedback component issues future queries to the PTLM using known beliefs as context. We show that, in a controlled experimental setting, these two mechanisms result in more consistent beliefs in the overall system, improving both the accuracy and consistency of its answers over time. This is significant as it is a first step towards PTLM-based architectures with a systematic notion of belief, enabling them to construct a more coherent picture of the world, and improve over time without model retraining."
+}
+
+
+@article{WordNet,
+author = {Miller, George A.},
+title = {WordNet: a lexical database for English},
+year = {1995},
+issue_date = {Nov. 1995},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {38},
+number = {11},
+issn = {0001-0782},
+url = {https://doi.org/10.1145/219717.219748},
+doi = {10.1145/219717.219748},
+abstract = {Because meaningful sentences are composed of meaningful words, any system that hopes to process natural languages as people do must have information about words and their meanings. This information is traditionally provided through dictionaries, and machine-readable dictionaries are now widely available. But dictionary entries evolved for the convenience of human readers, not for machines. WordNet1 provides a more effective combination of traditional lexicographic information and modern computing. WordNet is an online lexical database designed for use under program control. English nouns, verbs, adjectives, and adverbs are organized into sets of synonyms, each representing a lexicalized concept. Semantic relations link the synonym sets [4].},
+journal = {Commun. ACM},
+month = nov,
+pages = {39–41},
+numpages = {3}
+}
+
+
+
+@inproceedings{ConceptNet,
+  author       = {Robyn Speer and
+                  Joshua Chin and
+                  Catherine Havasi},
+  editor       = {Satinder Singh and
+                  Shaul Markovitch},
+  title        = {ConceptNet 5.5: An Open Multilingual Graph of General Knowledge},
+  booktitle    = {Proceedings of the Thirty-First {AAAI} Conference on Artificial Intelligence,
+                  February 4-9, 2017, San Francisco, California, {USA}},
+  pages        = {4444--4451},
+  publisher    = {{AAAI} Press},
+  year         = {2017},
+  url          = {https://doi.org/10.1609/aaai.v31i1.11164},
+  doi          = {10.1609/AAAI.V31I1.11164},
+  timestamp    = {Sat, 21 Oct 2023 10:46:16 +0200},
+  biburl       = {https://dblp.org/rec/conf/aaai/SpeerCH17.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+
+
+@article{GQA,
+  title={Gqa: Training generalized multi-query transformer models from multi-head checkpoints},
+  author={Ainslie, Joshua and Lee-Thorp, James and De Jong, Michiel and Zemlyanskiy, Yury and Lebr{\'o}n, Federico and Sanghai, Sumit},
+  journal={arXiv preprint arXiv:2305.13245},
+  year={2023}
+}
+
+@article{RoPE,
+title = {RoFormer: Enhanced transformer with Rotary Position Embedding},
+journal = {Neurocomputing},
+volume = {568},
+pages = {127063},
+year = {2024},
+issn = {0925-2312},
+doi = {https://doi.org/10.1016/j.neucom.2023.127063},
+url = {https://www.sciencedirect.com/science/article/pii/S0925231223011864},
+author = {Jianlin Su and Murtadha Ahmed and Yu Lu and Shengfeng Pan and Wen Bo and Yunfeng Liu},
+keywords = {Pre-trained language models, Position information encoding, Pre-training, Natural language processing},
+abstract = {Position encoding has recently been shown to be effective in transformer architecture. It enables valuable supervision for dependency modeling between elements at different positions of the sequence. In this paper, we first investigate various methods to integrate positional information into the learning process of transformer-based language models. Then, we propose a novel method named Rotary Position Embedding (RoPE) to effectively leverage the positional information. Specifically, the proposed RoPE encodes the absolute position with a rotation matrix and meanwhile incorporates the explicit relative position dependency in the self-attention formulation. Notably, RoPE enables valuable properties, including the flexibility of sequence length, decaying inter-token dependency with increasing relative distances, and the capability of equipping linear self-attention with relative position encoding. Finally, we evaluate the enhanced transformer with rotary position embedding, also called RoFormer, on various long text classification benchmark datasets. Our experiments show that it consistently overcomes its alternatives. Furthermore, we provide a theoretical analysis to explain some experimental results. RoFormer is already integrated into Huggingface: https://huggingface.co/docs/transformers/model_doc/roformer.}
+}
+
+
+@article{Geometry,
+  title={The geometry of truth: Emergent linear structure in large language model representations of true/false datasets},
+  author={Marks, Samuel and Tegmark, Max},
+  journal={arXiv preprint arXiv:2310.06824},
+  year={2023}
+}
+
+@article{CCP,
+  title={Fact-checking the output of large language models via token-level uncertainty quantification},
+  author={Fadeeva, Ekaterina and Rubashevskii, Aleksandr and Shelmanov, Artem and Petrakov, Sergey and Li, Haonan and Mubarak, Hamdy and Tsymbalov, Evgenii and Kuzmin, Gleb and Panchenko, Alexander and Baldwin, Timothy and others},
+  journal={arXiv preprint arXiv:2403.04696},
+  year={2024}
+}
+
+@article{MDL,
+  title={Information-theoretic probing with minimum description length},
+  author={Voita, Elena and Titov, Ivan},
+  journal={arXiv preprint arXiv:2003.12298},
+  year={2020}
+}
+
+
+@inproceedings{structuralProbe,
+    title = "{A} Structural Probe for Finding Syntax in Word Representations",
+    author = "Hewitt, John  and
+      Manning, Christopher D.",
+    editor = "Burstein, Jill  and
+      Doran, Christy  and
+      Solorio, Thamar",
+    booktitle = "Proceedings of the 2019 Conference of the North {A}merican Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)",
+    month = jun,
+    year = "2019",
+    address = "Minneapolis, Minnesota",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/N19-1419/",
+    doi = "10.18653/v1/N19-1419",
+    pages = "4129--4138",
+    abstract = "Recent work has improved our ability to detect linguistic knowledge in word representations. However, current methods for detecting syntactic knowledge do not test whether syntax trees are represented in their entirety. In this work, we propose a structural probe, which evaluates whether syntax trees are embedded in a linear transformation of a neural network{'}s word representation space. The probe identifies a linear transformation under which squared L2 distance encodes the distance between words in the parse tree, and one in which squared L2 norm encodes depth in the parse tree. Using our probe, we show that such transformations exist for both ELMo and BERT but not in baselines, providing evidence that entire syntax trees are embedded implicitly in deep models' vector geometry."
+}
