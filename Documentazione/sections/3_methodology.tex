@@ -1,21 +1,21 @@
 \chapter{Methodology}
 
 
-In questo capitolo viene esplorata la metodologia di lavoro adottata per lo sviluppo del progetto. Per la costruzione del prober universale è stato fatto uso del dataset ``Belief Bank'' \textcolor{red}{TODO:citazione}, che fornisce un insieme di affermazioni e la loro veridicità in diversi contesti. Sono stati presi in considerazione cinque diversi approcci metodologici per allineare lo spazio latente di un modello ``student'' a quello di un modello ``teacher'', dove per modello teacher si intende il modello su cui il prober viene addestrato e per modello student si intende il modello su cui il prober viene testato
+In questo capitolo viene esplorata la metodologia di lavoro adottata per lo sviluppo del progetto. Per la costruzione del prober universale è stato fatto uso del dataset Belief Bank che fornisce un insieme di affermazioni e la loro veridicità in diversi contesti. Sono stati presi in considerazione cinque diversi approcci metodologici per allineare lo spazio latente di un modello student a quello di un modello teacher, dove per modello teacher si intende il modello su cui il prober viene addestrato e per modello student si intende il modello su cui il prober viene testato
 La prima fase del lavoro ha riguardato la preparazione del dataset e l'estrazione delle attivazioni interne dei modelli Qwen2.5-7B e Falcon3-7B-Base su tutti i layer e ogni tipologia di componente di un layer (attention, MLP, hidden states). Successivamente sono stati effettuati studi preliminari per valutare la capacità di ogni singolo componente di layer di discriminare tra affermazioni vere e allucinazioni, al fine di identificare i layer e le componenti più rilevanti per la costruzione del prober universale.
 Sono state dunque calcolate alcune statistiche relative alle allucinazioni dei due modelli e tutte le attivazioni sono state preprocessate per essere utilizzate nei vari approcci metodologici.
 In una prima fase è stato usato un approccio completamente lineare come baseline, per poi esplorare metodi più complessi che includono adattamenti non lineari tramite AdapterMLP, Encoder e AutoEncoder. Ogni metodologia è stata valutata in termini di prestazioni e capacità di trasferimento tra modelli diversi. 
 
 \section{Dataset}
 
-Il lavoro si basa su \textit{BeliefBank} \textcolor{red}{TODO: cita}, un dataset strutturato progettato per analizzare la consistenza e l'accuratezza delle credenze nei modelli linguistici pre-addestrati.
+Il lavoro si basa su \textit{BeliefBank} \cite{BeliefBank}, un dataset strutturato progettato per analizzare la consistenza e l'accuratezza delle credenze nei modelli linguistici pre-addestrati.
 
 \subsection{BeliefBank}
 \paragraph{Struttura del Dataset Originale}
 Nella sua formulazione originale, BeliefBank si compone di due elementi distinti ma interconnessi:
 \begin{itemize}
-    \item \textbf{Vincoli (Constraints):} Un insieme di regole logiche formali, comprendenti implicazioni positive (es. $A \implies B$) e mutue esclusioni (es. $A \implies \neg B$). Questi vincoli sono stati estratti semi-automaticamente da knowledge base esterne quali ConceptNet e WordNet \textcolor{red}{TODO: cita}.
-    \item \textbf{Fatti (Facts):} Un corpus di asserzioni vere o false generate istanziando i vincoli su un insieme di 85 entità (animali e piante). Le etichette di verità (``silver labels'') sono state ottenute annotando manualmente i nodi foglia del grafo e propagando la verità attraverso la rete dei vincoli.
+    \item \textbf{Vincoli (Constraints):} Un insieme di regole logiche formali, comprendenti implicazioni positive (es. $A \implies B$) e mutue esclusioni (es. $A \implies \neg B$). Questi vincoli sono stati estratti semi-automaticamente da knowledge base esterne quali ConceptNet\cite{ConceptNet} e WordNet\cite{WordNet}.
+    \item \textbf{Fatti (Facts):} Un corpus di asserzioni vere o false generate istanziando i vincoli su un insieme di 85 entità (animali e piante). Le etichette di verità (silver labels) sono state ottenute annotando manualmente i nodi foglia del grafo e propagando la verità attraverso la rete dei vincoli.
 \end{itemize}
 
 \paragraph{Pre-elaborazione e Implementazione}
@@ -35,9 +35,9 @@ Il dataset comprende 27.416 affermazioni, di cui 13.708 etichettate come vere (y
 Una volta preparato il dataset di affermazioni e relative etichette di veridicità, il passo successivo è stato l'estrazione delle attivazioni interne dai modelli Qwen2.5-7B e Falcon3-7B-Base. 
 Ogni esempio è preceduto da un prompt che viene fornito al modello di linguaggio per guidarne la risposta.
 \textit{Answer the following question with just the essential information, without explanations}
-Quindi il modello di linguaggio riceve in input il prompt seguito dalla domanda e deve rispondere con ``yes'' o ``no''.
+Quindi il modello di linguaggio riceve in input il prompt seguito dalla domanda e deve rispondere con yes o no.
 Per ogni affermazione nel dataset, sono state registrate le attivazioni corrispondenti a tutti i layer e componenti (attention, MLP, hidden states) dei modelli. Queste attivazioni costituiscono la base dati su cui sono stati addestrati i vari prober per il rilevamento delle allucinazioni. Per verificare se il modello risponde correttamente o allucina è stata usata una semplice logica di matching tra la risposta generata e l'etichetta di veridicità associata all'affermazione nel dataset:
-se la risposta reale (``yes'' o ``no'') è una substring (cioè è contenuta) nella risposta generata dal modello, allora l'affermazione è considerata vera (non allucinazione); altrimenti è considerata falsa (allucinazione).
+se la risposta reale (yes o no) è una substring (cioè è contenuta) nella risposta generata dal modello, allora l'affermazione è considerata vera (non allucinazione); altrimenti è considerata falsa (allucinazione).
 
 
 \section{LLM utilizzati}
@@ -46,16 +46,15 @@ Per gli esperimenti condotti in questo lavoro, sono stati selezionati due modell
 \subsection{Qwen2.5-7B}
 Qwen2.5-7B è un modello sviluppato da Alibaba Cloud ed è parte della serie Qwen2.5. È un modello \textit{Decoder-only} basato su Transformer con 7 miliardi di parametri. Rispetto ai suoi predecessori, Qwen2.5 introduce diverse ottimizzazioni architetturali:
 \begin{itemize}
-    \item \textbf{Grouped Query Attention (GQA)}: Utilizza GQA invece della standard Multi-Head Attention per ottimizzare l'uso della memoria della cache KV durante l'inferenza, permettendo contesti più lunghi e una generazione più veloce.
+    \item \textbf{Grouped Query Attention (GQA)}: Utilizza GQA invece della standard Multi-Head Attention per ottimizzare l'uso della memoria della cache KV durante l'inferenza, permettendo contesti più lunghi e una generazione più veloce \cite{GQA}.
     \item \textbf{SwiGLU Activation}: Sostituisce la classica funzione di attivazione GeLU con SwiGLU, che ha dimostrato empiricamente di migliorare le prestazioni di convergenza.
-    \item \textbf{RoPE (Rotary Positional Embeddings)}: Utilizza embeddings posizionali rotativi per gestire meglio le posizioni relative dei token e supportare finestre di contesto molto ampie (fino a 128k token).
+    \item \textbf{Rotary Positional Embeddings}: Utilizza embeddings posizionali rotativi per gestire meglio le posizioni relative dei token e supportare finestre di contesto molto ampie \cite{RoPE}.
 \end{itemize}
-Il modello è stato pre-addestrato su un corpus massivo e multilingua, dimostrando eccellenti capacità non solo nel ragionamento e nella comprensione del linguaggio, ma anche nel coding e nella matematica, spesso superando modelli di dimensioni simili come Llama-3-8B in vari benchmark.
+Il modello è stato pre-addestrato su un corpus massivo e multilingua, dimostrando eccellenti capacità non solo nel ragionamento e nella comprensione del linguaggio, ma anche nel coding e nella matematica.
 
 \subsection{Falcon3-7B-Base}
-Falcon3-7B-Base è l'ultima iterazione della famiglia di modelli sviluppati dal Technology Innovation Institute (TII) di Abu Dhabi. Come Qwen, è un modello \textit{causal decoder-only} da 7 miliardi di parametri, ma si distingue per scelte progettuali orientate all'efficienza.
+Falcon3-7B-Base è appartiene alla famiglia di modelli sviluppati dal Technology Innovation Institute (TII) di Abu Dhabi. Come Qwen, è un LLM da 7 miliardi di parametri che si basa su GQA.
 Falcon3 continua la tradizione della serie Falcon concentrandosi sulla qualità dei dati di pre-training (basati sul dataset RefinedWeb, un dataset web rigorosamente filtrato e deduplicato).
-A livello architetturale, Falcon3-7B adotta soluzioni moderne per massimizzare il throughput in inferenza. Sebbene le specifiche esatte possano variare tra le versioni (es. l'uso di \textit{Multi-Query Attention} o \textit{FlashAttention}), l'obiettivo principale di Falcon è fornire un modello performante che sia facilmente deployabile su hardware di consumo. Nel contesto di questo lavoro, Falcon3 viene utilizzato come termine di paragone (o modello ``student'') per verificare la generalizzabilità dei prober addestrati su architetture diverse come Qwen.
 
 
 

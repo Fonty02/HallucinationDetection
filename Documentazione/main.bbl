@@ -1,13 +1,135 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{15}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
+\bibitem[Ainslie et~al.(2023)Ainslie, Lee-Thorp, De~Jong, Zemlyanskiy,
+  Lebr{\'o}n, and Sanghai]{GQA}
+Joshua Ainslie, James Lee-Thorp, Michiel De~Jong, Yury Zemlyanskiy, Federico
+  Lebr{\'o}n, and Sumit Sanghai.
+\newblock Gqa: Training generalized multi-query transformer models from
+  multi-head checkpoints.
+\newblock \emph{arXiv preprint arXiv:2305.13245}, 2023.
+
+\bibitem[Brown et~al.(2020)Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal,
+  Neelakantan, Shyam, Sastry, Askell, et~al.]{GPT3}
+Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared~D Kaplan, Prafulla
+  Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell,
+  et~al.
+\newblock Language models are few-shot learners.
+\newblock \emph{Advances in neural information processing systems},
+  33:\penalty0 1877--1901, 2020.
+
+\bibitem[Hewitt and Manning(2019)]{structuralProbe}
+John Hewitt and Christopher~D. Manning.
+\newblock {A} structural probe for finding syntax in word representations.
+\newblock In Jill Burstein, Christy Doran, and Thamar Solorio, editors,
+  \emph{Proceedings of the 2019 Conference of the North {A}merican Chapter of
+  the Association for Computational Linguistics: Human Language Technologies,
+  Volume 1 (Long and Short Papers)}, pages 4129--4138, Minneapolis, Minnesota,
+  June 2019. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/N19-1419}.
+\newblock URL \url{https://aclanthology.org/N19-1419/}.
+
+\bibitem[Huang et~al.(2025)Huang, Yu, Ma, Zhong, Feng, Wang, Chen, Peng, Feng,
+  Qin, et~al.]{surveyHallucination}
+Lei Huang, Weijiang Yu, Weitao Ma, Weihong Zhong, Zhangyin Feng, Haotian Wang,
+  Qianglong Chen, Weihua Peng, Xiaocheng Feng, Bing Qin, et~al.
+\newblock A survey on hallucination in large language models: Principles,
+  taxonomy, challenges, and open questions.
+\newblock \emph{ACM Transactions on Information Systems}, 43\penalty0
+  (2):\penalty0 1--55, 2025.
+
 \bibitem[Kalai et~al.(2025)Kalai, Nachum, Vempala, and Zhang]{HallOpenAI}
 Adam~Tauman Kalai, Ofir Nachum, Santosh~S Vempala, and Edwin Zhang.
 \newblock Why language models hallucinate.
 \newblock \emph{arXiv preprint arXiv:2509.04664}, 2025.
+
+\bibitem[Kaplan et~al.(2020)Kaplan, McCandlish, Henighan, Brown, Chess, Child,
+  Gray, Radford, Wu, and Amodei]{ScalingLaws}
+Jared Kaplan, Sam McCandlish, Tom Henighan, Tom~B Brown, Benjamin Chess, Rewon
+  Child, Scott Gray, Alec Radford, Jeffrey Wu, and Dario Amodei.
+\newblock Scaling laws for neural language models.
+\newblock \emph{arXiv preprint arXiv:2001.08361}, 2020.
+
+\bibitem[Kassner et~al.(2021)Kassner, Tafjord, Sch{\"u}tze, and
+  Clark]{BeliefBank}
+Nora Kassner, Oyvind Tafjord, Hinrich Sch{\"u}tze, and Peter Clark.
+\newblock {B}elief{B}ank: Adding memory to a pre-trained language model for a
+  systematic notion of belief.
+\newblock In Marie-Francine Moens, Xuanjing Huang, Lucia Specia, and Scott
+  Wen-tau Yih, editors, \emph{Proceedings of the 2021 Conference on Empirical
+  Methods in Natural Language Processing}, pages 8849--8861, Online and Punta
+  Cana, Dominican Republic, November 2021. Association for Computational
+  Linguistics.
+\newblock \doi{10.18653/v1/2021.emnlp-main.697}.
+\newblock URL \url{https://aclanthology.org/2021.emnlp-main.697/}.
+
+\bibitem[Kazlaris et~al.(2025)Kazlaris, Antoniou, Diamantaras, and
+  Bratsas]{AllucType}
+Ioannis Kazlaris, Efstathios Antoniou, Konstantinos Diamantaras, and
+  Charalampos Bratsas.
+\newblock From illusion to insight: A taxonomic survey of hallucination
+  mitigation techniques in llms.
+\newblock \emph{AI}, 6\penalty0 (10), 2025.
+\newblock ISSN 2673-2688.
+\newblock \doi{10.3390/ai6100260}.
+\newblock URL \url{https://www.mdpi.com/2673-2688/6/10/260}.
+
+\bibitem[Marks and Tegmark(2023)]{Geometry}
+Samuel Marks and Max Tegmark.
+\newblock The geometry of truth: Emergent linear structure in large language
+  model representations of true/false datasets.
+\newblock \emph{arXiv preprint arXiv:2310.06824}, 2023.
+
+\bibitem[Miller(1995)]{WordNet}
+George~A. Miller.
+\newblock Wordnet: a lexical database for english.
+\newblock \emph{Commun. ACM}, 38\penalty0 (11):\penalty0 39–41, November
+  1995.
+\newblock ISSN 0001-0782.
+\newblock \doi{10.1145/219717.219748}.
+\newblock URL \url{https://doi.org/10.1145/219717.219748}.
+
+\bibitem[Sharma et~al.(2023)Sharma, Tong, Korbak, Duvenaud, Askell, Bowman,
+  Cheng, Durmus, Hatfield-Dodds, Johnston, et~al.]{sycophancyLLM}
+Mrinank Sharma, Meg Tong, Tomasz Korbak, David Duvenaud, Amanda Askell,
+  Samuel~R Bowman, Newton Cheng, Esin Durmus, Zac Hatfield-Dodds, Scott~R
+  Johnston, et~al.
+\newblock Towards understanding sycophancy in language models.
+\newblock \emph{arXiv preprint arXiv:2310.13548}, 2023.
+
+\bibitem[Speer et~al.(2017)Speer, Chin, and Havasi]{ConceptNet}
+Robyn Speer, Joshua Chin, and Catherine Havasi.
+\newblock Conceptnet 5.5: An open multilingual graph of general knowledge.
+\newblock In Satinder Singh and Shaul Markovitch, editors, \emph{Proceedings of
+  the Thirty-First {AAAI} Conference on Artificial Intelligence, February 4-9,
+  2017, San Francisco, California, {USA}}, pages 4444--4451. {AAAI} Press,
+  2017.
+\newblock \doi{10.1609/AAAI.V31I1.11164}.
+\newblock URL \url{https://doi.org/10.1609/aaai.v31i1.11164}.
+
+\bibitem[Su et~al.(2024)Su, Ahmed, Lu, Pan, Bo, and Liu]{RoPE}
+Jianlin Su, Murtadha Ahmed, Yu~Lu, Shengfeng Pan, Wen Bo, and Yunfeng Liu.
+\newblock Roformer: Enhanced transformer with rotary position embedding.
+\newblock \emph{Neurocomputing}, 568:\penalty0 127063, 2024.
+\newblock ISSN 0925-2312.
+\newblock \doi{https://doi.org/10.1016/j.neucom.2023.127063}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S0925231223011864}.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
+  Kaiser, and Polosukhin]{AttentionIsAllYouNeed}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock \emph{Advances in neural information processing systems}, 30, 2017.
+
+\bibitem[Voita and Titov(2020)]{MDL}
+Elena Voita and Ivan Titov.
+\newblock Information-theoretic probing with minimum description length.
+\newblock \emph{arXiv preprint arXiv:2003.12298}, 2020.
 
 \end{thebibliography}

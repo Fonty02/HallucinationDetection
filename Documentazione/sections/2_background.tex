@@ -5,7 +5,7 @@ In questo capitolo verranno introdotti i concetti di base necessari per comprend
 
 
 \section{Panoramica sui Transformer}
-Il meccannismo della self-attention è stato introdotto per la prima volta nel 2017 da Vaswani et al. nel paper Attention is All You Need \textcolor{red}{TODO:cita} ed è alla base dell'architettura Transformer, i quali hanno rivoluzionato il campo dell'elaborazione del linguaggio naturale (NLP) e non solo, grazie alla loro capacità di catturare relazioni a lungo raggio nei dati sequenziali in modo più efficiente rispetto ai modelli precedenti come RNN e loro varianti. La differenza cruciale tra i transformer e i modelli precendenti risiede nell'elaborazione dell'input: le RNN elaborato i dati in modo sequenziale, mantenendo uno stato nascosto che cattura le informazioni precedenti, mentre i transformer utilizzano il meccanismo di self-attention per elaborare l'intera sequenza contemporaneamente, permettendo di catturare relazioni tra parole indipendentemente dalla loro distanza nella sequenza. Con un input motlo lungo le RNN tendono a dimenticare le informazioni iniziali mentre i transformer non hanno questo problema. 
+Il meccannismo della self-attention è stato introdotto per la prima volta nel 2017 da Vaswani et al. nel paper Attention is All You Need \cite{AttentionIsAllYouNeed} ed è alla base dell'architettura Transformer, i quali hanno rivoluzionato il campo dell'elaborazione del linguaggio naturale (NLP) e non solo, grazie alla loro capacità di catturare relazioni a lungo raggio nei dati sequenziali in modo più efficiente rispetto ai modelli precedenti come RNN e loro varianti. La differenza cruciale tra i transformer e i modelli precendenti risiede nell'elaborazione dell'input: le RNN elaborato i dati in modo sequenziale, mantenendo uno stato nascosto che cattura le informazioni precedenti, mentre i transformer utilizzano il meccanismo di self-attention per elaborare l'intera sequenza contemporaneamente, permettendo di catturare relazioni tra parole indipendentemente dalla loro distanza nella sequenza. Con un input motlo lungo le RNN tendono a dimenticare le informazioni iniziali mentre i transformer non hanno questo problema. 
 \subsection{Architettura dei Transformer}
 \begin{figure}[H]
     \centering
@@ -43,7 +43,7 @@ Il decoder è anch'esso costituito da una serie di strati identici posti in sequ
     \caption{Rappresentazione del meccanismo di Self-Attention}
     \label{fig:Self Attention Mechanism}
 \end{figure}
-Il meccanismo di self-attention consente al modello di pesare l'importanza delle diverse parole nella sequenza di input quando si elabora una particolare parola. Il calcolo della self-attention avviene attraverso tre matrici distinte: Query (Q), Key (K) e Value (V). La formula per calcolare l'attenzione è la seguente:
+Il meccanismo di self-attention consente al modello di pesare l'importanza delle diverse parole nella sequenza di input quando si elabora una particolare parola. Il calcolo della self-attention avviene attraverso tre matrici distinte: Query (Q), Key (K) e Value (V) \cite{AttentionIsAllYouNeed}. La formula per calcolare l'attenzione è la seguente:
 \begin{equation}
     \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 \end{equation}
@@ -55,7 +55,7 @@ I Large Language Models (LLM) rappresentano l'evoluzione naturale delle architet
 
 
 
-L'evoluzione dagli scorsi modelli di NLP agli attuali LLM (come la serie GPT, Llama, e Claude) è caratterizzata dal fenomeno dello \textit{scaling law} \textcolor{red}{TODO: citare Kaplan et al.}, secondo cui le prestazioni del modello migliorano in modo prevedibile all'aumentare del numero di parametri, della quantità di dati di addestramento e della potenza di calcolo.
+L'evoluzione dagli scorsi modelli di NLP agli attuali LLM (come la serie GPT, Llama, e Claude) è caratterizzata dal fenomeno dello \textit{scaling law} \cite{ScalingLaws} secondo cui le prestazioni del modello migliorano in modo prevedibile all'aumentare del numero di parametri, della quantità di dati di addestramento e della potenza di calcolo.
 
 Il ciclo di vita tipico di un LLM si divide in fasi distinte:
 \begin{enumerate}
@@ -67,31 +67,35 @@ Il ciclo di vita tipico di un LLM si divide in fasi distinte:
 Una caratteristica emergente degli LLM è la capacità di \textit{In-Context Learning}, ovvero la capacità di apprendere nuovi task semplicemente osservando alcuni esempi nel prompt, senza aggiornare i pesi del modello.
 
 \section{Allucinazioni nei LLM}
-Nonostante le straordinarie capacità generative, gli LLM soffrono di una limitazione critica nota come ``allucinazione''. Nel contesto dell'intelligenza artificiale, un'allucinazione si verifica quando un modello genera un output che è sintatticamente corretto e fluido, ma fattualmente errato, logicamente incoerente o non fedele alla sorgente di input fornita.
+Nonostante le straordinarie capacità generative, gli LLM soffrono di una limitazione critica nota come allucinazione. Nel contesto dell'intelligenza artificiale, un'allucinazione si verifica quando un modello genera un output che è sintatticamente corretto e fluido, ma fattualmente errato, logicamente incoerente o non fedele alla sorgente di input fornita \cite{surveyHallucination}.
 
 
 
-Le allucinazioni possono essere categorizzate principalmente in due tipologie:
+Kazlaris et al. dividono le allucinazioni e in due tipologie\cite{AllucType}:
 \begin{itemize}
-    \item \textbf{Allucinazioni di Fattualità (Factuality Hallucinations)}: Il modello genera informazioni che contraddicono la conoscenza del mondo reale. Un esempio tipico è l'attribuzione di una citazione alla persona sbagliata o l'invenzione di eventi storici mai accaduti. Questo fenomeno è spesso legato alla natura probabilistica del modello, che tende a completare pattern linguistici piuttosto che recuperare fatti deterministici.
+    \item \textbf{Allucinazioni intrinseche (Intrinsic  Hallucinations)}: Il modello genera informazioni che contraddicono la conoscenza del mondo reale. Un esempio tipico è l'attribuzione di una citazione alla persona sbagliata o l'invenzione di eventi storici mai accaduti. Questo fenomeno è spesso legato alla natura probabilistica del modello, che tende a completare pattern linguistici piuttosto che recuperare fatti deterministici.
     \item \textbf{Allucinazioni di Fedeltà (Faithfulness Hallucinations)}: Si verificano in task come la summarization o la Question Answering basata su documenti (RAG), quando il modello genera informazioni che non sono presenti nel testo sorgente o le contraddicono, pur essendo magari vere nel mondo reale (allucinazione estrinseca) o false (allucinazione intrinseca).
 \end{itemize}
 
-Le cause delle allucinazioni sono molteplici e includono: la compressione con perdita della conoscenza durante il training, dati di addestramento rumorosi o contraddittori, e la tendenza del modello a privilegiare la fluidità del testo rispetto all'accuratezza fattuale (spesso definita come \textit{sycophancy}, ovvero la tendenza a compiacere l'utente confermando i suoi bias). Rilevare e mitigare le allucinazioni è attualmente una delle sfide più aperte nella ricerca sugli LLM.
+Le cause delle allucinazioni sono molteplici e includono: la compressione con perdita della conoscenza durante il training, dati di addestramento rumorosi o contraddittori, e la tendenza del modello a privilegiare la fluidità del testo rispetto all'accuratezza fattuale definita come \textit{sycophancy}, ovvero la tendenza a compiacere l'utente confermando i suoi bias\cite{sycophancyLLM}. Rilevare e mitigare le allucinazioni è attualmente una delle sfide più aperte nella ricerca sugli LLM.
 
 \section{Probing}
-Il \textit{Probing} (o \textit{Probing Classifiers}) è una tecnica di analisi utilizzata nel campo dell'\textit{Explainable AI} (XAI) per interpretare le rappresentazioni interne delle reti neurali profonde. L'idea fondamentale è che, sebbene gli LLM siano spesso considerati delle ``black box'', le loro attivazioni interne (i valori degli hidden states e degli output dei vari moduli a ogni layer) contengano informazioni ricche e strutturate riguardanti l'input elaborato.
-
-
-
-La metodologia standard di probing prevede i seguenti passi:
+Il \textit{Probing} (o \textit{Probing Classifiers}) è una tecnica di analisi utilizzata nel campo dell'\textit{Explainable AI} (XAI) per interpretare le rappresentazioni interne delle reti neurali profonde. L'idea fondamentale è che, sebbene gli LLM siano spesso considerati delle black box, le loro attivazioni interne (i valori degli hidden states e degli output dei vari moduli a ogni layer) contengano informazioni ricche e strutturate riguardanti l'input elaborato. In particolare Marks e Tegmark \cite{Geometry} hanno dimostrato che negli LLM il concetto di verità e falsità emergono mediante strutture lineari nello spazio delle rappresentazioni interne del modello. E' possibile dunque utilizzare i probers per sondare queste rappresentazioni e verificare se un LLM stia allucinando o meno.
+La strategia di linear probing (qui descritta) è sicuramente la più comune:
 \begin{enumerate}
     \item \textbf{Estrazione delle attivazioni}: Si fornisce un input al modello (frozen, ovvero con i pesi congelati) e si registrano i vettori di attivazione \( h_l \) generati in uno specifico layer \( l \).
     \item \textbf{Addestramento del Prober}: Si addestra un classificatore supervisionato semplice (spesso una Regressione Lineare o un Perceptron Multistrato semplice) che prende in input le attivazioni \( h_l \) e cerca di predire una specifica proprietà \( y \) dell'input (ad esempio: la parte del discorso, la lunghezza della frase, o, nel caso di questo lavoro, la veridicità dell'affermazione).
     \item \textbf{Valutazione}: Le prestazioni del classificatore indicano quanto l'informazione relativa alla proprietà \( y \) sia codificata linearmente (o non linearmente) in quel particolare layer del modello.
 \end{enumerate}
 
-Nel contesto delle allucinazioni, il probing viene utilizzato per investigare se esiste una ``direzione della verità'' nello spazio latente del modello. L'ipotesi è che il modello, internamente, ``sappia'' se sta generando un fatto vero o un'allucinazione, e che questa informazione possa essere decodificata analizzando gli stati interni prima che venga generato l'output testuale finale.
+ma esistono anche varianti.
+
+Fadeeva et al. propongono la Claim-Conditioned Probability (CCP) \cite{CPP} la cui idea centrale è confrontare la probabilità dell’affermazione data con quella delle varianti controfattuali generate mascherando token importanti e rigenerando condizionalmente. Un valore basso suggerisce che il modello stesso ritiene fragile l’affermazione generata.
+
+Voita et al. propongono invece una tecnicha di probing basata sulla Minimum Description Length (MDL) \cite{MDL} che misura l’effettiva quantità di informazione codificata nelle rappresentazioni interne del modello riguardo a una specifica proprietà.
+
+Hewitt et al. propongono invece il \textit{Structural Probing} \cite{structuralProbe} che mira a verificare se le rappresentazioni interne di un modello linguistico contengano informazioni sulla struttura sintattica delle frasi, come gli alberi di dipendenza.
+
 
 
 
