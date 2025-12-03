@@ -16,7 +16,7 @@ class HallucinationDetection:
     # Constants
     # -------------
     TARGET_LAYERS = list(range(0, 32))     # Upper bound excluded
-    MAX_NEW_TOKENS = 100
+    MAX_NEW_TOKENS = 5
     DEFAULT_DATASET = "belief_bank"
     CACHE_DIR_NAME = "activation_cache"
     ACTIVATION_TARGET = ["hidden", "mlp", "attn"]
