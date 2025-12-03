@@ -1,0 +1,588 @@
+[
+  {
+    "scenario": "gemma-2-9b-it (teacher) \u2192 Llama-3.1-8B-Instruct (student)",
+    "results": [
+      {
+        "layer_type": "attn",
+        "teacher_model": "gemma-2-9b-it",
+        "student_model": "Llama-3.1-8B-Instruct",
+        "data_info": {
+          "total_balanced_samples": 934,
+          "train_samples": 653,
+          "test_samples": 281,
+          "concordant_undersampling": true
+        },
+        "alignment_model_info": {
+          "architecture": "AlignmentNetwork",
+          "input_dim": 12288,
+          "output_dim": 10752,
+          "hidden_dim": 128,
+          "dropout": 0.5,
+          "activation": "GELU",
+          "normalization": "LayerNorm",
+          "residual_connection": true
+        },
+        "alignment_training_hyperparameters": {
+          "optimizer": "AdamW",
+          "learning_rate": 0.001,
+          "weight_decay": 0.1,
+          "batch_size": 32,
+          "max_epochs": 1000,
+          "scheduler": "CosineAnnealingLR",
+          "gradient_clip_max_norm": 1.0,
+          "early_stopping_patience": 50,
+          "early_stopping_min_delta": 0.0001
+        },
+        "alignment_loss_function": {
+          "type": "MixedLoss",
+          "mse_weight": 0.01,
+          "cosine_weight": 1.0
+        },
+        "prober_model_info": {
+          "architecture": "MLPProber",
+          "input_dim": 10752,
+          "hidden_dim": 64,
+          "dropout": 0.5
+        },
+        "prober_training_hyperparameters": {
+          "optimizer": "AdamW",
+          "learning_rate": 0.001,
+          "weight_decay": 0.01,
+          "batch_size": 64,
+          "max_epochs": 200,
+          "scheduler": "CosineAnnealingLR",
+          "gradient_clip_max_norm": 1.0,
+          "early_stopping_patience": 30,
+          "early_stopping_min_delta": 0.0001,
+          "loss_function": "BCEWithLogitsLoss",
+          "use_class_weights": true
+        },
+        "training_results": {
+          "alignment_network": {
+            "best_val_loss": 0.375175,
+            "epochs_trained": 12,
+            "model_saved_path": "alignment_models/attn/CONFIG1_aligner_Llama-3.1-8B-Instruct_to_gemma-2-9b-it.pt"
+          },
+          "mlp_prober": {
+            "best_val_acc": 0.9794,
+            "epochs_trained": 26,
+            "model_saved_path": "alignment_models/attn/CONFIG1_mlp_prober_gemma-2-9b-it.pt"
+          }
+        },
+        "metrics": {
+          "teacher": {
+            "accuracy": 0.9395,
+            "precision": 0.9533,
+            "recall": 0.9346,
+            "f1_score": 0.9439,
+            "auroc": 0.9895,
+            "confusion_matrix": {
+              "TN": 121,
+              "FP": 7,
+              "FN": 10,
+              "TP": 143
+            }
+          },
+          "student_on_teacher": {
+            "accuracy": 0.9431,
+            "precision": 0.9597,
+            "recall": 0.9346,
+            "f1_score": 0.947,
+            "auroc": 0.9922,
+            "confusion_matrix": {
+              "TN": 122,
+              "FP": 6,
+              "FN": 10,
+              "TP": 143
+            }
+          }
+        }
+      },
+      {
+        "layer_type": "mlp",
+        "teacher_model": "gemma-2-9b-it",
+        "student_model": "Llama-3.1-8B-Instruct",
+        "data_info": {
+          "total_balanced_samples": 934,
+          "train_samples": 653,
+          "test_samples": 281,
+          "concordant_undersampling": true
+        },
+        "alignment_model_info": {
+          "architecture": "AlignmentNetwork",
+          "input_dim": 12288,
+          "output_dim": 10752,
+          "hidden_dim": 128,
+          "dropout": 0.5,
+          "activation": "GELU",
+          "normalization": "LayerNorm",
+          "residual_connection": true
+        },
+        "alignment_training_hyperparameters": {
+          "optimizer": "AdamW",
+          "learning_rate": 0.001,
+          "weight_decay": 0.1,
+          "batch_size": 32,
+          "max_epochs": 1000,
+          "scheduler": "CosineAnnealingLR",
+          "gradient_clip_max_norm": 1.0,
+          "early_stopping_patience": 50,
+          "early_stopping_min_delta": 0.0001
+        },
+        "alignment_loss_function": {
+          "type": "MixedLoss",
+          "mse_weight": 0.01,
+          "cosine_weight": 1.0
+        },
+        "prober_model_info": {
+          "architecture": "MLPProber",
+          "input_dim": 10752,
+          "hidden_dim": 64,
+          "dropout": 0.5
+        },
+        "prober_training_hyperparameters": {
+          "optimizer": "AdamW",
+          "learning_rate": 0.001,
+          "weight_decay": 0.01,
+          "batch_size": 64,
+          "max_epochs": 200,
+          "scheduler": "CosineAnnealingLR",
+          "gradient_clip_max_norm": 1.0,
+          "early_stopping_patience": 30,
+          "early_stopping_min_delta": 0.0001,
+          "loss_function": "BCEWithLogitsLoss",
+          "use_class_weights": true
+        },
+        "training_results": {
+          "alignment_network": {
+            "best_val_loss": 0.407517,
+            "epochs_trained": 7,
+            "model_saved_path": "alignment_models/mlp/CONFIG1_aligner_Llama-3.1-8B-Instruct_to_gemma-2-9b-it.pt"
+          },
+          "mlp_prober": {
+            "best_val_acc": 0.9691,
+            "epochs_trained": 16,
+            "model_saved_path": "alignment_models/mlp/CONFIG1_mlp_prober_gemma-2-9b-it.pt"
+          }
+        },
+        "metrics": {
+          "teacher": {
+            "accuracy": 0.9502,
+            "precision": 0.9427,
+            "recall": 0.9673,
+            "f1_score": 0.9548,
+            "auroc": 0.985,
+            "confusion_matrix": {
+              "TN": 119,
+              "FP": 9,
+              "FN": 5,
+              "TP": 148
+            }
+          },
+          "student_on_teacher": {
+            "accuracy": 0.9466,
+            "precision": 0.96,
+            "recall": 0.9412,
+            "f1_score": 0.9505,
+            "auroc": 0.9785,
+            "confusion_matrix": {
+              "TN": 122,
+              "FP": 6,
+              "FN": 9,
+              "TP": 144
+            }
+          }
+        }
+      },
+      {
+        "layer_type": "hidden",
+        "teacher_model": "gemma-2-9b-it",
+        "student_model": "Llama-3.1-8B-Instruct",
+        "data_info": {
+          "total_balanced_samples": 934,
+          "train_samples": 653,
+          "test_samples": 281,
+          "concordant_undersampling": true
+        },
+        "alignment_model_info": {
+          "architecture": "AlignmentNetwork",
+          "input_dim": 12288,
+          "output_dim": 10752,
+          "hidden_dim": 128,
+          "dropout": 0.5,
+          "activation": "GELU",
+          "normalization": "LayerNorm",
+          "residual_connection": true
+        },
+        "alignment_training_hyperparameters": {
+          "optimizer": "AdamW",
+          "learning_rate": 0.001,
+          "weight_decay": 0.1,
+          "batch_size": 32,
+          "max_epochs": 1000,
+          "scheduler": "CosineAnnealingLR",
+          "gradient_clip_max_norm": 1.0,
+          "early_stopping_patience": 50,
+          "early_stopping_min_delta": 0.0001
+        },
+        "alignment_loss_function": {
+          "type": "MixedLoss",
+          "mse_weight": 0.01,
+          "cosine_weight": 1.0
+        },
+        "prober_model_info": {
+          "architecture": "MLPProber",
+          "input_dim": 10752,
+          "hidden_dim": 64,
+          "dropout": 0.5
+        },
+        "prober_training_hyperparameters": {
+          "optimizer": "AdamW",
+          "learning_rate": 0.001,
+          "weight_decay": 0.01,
+          "batch_size": 64,
+          "max_epochs": 200,
+          "scheduler": "CosineAnnealingLR",
+          "gradient_clip_max_norm": 1.0,
+          "early_stopping_patience": 30,
+          "early_stopping_min_delta": 0.0001,
+          "loss_function": "BCEWithLogitsLoss",
+          "use_class_weights": true
+        },
+        "training_results": {
+          "alignment_network": {
+            "best_val_loss": 0.402084,
+            "epochs_trained": 7,
+            "model_saved_path": "alignment_models/hidden/CONFIG1_aligner_Llama-3.1-8B-Instruct_to_gemma-2-9b-it.pt"
+          },
+          "mlp_prober": {
+            "best_val_acc": 0.9794,
+            "epochs_trained": 27,
+            "model_saved_path": "alignment_models/hidden/CONFIG1_mlp_prober_gemma-2-9b-it.pt"
+          }
+        },
+        "metrics": {
+          "teacher": {
+            "accuracy": 0.9288,
+            "precision": 0.9463,
+            "recall": 0.9216,
+            "f1_score": 0.9338,
+            "auroc": 0.9872,
+            "confusion_matrix": {
+              "TN": 120,
+              "FP": 8,
+              "FN": 12,
+              "TP": 141
+            }
+          },
+          "student_on_teacher": {
+            "accuracy": 0.9359,
+            "precision": 0.9412,
+            "recall": 0.9412,
+            "f1_score": 0.9412,
+            "auroc": 0.981,
+            "confusion_matrix": {
+              "TN": 119,
+              "FP": 9,
+              "FN": 9,
+              "TP": 144
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "scenario": "Llama-3.1-8B-Instruct (teacher) \u2192 gemma-2-9b-it (student)",
+    "results": [
+      {
+        "layer_type": "attn",
+        "teacher_model": "Llama-3.1-8B-Instruct",
+        "student_model": "gemma-2-9b-it",
+        "data_info": {
+          "total_balanced_samples": 934,
+          "train_samples": 653,
+          "test_samples": 281,
+          "concordant_undersampling": true
+        },
+        "alignment_model_info": {
+          "architecture": "AlignmentNetwork",
+          "input_dim": 10752,
+          "output_dim": 12288,
+          "hidden_dim": 128,
+          "dropout": 0.5,
+          "activation": "GELU",
+          "normalization": "LayerNorm",
+          "residual_connection": true
+        },
+        "alignment_training_hyperparameters": {
+          "optimizer": "AdamW",
+          "learning_rate": 0.001,
+          "weight_decay": 0.1,
+          "batch_size": 32,
+          "max_epochs": 1000,
+          "scheduler": "CosineAnnealingLR",
+          "gradient_clip_max_norm": 1.0,
+          "early_stopping_patience": 50,
+          "early_stopping_min_delta": 0.0001
+        },
+        "alignment_loss_function": {
+          "type": "MixedLoss",
+          "mse_weight": 0.01,
+          "cosine_weight": 1.0
+        },
+        "prober_model_info": {
+          "architecture": "MLPProber",
+          "input_dim": 12288,
+          "hidden_dim": 64,
+          "dropout": 0.5
+        },
+        "prober_training_hyperparameters": {
+          "optimizer": "AdamW",
+          "learning_rate": 0.001,
+          "weight_decay": 0.01,
+          "batch_size": 64,
+          "max_epochs": 200,
+          "scheduler": "CosineAnnealingLR",
+          "gradient_clip_max_norm": 1.0,
+          "early_stopping_patience": 30,
+          "early_stopping_min_delta": 0.0001,
+          "loss_function": "BCEWithLogitsLoss",
+          "use_class_weights": true
+        },
+        "training_results": {
+          "alignment_network": {
+            "best_val_loss": 0.393925,
+            "epochs_trained": 4,
+            "model_saved_path": "alignment_models/attn/CONFIG1_aligner_gemma-2-9b-it_to_Llama-3.1-8B-Instruct.pt"
+          },
+          "mlp_prober": {
+            "best_val_acc": 0.9794,
+            "epochs_trained": 5,
+            "model_saved_path": "alignment_models/attn/CONFIG1_mlp_prober_Llama-3.1-8B-Instruct.pt"
+          }
+        },
+        "metrics": {
+          "teacher": {
+            "accuracy": 0.9644,
+            "precision": 0.9673,
+            "recall": 0.9673,
+            "f1_score": 0.9673,
+            "auroc": 0.9948,
+            "confusion_matrix": {
+              "TN": 123,
+              "FP": 5,
+              "FN": 5,
+              "TP": 148
+            }
+          },
+          "student_on_teacher": {
+            "accuracy": 0.9537,
+            "precision": 0.9605,
+            "recall": 0.9542,
+            "f1_score": 0.9574,
+            "auroc": 0.9858,
+            "confusion_matrix": {
+              "TN": 122,
+              "FP": 6,
+              "FN": 7,
+              "TP": 146
+            }
+          }
+        }
+      },
+      {
+        "layer_type": "mlp",
+        "teacher_model": "Llama-3.1-8B-Instruct",
+        "student_model": "gemma-2-9b-it",
+        "data_info": {
+          "total_balanced_samples": 934,
+          "train_samples": 653,
+          "test_samples": 281,
+          "concordant_undersampling": true
+        },
+        "alignment_model_info": {
+          "architecture": "AlignmentNetwork",
+          "input_dim": 10752,
+          "output_dim": 12288,
+          "hidden_dim": 128,
+          "dropout": 0.5,
+          "activation": "GELU",
+          "normalization": "LayerNorm",
+          "residual_connection": true
+        },
+        "alignment_training_hyperparameters": {
+          "optimizer": "AdamW",
+          "learning_rate": 0.001,
+          "weight_decay": 0.1,
+          "batch_size": 32,
+          "max_epochs": 1000,
+          "scheduler": "CosineAnnealingLR",
+          "gradient_clip_max_norm": 1.0,
+          "early_stopping_patience": 50,
+          "early_stopping_min_delta": 0.0001
+        },
+        "alignment_loss_function": {
+          "type": "MixedLoss",
+          "mse_weight": 0.01,
+          "cosine_weight": 1.0
+        },
+        "prober_model_info": {
+          "architecture": "MLPProber",
+          "input_dim": 12288,
+          "hidden_dim": 64,
+          "dropout": 0.5
+        },
+        "prober_training_hyperparameters": {
+          "optimizer": "AdamW",
+          "learning_rate": 0.001,
+          "weight_decay": 0.01,
+          "batch_size": 64,
+          "max_epochs": 200,
+          "scheduler": "CosineAnnealingLR",
+          "gradient_clip_max_norm": 1.0,
+          "early_stopping_patience": 30,
+          "early_stopping_min_delta": 0.0001,
+          "loss_function": "BCEWithLogitsLoss",
+          "use_class_weights": true
+        },
+        "training_results": {
+          "alignment_network": {
+            "best_val_loss": 0.346048,
+            "epochs_trained": 15,
+            "model_saved_path": "alignment_models/mlp/CONFIG1_aligner_gemma-2-9b-it_to_Llama-3.1-8B-Instruct.pt"
+          },
+          "mlp_prober": {
+            "best_val_acc": 0.9794,
+            "epochs_trained": 9,
+            "model_saved_path": "alignment_models/mlp/CONFIG1_mlp_prober_Llama-3.1-8B-Instruct.pt"
+          }
+        },
+        "metrics": {
+          "teacher": {
+            "accuracy": 0.9644,
+            "precision": 0.9735,
+            "recall": 0.9608,
+            "f1_score": 0.9671,
+            "auroc": 0.9927,
+            "confusion_matrix": {
+              "TN": 124,
+              "FP": 4,
+              "FN": 6,
+              "TP": 147
+            }
+          },
+          "student_on_teacher": {
+            "accuracy": 0.9573,
+            "precision": 0.9732,
+            "recall": 0.9477,
+            "f1_score": 0.9603,
+            "auroc": 0.9935,
+            "confusion_matrix": {
+              "TN": 124,
+              "FP": 4,
+              "FN": 8,
+              "TP": 145
+            }
+          }
+        }
+      },
+      {
+        "layer_type": "hidden",
+        "teacher_model": "Llama-3.1-8B-Instruct",
+        "student_model": "gemma-2-9b-it",
+        "data_info": {
+          "total_balanced_samples": 934,
+          "train_samples": 653,
+          "test_samples": 281,
+          "concordant_undersampling": true
+        },
+        "alignment_model_info": {
+          "architecture": "AlignmentNetwork",
+          "input_dim": 10752,
+          "output_dim": 12288,
+          "hidden_dim": 128,
+          "dropout": 0.5,
+          "activation": "GELU",
+          "normalization": "LayerNorm",
+          "residual_connection": true
+        },
+        "alignment_training_hyperparameters": {
+          "optimizer": "AdamW",
+          "learning_rate": 0.001,
+          "weight_decay": 0.1,
+          "batch_size": 32,
+          "max_epochs": 1000,
+          "scheduler": "CosineAnnealingLR",
+          "gradient_clip_max_norm": 1.0,
+          "early_stopping_patience": 50,
+          "early_stopping_min_delta": 0.0001
+        },
+        "alignment_loss_function": {
+          "type": "MixedLoss",
+          "mse_weight": 0.01,
+          "cosine_weight": 1.0
+        },
+        "prober_model_info": {
+          "architecture": "MLPProber",
+          "input_dim": 12288,
+          "hidden_dim": 64,
+          "dropout": 0.5
+        },
+        "prober_training_hyperparameters": {
+          "optimizer": "AdamW",
+          "learning_rate": 0.001,
+          "weight_decay": 0.01,
+          "batch_size": 64,
+          "max_epochs": 200,
+          "scheduler": "CosineAnnealingLR",
+          "gradient_clip_max_norm": 1.0,
+          "early_stopping_patience": 30,
+          "early_stopping_min_delta": 0.0001,
+          "loss_function": "BCEWithLogitsLoss",
+          "use_class_weights": true
+        },
+        "training_results": {
+          "alignment_network": {
+            "best_val_loss": 0.350129,
+            "epochs_trained": 15,
+            "model_saved_path": "alignment_models/hidden/CONFIG1_aligner_gemma-2-9b-it_to_Llama-3.1-8B-Instruct.pt"
+          },
+          "mlp_prober": {
+            "best_val_acc": 0.9794,
+            "epochs_trained": 16,
+            "model_saved_path": "alignment_models/hidden/CONFIG1_mlp_prober_Llama-3.1-8B-Instruct.pt"
+          }
+        },
+        "metrics": {
+          "teacher": {
+            "accuracy": 0.9715,
+            "precision": 0.9866,
+            "recall": 0.9608,
+            "f1_score": 0.9735,
+            "auroc": 0.9936,
+            "confusion_matrix": {
+              "TN": 126,
+              "FP": 2,
+              "FN": 6,
+              "TP": 147
+            }
+          },
+          "student_on_teacher": {
+            "accuracy": 0.9609,
+            "precision": 0.9671,
+            "recall": 0.9608,
+            "f1_score": 0.9639,
+            "auroc": 0.9921,
+            "confusion_matrix": {
+              "TN": 123,
+              "FP": 5,
+              "FN": 6,
+              "TP": 147
+            }
+          }
+        }
+      }
+    ]
+  }
+]
