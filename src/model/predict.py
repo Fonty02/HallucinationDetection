@@ -1,6 +1,12 @@
 import os
+import sys
 import argparse
-PROJECT_ROOT = os.getcwd()
+
+# Add project root to Python path
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+sys.path.insert(0, project_root)
+
+PROJECT_ROOT = project_root
 print(f"Project root: {PROJECT_ROOT}")
 from src.model.HallucinationDetection import HallucinationDetection
 
