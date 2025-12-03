@@ -1,8 +1,8 @@
 \chapter{Methodology}
 
 
-In questo capitolo viene esplorata la metodologia di lavoro adottata per lo sviluppo del progetto. Per la costruzione del prober universale è stato fatto uso del dataset Belief Bank che fornisce un insieme di affermazioni e la loro veridicità in diversi contesti. Sono stati presi in considerazione cinque diversi approcci metodologici per allineare lo spazio latente di un modello student a quello di un modello teacher, dove per modello teacher si intende il modello su cui il prober viene addestrato e per modello student si intende il modello su cui il prober viene testato
-La prima fase del lavoro ha riguardato la preparazione del dataset e l'estrazione delle attivazioni interne dei modelli Qwen2.5-7B e Falcon3-7B-Base su tutti i layer e ogni tipologia di componente di un layer (attention, MLP, hidden states). Successivamente sono stati effettuati studi preliminari per valutare la capacità di ogni singolo componente di layer di discriminare tra affermazioni vere e allucinazioni, al fine di identificare i layer e le componenti più rilevanti per la costruzione del prober universale.
+In questo capitolo viene esplorata la metodologia di lavoro adottata per lo sviluppo del progetto. Per la costruzione del prober universale è stato fatto uso del dataset Belief Bank che fornisce un insieme di affermazioni e la loro veridicità in diversi contesti. Sono stati presi in considerazione cinque diversi approcci metodologici per allineare lo spazio latente di un modello student a quello di un modello teacher, dove per modello teacher si intende il modello su cui il prober viene addestrato e per modello student si intende il modello su cui il prober viene testato (dopo una eventuale fase di allineamento).
+La prima fase del lavoro ha riguardato la preparazione del dataset e l'estrazione delle attivazioni interne degli LLM su tutti i layer e ogni tipologia di componente di un layer (attention, MLP, hidden states). Successivamente sono stati effettuati studi preliminari per valutare la capacità di ogni singolo componente di layer di discriminare tra affermazioni vere e allucinazioni, al fine di identificare i layer e le componenti più rilevanti per la costruzione del prober universale.
 Sono state dunque calcolate alcune statistiche relative alle allucinazioni dei due modelli e tutte le attivazioni sono state preprocessate per essere utilizzate nei vari approcci metodologici.
 In una prima fase è stato usato un approccio completamente lineare come baseline, per poi esplorare metodi più complessi che includono adattamenti non lineari tramite AdapterMLP, Encoder e AutoEncoder. Ogni metodologia è stata valutata in termini di prestazioni e capacità di trasferimento tra modelli diversi. 
 
@@ -26,9 +26,6 @@ Per questo esperimento, il dataset \textit{Belief Bank Facts} finale è composto
 
 Ogni elemento del dataset finale è quindi una tupla $(f, y)$, dove $f$ è la frase in linguaggio naturale e $y \in \{0, 1\}$ rappresenta l'etichetta di verità (dove 0 indica no/falso e 1 indica sì/vero).
 
-\paragraph{Pre-elaborazione e Implementazione}
-Per l'utilizzo nel progetto, i dati grezzi sono stati processati attraverso una pipeline dedicata che gestisce la trasformazione da rappresentazioni simboliche a linguaggio naturale e il bilanciamento delle classi.
-I dati originali sono archiviati sotto forma di triple strutturate (soggetto, relazione, oggetto). La pipeline implementa un modulo di conversione che utilizza template predefiniti per trasformare queste triple in frasi di senso compiuto in lingua inglese. Per prevenire bias verso una specifica classe di risposta, il dataset viene esteso tramite una procedura di \textit{negation augmentation} generando sinteticamente la controparte negata di ogni fatto o implicazione presente, invertendo la label di verità associata. Questo approccio raddoppia efficacemente la dimensione del dataset e assicura che il modello sia esposto a una distribuzione bilanciata di etichette positive (yes) e negative (no).
 Ad ogni esempio è associato un identificativo univoco (\texttt{instance\_id}) per facilitare il tracciamento e l'analisi dei risultati.
 Esempio di elementi del dataset dopo la pre-elaborazione:
 \begin{itemize}
@@ -46,8 +43,8 @@ Per il dataset Belief Bank Facts, il prompt utilizzato è il seguente:
 \begin{quote}
 You are an expert in several domains. You'll be provided with a fact, and your task is to confirm or deny its truthfulness.
 Do not provide any additional information or explanations.
-Just answer only with yes or no
-Is the fact true? Fact: \{question\}
+Just answer only with yes or no.
+Is the fact true? Fact: \{question\}.
 Answer:
 \end{quote}
 dove \{question\} viene sostituito con l'affermazione specifica da valutare.
@@ -57,7 +54,7 @@ se la risposta reale (yes o no) è una substring (cioè è contenuta) nella risp
 
 
 \section{LLM utilizzati}
-Per gli esperimenti condotti in questo lavoro, sono stati selezionati due modelli open-weights che rappresentano lo stato dell'arte per le rispettive dimensioni e famiglie architetturali.
+Per gli esperimenti condotti in questo lavoro, sono stati selezionati quattro modelli open-weights che rappresentano lo stato dell'arte per le rispettive dimensioni e famiglie architetturali.
 
 \subsection{Qwen2.5-7B}
 Qwen2.5-7B è un modello sviluppato da Alibaba Cloud ed è parte della serie Qwen2.5. È un modello \textit{Decoder-only} basato su Transformer con 7 miliardi di parametri. Rispetto ai suoi predecessori, Qwen2.5 introduce diverse ottimizzazioni architetturali:
@@ -189,7 +186,7 @@ Come baseline per la costruzione del prober universale, è stato adottato un app
     \caption{Pipeline sperimentale della baseline}
     \label{fig:linear-pipeline}
 \end{figure}
-La pipeline sperimentale consiste nell'addestramento di un classificatore Logistic Regression sullo spazio delle attivazioni del modello teacher per rilevare le allucinazioni, seguito dalla valutazione delle sue prestazioni tramite metriche di accuratezza. Successivamente, viene effettuato un allineamento lineare tra lo spazio latente del modello student e quello del modello teacher tramite una proiezione lineare (Ridge Regression) addestrata su un sottoinsieme di dati concordanti. Infine, si valuta la capacità del classificatore di discriminare le allucinazioni sui dati del modello student dopo l'allineamento. Gli LLM utilizzati come teacher e student sono rispettivamente gemma-2-9b-it e Llama-3.1-8B-Instruct e successivamente viceversa.
+La pipeline sperimentale consiste nell'addestramento di un classificatore Logistic Regression sullo spazio delle attivazioni del modello teacher per rilevare le allucinazioni, seguito dalla valutazione delle sue prestazioni tramite metriche di accuratezza. Successivamente, viene effettuato un allineamento lineare tra lo spazio latente del modello student e quello del modello teacher tramite una proiezione lineare (Ridge Regression) addestrata su un sottoinsieme di dati concordanti. Infine, si valuta la capacità del classificatore di discriminare le allucinazioni sui dati del modello student dopo l'allineamento.
 
 Per il Logistic Regressor sono stati utilizzati i seguenti iperparametri:
 \begin{itemize}
