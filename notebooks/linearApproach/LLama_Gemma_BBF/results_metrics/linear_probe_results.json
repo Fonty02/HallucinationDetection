@@ -1,0 +1,246 @@
+[
+  {
+    "scenario": "gemma-2-9b-it \u2192 Llama-3.1-8B-Instruct",
+    "results": [
+      {
+        "type": "attn",
+        "teacher_name": "gemma-2-9b-it",
+        "student_name": "Llama-3.1-8B-Instruct",
+        "teacher": {
+          "accuracy": 0.9647302904564315,
+          "precision": 0.964,
+          "recall": 0.9678714859437751,
+          "f1": 0.9659318637274549,
+          "auroc": 0.9859351569367599,
+          "confusion_matrix": [
+            [
+              224,
+              9
+            ],
+            [
+              8,
+              241
+            ]
+          ]
+        },
+        "student_on_teacher": {
+          "accuracy": 0.9194444444444444,
+          "precision": 0.928709055876686,
+          "recall": 0.9060150375939849,
+          "f1": 0.917221693625119,
+          "auroc": 0.974243318149388,
+          "confusion_matrix": [
+            [
+              511,
+              37
+            ],
+            [
+              50,
+              482
+            ]
+          ]
+        }
+      },
+      {
+        "type": "mlp",
+        "teacher_name": "gemma-2-9b-it",
+        "student_name": "Llama-3.1-8B-Instruct",
+        "teacher": {
+          "accuracy": 0.9626556016597511,
+          "precision": 0.963855421686747,
+          "recall": 0.963855421686747,
+          "f1": 0.963855421686747,
+          "auroc": 0.98833100642915,
+          "confusion_matrix": [
+            [
+              224,
+              9
+            ],
+            [
+              9,
+              240
+            ]
+          ]
+        },
+        "student_on_teacher": {
+          "accuracy": 0.9277777777777778,
+          "precision": 0.9348659003831418,
+          "recall": 0.9172932330827067,
+          "f1": 0.9259962049335864,
+          "auroc": 0.9766512540475276,
+          "confusion_matrix": [
+            [
+              514,
+              34
+            ],
+            [
+              44,
+              488
+            ]
+          ]
+        }
+      },
+      {
+        "type": "hidden",
+        "teacher_name": "gemma-2-9b-it",
+        "student_name": "Llama-3.1-8B-Instruct",
+        "teacher": {
+          "accuracy": 0.9585062240663901,
+          "precision": 0.9635627530364372,
+          "recall": 0.9558232931726908,
+          "f1": 0.9596774193548387,
+          "auroc": 0.9877622076287985,
+          "confusion_matrix": [
+            [
+              224,
+              9
+            ],
+            [
+              11,
+              238
+            ]
+          ]
+        },
+        "student_on_teacher": {
+          "accuracy": 0.9407407407407408,
+          "precision": 0.9415094339622642,
+          "recall": 0.9379699248120301,
+          "f1": 0.9397363465160076,
+          "auroc": 0.9817895560068053,
+          "confusion_matrix": [
+            [
+              517,
+              31
+            ],
+            [
+              33,
+              499
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "scenario": "Llama-3.1-8B-Instruct \u2192 gemma-2-9b-it",
+    "results": [
+      {
+        "type": "attn",
+        "teacher_name": "Llama-3.1-8B-Instruct",
+        "student_name": "gemma-2-9b-it",
+        "teacher": {
+          "accuracy": 0.9824074074074074,
+          "precision": 0.9848771266540642,
+          "recall": 0.9793233082706767,
+          "f1": 0.9820923656927427,
+          "auroc": 0.9960450853410899,
+          "confusion_matrix": [
+            [
+              540,
+              8
+            ],
+            [
+              11,
+              521
+            ]
+          ]
+        },
+        "student_on_teacher": {
+          "accuracy": 0.9585062240663901,
+          "precision": 0.9561752988047809,
+          "recall": 0.963855421686747,
+          "f1": 0.96,
+          "auroc": 0.9858662116276263,
+          "confusion_matrix": [
+            [
+              222,
+              11
+            ],
+            [
+              9,
+              240
+            ]
+          ]
+        }
+      },
+      {
+        "type": "mlp",
+        "teacher_name": "Llama-3.1-8B-Instruct",
+        "student_name": "gemma-2-9b-it",
+        "teacher": {
+          "accuracy": 0.9731481481481481,
+          "precision": 0.9666048237476809,
+          "recall": 0.9793233082706767,
+          "f1": 0.972922502334267,
+          "auroc": 0.9968648811810549,
+          "confusion_matrix": [
+            [
+              530,
+              18
+            ],
+            [
+              11,
+              521
+            ]
+          ]
+        },
+        "student_on_teacher": {
+          "accuracy": 0.9481327800829875,
+          "precision": 0.9409448818897638,
+          "recall": 0.9598393574297188,
+          "f1": 0.9502982107355865,
+          "auroc": 0.9831083992622852,
+          "confusion_matrix": [
+            [
+              218,
+              15
+            ],
+            [
+              10,
+              239
+            ]
+          ]
+        }
+      },
+      {
+        "type": "hidden",
+        "teacher_name": "Llama-3.1-8B-Instruct",
+        "student_name": "gemma-2-9b-it",
+        "teacher": {
+          "accuracy": 0.9685185185185186,
+          "precision": 0.9662921348314607,
+          "recall": 0.9699248120300752,
+          "f1": 0.9681050656660413,
+          "auroc": 0.9955717304209428,
+          "confusion_matrix": [
+            [
+              530,
+              18
+            ],
+            [
+              16,
+              516
+            ]
+          ]
+        },
+        "student_on_teacher": {
+          "accuracy": 0.946058091286307,
+          "precision": 0.951417004048583,
+          "recall": 0.9437751004016064,
+          "f1": 0.9475806451612904,
+          "auroc": 0.9831945808987022,
+          "confusion_matrix": [
+            [
+              221,
+              12
+            ],
+            [
+              14,
+              235
+            ]
+          ]
+        }
+      }
+    ]
+  }
+]
