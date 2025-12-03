@@ -12,40 +12,43 @@
 \contentsline {section}{\numberline {2.4}Probing}{9}{}%
 \contentsline {chapter}{\numberline {3}Methodology}{11}{}%
 \contentsline {section}{\numberline {3.1}Dataset}{11}{}%
-\contentsline {subsection}{\numberline {3.1.1}BeliefBank}{11}{}%
-\contentsline {paragraph}{Struttura del Dataset Originale}{11}{}%
+\contentsline {subsection}{\numberline {3.1.1}BeliefBank Facts}{11}{}%
+\contentsline {paragraph}{Generazione e Struttura}{12}{}%
+\contentsline {paragraph}{Composizione del Dataset Utilizzato}{12}{}%
 \contentsline {paragraph}{Pre-elaborazione e Implementazione}{12}{}%
-\contentsline {subsection}{\numberline {3.1.2}Creazione dataset di attivazioni}{12}{}%
+\contentsline {subsection}{\numberline {3.1.2}Creazione dataset di attivazioni}{13}{}%
 \contentsline {section}{\numberline {3.2}LLM utilizzati}{13}{}%
 \contentsline {subsection}{\numberline {3.2.1}Qwen2.5-7B}{13}{}%
-\contentsline {subsection}{\numberline {3.2.2}Falcon3-7B-Base}{13}{}%
-\contentsline {section}{\numberline {3.3}Studi preliminari}{14}{}%
-\contentsline {subsection}{\numberline {3.3.1}Statistiche sulle allucinazioni}{14}{}%
-\contentsline {subsection}{\numberline {3.3.2}Studio delle singole componenti di layer}{14}{}%
-\contentsline {section}{\numberline {3.4}Metodologie per la costruzione del prober universale}{17}{}%
-\contentsline {subsection}{\numberline {3.4.1}Baseline}{17}{}%
-\contentsline {subsubsection}{Pipeline sperimentale}{17}{}%
-\contentsline {subsection}{\numberline {3.4.2}Approccio Ibrido}{18}{}%
-\contentsline {subsubsection}{Architettura e loss}{19}{}%
-\contentsline {subsubsection}{Pipeline sperimentale}{20}{}%
-\contentsline {subsection}{\numberline {3.4.3}Approccio non-lineare Completo}{21}{}%
-\contentsline {subsubsection}{Architettura, componenti e Loss}{22}{}%
+\contentsline {subsection}{\numberline {3.2.2}Falcon3-7B-Base}{14}{}%
+\contentsline {subsection}{\numberline {3.2.3}Llama-3.1-8B-Instruct}{14}{}%
+\contentsline {subsection}{\numberline {3.2.4}Gemma-2-9B-IT}{14}{}%
+\contentsline {section}{\numberline {3.3}Studi preliminari}{15}{}%
+\contentsline {subsection}{\numberline {3.3.1}Statistiche sulle allucinazioni}{15}{}%
+\contentsline {subsection}{\numberline {3.3.2}Studio delle singole componenti di layer}{15}{}%
+\contentsline {section}{\numberline {3.4}Metodologie per la costruzione del prober universale}{18}{}%
+\contentsline {subsection}{\numberline {3.4.1}Baseline}{18}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{18}{}%
+\contentsline {subsection}{\numberline {3.4.2}Approccio Ibrido}{19}{}%
+\contentsline {subsubsection}{Architettura e loss}{20}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{21}{}%
+\contentsline {subsection}{\numberline {3.4.3}Approccio non-lineare Completo}{22}{}%
+\contentsline {subsubsection}{Architettura, componenti e Loss}{23}{}%
 \contentsline {subsubsection}{Pipeline sperimentale}{23}{}%
-\contentsline {subsection}{\numberline {3.4.4}Approccio non-lineare ridotto}{24}{}%
+\contentsline {subsection}{\numberline {3.4.4}Approccio non-lineare ridotto}{25}{}%
 \contentsline {subsubsection}{Architettura e componenti principali}{25}{}%
-\contentsline {subsubsection}{Pipeline sperimentale}{26}{}%
-\contentsline {subsection}{\numberline {3.4.5}Approccio One‑For‑All}{28}{}%
-\contentsline {subsubsection}{Architettura e componenti principali}{29}{}%
-\contentsline {subsubsection}{Pipeline sperimentale}{29}{}%
-\contentsline {chapter}{\numberline {4}Risultati}{33}{}%
-\contentsline {section}{\numberline {4.1}Baseline}{33}{}%
-\contentsline {section}{\numberline {4.2}Approccio Ibrido}{34}{}%
-\contentsline {section}{\numberline {4.3}Approccio non-lineare completo}{34}{}%
-\contentsline {section}{\numberline {4.4}Approccio non-lineare ridotto}{34}{}%
-\contentsline {section}{\numberline {4.5}Approccio One-For-All}{35}{}%
-\contentsline {chapter}{\numberline {5}Discussione}{37}{}%
-\contentsline {chapter}{\numberline {6}Conclusioni}{39}{}%
-\contentsline {section}{\numberline {6.1}Sintesi dei Risultati}{39}{}%
-\contentsline {section}{\numberline {6.2}Lavori Futuri}{39}{}%
-\contentsline {chapter}{Appendices}{43}{}%
-\contentsline {chapter}{\numberline {A}Attivazioni dei Modelli}{45}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{25}{}%
+\contentsline {subsection}{\numberline {3.4.5}Approccio One‑For‑All (Frozen Head)}{27}{}%
+\contentsline {subsubsection}{Architettura e componenti principali}{28}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{28}{}%
+\contentsline {chapter}{\numberline {4}Risultati}{31}{}%
+\contentsline {section}{\numberline {4.1}Baseline}{31}{}%
+\contentsline {section}{\numberline {4.2}Approccio Ibrido}{32}{}%
+\contentsline {section}{\numberline {4.3}Approccio non-lineare completo}{32}{}%
+\contentsline {section}{\numberline {4.4}Approccio non-lineare ridotto}{32}{}%
+\contentsline {section}{\numberline {4.5}Approccio One-For-All}{33}{}%
+\contentsline {chapter}{\numberline {5}Discussione}{35}{}%
+\contentsline {chapter}{\numberline {6}Conclusioni}{37}{}%
+\contentsline {section}{\numberline {6.1}Sintesi dei Risultati}{37}{}%
+\contentsline {section}{\numberline {6.2}Lavori Futuri}{37}{}%
+\contentsline {chapter}{Appendices}{41}{}%
+\contentsline {chapter}{\numberline {A}Attivazioni dei Modelli}{43}{}%
