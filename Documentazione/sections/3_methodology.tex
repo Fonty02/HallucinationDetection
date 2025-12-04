@@ -84,7 +84,6 @@ Come Llama-3.1-8B-Instruct, anche Gemma-2-9B-IT è stato ottimizzato per il dial
 \subsection{Statistiche sulle allucinazioni}
 Prima di procedere con la costruzione del prober universale, sono state calcolate alcune statistiche relative alla frequenza delle allucinazioni nei vari LLM per i dataset.
 Analizzando l'output dei modelli sul dataset Belief Bank, sono state calcolate le seguenti statistiche relative alle allucinazioni:
-\textcolor{red}{TODO: aggiornare stats di Qwen e Falcon e aggiungere Llama e Gemma}
 \begin{table}[H]
 \centering
 \caption{Statistiche sulle allucinazioni per modello}
@@ -93,8 +92,10 @@ Analizzando l'output dei modelli sul dataset Belief Bank, sono state calcolate l
     \toprule
     \textbf{Modello / Descrizione} & \textbf{Totale affermazioni} & \textbf{Allucinazioni} \\
     \midrule
-    Qwen2.5-7B      & 27\,416 & 15\,728 \\
-    Falcon3-7B-Base & 27\,416 & 16\,499 \\
+    Qwen2.5-7B      & 27\,416 & 3\,565 \\
+    Falcon3-7B-Base & 27\,416 & 7\,531 \\
+    Llama-3.1-8B-Instruct & 27\,416 & 1\,799 \\
+    Gemma-2-9B-IT   & 27\,416 & 802 \\
 \end{tabular}
 \end{table}
 I risultati suggeriscono che i modelli si comportano in modo molto simile, il che indica che le allucinazioni potrebbero essere legate a caratteristiche intrinseche nei modelli di linguaggio \cite{HallOpenAI} (e dunque la costruzione di un prober universale potrebbe essere possibile).
@@ -114,51 +115,65 @@ La pipeline sperimentale prevede:
 
 I risultati mostrano che alcune componenti e layer sono particolarmente efficaci nel discriminare le allucinazioni, evidenziando la presenza di pattern informativi specifici nelle attivazioni interne dei modelli
 
-\textcolor{red}{TODO: aggiornare stats di Qwen e Falcon e aggiungere Llama e Gemma}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/Qwen2.5-7B_BeliefBank_activations.png}
-    \caption{Performance dei componenti di Qwen2.5-7B su Belief Bank}
-    \label{fig:qwen-layer-performance}
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/Qwen2.5-7B_belief_bank_facts_activations.png}
+    \caption{Performance dei componenti di Qwen2.5-7B su Belief Bank Facts}
+    \label{fig:qwen-layer-performance-facts}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/Falcon3-7B-Base_BeliefBank_activations.png}
-    \caption{Performance dei componenti di Qwen2.5-7B su Belief Bank}
-    \label{fig:qwen-layer-performance}
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/Falcon3-7B-Base_belief_bank_facts_activations.png}
+    \caption{Performance dei componenti di Qwen2.5-7B su Belief Bank Facts}
+    \label{fig:qwen-layer-performance-facts}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/Llama-3.1-8B-Instruct_belief_bank_facts_activations.png}
+    \caption{Performance dei componenti di Llama-3.1-8B-Instruct su Belief Bank Facts}
+    \label{fig:llama-layer-performance-facts}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/Gemma-2-9B-IT_belief_bank_facts_activations.png}
+    \caption{Performance dei componenti di Gemma-2-9B-IT su Belief Bank Facts}
+    \label{fig:gemma-layer-performance-facts}
 \end{figure}
 
 
 Successivamente è stata effettuata un'analisi relativa alla distribuzione di allucinazioni e risposte corrette nello spazio delle attivazioni. Affinchè fosse possibile visualizzare le attivazioni in uno spazio bidimensionale, è stata applicata la tecnica di riduzione della dimensionalità Principal Component Analysis (PCA). Seguono alcuni esempi:
-\textcolor{red}{TODO: aggiornare}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/SINGLE_Falcon3-7B-Base_attn_L12_PCA.png}
-    \label{fig:qwen-pca-attn}
-    \caption{PCA delle attivazioni Attention del layer 12 di Falcon3-7B-Base}
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/SINGLE_Falcon3-7B-Base_attn_L18_PCA.png}
+    \label{fig:falcon-pca-attn-18}
+    \caption{PCA delle attivazioni Attention del layer 18 di Falcon3-7B-Base}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/SINGLE_Qwen2.5-7B_hidden_L18_PCA.png}
-    \label{fig:qwen-pca-attn}
-    \caption{PCA delle attivazioni Hidden del layer 18 di Qwen2.5-7B}
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/SINGLE_Qwen2.5-7B_attn_L14_PCA.png}
+    \label{fig:qwen-pca-attn-l14}
+    \caption{PCA delle attivazioni Attention del layer 14 di Qwen2.5-7B}
 \end{figure}
 
-Come si può vedere nei layer che performano meglio presi singolarmente abbiamo una più chiara separazione tra le due classi di esempi. Per queste ragioni, per gli esperimenti successivi sono stati scelti per ogni componente i 3 layer migliori in termini di performance.
-\textcolor{red}{TODO: aggiornare stats di Qwen e Falcon e aggiungere Llama e Gemma}
+Come si può vedere nei layer che performano meglio presi singolarmente abbiamo una più chiara separazione delle attivazioni. Per queste ragioni, per gli esperimenti successivi sono stati scelti per ogni componente i 3 layer migliori in termini di performance.
 \begin{table}[H]
 \centering
 \caption{Configurazione dei layer selezionati per modello e componente}
-\label{tab:layer-config}
+\label{tab:layer-config-belief-bank-facts}
 \begin{tabular}{lccc}
 \toprule
 Modello & Attention (attn) & MLP & Hidden \\
 \midrule
-Qwen2.5-7B & 15, 16, 18 & 16, 18, 20 & 18, 19, 20 \\
-Falcon3-7B-Base & 2, 7, 12 & 10, 11, 12 & 2, 3, 19 \\
+Qwen2.5-7B & 14, 15, 17 & 14, 23, 25 & 15, 16, 17 \\
+Falcon3-7B-Base & 18, 19, 26 & 18, 19, 20 & 17, 18, 21 \\
+Llama-3.1-8B-Instruct & 8, 13, 14 & 14, 15, 21 & 14, 15, 16 \\
+Gemma-2-9B-IT & 21, 24, 27 & 22, 25, 27 & 23, 26, 34 \\
+
 \bottomrule
 \end{tabular}
 \end{table}

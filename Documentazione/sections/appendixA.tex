@@ -1,53 +1,95 @@
 \chapter{Attivazioni dei Modelli}
 
 Nelle seguenti figure vengono mostrate le rappresentazioni PCA delle attivazioni estratte dai modelli dagl LLM. Le attivazioni sono state ottenute da tre tipi di layer: Attention, MLP e Hidden. In rosso sono indicate le istanze allucinatorie, mentre in blu quelle veritiere.
-\textcolor{red}{TODO: da rifare completamente con i nuovi risultati}
 \newpage
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Qwen2.5-7B_belief_bank_attn_activations_PCA.jpg}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Qwen2.5-7B_belief_bank_facts_attn_activations_PCA_CLEAN.jpg}
     \caption{PCA delle attivazioni Attention del layer di Qwen2.5-7B}
-    \label{fig:qwen-pca-attn}
+    \label{fig:qwen-pca-attn-facts-full}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Qwen2.5-7B_belief_bank_hidden_activations_PCA.jpg}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Qwen2.5-7B_belief_bank_facts_hidden_activations_PCA_CLEAN.jpg}
     \caption{PCA delle attivazioni Hidden del layer di Qwen2.5-7B}
 
-    \label{fig:qwen-pca-hidden}
+    \label{fig:qwen-pca-hidden-facts-full}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Qwen2.5-7B_belief_bank_mlp_activations_PCA.jpg}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Qwen2.5-7B_belief_bank_facts_mlp_activations_PCA_CLEAN.jpg}
     \caption{PCA delle attivazioni MLP del layer di Qwen2.5-7B}
 
-    \label{fig:qwen-pca-mlp}
+    \label{fig:qwen-pca-mlp-facts-full}
 \end{figure}
 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Falcon3-7B-Base_belief_bank_attn_activations_PCA.jpg}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Falcon3-7B-Base_belief_bank_facts_attn_activations_PCA_CLEAN.jpg}
     \caption{PCA delle attivazioni Attention del layer di Falcon3-7B-Base}
 
-    \label{fig:falcon-pca-attn}
+    \label{fig:falcon-pca-attn-facts-full}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Falcon3-7B-Base_belief_bank_hidden_activations_PCA.jpg}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Falcon3-7B-Base_belief_bank_facts_hidden_activations_PCA_CLEAN.jpg}
     \caption{PCA delle attivazioni Hidden del layer di Falcon3-7B-Base}
 
-    \label{fig:falcon-pca-hidden}
+    \label{fig:falcon-pca-hidden-facts-full}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Falcon3-7B-Base_belief_bank_mlp_activations_PCA.jpg}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Falcon3-7B-Base_belief_bank_facts_mlp_activations_PCA_CLEAN.jpg}
     \caption{PCA delle attivazioni MLP del layer di Falcon3-7B-Base}
 
-    \label{fig:falcon-pca-mlp}
+    \label{fig:falcon-pca-mlp-facts-full}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/gemma-2-9b-it_belief_bank_facts_attn_activations_PCA_CLEAN.jpg}
+    \label{fig:gemma-pca-attn-facts-full}
+    \caption{PCA delle attivazioni Attention del layer di Gemma-2-9B-IT}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/gemma-2-9b-it_belief_bank_facts_hidden_activations_PCA_CLEAN.jpg}
+    \label{fig:gemma-pca-hidden-facts-full}
+    \caption{PCA delle attivazioni Hidden del layer di Gemma-2-9B-IT}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/gemma-2-9b-it_belief_bank_facts_mlp_activations_PCA_CLEAN.jpg}
+    \label{fig:gemma-pca-mlp-facts-full}
+    \caption{PCA delle attivazioni MLP del layer di Gemma-2-9B-IT}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/Llama-3.1-8B-Instruct_belief_bank_facts_attn_activations_PCA_CLEAN.jpg}
+    \label{fig:llama-pca-attn-facts-full}
+    \caption{PCA delle attivazioni Attention del layer di Llama-3.1-8B-Instruct}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/Llama-3.1-8B-Instruct_belief_bank_facts_hidden_activations_PCA_CLEAN.jpg}
+    \label{fig:llama-pca-hidden-facts-full}
+    \caption{PCA delle attivazioni Hidden del layer di Llama-3.1-8B-Instruct}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/Llama-3.1-8B-Instruct_belief_bank_facts_mlp_activations_PCA_CLEAN.jpg}
+    \label{fig:llama-pca-mlp-facts-full}
+    \caption{PCA delle attivazioni MLP del layer di Llama-3.1-8B-Instruct}
 \end{figure}
 
