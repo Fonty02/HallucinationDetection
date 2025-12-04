@@ -1,1349 +1,1025 @@
 {
-    "Llama-3.1-8B-Instruct": {
+    "Qwen2.5-7B": {
         "attn": [
             {
-                "layer": 13,
-                "accuracy": 0.9722,
-                "f1_score": 0.972,
-                "auroc": 0.9941
-            },
-            {
-                "layer": 8,
-                "accuracy": 0.9685,
-                "f1_score": 0.9687,
-                "auroc": 0.9959
-            },
-            {
                 "layer": 14,
-                "accuracy": 0.9685,
-                "f1_score": 0.9686,
-                "auroc": 0.9943
-            },
-            {
-                "layer": 12,
-                "accuracy": 0.9676,
-                "f1_score": 0.9673,
-                "auroc": 0.9949
-            },
-            {
-                "layer": 20,
-                "accuracy": 0.962,
-                "f1_score": 0.9621,
-                "auroc": 0.9917
-            },
-            {
-                "layer": 16,
-                "accuracy": 0.9602,
-                "f1_score": 0.9601,
-                "auroc": 0.9919
+                "accuracy": 0.9841,
+                "f1_score": 0.9841,
+                "auroc": 0.999
             },
             {
                 "layer": 15,
-                "accuracy": 0.9574,
-                "f1_score": 0.9577,
-                "auroc": 0.9912
+                "accuracy": 0.9841,
+                "f1_score": 0.9841,
+                "auroc": 0.9976
             },
             {
                 "layer": 17,
-                "accuracy": 0.9556,
-                "f1_score": 0.9557,
-                "auroc": 0.9885
-            },
-            {
-                "layer": 21,
-                "accuracy": 0.9546,
-                "f1_score": 0.9549,
-                "auroc": 0.9884
-            },
-            {
-                "layer": 22,
-                "accuracy": 0.9537,
-                "f1_score": 0.9536,
-                "auroc": 0.9879
-            },
-            {
-                "layer": 31,
-                "accuracy": 0.9528,
-                "f1_score": 0.9533,
-                "auroc": 0.9875
-            },
-            {
-                "layer": 18,
-                "accuracy": 0.9519,
-                "f1_score": 0.9518,
-                "auroc": 0.9852
-            },
-            {
-                "layer": 19,
-                "accuracy": 0.9519,
-                "f1_score": 0.9522,
-                "auroc": 0.9884
-            },
-            {
-                "layer": 11,
-                "accuracy": 0.9509,
-                "f1_score": 0.9506,
-                "auroc": 0.9857
-            },
-            {
-                "layer": 24,
-                "accuracy": 0.9509,
-                "f1_score": 0.9508,
-                "auroc": 0.9891
-            },
-            {
-                "layer": 28,
-                "accuracy": 0.9509,
-                "f1_score": 0.951,
-                "auroc": 0.9862
-            },
-            {
-                "layer": 25,
-                "accuracy": 0.9454,
-                "f1_score": 0.9453,
-                "auroc": 0.9834
-            },
-            {
-                "layer": 10,
-                "accuracy": 0.9435,
-                "f1_score": 0.9437,
-                "auroc": 0.9856
-            },
-            {
-                "layer": 26,
-                "accuracy": 0.9417,
-                "f1_score": 0.9417,
-                "auroc": 0.9828
-            },
-            {
-                "layer": 23,
-                "accuracy": 0.9389,
-                "f1_score": 0.939,
-                "auroc": 0.9796
-            },
-            {
-                "layer": 29,
-                "accuracy": 0.9315,
-                "f1_score": 0.9319,
-                "auroc": 0.979
-            },
-            {
-                "layer": 30,
-                "accuracy": 0.9315,
-                "f1_score": 0.9314,
-                "auroc": 0.9789
-            },
-            {
-                "layer": 9,
-                "accuracy": 0.9306,
-                "f1_score": 0.9318,
-                "auroc": 0.9804
-            },
-            {
-                "layer": 27,
-                "accuracy": 0.9306,
-                "f1_score": 0.9311,
-                "auroc": 0.9788
-            },
-            {
-                "layer": 5,
-                "accuracy": 0.9194,
-                "f1_score": 0.9208,
-                "auroc": 0.9763
-            },
-            {
-                "layer": 6,
-                "accuracy": 0.9111,
-                "f1_score": 0.9126,
-                "auroc": 0.9647
-            },
-            {
-                "layer": 3,
-                "accuracy": 0.9046,
-                "f1_score": 0.9052,
-                "auroc": 0.9591
-            },
-            {
-                "layer": 1,
-                "accuracy": 0.9028,
-                "f1_score": 0.9034,
-                "auroc": 0.9606
-            },
-            {
-                "layer": 0,
-                "accuracy": 0.8981,
-                "f1_score": 0.9002,
-                "auroc": 0.9592
-            },
-            {
-                "layer": 7,
-                "accuracy": 0.8963,
-                "f1_score": 0.8976,
-                "auroc": 0.9594
-            },
-            {
-                "layer": 2,
-                "accuracy": 0.8917,
-                "f1_score": 0.8916,
-                "auroc": 0.9596
-            },
-            {
-                "layer": 4,
-                "accuracy": 0.8815,
-                "f1_score": 0.8841,
-                "auroc": 0.9543
-            }
-        ],
-        "mlp": [
-            {
-                "layer": 14,
-                "accuracy": 0.9852,
-                "f1_score": 0.9852,
-                "auroc": 0.9979
-            },
-            {
-                "layer": 15,
-                "accuracy": 0.9778,
-                "f1_score": 0.9778,
-                "auroc": 0.9979
-            },
-            {
-                "layer": 21,
-                "accuracy": 0.9778,
-                "f1_score": 0.9778,
-                "auroc": 0.9942
-            },
-            {
-                "layer": 12,
-                "accuracy": 0.9769,
-                "f1_score": 0.9769,
-                "auroc": 0.9966
-            },
-            {
-                "layer": 20,
-                "accuracy": 0.9769,
-                "f1_score": 0.9769,
-                "auroc": 0.9962
-            },
-            {
-                "layer": 13,
-                "accuracy": 0.9759,
-                "f1_score": 0.976,
-                "auroc": 0.9974
-            },
-            {
-                "layer": 17,
-                "accuracy": 0.9759,
-                "f1_score": 0.9759,
-                "auroc": 0.9964
-            },
-            {
-                "layer": 22,
-                "accuracy": 0.9759,
-                "f1_score": 0.976,
-                "auroc": 0.996
-            },
-            {
-                "layer": 23,
-                "accuracy": 0.9759,
-                "f1_score": 0.9761,
-                "auroc": 0.9949
-            },
-            {
-                "layer": 16,
-                "accuracy": 0.975,
-                "f1_score": 0.9749,
-                "auroc": 0.9964
-            },
-            {
-                "layer": 18,
-                "accuracy": 0.9741,
-                "f1_score": 0.974,
-                "auroc": 0.9965
-            },
-            {
-                "layer": 26,
-                "accuracy": 0.9731,
-                "f1_score": 0.9732,
-                "auroc": 0.995
-            },
-            {
-                "layer": 27,
-                "accuracy": 0.9694,
-                "f1_score": 0.9696,
-                "auroc": 0.9951
-            },
-            {
-                "layer": 24,
-                "accuracy": 0.9685,
-                "f1_score": 0.9687,
-                "auroc": 0.9945
-            },
-            {
-                "layer": 19,
-                "accuracy": 0.9667,
-                "f1_score": 0.9666,
-                "auroc": 0.9959
-            },
-            {
-                "layer": 25,
-                "accuracy": 0.9667,
-                "f1_score": 0.9671,
-                "auroc": 0.9908
-            },
-            {
-                "layer": 28,
-                "accuracy": 0.9667,
-                "f1_score": 0.9669,
-                "auroc": 0.9919
-            },
-            {
-                "layer": 8,
-                "accuracy": 0.9648,
-                "f1_score": 0.9649,
-                "auroc": 0.9941
-            },
-            {
-                "layer": 9,
-                "accuracy": 0.9639,
-                "f1_score": 0.9641,
-                "auroc": 0.9937
-            },
-            {
-                "layer": 11,
-                "accuracy": 0.963,
-                "f1_score": 0.9628,
-                "auroc": 0.9938
-            },
-            {
-                "layer": 29,
-                "accuracy": 0.9611,
-                "f1_score": 0.9615,
-                "auroc": 0.992
-            },
-            {
-                "layer": 30,
-                "accuracy": 0.9593,
-                "f1_score": 0.9594,
-                "auroc": 0.9915
-            },
-            {
-                "layer": 10,
-                "accuracy": 0.9574,
-                "f1_score": 0.9573,
-                "auroc": 0.9924
-            },
-            {
-                "layer": 31,
-                "accuracy": 0.9565,
-                "f1_score": 0.9568,
-                "auroc": 0.9907
-            },
-            {
-                "layer": 7,
-                "accuracy": 0.9343,
-                "f1_score": 0.9346,
-                "auroc": 0.9781
-            },
-            {
-                "layer": 6,
-                "accuracy": 0.9315,
-                "f1_score": 0.9315,
-                "auroc": 0.9724
-            },
-            {
-                "layer": 5,
-                "accuracy": 0.9231,
-                "f1_score": 0.9239,
-                "auroc": 0.9754
-            },
-            {
-                "layer": 4,
-                "accuracy": 0.9194,
-                "f1_score": 0.9205,
-                "auroc": 0.9779
-            },
-            {
-                "layer": 2,
-                "accuracy": 0.9185,
-                "f1_score": 0.9193,
-                "auroc": 0.9679
-            },
-            {
-                "layer": 1,
-                "accuracy": 0.9176,
-                "f1_score": 0.9186,
-                "auroc": 0.9704
-            },
-            {
-                "layer": 3,
-                "accuracy": 0.9139,
-                "f1_score": 0.9141,
-                "auroc": 0.9713
-            },
-            {
-                "layer": 0,
-                "accuracy": 0.8787,
-                "f1_score": 0.8793,
-                "auroc": 0.944
-            }
-        ],
-        "hidden": [
-            {
-                "layer": 15,
-                "accuracy": 0.9806,
-                "f1_score": 0.9806,
-                "auroc": 0.9969
-            },
-            {
-                "layer": 14,
-                "accuracy": 0.9796,
-                "f1_score": 0.9797,
-                "auroc": 0.998
-            },
-            {
-                "layer": 16,
-                "accuracy": 0.9796,
-                "f1_score": 0.9797,
-                "auroc": 0.9974
-            },
-            {
-                "layer": 13,
-                "accuracy": 0.9787,
-                "f1_score": 0.9788,
+                "accuracy": 0.9841,
+                "f1_score": 0.9841,
                 "auroc": 0.9977
             },
             {
-                "layer": 12,
-                "accuracy": 0.9778,
-                "f1_score": 0.9778,
-                "auroc": 0.9965
-            },
-            {
-                "layer": 17,
-                "accuracy": 0.9778,
-                "f1_score": 0.9778,
-                "auroc": 0.9961
-            },
-            {
-                "layer": 18,
-                "accuracy": 0.9769,
-                "f1_score": 0.9769,
-                "auroc": 0.9968
+                "layer": 16,
+                "accuracy": 0.9836,
+                "f1_score": 0.9835,
+                "auroc": 0.9987
             },
             {
                 "layer": 20,
-                "accuracy": 0.9769,
-                "f1_score": 0.9768,
-                "auroc": 0.9959
+                "accuracy": 0.9836,
+                "f1_score": 0.9836,
+                "auroc": 0.9984
             },
             {
                 "layer": 21,
-                "accuracy": 0.9759,
-                "f1_score": 0.976,
-                "auroc": 0.9955
-            },
-            {
-                "layer": 22,
-                "accuracy": 0.9759,
-                "f1_score": 0.9759,
-                "auroc": 0.9951
-            },
-            {
-                "layer": 19,
-                "accuracy": 0.975,
-                "f1_score": 0.975,
-                "auroc": 0.9964
-            },
-            {
-                "layer": 23,
-                "accuracy": 0.9731,
-                "f1_score": 0.9732,
-                "auroc": 0.994
-            },
-            {
-                "layer": 29,
-                "accuracy": 0.9731,
-                "f1_score": 0.9733,
-                "auroc": 0.9935
+                "accuracy": 0.9808,
+                "f1_score": 0.9808,
+                "auroc": 0.9974
             },
             {
                 "layer": 25,
-                "accuracy": 0.9722,
-                "f1_score": 0.9725,
-                "auroc": 0.9942
+                "accuracy": 0.9804,
+                "f1_score": 0.9804,
+                "auroc": 0.9975
             },
             {
-                "layer": 27,
-                "accuracy": 0.9722,
-                "f1_score": 0.9723,
-                "auroc": 0.9936
+                "layer": 18,
+                "accuracy": 0.9794,
+                "f1_score": 0.9794,
+                "auroc": 0.9975
+            },
+            {
+                "layer": 19,
+                "accuracy": 0.9794,
+                "f1_score": 0.9793,
+                "auroc": 0.9988
+            },
+            {
+                "layer": 12,
+                "accuracy": 0.9785,
+                "f1_score": 0.9785,
+                "auroc": 0.9973
+            },
+            {
+                "layer": 23,
+                "accuracy": 0.9776,
+                "f1_score": 0.9775,
+                "auroc": 0.9971
+            },
+            {
+                "layer": 22,
+                "accuracy": 0.9766,
+                "f1_score": 0.9766,
+                "auroc": 0.9976
             },
             {
                 "layer": 26,
-                "accuracy": 0.9704,
-                "f1_score": 0.9705,
-                "auroc": 0.9934
+                "accuracy": 0.9762,
+                "f1_score": 0.976,
+                "auroc": 0.9961
             },
             {
                 "layer": 24,
-                "accuracy": 0.9685,
-                "f1_score": 0.9685,
-                "auroc": 0.9943
+                "accuracy": 0.9748,
+                "f1_score": 0.9748,
+                "auroc": 0.9956
             },
             {
-                "layer": 28,
-                "accuracy": 0.9685,
-                "f1_score": 0.9686,
-                "auroc": 0.9936
+                "layer": 2,
+                "accuracy": 0.9724,
+                "f1_score": 0.9725,
+                "auroc": 0.99
             },
             {
                 "layer": 8,
-                "accuracy": 0.9676,
-                "f1_score": 0.9677,
-                "auroc": 0.9946
+                "accuracy": 0.9724,
+                "f1_score": 0.9723,
+                "auroc": 0.9952
             },
             {
-                "layer": 30,
-                "accuracy": 0.9676,
+                "layer": 4,
+                "accuracy": 0.9696,
+                "f1_score": 0.9694,
+                "auroc": 0.9904
+            },
+            {
+                "layer": 5,
+                "accuracy": 0.9696,
+                "f1_score": 0.9695,
+                "auroc": 0.9893
+            },
+            {
+                "layer": 3,
+                "accuracy": 0.9691,
+                "f1_score": 0.969,
+                "auroc": 0.9908
+            },
+            {
+                "layer": 0,
+                "accuracy": 0.9677,
                 "f1_score": 0.9676,
-                "auroc": 0.994
+                "auroc": 0.9872
             },
             {
-                "layer": 11,
-                "accuracy": 0.9648,
-                "f1_score": 0.9649,
+                "layer": 7,
+                "accuracy": 0.9677,
+                "f1_score": 0.9677,
+                "auroc": 0.9932
+            },
+            {
+                "layer": 13,
+                "accuracy": 0.9677,
+                "f1_score": 0.9676,
                 "auroc": 0.9937
             },
             {
                 "layer": 9,
-                "accuracy": 0.9639,
-                "f1_score": 0.9641,
+                "accuracy": 0.9668,
+                "f1_score": 0.9667,
+                "auroc": 0.9936
+            },
+            {
+                "layer": 6,
+                "accuracy": 0.9649,
+                "f1_score": 0.9648,
                 "auroc": 0.9927
             },
             {
-                "layer": 31,
-                "accuracy": 0.9639,
-                "f1_score": 0.9639,
-                "auroc": 0.9924
+                "layer": 11,
+                "accuracy": 0.9645,
+                "f1_score": 0.9641,
+                "auroc": 0.9922
             },
             {
                 "layer": 10,
-                "accuracy": 0.9602,
-                "f1_score": 0.9603,
-                "auroc": 0.9932
-            },
-            {
-                "layer": 5,
-                "accuracy": 0.9361,
-                "f1_score": 0.9369,
-                "auroc": 0.9807
-            },
-            {
-                "layer": 7,
-                "accuracy": 0.9343,
-                "f1_score": 0.9348,
-                "auroc": 0.9781
-            },
-            {
-                "layer": 6,
-                "accuracy": 0.9296,
-                "f1_score": 0.9299,
-                "auroc": 0.974
-            },
-            {
-                "layer": 4,
-                "accuracy": 0.9231,
-                "f1_score": 0.9243,
-                "auroc": 0.9789
-            },
-            {
-                "layer": 3,
-                "accuracy": 0.9222,
-                "f1_score": 0.9228,
-                "auroc": 0.9736
-            },
-            {
-                "layer": 2,
-                "accuracy": 0.9185,
-                "f1_score": 0.9191,
-                "auroc": 0.9692
+                "accuracy": 0.9626,
+                "f1_score": 0.9625,
+                "auroc": 0.991
             },
             {
                 "layer": 1,
-                "accuracy": 0.9139,
-                "f1_score": 0.9148,
-                "auroc": 0.9705
-            },
-            {
-                "layer": 0,
-                "accuracy": 0.8981,
-                "f1_score": 0.8998,
-                "auroc": 0.9467
-            }
-        ]
-    },
-    "gemma-2-9b-it": {
-        "attn": [
-            {
-                "layer": 24,
-                "accuracy": 0.9647,
-                "f1_score": 0.9648,
-                "auroc": 0.9898
+                "accuracy": 0.9617,
+                "f1_score": 0.9617,
+                "auroc": 0.9846
             },
             {
                 "layer": 27,
-                "accuracy": 0.9564,
-                "f1_score": 0.9558,
-                "auroc": 0.9857
-            },
-            {
-                "layer": 21,
-                "accuracy": 0.9544,
-                "f1_score": 0.9544,
-                "auroc": 0.9854
-            },
-            {
-                "layer": 22,
-                "accuracy": 0.9523,
-                "f1_score": 0.952,
-                "auroc": 0.9906
-            },
-            {
-                "layer": 26,
-                "accuracy": 0.9523,
-                "f1_score": 0.9518,
-                "auroc": 0.9831
-            },
-            {
-                "layer": 35,
-                "accuracy": 0.9523,
-                "f1_score": 0.9526,
-                "auroc": 0.9823
-            },
-            {
-                "layer": 19,
-                "accuracy": 0.9481,
-                "f1_score": 0.948,
-                "auroc": 0.9843
-            },
-            {
-                "layer": 39,
-                "accuracy": 0.9481,
-                "f1_score": 0.9482,
-                "auroc": 0.9853
-            },
-            {
-                "layer": 23,
-                "accuracy": 0.9461,
-                "f1_score": 0.9461,
-                "auroc": 0.9871
-            },
-            {
-                "layer": 25,
-                "accuracy": 0.9461,
-                "f1_score": 0.9461,
-                "auroc": 0.9867
-            },
-            {
-                "layer": 31,
-                "accuracy": 0.9461,
-                "f1_score": 0.9456,
-                "auroc": 0.9795
-            },
-            {
-                "layer": 33,
-                "accuracy": 0.9461,
-                "f1_score": 0.9461,
-                "auroc": 0.9866
-            },
-            {
-                "layer": 41,
-                "accuracy": 0.9461,
-                "f1_score": 0.9463,
-                "auroc": 0.983
-            },
-            {
-                "layer": 20,
-                "accuracy": 0.944,
-                "f1_score": 0.945,
-                "auroc": 0.9815
-            },
-            {
-                "layer": 36,
-                "accuracy": 0.944,
-                "f1_score": 0.9441,
-                "auroc": 0.9768
-            },
-            {
-                "layer": 38,
-                "accuracy": 0.9419,
-                "f1_score": 0.9419,
-                "auroc": 0.9849
-            },
-            {
-                "layer": 40,
-                "accuracy": 0.9419,
-                "f1_score": 0.9412,
-                "auroc": 0.9839
-            },
-            {
-                "layer": 28,
-                "accuracy": 0.9398,
-                "f1_score": 0.94,
-                "auroc": 0.9822
-            },
-            {
-                "layer": 30,
-                "accuracy": 0.9378,
-                "f1_score": 0.9372,
-                "auroc": 0.9851
-            },
-            {
-                "layer": 29,
-                "accuracy": 0.9357,
-                "f1_score": 0.9353,
-                "auroc": 0.9864
-            },
-            {
-                "layer": 34,
-                "accuracy": 0.9336,
-                "f1_score": 0.9336,
-                "auroc": 0.9815
-            },
-            {
-                "layer": 37,
-                "accuracy": 0.9315,
-                "f1_score": 0.9314,
-                "auroc": 0.9799
-            },
-            {
-                "layer": 32,
-                "accuracy": 0.9274,
-                "f1_score": 0.9278,
-                "auroc": 0.9772
-            },
-            {
-                "layer": 16,
-                "accuracy": 0.9253,
-                "f1_score": 0.9256,
-                "auroc": 0.9831
-            },
-            {
-                "layer": 18,
-                "accuracy": 0.9191,
-                "f1_score": 0.9193,
-                "auroc": 0.9782
-            },
-            {
-                "layer": 14,
-                "accuracy": 0.917,
-                "f1_score": 0.9174,
-                "auroc": 0.9641
-            },
-            {
-                "layer": 15,
-                "accuracy": 0.917,
-                "f1_score": 0.9184,
-                "auroc": 0.9713
-            },
-            {
-                "layer": 17,
-                "accuracy": 0.9108,
-                "f1_score": 0.9106,
-                "auroc": 0.9686
-            },
-            {
-                "layer": 13,
-                "accuracy": 0.8672,
-                "f1_score": 0.8694,
-                "auroc": 0.9346
-            },
-            {
-                "layer": 12,
-                "accuracy": 0.861,
-                "f1_score": 0.8641,
-                "auroc": 0.9291
-            },
-            {
-                "layer": 7,
-                "accuracy": 0.8444,
-                "f1_score": 0.8491,
-                "auroc": 0.9087
-            },
-            {
-                "layer": 10,
-                "accuracy": 0.8361,
-                "f1_score": 0.8404,
-                "auroc": 0.921
-            },
-            {
-                "layer": 11,
-                "accuracy": 0.834,
-                "f1_score": 0.8374,
-                "auroc": 0.922
-            },
-            {
-                "layer": 0,
-                "accuracy": 0.8299,
-                "f1_score": 0.8333,
-                "auroc": 0.9012
-            },
-            {
-                "layer": 4,
-                "accuracy": 0.8278,
-                "f1_score": 0.8303,
-                "auroc": 0.9029
-            },
-            {
-                "layer": 3,
-                "accuracy": 0.8216,
-                "f1_score": 0.8238,
-                "auroc": 0.8875
-            },
-            {
-                "layer": 5,
-                "accuracy": 0.8174,
-                "f1_score": 0.8204,
-                "auroc": 0.8898
-            },
-            {
-                "layer": 8,
-                "accuracy": 0.8174,
-                "f1_score": 0.8219,
-                "auroc": 0.9044
-            },
-            {
-                "layer": 9,
-                "accuracy": 0.8071,
-                "f1_score": 0.8129,
-                "auroc": 0.9038
-            },
-            {
-                "layer": 1,
-                "accuracy": 0.8029,
-                "f1_score": 0.8049,
-                "auroc": 0.8709
-            },
-            {
-                "layer": 6,
-                "accuracy": 0.7988,
-                "f1_score": 0.8016,
-                "auroc": 0.8825
-            },
-            {
-                "layer": 2,
-                "accuracy": 0.7573,
-                "f1_score": 0.7617,
-                "auroc": 0.8406
+                "accuracy": 0.9607,
+                "f1_score": 0.9606,
+                "auroc": 0.9921
             }
         ],
         "mlp": [
             {
-                "layer": 22,
-                "accuracy": 0.9668,
-                "f1_score": 0.9669,
-                "auroc": 0.9931
-            },
-            {
-                "layer": 25,
-                "accuracy": 0.9585,
-                "f1_score": 0.9583,
-                "auroc": 0.9895
-            },
-            {
-                "layer": 27,
-                "accuracy": 0.9585,
-                "f1_score": 0.9585,
-                "auroc": 0.9866
-            },
-            {
-                "layer": 30,
-                "accuracy": 0.9585,
-                "f1_score": 0.9585,
-                "auroc": 0.9921
-            },
-            {
-                "layer": 31,
-                "accuracy": 0.9585,
-                "f1_score": 0.9585,
-                "auroc": 0.9913
-            },
-            {
-                "layer": 21,
-                "accuracy": 0.9564,
-                "f1_score": 0.9567,
-                "auroc": 0.9901
-            },
-            {
-                "layer": 26,
-                "accuracy": 0.9564,
-                "f1_score": 0.9565,
-                "auroc": 0.9854
-            },
-            {
-                "layer": 33,
-                "accuracy": 0.9564,
-                "f1_score": 0.9567,
-                "auroc": 0.9887
-            },
-            {
-                "layer": 34,
-                "accuracy": 0.9564,
-                "f1_score": 0.9569,
-                "auroc": 0.989
-            },
-            {
-                "layer": 20,
-                "accuracy": 0.9544,
-                "f1_score": 0.9549,
-                "auroc": 0.9829
-            },
-            {
-                "layer": 24,
-                "accuracy": 0.9544,
-                "f1_score": 0.954,
-                "auroc": 0.9882
-            },
-            {
-                "layer": 36,
-                "accuracy": 0.9544,
-                "f1_score": 0.9545,
-                "auroc": 0.9883
-            },
-            {
-                "layer": 37,
-                "accuracy": 0.9544,
-                "f1_score": 0.9547,
-                "auroc": 0.9873
-            },
-            {
-                "layer": 41,
-                "accuracy": 0.9544,
-                "f1_score": 0.9547,
-                "auroc": 0.9828
-            },
-            {
-                "layer": 19,
-                "accuracy": 0.9523,
-                "f1_score": 0.9528,
-                "auroc": 0.986
-            },
-            {
-                "layer": 28,
-                "accuracy": 0.9523,
-                "f1_score": 0.9524,
-                "auroc": 0.9885
-            },
-            {
-                "layer": 29,
-                "accuracy": 0.9523,
-                "f1_score": 0.9526,
-                "auroc": 0.9872
-            },
-            {
-                "layer": 32,
-                "accuracy": 0.9502,
-                "f1_score": 0.9504,
-                "auroc": 0.9873
-            },
-            {
-                "layer": 39,
-                "accuracy": 0.9502,
-                "f1_score": 0.9506,
-                "auroc": 0.986
+                "layer": 14,
+                "accuracy": 0.9892,
+                "f1_score": 0.9892,
+                "auroc": 0.9994
             },
             {
                 "layer": 23,
-                "accuracy": 0.9481,
-                "f1_score": 0.9485,
-                "auroc": 0.9907
+                "accuracy": 0.9888,
+                "f1_score": 0.9888,
+                "auroc": 0.9992
             },
             {
-                "layer": 35,
-                "accuracy": 0.9481,
-                "f1_score": 0.9487,
-                "auroc": 0.9883
-            },
-            {
-                "layer": 38,
-                "accuracy": 0.9481,
-                "f1_score": 0.9485,
-                "auroc": 0.985
-            },
-            {
-                "layer": 40,
-                "accuracy": 0.9398,
-                "f1_score": 0.94,
-                "auroc": 0.9832
-            },
-            {
-                "layer": 16,
-                "accuracy": 0.9295,
-                "f1_score": 0.9295,
-                "auroc": 0.9783
+                "layer": 25,
+                "accuracy": 0.9888,
+                "f1_score": 0.9887,
+                "auroc": 0.9991
             },
             {
                 "layer": 15,
-                "accuracy": 0.9274,
-                "f1_score": 0.9275,
-                "auroc": 0.9719
+                "accuracy": 0.9869,
+                "f1_score": 0.9869,
+                "auroc": 0.9989
             },
             {
-                "layer": 18,
-                "accuracy": 0.9232,
-                "f1_score": 0.9231,
-                "auroc": 0.9778
+                "layer": 19,
+                "accuracy": 0.9864,
+                "f1_score": 0.9864,
+                "auroc": 0.9993
+            },
+            {
+                "layer": 21,
+                "accuracy": 0.9864,
+                "f1_score": 0.9864,
+                "auroc": 0.9991
             },
             {
                 "layer": 17,
-                "accuracy": 0.917,
-                "f1_score": 0.9163,
-                "auroc": 0.9751
+                "accuracy": 0.986,
+                "f1_score": 0.986,
+                "auroc": 0.999
+            },
+            {
+                "layer": 22,
+                "accuracy": 0.986,
+                "f1_score": 0.9859,
+                "auroc": 0.9992
+            },
+            {
+                "layer": 18,
+                "accuracy": 0.9855,
+                "f1_score": 0.9855,
+                "auroc": 0.9992
+            },
+            {
+                "layer": 24,
+                "accuracy": 0.9855,
+                "f1_score": 0.9855,
+                "auroc": 0.999
+            },
+            {
+                "layer": 16,
+                "accuracy": 0.985,
+                "f1_score": 0.985,
+                "auroc": 0.9991
+            },
+            {
+                "layer": 26,
+                "accuracy": 0.9846,
+                "f1_score": 0.9846,
+                "auroc": 0.9988
+            },
+            {
+                "layer": 20,
+                "accuracy": 0.9832,
+                "f1_score": 0.9831,
+                "auroc": 0.9993
             },
             {
                 "layer": 13,
-                "accuracy": 0.9149,
-                "f1_score": 0.9151,
-                "auroc": 0.9673
+                "accuracy": 0.9804,
+                "f1_score": 0.9803,
+                "auroc": 0.9981
             },
             {
-                "layer": 14,
-                "accuracy": 0.8963,
-                "f1_score": 0.8958,
-                "auroc": 0.9665
+                "layer": 27,
+                "accuracy": 0.9799,
+                "f1_score": 0.9798,
+                "auroc": 0.997
             },
             {
                 "layer": 12,
-                "accuracy": 0.8568,
-                "f1_score": 0.8612,
-                "auroc": 0.9259
-            },
-            {
-                "layer": 10,
-                "accuracy": 0.8485,
-                "f1_score": 0.8501,
-                "auroc": 0.9226
-            },
-            {
-                "layer": 5,
-                "accuracy": 0.8382,
-                "f1_score": 0.8427,
-                "auroc": 0.913
-            },
-            {
-                "layer": 11,
-                "accuracy": 0.8361,
-                "f1_score": 0.8378,
-                "auroc": 0.9259
+                "accuracy": 0.9776,
+                "f1_score": 0.9775,
+                "auroc": 0.9974
             },
             {
                 "layer": 8,
-                "accuracy": 0.832,
-                "f1_score": 0.837,
-                "auroc": 0.9021
+                "accuracy": 0.9762,
+                "f1_score": 0.976,
+                "auroc": 0.9951
             },
             {
-                "layer": 4,
-                "accuracy": 0.8278,
-                "f1_score": 0.831,
-                "auroc": 0.8991
+                "layer": 11,
+                "accuracy": 0.9762,
+                "f1_score": 0.976,
+                "auroc": 0.9975
             },
             {
                 "layer": 9,
-                "accuracy": 0.8278,
-                "f1_score": 0.8316,
-                "auroc": 0.914
-            },
-            {
-                "layer": 6,
-                "accuracy": 0.8195,
-                "f1_score": 0.8214,
-                "auroc": 0.9038
-            },
-            {
-                "layer": 7,
-                "accuracy": 0.8195,
-                "f1_score": 0.8214,
-                "auroc": 0.8896
-            },
-            {
-                "layer": 3,
-                "accuracy": 0.7531,
-                "f1_score": 0.7566,
-                "auroc": 0.8377
-            },
-            {
-                "layer": 1,
-                "accuracy": 0.7158,
-                "f1_score": 0.721,
-                "auroc": 0.7952
-            },
-            {
-                "layer": 2,
-                "accuracy": 0.6992,
-                "f1_score": 0.7023,
-                "auroc": 0.8023
+                "accuracy": 0.9743,
+                "f1_score": 0.974,
+                "auroc": 0.9961
             },
             {
                 "layer": 0,
-                "accuracy": 0.6784,
-                "f1_score": 0.6817,
-                "auroc": 0.757
+                "accuracy": 0.9738,
+                "f1_score": 0.9737,
+                "auroc": 0.9885
+            },
+            {
+                "layer": 4,
+                "accuracy": 0.9738,
+                "f1_score": 0.9737,
+                "auroc": 0.9945
+            },
+            {
+                "layer": 6,
+                "accuracy": 0.9734,
+                "f1_score": 0.9733,
+                "auroc": 0.9925
+            },
+            {
+                "layer": 7,
+                "accuracy": 0.9724,
+                "f1_score": 0.9723,
+                "auroc": 0.9949
+            },
+            {
+                "layer": 10,
+                "accuracy": 0.9715,
+                "f1_score": 0.9713,
+                "auroc": 0.9954
+            },
+            {
+                "layer": 3,
+                "accuracy": 0.971,
+                "f1_score": 0.971,
+                "auroc": 0.991
+            },
+            {
+                "layer": 5,
+                "accuracy": 0.9701,
+                "f1_score": 0.97,
+                "auroc": 0.9924
+            },
+            {
+                "layer": 2,
+                "accuracy": 0.9645,
+                "f1_score": 0.9643,
+                "auroc": 0.9892
+            },
+            {
+                "layer": 1,
+                "accuracy": 0.9631,
+                "f1_score": 0.963,
+                "auroc": 0.9847
             }
         ],
         "hidden": [
             {
-                "layer": 34,
-                "accuracy": 0.9627,
-                "f1_score": 0.9628,
-                "auroc": 0.9893
-            },
-            {
-                "layer": 23,
-                "accuracy": 0.9606,
-                "f1_score": 0.9608,
-                "auroc": 0.9884
-            },
-            {
-                "layer": 26,
-                "accuracy": 0.9606,
-                "f1_score": 0.9608,
-                "auroc": 0.9868
-            },
-            {
-                "layer": 32,
-                "accuracy": 0.9606,
-                "f1_score": 0.9608,
-                "auroc": 0.9895
-            },
-            {
-                "layer": 33,
-                "accuracy": 0.9606,
-                "f1_score": 0.9608,
-                "auroc": 0.9896
-            },
-            {
-                "layer": 35,
-                "accuracy": 0.9606,
-                "f1_score": 0.9607,
-                "auroc": 0.9865
-            },
-            {
-                "layer": 25,
-                "accuracy": 0.9585,
-                "f1_score": 0.9587,
-                "auroc": 0.9847
-            },
-            {
-                "layer": 19,
-                "accuracy": 0.9564,
-                "f1_score": 0.9567,
-                "auroc": 0.9836
-            },
-            {
-                "layer": 22,
-                "accuracy": 0.9564,
-                "f1_score": 0.9569,
-                "auroc": 0.9888
-            },
-            {
-                "layer": 30,
-                "accuracy": 0.9564,
-                "f1_score": 0.9569,
-                "auroc": 0.9886
-            },
-            {
-                "layer": 31,
-                "accuracy": 0.9564,
-                "f1_score": 0.9569,
-                "auroc": 0.9897
-            },
-            {
-                "layer": 37,
-                "accuracy": 0.9564,
-                "f1_score": 0.9569,
-                "auroc": 0.9865
-            },
-            {
-                "layer": 39,
-                "accuracy": 0.9564,
-                "f1_score": 0.9567,
-                "auroc": 0.9846
-            },
-            {
-                "layer": 21,
-                "accuracy": 0.9544,
-                "f1_score": 0.9547,
-                "auroc": 0.9905
-            },
-            {
-                "layer": 24,
-                "accuracy": 0.9544,
-                "f1_score": 0.9544,
-                "auroc": 0.986
-            },
-            {
-                "layer": 27,
-                "accuracy": 0.9544,
-                "f1_score": 0.9547,
-                "auroc": 0.984
-            },
-            {
-                "layer": 29,
-                "accuracy": 0.9544,
-                "f1_score": 0.9547,
-                "auroc": 0.9859
-            },
-            {
-                "layer": 36,
-                "accuracy": 0.9544,
-                "f1_score": 0.9547,
-                "auroc": 0.9861
-            },
-            {
-                "layer": 38,
-                "accuracy": 0.9544,
-                "f1_score": 0.9547,
-                "auroc": 0.9864
-            },
-            {
-                "layer": 41,
-                "accuracy": 0.9544,
-                "f1_score": 0.9547,
-                "auroc": 0.9858
-            },
-            {
-                "layer": 20,
-                "accuracy": 0.9523,
-                "f1_score": 0.953,
-                "auroc": 0.9839
-            },
-            {
-                "layer": 28,
-                "accuracy": 0.9523,
-                "f1_score": 0.9526,
-                "auroc": 0.9861
-            },
-            {
-                "layer": 40,
-                "accuracy": 0.9481,
-                "f1_score": 0.9485,
-                "auroc": 0.9848
-            },
-            {
-                "layer": 16,
-                "accuracy": 0.9357,
-                "f1_score": 0.9363,
-                "auroc": 0.9813
+                "layer": 17,
+                "accuracy": 0.9874,
+                "f1_score": 0.9874,
+                "auroc": 0.9989
             },
             {
                 "layer": 15,
-                "accuracy": 0.9212,
-                "f1_score": 0.9212,
-                "auroc": 0.9705
+                "accuracy": 0.9869,
+                "f1_score": 0.9869,
+                "auroc": 0.9991
             },
             {
-                "layer": 17,
-                "accuracy": 0.9212,
-                "f1_score": 0.9221,
-                "auroc": 0.9776
+                "layer": 16,
+                "accuracy": 0.9869,
+                "f1_score": 0.9868,
+                "auroc": 0.999
             },
             {
-                "layer": 18,
-                "accuracy": 0.9191,
-                "f1_score": 0.9196,
-                "auroc": 0.976
+                "layer": 21,
+                "accuracy": 0.9864,
+                "f1_score": 0.9864,
+                "auroc": 0.9993
+            },
+            {
+                "layer": 20,
+                "accuracy": 0.986,
+                "f1_score": 0.986,
+                "auroc": 0.9993
             },
             {
                 "layer": 14,
-                "accuracy": 0.8983,
-                "f1_score": 0.899,
-                "auroc": 0.9644
+                "accuracy": 0.9855,
+                "f1_score": 0.9855,
+                "auroc": 0.9988
             },
             {
-                "layer": 13,
-                "accuracy": 0.8942,
-                "f1_score": 0.8948,
-                "auroc": 0.9621
+                "layer": 23,
+                "accuracy": 0.9855,
+                "f1_score": 0.9855,
+                "auroc": 0.9988
             },
             {
-                "layer": 9,
-                "accuracy": 0.8444,
-                "f1_score": 0.8509,
-                "auroc": 0.9067
+                "layer": 22,
+                "accuracy": 0.985,
+                "f1_score": 0.985,
+                "auroc": 0.999
             },
             {
-                "layer": 8,
-                "accuracy": 0.8423,
-                "f1_score": 0.8474,
-                "auroc": 0.9036
+                "layer": 24,
+                "accuracy": 0.985,
+                "f1_score": 0.985,
+                "auroc": 0.9988
             },
             {
-                "layer": 11,
-                "accuracy": 0.8423,
-                "f1_score": 0.8468,
-                "auroc": 0.9246
+                "layer": 18,
+                "accuracy": 0.9841,
+                "f1_score": 0.9841,
+                "auroc": 0.9991
+            },
+            {
+                "layer": 19,
+                "accuracy": 0.9836,
+                "f1_score": 0.9836,
+                "auroc": 0.9992
+            },
+            {
+                "layer": 27,
+                "accuracy": 0.9827,
+                "f1_score": 0.9827,
+                "auroc": 0.9983
+            },
+            {
+                "layer": 25,
+                "accuracy": 0.9822,
+                "f1_score": 0.9822,
+                "auroc": 0.9987
+            },
+            {
+                "layer": 26,
+                "accuracy": 0.9822,
+                "f1_score": 0.9822,
+                "auroc": 0.9987
             },
             {
                 "layer": 12,
-                "accuracy": 0.8423,
-                "f1_score": 0.8468,
-                "auroc": 0.9204
+                "accuracy": 0.9785,
+                "f1_score": 0.9785,
+                "auroc": 0.9973
+            },
+            {
+                "layer": 11,
+                "accuracy": 0.9776,
+                "f1_score": 0.9775,
+                "auroc": 0.9966
+            },
+            {
+                "layer": 13,
+                "accuracy": 0.9771,
+                "f1_score": 0.9769,
+                "auroc": 0.9978
             },
             {
                 "layer": 10,
-                "accuracy": 0.834,
-                "f1_score": 0.8354,
-                "auroc": 0.9241
-            },
-            {
-                "layer": 7,
-                "accuracy": 0.832,
-                "f1_score": 0.837,
-                "auroc": 0.8997
-            },
-            {
-                "layer": 6,
-                "accuracy": 0.8257,
-                "f1_score": 0.8313,
-                "auroc": 0.8976
-            },
-            {
-                "layer": 5,
-                "accuracy": 0.8174,
-                "f1_score": 0.824,
-                "auroc": 0.9056
+                "accuracy": 0.9766,
+                "f1_score": 0.9765,
+                "auroc": 0.996
             },
             {
                 "layer": 4,
-                "accuracy": 0.8154,
-                "f1_score": 0.818,
-                "auroc": 0.8984
+                "accuracy": 0.9743,
+                "f1_score": 0.9742,
+                "auroc": 0.9931
             },
             {
-                "layer": 1,
-                "accuracy": 0.7884,
-                "f1_score": 0.7944,
-                "auroc": 0.8623
+                "layer": 5,
+                "accuracy": 0.9743,
+                "f1_score": 0.9741,
+                "auroc": 0.9933
             },
             {
-                "layer": 2,
-                "accuracy": 0.7635,
-                "f1_score": 0.772,
-                "auroc": 0.8408
+                "layer": 8,
+                "accuracy": 0.9738,
+                "f1_score": 0.9736,
+                "auroc": 0.9946
+            },
+            {
+                "layer": 7,
+                "accuracy": 0.9734,
+                "f1_score": 0.9732,
+                "auroc": 0.9943
+            },
+            {
+                "layer": 9,
+                "accuracy": 0.9719,
+                "f1_score": 0.9717,
+                "auroc": 0.9961
+            },
+            {
+                "layer": 6,
+                "accuracy": 0.9715,
+                "f1_score": 0.9713,
+                "auroc": 0.9923
             },
             {
                 "layer": 3,
-                "accuracy": 0.7635,
-                "f1_score": 0.7664,
-                "auroc": 0.8492
+                "accuracy": 0.9701,
+                "f1_score": 0.97,
+                "auroc": 0.9904
             },
             {
                 "layer": 0,
-                "accuracy": 0.7427,
-                "f1_score": 0.752,
-                "auroc": 0.8358
+                "accuracy": 0.9691,
+                "f1_score": 0.9691,
+                "auroc": 0.9866
+            },
+            {
+                "layer": 2,
+                "accuracy": 0.9682,
+                "f1_score": 0.9681,
+                "auroc": 0.9911
+            },
+            {
+                "layer": 1,
+                "accuracy": 0.9673,
+                "f1_score": 0.9673,
+                "auroc": 0.989
+            }
+        ]
+    },
+    "Falcon3-7B-Base": {
+        "attn": [
+            {
+                "layer": 26,
+                "accuracy": 0.983,
+                "f1_score": 0.983,
+                "auroc": 0.9949
+            },
+            {
+                "layer": 18,
+                "accuracy": 0.9825,
+                "f1_score": 0.9825,
+                "auroc": 0.9963
+            },
+            {
+                "layer": 19,
+                "accuracy": 0.9825,
+                "f1_score": 0.9825,
+                "auroc": 0.9932
+            },
+            {
+                "layer": 20,
+                "accuracy": 0.9819,
+                "f1_score": 0.9818,
+                "auroc": 0.9948
+            },
+            {
+                "layer": 21,
+                "accuracy": 0.9819,
+                "f1_score": 0.9818,
+                "auroc": 0.9946
+            },
+            {
+                "layer": 17,
+                "accuracy": 0.981,
+                "f1_score": 0.981,
+                "auroc": 0.9928
+            },
+            {
+                "layer": 25,
+                "accuracy": 0.9805,
+                "f1_score": 0.9805,
+                "auroc": 0.9955
+            },
+            {
+                "layer": 14,
+                "accuracy": 0.9801,
+                "f1_score": 0.9801,
+                "auroc": 0.9915
+            },
+            {
+                "layer": 13,
+                "accuracy": 0.9799,
+                "f1_score": 0.9798,
+                "auroc": 0.9935
+            },
+            {
+                "layer": 22,
+                "accuracy": 0.9796,
+                "f1_score": 0.9796,
+                "auroc": 0.9947
+            },
+            {
+                "layer": 16,
+                "accuracy": 0.9794,
+                "f1_score": 0.9795,
+                "auroc": 0.9943
+            },
+            {
+                "layer": 27,
+                "accuracy": 0.9792,
+                "f1_score": 0.9792,
+                "auroc": 0.9945
+            },
+            {
+                "layer": 12,
+                "accuracy": 0.979,
+                "f1_score": 0.9789,
+                "auroc": 0.9928
+            },
+            {
+                "layer": 11,
+                "accuracy": 0.977,
+                "f1_score": 0.977,
+                "auroc": 0.9907
+            },
+            {
+                "layer": 24,
+                "accuracy": 0.977,
+                "f1_score": 0.9771,
+                "auroc": 0.9916
+            },
+            {
+                "layer": 15,
+                "accuracy": 0.9765,
+                "f1_score": 0.9766,
+                "auroc": 0.9897
+            },
+            {
+                "layer": 23,
+                "accuracy": 0.9754,
+                "f1_score": 0.9754,
+                "auroc": 0.9908
+            },
+            {
+                "layer": 10,
+                "accuracy": 0.9752,
+                "f1_score": 0.9752,
+                "auroc": 0.9888
+            },
+            {
+                "layer": 4,
+                "accuracy": 0.9734,
+                "f1_score": 0.9735,
+                "auroc": 0.9877
+            },
+            {
+                "layer": 1,
+                "accuracy": 0.9732,
+                "f1_score": 0.9732,
+                "auroc": 0.9865
+            },
+            {
+                "layer": 8,
+                "accuracy": 0.973,
+                "f1_score": 0.973,
+                "auroc": 0.9846
+            },
+            {
+                "layer": 6,
+                "accuracy": 0.9726,
+                "f1_score": 0.9725,
+                "auroc": 0.9857
+            },
+            {
+                "layer": 3,
+                "accuracy": 0.9723,
+                "f1_score": 0.9724,
+                "auroc": 0.987
+            },
+            {
+                "layer": 2,
+                "accuracy": 0.9717,
+                "f1_score": 0.9718,
+                "auroc": 0.9867
+            },
+            {
+                "layer": 5,
+                "accuracy": 0.971,
+                "f1_score": 0.971,
+                "auroc": 0.9844
+            },
+            {
+                "layer": 0,
+                "accuracy": 0.9708,
+                "f1_score": 0.9708,
+                "auroc": 0.9807
+            },
+            {
+                "layer": 9,
+                "accuracy": 0.9692,
+                "f1_score": 0.9693,
+                "auroc": 0.9858
+            },
+            {
+                "layer": 7,
+                "accuracy": 0.9679,
+                "f1_score": 0.9679,
+                "auroc": 0.9848
+            }
+        ],
+        "mlp": [
+            {
+                "layer": 18,
+                "accuracy": 0.9832,
+                "f1_score": 0.9831,
+                "auroc": 0.9956
+            },
+            {
+                "layer": 19,
+                "accuracy": 0.983,
+                "f1_score": 0.9829,
+                "auroc": 0.9946
+            },
+            {
+                "layer": 20,
+                "accuracy": 0.9814,
+                "f1_score": 0.9814,
+                "auroc": 0.9952
+            },
+            {
+                "layer": 17,
+                "accuracy": 0.9807,
+                "f1_score": 0.9808,
+                "auroc": 0.9941
+            },
+            {
+                "layer": 21,
+                "accuracy": 0.9807,
+                "f1_score": 0.9807,
+                "auroc": 0.9949
+            },
+            {
+                "layer": 16,
+                "accuracy": 0.9803,
+                "f1_score": 0.9803,
+                "auroc": 0.9941
+            },
+            {
+                "layer": 13,
+                "accuracy": 0.9796,
+                "f1_score": 0.9796,
+                "auroc": 0.9923
+            },
+            {
+                "layer": 26,
+                "accuracy": 0.9794,
+                "f1_score": 0.9794,
+                "auroc": 0.9951
+            },
+            {
+                "layer": 14,
+                "accuracy": 0.9788,
+                "f1_score": 0.9788,
+                "auroc": 0.9922
+            },
+            {
+                "layer": 24,
+                "accuracy": 0.9779,
+                "f1_score": 0.9779,
+                "auroc": 0.9936
+            },
+            {
+                "layer": 12,
+                "accuracy": 0.9776,
+                "f1_score": 0.9776,
+                "auroc": 0.9912
+            },
+            {
+                "layer": 22,
+                "accuracy": 0.9776,
+                "f1_score": 0.9777,
+                "auroc": 0.995
+            },
+            {
+                "layer": 23,
+                "accuracy": 0.9776,
+                "f1_score": 0.9776,
+                "auroc": 0.9925
+            },
+            {
+                "layer": 15,
+                "accuracy": 0.9772,
+                "f1_score": 0.9772,
+                "auroc": 0.9917
+            },
+            {
+                "layer": 10,
+                "accuracy": 0.9763,
+                "f1_score": 0.9763,
+                "auroc": 0.9892
+            },
+            {
+                "layer": 25,
+                "accuracy": 0.9761,
+                "f1_score": 0.9761,
+                "auroc": 0.9945
+            },
+            {
+                "layer": 11,
+                "accuracy": 0.9748,
+                "f1_score": 0.9748,
+                "auroc": 0.9908
+            },
+            {
+                "layer": 27,
+                "accuracy": 0.9748,
+                "f1_score": 0.9747,
+                "auroc": 0.9922
+            },
+            {
+                "layer": 1,
+                "accuracy": 0.9715,
+                "f1_score": 0.9715,
+                "auroc": 0.9848
+            },
+            {
+                "layer": 9,
+                "accuracy": 0.9712,
+                "f1_score": 0.9712,
+                "auroc": 0.9882
+            },
+            {
+                "layer": 2,
+                "accuracy": 0.9699,
+                "f1_score": 0.97,
+                "auroc": 0.9857
+            },
+            {
+                "layer": 4,
+                "accuracy": 0.9688,
+                "f1_score": 0.9687,
+                "auroc": 0.9867
+            },
+            {
+                "layer": 3,
+                "accuracy": 0.9675,
+                "f1_score": 0.9675,
+                "auroc": 0.9814
+            },
+            {
+                "layer": 8,
+                "accuracy": 0.9675,
+                "f1_score": 0.9674,
+                "auroc": 0.9837
+            },
+            {
+                "layer": 7,
+                "accuracy": 0.9672,
+                "f1_score": 0.9673,
+                "auroc": 0.9831
+            },
+            {
+                "layer": 6,
+                "accuracy": 0.9655,
+                "f1_score": 0.9654,
+                "auroc": 0.9827
+            },
+            {
+                "layer": 5,
+                "accuracy": 0.9633,
+                "f1_score": 0.9634,
+                "auroc": 0.9823
+            },
+            {
+                "layer": 0,
+                "accuracy": 0.9515,
+                "f1_score": 0.9517,
+                "auroc": 0.9715
+            }
+        ],
+        "hidden": [
+            {
+                "layer": 18,
+                "accuracy": 0.9832,
+                "f1_score": 0.9832,
+                "auroc": 0.9954
+            },
+            {
+                "layer": 17,
+                "accuracy": 0.9821,
+                "f1_score": 0.982,
+                "auroc": 0.9943
+            },
+            {
+                "layer": 21,
+                "accuracy": 0.9816,
+                "f1_score": 0.9816,
+                "auroc": 0.996
+            },
+            {
+                "layer": 22,
+                "accuracy": 0.9816,
+                "f1_score": 0.9817,
+                "auroc": 0.9949
+            },
+            {
+                "layer": 25,
+                "accuracy": 0.9816,
+                "f1_score": 0.9816,
+                "auroc": 0.9944
+            },
+            {
+                "layer": 20,
+                "accuracy": 0.9812,
+                "f1_score": 0.9812,
+                "auroc": 0.9952
+            },
+            {
+                "layer": 23,
+                "accuracy": 0.9812,
+                "f1_score": 0.9812,
+                "auroc": 0.9949
+            },
+            {
+                "layer": 24,
+                "accuracy": 0.981,
+                "f1_score": 0.981,
+                "auroc": 0.9961
+            },
+            {
+                "layer": 27,
+                "accuracy": 0.9807,
+                "f1_score": 0.9807,
+                "auroc": 0.9944
+            },
+            {
+                "layer": 19,
+                "accuracy": 0.9805,
+                "f1_score": 0.9805,
+                "auroc": 0.9946
+            },
+            {
+                "layer": 16,
+                "accuracy": 0.9799,
+                "f1_score": 0.9799,
+                "auroc": 0.9957
+            },
+            {
+                "layer": 26,
+                "accuracy": 0.9799,
+                "f1_score": 0.9799,
+                "auroc": 0.9948
+            },
+            {
+                "layer": 14,
+                "accuracy": 0.979,
+                "f1_score": 0.979,
+                "auroc": 0.9945
+            },
+            {
+                "layer": 15,
+                "accuracy": 0.9779,
+                "f1_score": 0.9779,
+                "auroc": 0.9944
+            },
+            {
+                "layer": 12,
+                "accuracy": 0.9776,
+                "f1_score": 0.9776,
+                "auroc": 0.9921
+            },
+            {
+                "layer": 13,
+                "accuracy": 0.9776,
+                "f1_score": 0.9776,
+                "auroc": 0.9931
+            },
+            {
+                "layer": 11,
+                "accuracy": 0.9763,
+                "f1_score": 0.9763,
+                "auroc": 0.9917
+            },
+            {
+                "layer": 10,
+                "accuracy": 0.9759,
+                "f1_score": 0.9758,
+                "auroc": 0.9918
+            },
+            {
+                "layer": 1,
+                "accuracy": 0.9715,
+                "f1_score": 0.9715,
+                "auroc": 0.9825
+            },
+            {
+                "layer": 2,
+                "accuracy": 0.971,
+                "f1_score": 0.9711,
+                "auroc": 0.9859
+            },
+            {
+                "layer": 3,
+                "accuracy": 0.9697,
+                "f1_score": 0.9698,
+                "auroc": 0.9849
+            },
+            {
+                "layer": 9,
+                "accuracy": 0.969,
+                "f1_score": 0.969,
+                "auroc": 0.9859
+            },
+            {
+                "layer": 5,
+                "accuracy": 0.9688,
+                "f1_score": 0.9688,
+                "auroc": 0.9843
+            },
+            {
+                "layer": 4,
+                "accuracy": 0.9679,
+                "f1_score": 0.968,
+                "auroc": 0.984
+            },
+            {
+                "layer": 6,
+                "accuracy": 0.9668,
+                "f1_score": 0.9668,
+                "auroc": 0.9828
+            },
+            {
+                "layer": 7,
+                "accuracy": 0.9666,
+                "f1_score": 0.9666,
+                "auroc": 0.9846
+            },
+            {
+                "layer": 8,
+                "accuracy": 0.9659,
+                "f1_score": 0.966,
+                "auroc": 0.9848
+            },
+            {
+                "layer": 0,
+                "accuracy": 0.9535,
+                "f1_score": 0.9537,
+                "auroc": 0.9724
             }
         ]
     }
