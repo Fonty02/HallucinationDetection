@@ -106,7 +106,7 @@ Per valutare la capacità discriminativa delle diverse componenti di layer (atte
 La pipeline sperimentale prevede:
 \begin{enumerate}
 \item Estrazione delle attivazioni per ogni layer e componente (attention, MLP, hidden) dai modelli su tutto il dataset.
-\item Suddivisione del dataset in training e test set, mantenendo la stessa suddivisione per tutti gli esperimenti.
+\item Undersampling e suddivisione del dataset in training e test set, mantenendo la stessa suddivisione per tutti gli esperimenti.
 \item Normalizzazione delle attivazioni tramite StandardScaler.
 \item Addestramento di un classificatore Logistic Regression per ciascuna combinazione layer/componente.
 \item Valutazione delle prestazioni tramite metriche di accuratezza.
