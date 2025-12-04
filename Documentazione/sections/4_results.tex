@@ -1,107 +1,106 @@
 \chapter{Risultati}
-\textcolor{red}{TODO: da rifare completamente con i nuovi risultati}
 
-In questo capitolo vengono presentati i risultati ottenuti dagli esperimenti condotti per valutare l'efficacia del prober universale nel rilevamento delle allucinazioni negli LLM. Per ogni approccio viene riportata una tabella con le metriche principali: accuratezza del teacher (Acc$_T$), accuratezza dello student dopo allineamento (Acc$_S$), differenza ($\Delta$Acc) e differenza percentuale ($\Delta$\%). In grassetto i migliori risultati, in rosso i peggiori
+In questo capitolo vengono presentati i risultati ottenuti dagli esperimenti condotti per valutare l'efficacia del prober universale nel rilevamento delle allucinazioni negli LLM. In particolare viene riportata una tabella per ogni coppia (teacher-student)-Dataset in modo da analizzare il miglior approccio per ogni combinazione.
 
-\section{Baseline}
+\section{Falcon3-7B-Base e Qwen2.5-7B su BeliefBankFacts}
+
+
 
 \begin{table}[H]
+\scriptsize
 \centering
-\caption{Risultati Baseline}
-\label{tab:results-linear}
-\begin{tabular}{clllcccc}
-\toprule
-\textbf{ID} & \textbf{Teacher} & \textbf{Student} & \textbf{Type} & \textbf{Acc$_T$} & \textbf{Acc$_S$} & \textbf{$\Delta$Acc} & \textbf{$\Delta$\%} \\
-\midrule
-1 & Qwen & Falcon & attn & 0.9888 & 0.7455 & 0.2433 & 24.61\% \\
-2 & Qwen & Falcon & mlp & \textbf{0.9906} & \textcolor{red}{0.7375} & \textcolor{red}{0.2531} & \textcolor{red}{25.55\%} \\
-3 & Qwen & Falcon & hidden & 0.9903 & 0.7397 & 0.2506 & 25.31\% \\
-4 & Falcon & Qwen & attn & 0.9234 & 0.7658 & 0.1576 & 17.07\% \\
-5 & Falcon & Qwen & mlp & 0.9103 & 0.7649 & 0.1454 & 15.97\% \\
-6 & Falcon & Qwen & hidden & \textcolor{red}{0.9102} & \textbf{0.7728} & \textbf{0.1374} & \textbf{15.10\%} \\
-\bottomrule
+\caption{Risultati per coppia (Falcon3-7B-Base, Qwen2.5-7B) su BeliefBankFacts}
+\label{tab:results-bbf-falcon-qwen}
+\begin{tabular}{|l l l l| c c c c|}
+\hline
+Teacher & Student & Approach & Type & AccT & AccS & AurocT & AurocS \\
+\hline
+Qwen2.5-7B & Falcon3-7B-Base & Baseline & attn  & 0.987 & 0.962 & 0.999 & 0.992 \\
+Qwen2.5-7B & Falcon3-7B-Base & Baseline & mlp   & 0.986 & 0.967 & 0.999 & 0.987 \\
+Qwen2.5-7B & Falcon3-7B-Base & Baseline & hidden& 0.985 & 0.967 & 0.999 & 0.990 \\
+Falcon3-7B-Base & Qwen2.5-7B & Baseline & attn  & 0.987 & 0.958 & 0.997 & 0.989 \\
+Falcon3-7B-Base & Qwen2.5-7B & Baseline & mlp   & 0.983 & 0.961 & 0.996 & 0.989 \\
+Falcon3-7B-Base & Qwen2.5-7B & Baseline & hidden& 0.983 & 0.959 & 0.996 & 0.984 \\
+\hline
+Qwen2.5-7B & Falcon3-7B-Base & HApproach & attn  & 0.987 & 0.968 & 0.999 & 0.984 \\
+Qwen2.5-7B & Falcon3-7B-Base & HApproach & mlp   & 0.986 & 0.969 & 0.999 & 0.986 \\
+Qwen2.5-7B & Falcon3-7B-Base & HApproach & hidden& 0.985 & 0.968 & 0.999 & 0.990 \\
+\rowcolor{red!25}Falcon3-7B-Base & Qwen2.5-7B & HApproach & attn  & 0.987 & 0.848 & 0.997 & 0.912 \\
+Falcon3-7B-Base & Qwen2.5-7B & HApproach & mlp   & 0.983 & 0.913 & 0.996 & 0.967 \\
+Falcon3-7B-Base & Qwen2.5-7B & HApproach & hidden& 0.983 & 0.889 & 0.996 & 0.922 \\
+\hline
+Qwen2.5-7B & Falcon3-7B-Base & FullNonLinear & attn  & 0.993 & 0.981 & 1.000 & 0.994 \\
+Qwen2.5-7B & Falcon3-7B-Base & FullNonLinear & mlp   & 0.994 & 0.977 & 1.000 & 0.994 \\
+Qwen2.5-7B & Falcon3-7B-Base & FullNonLinear & hidden& 0.992 & 0.981 & 1.000 & 0.996 \\
+Falcon3-7B-Base & Qwen2.5-7B & FullNonLinear & attn  & 0.992 & 0.890 & 0.999 & 0.938 \\
+Falcon3-7B-Base & Qwen2.5-7B & FullNonLinear & mlp   & 0.988 & 0.941 & 0.999 & 0.988 \\
+Falcon3-7B-Base & Qwen2.5-7B & FullNonLinear & hidden& 0.991 & 0.931 & 0.999 & 0.985 \\
+\hline
+Qwen2.5-7B & Falcon3-7B-Base & ReducedNonLinear & attn  & 0.9916 & 0.9706 & 0.9994 & 0.9953 \\
+Qwen2.5-7B & Falcon3-7B-Base & ReducedNonLinear & mlp   & 0.9897 & 0.9608 & 0.9997 & 0.9915 \\
+Qwen2.5-7B & Falcon3-7B-Base & ReducedNonLinear & hidden& 0.9935 & 0.9586 & 0.9997 & 0.9892 \\
+Falcon3-7B-Base & Qwen2.5-7B & ReducedNonLinear & attn  & 0.9841 & 0.8537 & 0.9983 & 0.9367 \\
+Falcon3-7B-Base & Qwen2.5-7B & ReducedNonLinear & mlp   & 0.9807 & 0.9411 & 0.9971 & 0.9832 \\
+Falcon3-7B-Base & Qwen2.5-7B & ReducedNonLinear & hidden& 0.9770 & 0.9004 & 0.9952 & 0.9503 \\
+\hline
+Qwen2.5-7B & Falcon3-7B-Base & One-For-All & attn  & 0.9892 & 0.9916 & 0.9995 & 0.9992 \\
+Qwen2.5-7B & Falcon3-7B-Base & One-For-All & mlp   & 0.9860 & 0.9858 & 0.9993 & 0.9980 \\
+Qwen2.5-7B & Falcon3-7B-Base & One-For-All & hidden& 0.9906 & 0.9898 & 0.9998 & 0.9991 \\
+Falcon3-7B-Base & Qwen2.5-7B & One-For-All & attn  & 0.9905 & 0.9921 & 0.9985 & 0.9997 \\
+Falcon3-7B-Base & Qwen2.5-7B & One-For-All & mlp   & 0.9869 & 0.9874 & 0.9985 & 0.9997 \\
+\rowcolor{green!25}Falcon3-7B-Base & Qwen2.5-7B & One-For-All & hidden& 0.9889 & 0.9949 & 0.9988 & 0.9999 \\
+\hline
 \end{tabular}
 \end{table}
 
-\section{Approccio Ibrido}
 
+
+\section{LLama-3.1-8B-Instruct e Gemma-2-9B-IT su BeliefBankFacts}
 \begin{table}[H]
+\scriptsize
 \centering
-\caption{Risultati Approccio Ibrido}
-\label{tab:results-hybrid}
-\begin{tabular}{clllcccc}
-\toprule
-\textbf{ID} & \textbf{Teacher} & \textbf{Student} & \textbf{Type} & \textbf{Acc$_T$} & \textbf{Acc$_S$} & \textbf{$\Delta$Acc} & \textbf{$\Delta$\%} \\
-\midrule
-1 & Qwen & Falcon & attn & 0.9888 & 0.7387 & 0.2501 & 25.29\% \\
-2 & Qwen & Falcon & mlp & \textbf{0.9906} & \textcolor{red}{0.7174} & \textcolor{red}{0.2732} & \textcolor{red}{27.58\%} \\
-3 & Qwen & Falcon & hidden & 0.9903 & 0.7371 & 0.2532 & 25.57\% \\
-4 & Falcon & Qwen & attn & 0.9234 & 0.7605 & 0.1629 & 17.64\% \\
-5 & Falcon & Qwen & mlp & 0.9103 & 0.7430 & 0.1673 & 18.38\% \\
-6 & Falcon & Qwen & hidden & \textcolor{red}{0.9102} & \textbf{0.7679} & \textbf{0.1423} & \textbf{15.63\%} \\
-\bottomrule
+\caption{Risultati per coppia (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) su BeliefBankFacts}
+\label{tab:results-bbf-llama-gemma}
+\begin{tabular}{|l l l l| c c c c|}
+\hline
+Teacher & Student & Approach & Type & AccT & AccS & AurocT & AurocS \\
+\hline
+gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & attn  & 0.965 & 0.919 & 0.986 & 0.974 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & mlp   & 0.963 & 0.928 & 0.988 & 0.977 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & hidden& 0.959 & 0.941 & 0.988 & 0.982 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & attn  & 0.982 & 0.959 & 0.996 & 0.986 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & mlp   & 0.973 & 0.948 & 0.997 & 0.983 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & hidden& 0.969 & 0.946 & 0.996 & 0.983 \\
+\hline
+gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & attn  & 0.965 & 0.901 & 0.986 & 0.961 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & mlp   & 0.9627 & 0.9074 & 0.9883 & 0.9624 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & hidden& 0.9585 & 0.9204 & 0.9878 & 0.9752 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & attn  & 0.982 & 0.938 & 0.996 & 0.974 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & mlp   & 0.973 & 0.936 & 0.997 & 0.975 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & hidden& 0.969 & 0.934 & 0.996 & 0.975 \\
+\hline
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullNonLinear & attn  & 0.975 & 0.938 & 0.994 & 0.976 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullNonLinear & mlp   & 0.954 & 0.917 & 0.990 & 0.967 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullNonLinear & hidden& 0.961 & 0.929 & 0.987 & 0.969 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullNonLinear & attn  & 0.984 & 0.950 & 0.998 & 0.982 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullNonLinear & mlp   & 0.986 & 0.961 & 0.998 & 0.983 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullNonLinear & hidden& 0.981 & 0.954 & 0.998 & 0.984 \\
+\hline
+gemma-2-9b-it & Llama-3.1-8B-Instruct & ReducedNonLinear & attn  & 0.963 & 0.900 & 0.993 & 0.970 \\
+\rowcolor{red!25}gemma-2-9b-it & Llama-3.1-8B-Instruct & ReducedNonLinear & mlp   & 0.952 & 0.888 & 0.988 & 0.955 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & ReducedNonLinear & hidden& 0.940 & 0.904 & 0.988 & 0.959 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & ReducedNonLinear & attn  & 0.986 & 0.932 & 0.999 & 0.983 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & ReducedNonLinear & mlp   & 0.970 & 0.923 & 0.995 & 0.971 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & ReducedNonLinear & hidden& 0.964 & 0.903 & 0.994 & 0.969 \\
+\hline
+\rowcolor{green!25}gemma-2-9b-it & Llama-3.1-8B-Instruct & One-For-All & attn  & 0.9627 & 0.9861 & 0.9923 & 0.9972 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & One-For-All & mlp   & 0.9564 & 0.9843 & 0.9820 & 0.9967 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & One-For-All & hidden& 0.9502 & 0.9843 & 0.9898 & 0.9976 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & attn  & 0.9861 & 0.9627 & 0.9982 & 0.9894 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & mlp   & 0.9852 & 0.9523 & 0.9984 & 0.9874 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & hidden& 0.9778 & 0.9606 & 0.9950 & 0.9891 \\
+\hline
 \end{tabular}
 \end{table}
-
-\section{Approccio non-lineare completo}
-
-\begin{table}[H]
-\centering
-\caption{Risultati Approccio non-lineare completo}
-\label{tab:results-alignment-mlp}
-\begin{tabular}{clllcccc}
-\toprule
-\textbf{ID} & \textbf{Teacher} & \textbf{Student} & \textbf{Type} & \textbf{Acc$_T$} & \textbf{Acc$_S$} & \textbf{$\Delta$Acc} & \textbf{$\Delta$\%} \\
-\midrule
-1 & Qwen & Falcon & attn & 0.9910 & 0.7517 & 0.2393 & 24.15\% \\
-2 & Qwen & Falcon & mlp & 0.9908 & \textcolor{red}{0.7070} & \textcolor{red}{0.2838} & \textcolor{red}{28.64\%} \\
-3 & Qwen & Falcon & hidden & \textbf{0.9917} & 0.7454 & 0.2463 & 24.84\% \\
-4 & Falcon & Qwen & attn & 0.9297 & 0.7550 & 0.1747 & 18.79\% \\
-5 & Falcon & Qwen & mlp & \textcolor{red}{0.9087} & 0.7747 & 0.1340 & 14.75\% \\
-6 & Falcon & Qwen & hidden & 0.9112 & \textbf{0.7939} & \textbf{0.1173} & \textbf{12.87\%} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\section{Approccio non-lineare ridotto}
-
-\begin{table}[H]
-\centering
-\caption{Risultati Approccio non-lineare ridotto}
-\label{tab:results-autoencoder}
-\begin{tabular}{clllcccc}
-\toprule
-\textbf{ID} & \textbf{Teacher} & \textbf{Student} & \textbf{Type} & \textbf{Acc$_T$} & \textbf{Acc$_S$} & \textbf{$\Delta$Acc} & \textbf{$\Delta$\%} \\
-\midrule
-1 & Qwen & Falcon & attn & \textbf{0.9831} & 0.7112 & \textcolor{red}{0.2719} & \textcolor{red}{27.66\%} \\
-2 & Qwen & Falcon & mlp & 0.9792 & \textcolor{red}{0.7098} & 0.2694 & 27.51\% \\
-3 & Qwen & Falcon & hidden & 0.9793 & 0.7128 & 0.2665 & 27.21\% \\
-4 & Falcon & Qwen & attn & 0.9054 & \textbf{0.7753} & 0.1301 & 14.37\% \\
-5 & Falcon & Qwen & mlp & 0.8902 & 0.7587 & 0.1315 & 14.77\% \\
-6 & Falcon & Qwen & hidden & \textcolor{red}{0.8850} & 0.7639 & \textbf{0.1211} & \textbf{13.68\%} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\section{Approccio One-For-All}
-
-\begin{table}[H]
-\centering
-\caption{Risultati Approccio One-For-All}
-\label{tab:results-one-for-all}
-\begin{tabular}{clllcccc}
-\toprule
-\textbf{ID} & \textbf{Teacher} & \textbf{Student} & \textbf{Type} & \textbf{Acc$_T$} & \textbf{Acc$_S$} & \textbf{$\Delta$Acc} & \textbf{$\Delta$\%} \\
-\midrule
-1 & Qwen & Falcon & attn & \textbf{0.9910} & 0.9257 & 0.0653 & 6.59\% \\
-2 & Qwen & Falcon & mlp & 0.9866 & 0.9139 & 0.0727 & 7.37\% \\
-3 & Qwen & Falcon & hidden & 0.9863 & \textcolor{red}{0.9067} & \textcolor{red}{0.0795} & \textcolor{red}{8.06\%} \\
-4 & Falcon & Qwen & attn & 0.9266 & \textbf{0.9920} & -0.0654 & -7.06\% \\
-5 & Falcon & Qwen & mlp & 0.9091 & 0.9894 & -0.0804 & -8.84\% \\
-6 & Falcon & Qwen & hidden & \textcolor{red}{0.9063} & 0.9912 & \textbf{-0.0850} & \textbf{-9.38\%} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
 
 
