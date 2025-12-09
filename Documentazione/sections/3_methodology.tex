@@ -27,17 +27,12 @@ Per questo esperimento, il dataset \textit{Belief Bank Facts} finale è composto
 Ogni elemento del dataset finale è quindi una tupla $(f, y)$, dove $f$ è la frase in linguaggio naturale e $y \in \{0, 1\}$ rappresenta l'etichetta di verità (dove 0 indica no/falso e 1 indica sì/vero).
 
 Ad ogni esempio è associato un identificativo univoco (\texttt{instance\_id}) per facilitare il tracciamento e l'analisi dei risultati.
-Esempio di elementi del dataset dopo la pre-elaborazione:
-\begin{itemize}
-    \item \textbf{instance\_id}: 38
-    \item \textbf{Question}: An albatross has a talon
-    \item \textbf{Answer}: Yes
-\end{itemize}
+
 
 Il dataset comprende 27.416 affermazioni, di cui 13.708 etichettate come vere (yes) e 13.708 come false (no), garantendo un bilanciamento perfetto tra le classi.
 
 \subsection{Creazione dataset di attivazioni}
-Una volta preparato il dataset di affermazioni e relative etichette di veridicità, il passo successivo è stato l'estrazione delle attivazioni interne dai modelli Qwen2.5-7B,Falcon3-7B-Base,Llama-3.1-8B-Instruct e gemma-2-9b-it. 
+Una volta preparato il dataset di affermazioni e relative etichette di veridicità, il passo successivo è stato l'estrazione delle attivazioni interne dai modelli Qwen2.5-7B \cite{qwen2.5},Falcon3-7B-Base\cite{Falcon3},Llama-3.1-8B-Instruct\cite{LLama3} e gemma-2-9b-it\cite{Gemma2}. 
 Ogni esempio è preceduto da un prompt che viene fornito al modello di linguaggio per guidarne la risposta.
 Per il dataset Belief Bank Facts, il prompt utilizzato è il seguente:
 \begin{quote}
@@ -48,7 +43,7 @@ Is the fact true? Fact: \{question\}.
 Answer:
 \end{quote}
 dove \{question\} viene sostituito con l'affermazione specifica da valutare.
-Quindi il modello di linguaggio riceve in input il prompt seguito dalla domanda e deve rispondere con yes o no.
+Quindi l'LLM riceve in input il prompt seguito dalla domanda e deve rispondere con "yes" o "no".
 Per ogni affermazione nel dataset, sono state registrate le attivazioni corrispondenti a tutti i layer e componenti (attention, MLP, hidden states) dei modelli. Queste attivazioni costituiscono la base dati su cui sono stati addestrati i vari prober per il rilevamento delle allucinazioni. Per verificare se il modello risponde correttamente o allucina è stata usata una semplice logica di matching tra la risposta generata e l'etichetta di veridicità associata all'affermazione nel dataset:
 se la risposta reale (yes o no) è una substring (cioè è contenuta) nella risposta generata dal modello, allora l'affermazione è considerata vera (non allucinazione); altrimenti è considerata falsa (allucinazione).
 
@@ -59,15 +54,15 @@ Per gli esperimenti condotti in questo lavoro, sono stati selezionati quattro mo
 \subsection{Qwen2.5-7B}
 Qwen2.5-7B è un modello sviluppato da Alibaba Cloud ed è parte della serie Qwen2.5. È un modello \textit{Decoder-only} basato su Transformer con 7 miliardi di parametri. Rispetto ai suoi predecessori, Qwen2.5 introduce diverse ottimizzazioni architetturali:
 \begin{itemize}
-    \item \textbf{Grouped Query Attention (GQA)}: Utilizza GQA invece della standard Multi-Head Attention per ottimizzare l'uso della memoria della cache KV durante l'inferenza, permettendo contesti più lunghi e una generazione più veloce \cite{GQA}.
-    \item \textbf{SwiGLU Activation}: Sostituisce la classica funzione di attivazione GeLU con SwiGLU, che ha dimostrato empiricamente di migliorare le prestazioni di convergenza.
+    \item \textbf{Grouped Query Attention (GQA)}: Utilizza GQA invece della standard Multi-Head Attention per ottimizzare l'uso della memoria della cache Key-Value (KV) durante l'inferenza, permettendo contesti più lunghi e una generazione più veloce \cite{GQA}.
+    \item \textbf{SwiGLU Activation}: Sostituisce la classica funzione di attivazione GeLU con SwiGLU, che ha dimostrato empiricamente di migliorare le prestazioni di convergenza\cite{SWIGLU}.
     \item \textbf{Rotary Positional Embeddings}: Utilizza embeddings posizionali rotativi per gestire meglio le posizioni relative dei token e supportare finestre di contesto molto ampie \cite{RoPE}.
 \end{itemize}
 Il modello è stato pre-addestrato su un corpus massivo e multilingua, dimostrando eccellenti capacità non solo nel ragionamento e nella comprensione del linguaggio, ma anche nel coding e nella matematica.
 
 \subsection{Falcon3-7B-Base}
 Falcon3-7B-Base è appartiene alla famiglia di modelli sviluppati dal Technology Innovation Institute (TII) di Abu Dhabi. Come Qwen, è un LLM da 7 miliardi di parametri che si basa su GQA.
-Falcon3 continua la tradizione della serie Falcon concentrandosi sulla qualità dei dati di pre-training (basati sul dataset RefinedWeb, un dataset web rigorosamente filtrato e deduplicato).
+Falcon3 continua la tradizione della serie Falcon concentrandosi sulla qualità dei dati di pre-training (basati sul dataset RefinedWeb \cite{refinedweb} , un dataset web rigorosamente filtrato e deduplicato).
 
 \subsection{Llama-3.1-8B-Instruct} Llama-3.1-8B-Instruct rappresenta un'iterazione della famiglia di modelli open-weights sviluppata da Meta.E' dotato di 8 miliardi di parametri e \textit{Instruct}  indica che il modello è stato specificamente ottimizzato per il dialogo e il seguito di istruzioni tramite SFT e DPO.Come per i modelli precedenti, utilizza GQA per mantenere l'efficienza inferenziale riducendo il footprint della memoria della cache KV. 
 
@@ -98,7 +93,7 @@ Analizzando l'output dei modelli sul dataset Belief Bank, sono state calcolate l
     Gemma-2-9B-IT   & 27\,416 & 802 \\
 \end{tabular}
 \end{table}
-I risultati suggeriscono che i modelli si comportano in modo molto simile, il che indica che le allucinazioni potrebbero essere legate a caratteristiche intrinseche nei modelli di linguaggio \cite{HallOpenAI} (e dunque la costruzione di un prober universale potrebbe essere possibile).
+I risultati suggeriscono che i modelli si comportano in modo molto simile, il che indica che le allucinazioni potrebbero essere legate a caratteristiche intrinseche nei modelli di linguaggio  come dichiarato da Kalai et al. in \cite{HallOpenAI} (e dunque la costruzione di un prober universale potrebbe essere possibile).
 
 \subsection{Studio delle singole componenti di layer}
 
@@ -117,14 +112,14 @@ I risultati mostrano che alcune componenti e layer sono particolarmente efficaci
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/Qwen2.5-7B_belief_bank_facts_activations.png}
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/Qwen2.5-7B_belief_bank_facts_activations.pdf}
     \caption{Performance dei componenti di Qwen2.5-7B su Belief Bank Facts}
     \label{fig:qwen-layer-performance-facts}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/Falcon3-7B-Base_belief_bank_facts_activations.png}
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/Falcon3-7B-Base_belief_bank_facts_activations.pdf}
     \caption{Performance dei componenti di Qwen2.5-7B su Belief Bank Facts}
     \label{fig:qwen-layer-performance-facts}
 \end{figure}
@@ -144,23 +139,23 @@ I risultati mostrano che alcune componenti e layer sono particolarmente efficaci
 \end{figure}
 
 
-Successivamente è stata effettuata un'analisi relativa alla distribuzione di allucinazioni e risposte corrette nello spazio delle attivazioni. Affinchè fosse possibile visualizzare le attivazioni in uno spazio bidimensionale, è stata applicata la tecnica di riduzione della dimensionalità Principal Component Analysis (PCA). Seguono alcuni esempi:
+Successivamente è stata effettuata un'analisi relativa alla distribuzione di allucinazioni e risposte corrette nello spazio delle attivazioni. Affinchè fosse possibile visualizzare le attivazioni in uno spazio bidimensionale, è stata applicata la tecnica di riduzione della dimensionalità Principal Component Analysis (PCA) \cite{PCA}. Seguono alcuni esempi:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/SINGLE_Falcon3-7B-Base_attn_L18_PCA.png}
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/SINGLE_Falcon3-7B-Base_attn_L18_PCA.pdf}
     \label{fig:falcon-pca-attn-18}
     \caption{PCA delle attivazioni Attention del layer 18 di Falcon3-7B-Base}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/SINGLE_Qwen2.5-7B_attn_L14_PCA.png}
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/SINGLE_Qwen2.5-7B_attn_L14_PCA.pdf}
     \label{fig:qwen-pca-attn-l14}
     \caption{PCA delle attivazioni Attention del layer 14 di Qwen2.5-7B}
 \end{figure}
 
-Come si può vedere nei layer che performano meglio presi singolarmente abbiamo una più chiara separazione delle attivazioni. Per queste ragioni, per gli esperimenti successivi sono stati scelti per ogni componente i 3 layer migliori in termini di performance.
+Per gli esperimenti successivi sono stati scelti per ogni componente i 3 layer migliori in termini di performance.
 \begin{table}[H]
 \centering
 \caption{Configurazione dei layer selezionati per modello e componente}
@@ -201,7 +196,7 @@ Come baseline per la costruzione del prober universale, è stato adottato un app
     \caption{Pipeline sperimentale della baseline}
     \label{fig:linear-pipeline}
 \end{figure}
-La pipeline sperimentale consiste nell'addestramento di un classificatore Logistic Regression sullo spazio delle attivazioni del modello teacher per rilevare le allucinazioni, seguito dalla valutazione delle sue prestazioni tramite metriche di accuratezza. Successivamente, viene effettuato un allineamento lineare tra lo spazio latente del modello student e quello del modello teacher tramite una proiezione lineare (Ridge Regression) addestrata su un sottoinsieme di dati concordanti. Infine, si valuta la capacità del classificatore di discriminare le allucinazioni sui dati del modello student dopo l'allineamento.
+La pipeline sperimentale \ref{fig:linear-pipeline} consiste nell'addestramento di un classificatore Logistic Regression sullo spazio delle attivazioni del modello teacher per rilevare le allucinazioni, seguito dalla valutazione delle sue prestazioni tramite metriche di accuratezza. Successivamente, viene effettuato un allineamento lineare tra lo spazio latente del modello student e quello del modello teacher tramite una proiezione lineare (Ridge Regression) addestrata su un sottoinsieme di dati concordanti. Infine, si valuta la capacità del classificatore di discriminare le allucinazioni sui dati del modello student dopo l'allineamento.
 
 Per il Logistic Regressor sono stati utilizzati i seguenti iperparametri:
 \begin{itemize}
@@ -242,7 +237,7 @@ e la similarità coseno è definita come:
 \]
 
 \subsubsection{Pipeline sperimentale}
-La pipeline sperimentale prevede innanzitutto l'addestramento di un probe (Logistic Regression) sullo spazio delle attivazioni del teacher utilizzando l'intero training set del teacher bilanciato; questo classificatore rimarrà fisso. Successivamente si addestra l'AlignmentNetwork per proiettare le attivazioni del student nello spazio del teacher, minimizzando la loss tra le attivazioni proiettate e quelle originali del teacher utilizzando il dataset bilanciato delle attivazioni concordanti.  Infine, le attivazioni di test del student vengono proiettate tramite l'AlignmentNetwork e classificate utilizzando il probe addestrato sul teacher.
+La pipeline sperimentale \ref{fig:hybrid-pipeline} prevede innanzitutto l'addestramento di un probe (Logistic Regression) sullo spazio delle attivazioni del teacher utilizzando l'intero training set del teacher bilanciato; questo classificatore rimarrà fisso. Successivamente si addestra l'AlignmentNetwork per proiettare le attivazioni del student nello spazio del teacher, minimizzando la loss tra le attivazioni proiettate e quelle originali del teacher utilizzando il dataset bilanciato delle attivazioni concordanti.  Infine, le attivazioni di test del student vengono proiettate tramite l'AlignmentNetwork e classificate utilizzando il probe addestrato sul teacher.
 
 \begin{figure}[H]
     \centering
@@ -258,7 +253,7 @@ Per il Logistic Regressor sono stati utilizzati i seguenti iperparametri:
 \item \textbf{class\_weight:} \texttt{balanced}
 \end{itemize}
 
-Di seguito sono riportati gli iperparametri principali utilizzati per l'addestramento dell'AlignmentNetwork:
+In tabella \ref{tab:hyperparameters-common} sono riportati gli iperparametri principali utilizzati per l'addestramento dell'AlignmentNetwork:
 
 \begin{table}[H]
 \centering
@@ -284,6 +279,7 @@ Di seguito sono riportati gli iperparametri principali utilizzati per l'addestra
 \end{table}
 
 \subsection{Approccio non-lineare Completo}
+\textcolor{red}{Eri arrivata qui}
 Questo approccio segue il precedente per quanto riguarda la parte di allineamento tra i due LLM. La differenza risiede nel prober non-lineare (MLP) come classificatore sul teacher. L'obiettivo è verificare le performance utilizzando entrambe le componenti non-lineari seguendo la stessa pipeline sperimentale.
 
 \subsubsection{Architettura, componenti e Loss}
@@ -303,13 +299,13 @@ Questo approccio segue il precedente per quanto riguarda la parte di allineament
 \end{figure}
 
 \begin{itemize}
-\item \textbf{AlignmentNetwork:} Viene utilizzata la stessa architettura descritta nell'approccio precedente con la stessa loss.
-\item \textbf{MLP Prober:} Classificatore non-lineare per rilevamento della allucinazione: rete fully-connected con layer intermedi normalizzati (LayerNorm), attivazione GELU e dropout.
+\item \textbf{AlignmentNetwork \ref{fig:alignmentnetwork-architecture-full}:} Viene utilizzata la stessa architettura descritta nell'approccio precedente con la stessa loss
+\item \textbf{MLP Prober \ref{fig:mlp-prober-architecture-full}:} Classificatore non-lineare per rilevamento della allucinazione: rete fully-connected con layer intermedi normalizzati (LayerNorm), attivazione GELU e dropout.
 \item \textbf{BCEWithLogitsLoss:} combina una funzione sigmoide e la Binary Cross Entropy per stabilità numerica.
 \end{itemize}
 
 \subsubsection{Pipeline sperimentale}
-La pipeline sperimentale è dunque identica a quella dell'approccio ibrido, con la differenza che il classificatore sul teacher è ora un MLP Prober non-lineare.
+La pipeline sperimentale \ref{fig:non-linear-complete-pipeline} è dunque identica a quella dell'approccio ibrido, con la differenza che il classificatore sul teacher è ora un MLP Prober non-lineare.
 
 \begin{figure}[H]
     \centering
@@ -318,7 +314,7 @@ La pipeline sperimentale è dunque identica a quella dell'approccio ibrido, con 
     \label{fig:non-linear-complete-pipeline}    
 \end{figure}
 
-Di seguito sono riportati gli iperparametri principali utilizzati per l'addestramento dell'AlignmentNetwork e del Prober MLP:
+Nelle tabelle \ref{tab:hyperparams-align-loss-clean} e \ref{tab:hyperparams-prober-clean} riportati gli iperparametri principali utilizzati per l'addestramento dell'AlignmentNetwork e del Prober MLP:
 
 
 \begin{table}[H]
@@ -376,16 +372,30 @@ Questo approccio riduce la dimensionalità delle attivazioni tramite autoencoder
     \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AutoEncApp2.png}
     \caption{Architettura dell'autoencoder dell'approccio non-lineare ridotto}
     \label{fig:autoencoder-architecture}
-\end{figure}    
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/MLPApp2.png}
+    \caption{Architettura del Prober MLP dell'approccio non-lineare ridotto}
+    \label{fig:mlp-prober-architecture-reduced}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AlignApp2.png}
+    \caption{Architettura dell'AlignmentNetwork dell'approccio non-lineare ridotto}
+    \label{fig:alignmentnetwork-architecture-reduced}
+\end{figure}
 
 \begin{itemize}
-\item \textbf{Autoencoder (Teacher \& Student)}: si addestra un autoencoder separato sullo spazio delle attivazioni del teacher e uno su quello dello student. Gli encoder producono rappresentazioni latenti di dimensione comune (es. 128). La loss utilizzata è la Mean Squared Error (MSE).
-\item \textbf{Alignment Network (latent)}: Mappa lo spazio latente dello student a quello del teacher.
-\item \textbf{MLP Prober}: Classifica operando sullo spazio latente ridotto del teacher.
+\item \textbf{Autoencoder (Teacher \& Student) \ref{fig:autoencoder-architecture}}: si addestra un autoencoder separato sullo spazio delle attivazioni del teacher e uno su quello dello student. Gli encoder producono rappresentazioni latenti di dimensione comune (es. 128). La loss utilizzata è la Mean Squared Error (MSE).
+\item \textbf{Alignment Network (latent) \ref{fig:alignmentnetwork-architecture-reduced}}: Mappa lo spazio latente dello student a quello del teacher.
+\item \textbf{MLP Prober \ref{fig:mlp-prober-architecture-reduced}}: Classifica operando sullo spazio latente ridotto del teacher.
 \end{itemize}
 
 \subsubsection{Pipeline sperimentale}
-La pipeline prevede innanzitutto l'addestramento di due autoencoder: uno sulle attivazioni del teacher e l'altro su quelle dello student, ottenendo così due spazi latenti distinti ($Z_T$ e $Z_S$). Successivamente, le attivazioni vengono codificate nei rispettivi spazi latenti. Sullo spazio latente del teacher viene addestrato un classificatore MLP. In seguito, si addestra una Alignment Network che mappa le rappresentazioni latenti dello student ($Z_S$) nello spazio latente del teacher ($Z_T$) utilizzando i dati concordanti. Infine, per la valutazione, il classificatore MLP addestrato sul teacher viene utilizzato per classificare le rappresentazioni dello student dopo l'allineamento e la riduzione dimensionale.
+La pipeline \ref{fig:non-linear-reduced-pipeline} prevede innanzitutto l'addestramento di due autoencoder: uno sulle attivazioni del teacher e l'altro su quelle dello student, ottenendo così due spazi latenti distinti ($Z_T$ e $Z_S$). Successivamente, le attivazioni vengono codificate nei rispettivi spazi latenti. Sullo spazio latente del teacher viene addestrato un classificatore MLP. In seguito, si addestra una Alignment Network che mappa le rappresentazioni latenti dello student ($Z_S$) nello spazio latente del teacher ($Z_T$) utilizzando i dati concordanti. Infine, per la valutazione, il classificatore MLP addestrato sul teacher viene utilizzato per classificare le rappresentazioni dello student dopo l'allineamento e la riduzione dimensionale.
 
 \begin{figure}[H]
     \centering
@@ -394,7 +404,7 @@ La pipeline prevede innanzitutto l'addestramento di due autoencoder: uno sulle a
     \label{fig:non-linear-reduced-pipeline}
 \end{figure}
 
-Di seguito sono riportati gli iperparametri principali aggiornati utilizzati in questo approccio:
+Nelle tabelle \ref{tab:hyperparams-autoencoder-clean}, \ref{tab:hyperparams-alignment-clean-reduced} e \ref{tab:hyperparams-prober-clean-reduced} sono riportati gli iperparametri principali aggiornati utilizzati in questo approccio:
 
 
 \begin{table}[H]
@@ -477,12 +487,12 @@ In questo approccio si adotta una procedura in due fasi pensata per valutare la 
 \end{figure}
 
 \begin{itemize}
-\item \textbf{Encoder:} rete feed‑forward a più blocchi che mappa lo spazio di input (dimensione attivazione) in uno spazio latente di dimensione ridotta (256).
-\item \textbf{Classification Head:} modulo compatto che prende in input il vettore latente e restituisce un logit binario. Implementato come una piccola MLP. 
+\item \textbf{Encoder\ref{fig:OfA-architecture}:} rete feed‑forward a più blocchi che mappa lo spazio di input (dimensione attivazione) in uno spazio latente di dimensione ridotta (256).
+\item \textbf{Classification Head\ref{fig:OfA-head-architecture}:} modulo compatto che prende in input il vettore latente e restituisce un logit binario. Implementato come una piccola MLP. 
 \end{itemize}
 
 \subsubsection{Pipeline sperimentale}
-La pipeline sperimentale prevede innanzitutto l'addestramento congiunto dell'encoder e della head di classificazione sullo spazio delle attivazioni del modello teacher (End-to-End). Una volta completato l'addestramento, la head viene congelata (\emph{Frozen Head}) per mantenere invariata la funzione decisionale appresa. Successivamente, si procede con l'addestramento di un nuovo encoder sullo spazio delle attivazioni del modello student: l'output di questo nuovo encoder viene passato alla head congelata del teacher, e la loss viene calcolata direttamente sull'errore di classificazione (BCEWithLogitsLoss). In questo modo, lo student impara a produrre rappresentazioni latenti compatibili con la "testa" del teacher.
+La pipeline sperimentale \ref{fig:OfA-pipeline} prevede innanzitutto l'addestramento congiunto dell'encoder e della head di classificazione sullo spazio delle attivazioni del modello teacher (End-to-End). Una volta completato l'addestramento, la head viene congelata (\emph{Frozen Head}) per mantenere invariata la funzione decisionale appresa. Successivamente, si procede con l'addestramento di un nuovo encoder sullo spazio delle attivazioni del modello student: l'output di questo nuovo encoder viene passato alla head congelata del teacher, e la loss viene calcolata direttamente sull'errore di classificazione (BCEWithLogitsLoss). In questo modo, lo student impara a produrre rappresentazioni latenti compatibili con la "testa" del teacher.
 
 \begin{figure}[H]
     \centering
@@ -491,7 +501,7 @@ La pipeline sperimentale prevede innanzitutto l'addestramento congiunto dell'enc
     \label{fig:OfA-pipeline}
 \end{figure}
 
-Di seguito sono riportati gli iperparametri principali utilizzati per l'addestramento degli Encoder e della Classification Head:
+Nelle tabelle \ref{tab:hyperparams-OfA-encoder-clean} e \ref{tab:hyperparams-OfA-head-clean} sono riportati gli iperparametri principali utilizzati per l'addestramento degli Encoder e della Classification Head:
 
 \begin{table}[H]
 \centering

@@ -38,70 +38,81 @@
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {3.1}Dataset}{11}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}BeliefBank Facts}{11}{}\protected@file@percent }
+\citation{qwen2.5}
+\citation{Falcon3}
+\citation{LLama3}
+\citation{Gemma2}
 \@writefile{toc}{\contentsline {paragraph}{Generazione e Struttura}{12}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Composizione del Dataset Utilizzato}{12}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Creazione dataset di attivazioni}{12}{}\protected@file@percent }
 \citation{GQA}
+\citation{SWIGLU}
 \citation{RoPE}
+\citation{refinedweb}
 \@writefile{toc}{\contentsline {section}{\numberline {3.2}LLM utilizzati}{13}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Qwen2.5-7B}{13}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Falcon3-7B-Base}{13}{}\protected@file@percent }
+\citation{HallOpenAI}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2.3}Llama-3.1-8B-Instruct}{14}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2.4}Gemma-2-9B-IT}{14}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3.3}Studi preliminari}{14}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Statistiche sulle allucinazioni}{14}{}\protected@file@percent }
-\citation{HallOpenAI}
-\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Statistiche sulle allucinazioni per modello}}{15}{}\protected@file@percent }
-\newlabel{tab:hallucination-stats}{{3.1}{15}{}{table.3.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Statistiche sulle allucinazioni per modello}}{14}{}\protected@file@percent }
+\newlabel{tab:hallucination-stats}{{3.1}{14}{}{table.3.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Studio delle singole componenti di layer}{15}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Performance dei componenti di Qwen2.5-7B su Belief Bank Facts}}{16}{}\protected@file@percent }
-\newlabel{fig:qwen-layer-performance-facts}{{3.1}{16}{}{figure.3.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Performance dei componenti di Qwen2.5-7B su Belief Bank Facts}}{15}{}\protected@file@percent }
+\newlabel{fig:qwen-layer-performance-facts}{{3.1}{15}{}{figure.3.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Performance dei componenti di Qwen2.5-7B su Belief Bank Facts}}{16}{}\protected@file@percent }
 \newlabel{fig:qwen-layer-performance-facts}{{3.2}{16}{}{figure.3.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Performance dei componenti di Llama-3.1-8B-Instruct su Belief Bank Facts}}{17}{}\protected@file@percent }
-\newlabel{fig:llama-layer-performance-facts}{{3.3}{17}{}{figure.3.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Performance dei componenti di Llama-3.1-8B-Instruct su Belief Bank Facts}}{16}{}\protected@file@percent }
+\newlabel{fig:llama-layer-performance-facts}{{3.3}{16}{}{figure.3.3}{}}
+\citation{PCA}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Performance dei componenti di Gemma-2-9B-IT su Belief Bank Facts}}{17}{}\protected@file@percent }
 \newlabel{fig:gemma-layer-performance-facts}{{3.4}{17}{}{figure.3.4}{}}
-\newlabel{fig:falcon-pca-attn-18}{{\caption@xref {fig:falcon-pca-attn-18}{ on input line 152}}{18}{}{figure.3.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces PCA delle attivazioni Attention del layer 18 di Falcon3-7B-Base}}{18}{}\protected@file@percent }
-\newlabel{fig:qwen-pca-attn-l14}{{\caption@xref {fig:qwen-pca-attn-l14}{ on input line 159}}{18}{}{figure.3.5}{}}
+\newlabel{fig:falcon-pca-attn-18}{{\caption@xref {fig:falcon-pca-attn-18}{ on input line 147}}{17}{}{figure.3.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces PCA delle attivazioni Attention del layer 18 di Falcon3-7B-Base}}{17}{}\protected@file@percent }
+\newlabel{fig:qwen-pca-attn-l14}{{\caption@xref {fig:qwen-pca-attn-l14}{ on input line 154}}{18}{}{figure.3.5}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces PCA delle attivazioni Attention del layer 14 di Qwen2.5-7B}}{18}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces Configurazione dei layer selezionati per modello e componente}}{19}{}\protected@file@percent }
-\newlabel{tab:layer-config-belief-bank-facts}{{3.2}{19}{}{table.3.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.4}Metodologie per la costruzione del prober universale}{19}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces Configurazione dei layer selezionati per modello e componente}}{18}{}\protected@file@percent }
+\newlabel{tab:layer-config-belief-bank-facts}{{3.2}{18}{}{table.3.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Metodologie per la costruzione del prober universale}{18}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}Baseline}{19}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{20}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces Pipeline sperimentale della baseline}}{20}{}\protected@file@percent }
-\newlabel{fig:linear-pipeline}{{3.7}{20}{}{figure.3.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{19}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces Pipeline sperimentale della baseline}}{19}{}\protected@file@percent }
+\newlabel{fig:linear-pipeline}{{3.7}{19}{}{figure.3.7}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Approccio Ibrido}{20}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Architettura e loss}{21}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces Architettura dell'AlignmentNetwork dell'approccio ibrido}}{21}{}\protected@file@percent }
-\newlabel{fig:alignmentnetwork-architecture-hybrid}{{3.8}{21}{}{figure.3.8}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{22}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces Pipeline sperimentale dell'approccio ibrido}}{22}{}\protected@file@percent }
-\newlabel{fig:hybrid-pipeline}{{3.9}{22}{}{figure.3.9}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces I valori degli iperparametri dell'AlignmentNetwork si applicano a tutte le combinazioni di Teacher, Student e Layer Type.}}{23}{}\protected@file@percent }
-\newlabel{tab:hyperparameters-common}{{3.3}{23}{}{table.3.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.3}Approccio non-lineare Completo}{23}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Architettura, componenti e Loss}{24}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces Architettura dell'AlignmentNetwork dell'approccio non-lineare completo}}{24}{}\protected@file@percent }
-\newlabel{fig:alignmentnetwork-architecture-full}{{3.10}{24}{}{figure.3.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.11}{\ignorespaces Architettura del Prober MLP dell'approccio non-lineare completo}}{24}{}\protected@file@percent }
-\newlabel{fig:mlp-prober-architecture-full}{{3.11}{24}{}{figure.3.11}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{24}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.12}{\ignorespaces Pipeline sperimentale dell'approccio non-lineare completo}}{25}{}\protected@file@percent }
-\newlabel{fig:non-linear-complete-pipeline}{{3.12}{25}{}{figure.3.12}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.4}{\ignorespaces Iperparametri dell'AlignmentNetwork per l'approccio non-lineare completo.}}{25}{}\protected@file@percent }
-\newlabel{tab:hyperparams-align-loss-clean}{{3.4}{25}{}{table.3.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.5}{\ignorespaces Iperparametri del Prober MLP per l'approccio non-lineare completo.}}{25}{}\protected@file@percent }
-\newlabel{tab:hyperparams-prober-clean}{{3.5}{25}{}{table.3.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.4}Approccio non-lineare ridotto}{26}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Architettura e componenti principali}{26}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.13}{\ignorespaces Architettura dell'autoencoder dell'approccio non-lineare ridotto}}{26}{}\protected@file@percent }
-\newlabel{fig:autoencoder-architecture}{{3.13}{26}{}{figure.3.13}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Architettura e loss}{20}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces Architettura dell'AlignmentNetwork dell'approccio ibrido}}{20}{}\protected@file@percent }
+\newlabel{fig:alignmentnetwork-architecture-hybrid}{{3.8}{20}{}{figure.3.8}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{21}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces Pipeline sperimentale dell'approccio ibrido}}{21}{}\protected@file@percent }
+\newlabel{fig:hybrid-pipeline}{{3.9}{21}{}{figure.3.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces I valori degli iperparametri dell'AlignmentNetwork si applicano a tutte le combinazioni di Teacher, Student e Layer Type.}}{22}{}\protected@file@percent }
+\newlabel{tab:hyperparameters-common}{{3.3}{22}{}{table.3.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.3}Approccio non-lineare Completo}{22}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Architettura, componenti e Loss}{23}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces Architettura dell'AlignmentNetwork dell'approccio non-lineare completo}}{23}{}\protected@file@percent }
+\newlabel{fig:alignmentnetwork-architecture-full}{{3.10}{23}{}{figure.3.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.11}{\ignorespaces Architettura del Prober MLP dell'approccio non-lineare completo}}{23}{}\protected@file@percent }
+\newlabel{fig:mlp-prober-architecture-full}{{3.11}{23}{}{figure.3.11}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{23}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.12}{\ignorespaces Pipeline sperimentale dell'approccio non-lineare completo}}{24}{}\protected@file@percent }
+\newlabel{fig:non-linear-complete-pipeline}{{3.12}{24}{}{figure.3.12}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.4}{\ignorespaces Iperparametri dell'AlignmentNetwork per l'approccio non-lineare completo.}}{24}{}\protected@file@percent }
+\newlabel{tab:hyperparams-align-loss-clean}{{3.4}{24}{}{table.3.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.5}{\ignorespaces Iperparametri del Prober MLP per l'approccio non-lineare completo.}}{24}{}\protected@file@percent }
+\newlabel{tab:hyperparams-prober-clean}{{3.5}{24}{}{table.3.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.4}Approccio non-lineare ridotto}{25}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Architettura e componenti principali}{25}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.13}{\ignorespaces Architettura dell'autoencoder dell'approccio non-lineare ridotto}}{25}{}\protected@file@percent }
+\newlabel{fig:autoencoder-architecture}{{3.13}{25}{}{figure.3.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.14}{\ignorespaces Architettura del Prober MLP dell'approccio non-lineare ridotto}}{25}{}\protected@file@percent }
+\newlabel{fig:mlp-prober-architecture-reduced}{{3.14}{25}{}{figure.3.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.15}{\ignorespaces Architettura dell'AlignmentNetwork dell'approccio non-lineare ridotto}}{26}{}\protected@file@percent }
+\newlabel{fig:alignmentnetwork-architecture-reduced}{{3.15}{26}{}{figure.3.15}{}}
 \@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{26}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.14}{\ignorespaces Pipeline sperimentale dell'approccio non-lineare ridotto}}{27}{}\protected@file@percent }
-\newlabel{fig:non-linear-reduced-pipeline}{{3.14}{27}{}{figure.3.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.16}{\ignorespaces Pipeline sperimentale dell'approccio non-lineare ridotto}}{27}{}\protected@file@percent }
+\newlabel{fig:non-linear-reduced-pipeline}{{3.16}{27}{}{figure.3.16}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {3.6}{\ignorespaces Iperparametri dell'AutoEncoder (Teacher e Student).}}{27}{}\protected@file@percent }
 \newlabel{tab:hyperparams-autoencoder-clean}{{3.6}{27}{}{table.3.6}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {3.7}{\ignorespaces Iperparametri dell'AlignmentNetwork per l'approccio ridotto.}}{28}{}\protected@file@percent }
@@ -110,13 +121,13 @@
 \newlabel{tab:hyperparams-prober-clean-reduced}{{3.8}{28}{}{table.3.8}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4.5}Approccio One‑For‑All (Frozen Head)}{28}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Architettura e componenti principali}{29}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.15}{\ignorespaces Architettura encoder One-For-All}}{29}{}\protected@file@percent }
-\newlabel{fig:OfA-architecture}{{3.15}{29}{}{figure.3.15}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.16}{\ignorespaces Architettura Classification Head One-For-All}}{29}{}\protected@file@percent }
-\newlabel{fig:OfA-head-architecture}{{3.16}{29}{}{figure.3.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.17}{\ignorespaces Architettura encoder One-For-All}}{29}{}\protected@file@percent }
+\newlabel{fig:OfA-architecture}{{3.17}{29}{}{figure.3.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.18}{\ignorespaces Architettura Classification Head One-For-All}}{29}{}\protected@file@percent }
+\newlabel{fig:OfA-head-architecture}{{3.18}{29}{}{figure.3.18}{}}
 \@writefile{toc}{\contentsline {subsubsection}{Pipeline sperimentale}{29}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.17}{\ignorespaces Pipeline sperimentale One-For-All}}{30}{}\protected@file@percent }
-\newlabel{fig:OfA-pipeline}{{3.17}{30}{}{figure.3.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.19}{\ignorespaces Pipeline sperimentale One-For-All}}{30}{}\protected@file@percent }
+\newlabel{fig:OfA-pipeline}{{3.19}{30}{}{figure.3.19}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {3.9}{\ignorespaces Iperparametri dell'Encoder (Teacher e Student Adapter).}}{30}{}\protected@file@percent }
 \newlabel{tab:hyperparams-OfA-encoder-clean}{{3.9}{30}{}{table.3.9}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {3.10}{\ignorespaces Iperparametri della Classification Head (Shared/Frozen).}}{30}{}\protected@file@percent }
@@ -143,43 +154,50 @@
 \bibcite{GQA}{{1}{2023}{{Ainslie et~al.}}{{Ainslie, Lee-Thorp, De~Jong, Zemlyanskiy, Lebr{\'o}n, and Sanghai}}}
 \bibcite{GPT3}{{2}{2020}{{Brown et~al.}}{{Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal, Neelakantan, Shyam, Sastry, Askell, et~al.}}}
 \bibcite{CCP}{{3}{2024}{{Fadeeva et~al.}}{{Fadeeva, Rubashevskii, Shelmanov, Petrakov, Li, Mubarak, Tsymbalov, Kuzmin, Panchenko, Baldwin, et~al.}}}
-\bibcite{structuralProbe}{{4}{2019}{{Hewitt and Manning}}{{}}}
-\bibcite{surveyHallucination}{{5}{2025}{{Huang et~al.}}{{Huang, Yu, Ma, Zhong, Feng, Wang, Chen, Peng, Feng, Qin, et~al.}}}
-\bibcite{HallOpenAI}{{6}{2025}{{Kalai et~al.}}{{Kalai, Nachum, Vempala, and Zhang}}}
-\bibcite{ScalingLaws}{{7}{2020}{{Kaplan et~al.}}{{Kaplan, McCandlish, Henighan, Brown, Chess, Child, Gray, Radford, Wu, and Amodei}}}
-\bibcite{BeliefBank}{{8}{2021}{{Kassner et~al.}}{{Kassner, Tafjord, Sch{\"u}tze, and Clark}}}
-\bibcite{AllucType}{{9}{2025}{{Kazlaris et~al.}}{{Kazlaris, Antoniou, Diamantaras, and Bratsas}}}
-\bibcite{Geometry}{{10}{2023}{{Marks and Tegmark}}{{}}}
-\bibcite{sycophancyLLM}{{11}{2023}{{Sharma et~al.}}{{Sharma, Tong, Korbak, Duvenaud, Askell, Bowman, Cheng, Durmus, Hatfield-Dodds, Johnston, et~al.}}}
-\bibcite{RoPE}{{12}{2024}{{Su et~al.}}{{Su, Ahmed, Lu, Pan, Bo, and Liu}}}
-\bibcite{AttentionIsAllYouNeed}{{13}{2017}{{Vaswani et~al.}}{{Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin}}}
-\bibcite{MDL}{{14}{2020}{{Voita and Titov}}{{}}}
-\@writefile{toc}{\contentsline {chapter}{Appendices}{41}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Attivazioni dei Modelli}{43}{}\protected@file@percent }
+\bibcite{LLama3}{{4}{2024}{{Grattafiori et~al.}}{{Grattafiori, Dubey, Jauhri, Pandey, Kadian, Al-Dahle, Letman, Mathur, Schelten, Vaughan, et~al.}}}
+\bibcite{structuralProbe}{{5}{2019}{{Hewitt and Manning}}{{}}}
+\bibcite{PCA}{{6}{1933}{{Hotelling}}{{}}}
+\bibcite{surveyHallucination}{{7}{2025}{{Huang et~al.}}{{Huang, Yu, Ma, Zhong, Feng, Wang, Chen, Peng, Feng, Qin, et~al.}}}
+\bibcite{HallOpenAI}{{8}{2025}{{Kalai et~al.}}{{Kalai, Nachum, Vempala, and Zhang}}}
+\bibcite{ScalingLaws}{{9}{2020}{{Kaplan et~al.}}{{Kaplan, McCandlish, Henighan, Brown, Chess, Child, Gray, Radford, Wu, and Amodei}}}
+\bibcite{BeliefBank}{{10}{2021}{{Kassner et~al.}}{{Kassner, Tafjord, Sch{\"u}tze, and Clark}}}
+\bibcite{AllucType}{{11}{2025}{{Kazlaris et~al.}}{{Kazlaris, Antoniou, Diamantaras, and Bratsas}}}
+\bibcite{Geometry}{{12}{2023}{{Marks and Tegmark}}{{}}}
+\bibcite{refinedweb}{{13}{2023}{{Penedo et~al.}}{{Penedo, Malartic, Hesslow, Cojocaru, Cappelli, Alobeidli, Pannier, Almazrouei, and Launay}}}
+\bibcite{sycophancyLLM}{{14}{2023}{{Sharma et~al.}}{{Sharma, Tong, Korbak, Duvenaud, Askell, Bowman, Cheng, Durmus, Hatfield-Dodds, Johnston, et~al.}}}
+\bibcite{SWIGLU}{{15}{2020}{{Shazeer}}{{}}}
+\bibcite{RoPE}{{16}{2024}{{Su et~al.}}{{Su, Ahmed, Lu, Pan, Bo, and Liu}}}
+\bibcite{Gemma2}{{17}{2024}{{Team et~al.}}{{Team, Riviere, Pathak, Sessa, Hardin, Bhupatiraju, Hussenot, Mesnard, Shahriari, Ram{\'e}, et~al.}}}
+\bibcite{qwen2.5}{{18}{2024{}}{{Team}}{{}}}
+\bibcite{Falcon3}{{19}{2024{}}{{Team}}{{}}}
+\bibcite{AttentionIsAllYouNeed}{{20}{2017}{{Vaswani et~al.}}{{Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin}}}
+\bibcite{MDL}{{21}{2020}{{Voita and Titov}}{{}}}
+\@writefile{toc}{\contentsline {chapter}{Appendices}{43}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Attivazioni dei Modelli}{45}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces PCA delle attivazioni Attention del layer di Qwen2.5-7B}}{44}{}\protected@file@percent }
-\newlabel{fig:qwen-pca-attn-facts-full}{{A.1}{44}{}{figure.1.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.2}{\ignorespaces PCA delle attivazioni Hidden del layer di Qwen2.5-7B}}{45}{}\protected@file@percent }
-\newlabel{fig:qwen-pca-hidden-facts-full}{{A.2}{45}{}{figure.1.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.3}{\ignorespaces PCA delle attivazioni MLP del layer di Qwen2.5-7B}}{46}{}\protected@file@percent }
-\newlabel{fig:qwen-pca-mlp-facts-full}{{A.3}{46}{}{figure.1.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.4}{\ignorespaces PCA delle attivazioni Attention del layer di Falcon3-7B-Base}}{47}{}\protected@file@percent }
-\newlabel{fig:falcon-pca-attn-facts-full}{{A.4}{47}{}{figure.1.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.5}{\ignorespaces PCA delle attivazioni Hidden del layer di Falcon3-7B-Base}}{48}{}\protected@file@percent }
-\newlabel{fig:falcon-pca-hidden-facts-full}{{A.5}{48}{}{figure.1.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.6}{\ignorespaces PCA delle attivazioni MLP del layer di Falcon3-7B-Base}}{49}{}\protected@file@percent }
-\newlabel{fig:falcon-pca-mlp-facts-full}{{A.6}{49}{}{figure.1.6}{}}
-\newlabel{fig:gemma-pca-attn-facts-full}{{\caption@xref {fig:gemma-pca-attn-facts-full}{ on input line 57}}{50}{}{figure.1.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.7}{\ignorespaces PCA delle attivazioni Attention del layer di Gemma-2-9B-IT}}{50}{}\protected@file@percent }
-\newlabel{fig:gemma-pca-hidden-facts-full}{{\caption@xref {fig:gemma-pca-hidden-facts-full}{ on input line 64}}{50}{}{figure.1.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.8}{\ignorespaces PCA delle attivazioni Hidden del layer di Gemma-2-9B-IT}}{50}{}\protected@file@percent }
-\newlabel{fig:gemma-pca-mlp-facts-full}{{\caption@xref {fig:gemma-pca-mlp-facts-full}{ on input line 71}}{51}{}{figure.1.8}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.9}{\ignorespaces PCA delle attivazioni MLP del layer di Gemma-2-9B-IT}}{51}{}\protected@file@percent }
-\newlabel{fig:llama-pca-attn-facts-full}{{\caption@xref {fig:llama-pca-attn-facts-full}{ on input line 78}}{51}{}{figure.1.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.10}{\ignorespaces PCA delle attivazioni Attention del layer di Llama-3.1-8B-Instruct}}{51}{}\protected@file@percent }
-\newlabel{fig:llama-pca-hidden-facts-full}{{\caption@xref {fig:llama-pca-hidden-facts-full}{ on input line 85}}{52}{}{figure.1.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.11}{\ignorespaces PCA delle attivazioni Hidden del layer di Llama-3.1-8B-Instruct}}{52}{}\protected@file@percent }
-\newlabel{fig:llama-pca-mlp-facts-full}{{\caption@xref {fig:llama-pca-mlp-facts-full}{ on input line 92}}{52}{}{figure.1.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.12}{\ignorespaces PCA delle attivazioni MLP del layer di Llama-3.1-8B-Instruct}}{52}{}\protected@file@percent }
-\gdef \@abspage@last{62}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces PCA delle attivazioni Attention del layer di Qwen2.5-7B}}{46}{}\protected@file@percent }
+\newlabel{fig:qwen-pca-attn-facts-full}{{A.1}{46}{}{figure.1.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.2}{\ignorespaces PCA delle attivazioni Hidden del layer di Qwen2.5-7B}}{47}{}\protected@file@percent }
+\newlabel{fig:qwen-pca-hidden-facts-full}{{A.2}{47}{}{figure.1.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.3}{\ignorespaces PCA delle attivazioni MLP del layer di Qwen2.5-7B}}{48}{}\protected@file@percent }
+\newlabel{fig:qwen-pca-mlp-facts-full}{{A.3}{48}{}{figure.1.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.4}{\ignorespaces PCA delle attivazioni Attention del layer di Falcon3-7B-Base}}{49}{}\protected@file@percent }
+\newlabel{fig:falcon-pca-attn-facts-full}{{A.4}{49}{}{figure.1.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.5}{\ignorespaces PCA delle attivazioni Hidden del layer di Falcon3-7B-Base}}{50}{}\protected@file@percent }
+\newlabel{fig:falcon-pca-hidden-facts-full}{{A.5}{50}{}{figure.1.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.6}{\ignorespaces PCA delle attivazioni MLP del layer di Falcon3-7B-Base}}{51}{}\protected@file@percent }
+\newlabel{fig:falcon-pca-mlp-facts-full}{{A.6}{51}{}{figure.1.6}{}}
+\newlabel{fig:gemma-pca-attn-facts-full}{{\caption@xref {fig:gemma-pca-attn-facts-full}{ on input line 57}}{52}{}{figure.1.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.7}{\ignorespaces PCA delle attivazioni Attention del layer di Gemma-2-9B-IT}}{52}{}\protected@file@percent }
+\newlabel{fig:gemma-pca-hidden-facts-full}{{\caption@xref {fig:gemma-pca-hidden-facts-full}{ on input line 64}}{52}{}{figure.1.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.8}{\ignorespaces PCA delle attivazioni Hidden del layer di Gemma-2-9B-IT}}{52}{}\protected@file@percent }
+\newlabel{fig:gemma-pca-mlp-facts-full}{{\caption@xref {fig:gemma-pca-mlp-facts-full}{ on input line 71}}{53}{}{figure.1.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.9}{\ignorespaces PCA delle attivazioni MLP del layer di Gemma-2-9B-IT}}{53}{}\protected@file@percent }
+\newlabel{fig:llama-pca-attn-facts-full}{{\caption@xref {fig:llama-pca-attn-facts-full}{ on input line 78}}{53}{}{figure.1.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.10}{\ignorespaces PCA delle attivazioni Attention del layer di Llama-3.1-8B-Instruct}}{53}{}\protected@file@percent }
+\newlabel{fig:llama-pca-hidden-facts-full}{{\caption@xref {fig:llama-pca-hidden-facts-full}{ on input line 85}}{54}{}{figure.1.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.11}{\ignorespaces PCA delle attivazioni Hidden del layer di Llama-3.1-8B-Instruct}}{54}{}\protected@file@percent }
+\newlabel{fig:llama-pca-mlp-facts-full}{{\caption@xref {fig:llama-pca-mlp-facts-full}{ on input line 92}}{54}{}{figure.1.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.12}{\ignorespaces PCA delle attivazioni MLP del layer di Llama-3.1-8B-Instruct}}{54}{}\protected@file@percent }
+\gdef \@abspage@last{64}
