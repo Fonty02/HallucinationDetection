@@ -26,7 +26,7 @@ import random
 # ==================================================================
 # DEVICE CONFIGURATION
 # ==================================================================
-DEVICE = torch.device("cuda")
+DEVICE = torch.device("cuda:2")
 
 # ==================================================================
 # REPRODUCIBILITY SETTINGS
@@ -100,18 +100,18 @@ MODEL_B = "Llama-3.1-8B-Instruct"
 LAYER_CONFIG = {
     MODEL_A: 
     {
-        "attn": [23,27,33],
-        "mlp":[24,25,26],
-        "hidden": [23,24,27]
+        "attn": [21,26,27],
+        "mlp":[23,24,28],
+        "hidden": [19,24,28]
     },    
     MODEL_B: 
     {
-        "attn": [5,8,12],
+        "attn": [14,15,16],
         "mlp":[13,14,15],
-        "hidden": [13,14,15]
+        "hidden": [14,15,16]
     }  
 }
-DATASET_NAME = "belief_bank_constraints"
+DATASET_NAME = "halu_eval"
 
 # ==================================================================
 # HYPERPARAMETERS CONFIGURATION

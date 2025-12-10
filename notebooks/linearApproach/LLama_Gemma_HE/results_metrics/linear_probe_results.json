@@ -1,0 +1,246 @@
+[
+  {
+    "scenario": "gemma-2-9b-it \u2192 Llama-3.1-8B-Instruct",
+    "results": [
+      {
+        "type": "attn",
+        "teacher_name": "gemma-2-9b-it",
+        "student_name": "Llama-3.1-8B-Instruct",
+        "teacher": {
+          "accuracy": 0.6961672473867596,
+          "precision": 0.7014084507042253,
+          "recall": 0.6897506925207756,
+          "f1": 0.6955307262569832,
+          "auroc": 0.7670138659559507,
+          "confusion_matrix": [
+            [
+              501,
+              212
+            ],
+            [
+              224,
+              498
+            ]
+          ]
+        },
+        "student_on_teacher": {
+          "accuracy": 0.7883565797453002,
+          "precision": 0.7780244173140954,
+          "recall": 0.8247058823529412,
+          "f1": 0.8006853226727584,
+          "auroc": 0.8525392034160348,
+          "confusion_matrix": [
+            [
+              599,
+              200
+            ],
+            [
+              149,
+              701
+            ]
+          ]
+        }
+      },
+      {
+        "type": "mlp",
+        "teacher_name": "gemma-2-9b-it",
+        "student_name": "Llama-3.1-8B-Instruct",
+        "teacher": {
+          "accuracy": 0.7010452961672474,
+          "precision": 0.7060478199718706,
+          "recall": 0.6952908587257618,
+          "f1": 0.7006280530355897,
+          "auroc": 0.7581558162032379,
+          "confusion_matrix": [
+            [
+              504,
+              209
+            ],
+            [
+              220,
+              502
+            ]
+          ]
+        },
+        "student_on_teacher": {
+          "accuracy": 0.7798665858095816,
+          "precision": 0.7626752966558792,
+          "recall": 0.831764705882353,
+          "f1": 0.7957231288688801,
+          "auroc": 0.8558845615843333,
+          "confusion_matrix": [
+            [
+              579,
+              220
+            ],
+            [
+              143,
+              707
+            ]
+          ]
+        }
+      },
+      {
+        "type": "hidden",
+        "teacher_name": "gemma-2-9b-it",
+        "student_name": "Llama-3.1-8B-Instruct",
+        "teacher": {
+          "accuracy": 0.6954703832752613,
+          "precision": 0.7021276595744681,
+          "recall": 0.685595567867036,
+          "f1": 0.6937631394533987,
+          "auroc": 0.7714875695920246,
+          "confusion_matrix": [
+            [
+              503,
+              210
+            ],
+            [
+              227,
+              495
+            ]
+          ]
+        },
+        "student_on_teacher": {
+          "accuracy": 0.7647058823529411,
+          "precision": 0.7555309734513275,
+          "recall": 0.8035294117647059,
+          "f1": 0.7787913340935005,
+          "auroc": 0.8379651034381213,
+          "confusion_matrix": [
+            [
+              578,
+              221
+            ],
+            [
+              167,
+              683
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "scenario": "Llama-3.1-8B-Instruct \u2192 gemma-2-9b-it",
+    "results": [
+      {
+        "type": "attn",
+        "teacher_name": "Llama-3.1-8B-Instruct",
+        "student_name": "gemma-2-9b-it",
+        "teacher": {
+          "accuracy": 0.7568223165554882,
+          "precision": 0.772782503037667,
+          "recall": 0.7482352941176471,
+          "f1": 0.7603108188882247,
+          "auroc": 0.8231171317087536,
+          "confusion_matrix": [
+            [
+              612,
+              187
+            ],
+            [
+              214,
+              636
+            ]
+          ]
+        },
+        "student_on_teacher": {
+          "accuracy": 0.7540069686411149,
+          "precision": 0.7374517374517374,
+          "recall": 0.7936288088642659,
+          "f1": 0.7645096731154103,
+          "auroc": 0.8161022250022338,
+          "confusion_matrix": [
+            [
+              509,
+              204
+            ],
+            [
+              149,
+              573
+            ]
+          ]
+        }
+      },
+      {
+        "type": "mlp",
+        "teacher_name": "Llama-3.1-8B-Instruct",
+        "student_name": "gemma-2-9b-it",
+        "teacher": {
+          "accuracy": 0.7598544572468162,
+          "precision": 0.7866161616161617,
+          "recall": 0.7329411764705882,
+          "f1": 0.758830694275274,
+          "auroc": 0.8296826915997938,
+          "confusion_matrix": [
+            [
+              630,
+              169
+            ],
+            [
+              227,
+              623
+            ]
+          ]
+        },
+        "student_on_teacher": {
+          "accuracy": 0.7519163763066202,
+          "precision": 0.7389033942558747,
+          "recall": 0.7839335180055401,
+          "f1": 0.760752688172043,
+          "auroc": 0.8217570019386696,
+          "confusion_matrix": [
+            [
+              513,
+              200
+            ],
+            [
+              156,
+              566
+            ]
+          ]
+        }
+      },
+      {
+        "type": "hidden",
+        "teacher_name": "Llama-3.1-8B-Instruct",
+        "student_name": "gemma-2-9b-it",
+        "teacher": {
+          "accuracy": 0.750758035172832,
+          "precision": 0.7761006289308177,
+          "recall": 0.7258823529411764,
+          "f1": 0.7501519756838906,
+          "auroc": 0.8172730619156299,
+          "confusion_matrix": [
+            [
+              621,
+              178
+            ],
+            [
+              233,
+              617
+            ]
+          ]
+        },
+        "student_on_teacher": {
+          "accuracy": 0.7407665505226481,
+          "precision": 0.72264631043257,
+          "recall": 0.7867036011080333,
+          "f1": 0.753315649867374,
+          "auroc": 0.813773101832606,
+          "confusion_matrix": [
+            [
+              495,
+              218
+            ],
+            [
+              154,
+              568
+            ]
+          ]
+        }
+      }
+    ]
+  }
+]
