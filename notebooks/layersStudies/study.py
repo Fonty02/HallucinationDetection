@@ -156,7 +156,7 @@ print("Modelli disponibili:", available_models)
 
 # Scegli modello e dataset
 MODEL_NAME = "gemma-2-9b-it"  # Cambia secondo necessità
-DATASET_NAME = "belief_bank_constraints"      # Cambia secondo necessità
+DATASET_NAME = "halu_eval"      # Cambia secondo necessità
 
 # Verifica la struttura
 structure_type = detect_structure_type(MODEL_NAME, DATASET_NAME)
