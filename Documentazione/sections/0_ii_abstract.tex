@@ -1,3 +1,9 @@
 \chapter*{\Large \center Abstract}
 
-\textcolor{red}{TODO: scrivere l'abstract}
+I Large Language Models (LLM) hanno dimostrato capacità eccezionali in numerosi compiti di elaborazione del linguaggio naturale, ma soffrono ancora del problema critico delle "allucinazioni", ovvero la generazione di informazioni fattualmente errate presentate con elevata confidenza. Sebbene l'analisi degli stati interni dei modelli (probing) si sia rivelata efficace per rilevare queste anomalie, la maggior parte degli approcci attuali richiede l'addestramento di classificatori specifici per ogni singola architettura, limitandone la scalabilità e l'applicabilità generale.
+
+Questo lavoro esplora la fattibilità di un "prober universale" per il rilevamento delle allucinazioni, indagando se e come le capacità di rilevamento apprese su un modello "Trainer" possano essere trasferite a un modello "Tester" diverso. Abbiamo sviluppato e confrontato diverse metodologie di allineamento degli spazi latenti, spaziando da approcci ibridi e proiezioni non lineari. 
+
+ I risultati dimostrano che il trasferimento delle feature legate alla veridicità è altamente efficace per la conoscenza fattuale semplice, dove l'approccio a spazio condiviso raggiunge prestazioni paragonabili ai classificatori dedicati. Tuttavia, emerge una sfida significativa nel trasferire il rilevamento in contesti complessi, dove le rappresentazioni interne delle allucinazioni risultano essere molto più specifiche per il singolo modello.
+
+Questo lavoro evidenzia il potenziale delle tecniche di allineamento per la creazione di sistemi di sicurezza cross-model, delineando al contempo i limiti attuali della trasferibilità delle rappresentazioni interne per compiti di ragionamento avanzato.

@@ -1,5 +1,30 @@
 \chapter{Discussione}
 
-In questo capitolo vengono discussi i risultati ottenuti dagli esperimenti condotti per valutare i diversi approcci proposti per il rilevamento delle allucinazioni negli LLM.
+In questo capitolo vengono discussi i risultati ottenuti dagli esperimenti condotti per valutare i diversi approcci proposti per il rilevamento delle allucinazioni negli LLM. L'obiettivo principale è analizzare l'efficacia del trasferimento delle capacità di rilevamento da un modello "Trainer" a un modello "Tester" attraverso diverse tecniche di allineamento.
 
-\textcolor{red}{TODO: Aggiungere discussione sui risultati ottenuti, confrontando le performance dei vari approcci e analizzando i punti di forza e di debolezza di ciascuno}
+\section{Confronto tra Metodi}
+I risulati mostrano che i metodi di trasferibilità suggeriti sono abbastanza equivalenti tra di loro, presentando delle metriche sul tester e sul trainer molto simili tra di loro. Lo studio dimostra dunque che è possibile trasferire prober per il rilevamento delle allucinazioni tra modelli diversi, specialmente per task di verifica fattuale semplice. L'approccio \textit{One-For-All} si rivela il metodo più promettente per costruire un "prober universale".
+
+\section{Analisi dei Dataset}
+
+I risultati evidenziano una netta distinzione tra i dataset basati su fatti semplici (BeliefBank) e quelli più complessi (HaluEval).
+
+\begin{itemize}
+    \item \textbf{BeliefBankFacts e BeliefBankCalibration}: Su questi dataset, tutti i modelli e gli approcci ottengono prestazioni molto elevate, con accuratezze spesso superiori al 95\%. Questo suggerisce che la distinzione tra affermazioni vere e false su fatti di conoscenza generale è codificata in modo molto chiaro e linearmente separabile negli spazi di attivazione degli LLM. La trasferibilità è quindi alta.
+    
+    \item \textbf{HaluEval}: Questo dataset si rivela significativamente più difficile. Le accuratezze crollano intorno al 70-80\% per tutti gli approcci. In questo scenario, la \textit{Baseline} spesso supera nettamente gli approcci di trasferimento. Ciò indica che le "direzioni" che codificano le allucinazioni in contesti più complessi sono molto più specifiche per il singolo modello e meno trasferibili attraverso le tecniche di allineamento testate.
+\end{itemize}
+
+\section{Analisi dei Modelli}
+
+Il confronto tra le coppie di modelli offre ulteriori spunti:
+
+\begin{itemize}
+    \item \textbf{Falcon3-7B-Base e Qwen2.5-7B}: Questa coppia mostra una compatibilità eccezionale su BeliefBankFacts, con risultati di trasferimento quasi perfetti. Questo potrebbe indicare una similarità strutturale o nel pre-training che facilita l'allineamento dei loro spazi latenti.
+    
+    \item \textbf{Llama-3.1-8B-Instruct e Gemma-2-9B-IT}: Anche questa coppia performa bene su BeliefBank, ma mostra maggiori difficoltà su HaluEval. È interessante notare come in alcuni casi (es. HaluEvaL), lo "tester" superi il "trainer", suggerendo che alcune rappresentazioni interne possano essere più adatte per il rilevamento delle allucinazioni in contesti complessi.
+\end{itemize}
+
+\section{Analisi dei Layer}
+
+Per quanto riguarda il tipo di layer (\textit{attn}, \textit{mlp}, \textit{hidden}), non emerge un vincitore assoluto in tutti gli scenari. Tuttavia, si nota spesso che le attivazioni \textit{attn} (attention output) e \textit{hidden} (hidden states) tendono a fornire prestazioni leggermente più stabili rispetto a \textit{mlp}. L'approccio \textit{One-For-All} dimostra comunque una notevole robustezza indipendentemente dal tipo di layer utilizzato, riuscendo a estrarre informazioni utili da tutte le componenti interne analizzate.
