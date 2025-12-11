@@ -1,0 +1,155 @@
+[
+  {
+    "encoder_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_BBF",
+    "head_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_HE",
+    "dataset_train": "belief_bank_facts",
+    "dataset_activation": "belief_bank_facts",
+    "dataset_head": "halu_eval",
+    "layer_type": "attn",
+    "teacher_model": "Llama-3.1-8B-Instruct",
+    "student_model": "gemma-2-9b-it",
+    "scaler_fit_on": "train",
+    "eval": {
+      "teacher_on_eval": {
+        "accuracy": 0.9941634241245136,
+        "precision": 0.9917035398230089,
+        "recall": 0.9966648137854364,
+        "f1": 0.9941779872470197,
+        "auroc": 0.9976424429482008,
+        "confusion_matrix": [
+          [
+            1784,
+            15
+          ],
+          [
+            6,
+            1793
+          ]
+        ]
+      },
+      "student_adapter_on_eval": {
+        "accuracy": 0.986284289276808,
+        "precision": 0.9924242424242424,
+        "recall": 0.9800498753117207,
+        "f1": 0.986198243412798,
+        "auroc": 0.9967560836064452,
+        "confusion_matrix": [
+          [
+            796,
+            6
+          ],
+          [
+            16,
+            786
+          ]
+        ]
+      }
+    },
+    "n_samples": {
+      "teacher_eval": 3598,
+      "student_eval": 1604
+    }
+  },
+  {
+    "encoder_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_BBF",
+    "head_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_HE",
+    "dataset_train": "belief_bank_facts",
+    "dataset_activation": "belief_bank_facts",
+    "dataset_head": "halu_eval",
+    "layer_type": "mlp",
+    "teacher_model": "Llama-3.1-8B-Instruct",
+    "student_model": "gemma-2-9b-it",
+    "scaler_fit_on": "train",
+    "eval": {
+      "teacher_on_eval": {
+        "accuracy": 0.9924958310172318,
+        "precision": 0.9905869324473976,
+        "recall": 0.9944413563090606,
+        "f1": 0.9925104022191401,
+        "auroc": 0.9995943024365646,
+        "confusion_matrix": [
+          [
+            1782,
+            17
+          ],
+          [
+            10,
+            1789
+          ]
+        ]
+      },
+      "student_adapter_on_eval": {
+        "accuracy": 0.9831670822942643,
+        "precision": 0.9849812265331664,
+        "recall": 0.9812967581047382,
+        "f1": 0.9831355402873204,
+        "auroc": 0.9961940535195677,
+        "confusion_matrix": [
+          [
+            790,
+            12
+          ],
+          [
+            15,
+            787
+          ]
+        ]
+      }
+    },
+    "n_samples": {
+      "teacher_eval": 3598,
+      "student_eval": 1604
+    }
+  },
+  {
+    "encoder_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_BBF",
+    "head_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_HE",
+    "dataset_train": "belief_bank_facts",
+    "dataset_activation": "belief_bank_facts",
+    "dataset_head": "halu_eval",
+    "layer_type": "hidden",
+    "teacher_model": "Llama-3.1-8B-Instruct",
+    "student_model": "gemma-2-9b-it",
+    "scaler_fit_on": "train",
+    "eval": {
+      "teacher_on_eval": {
+        "accuracy": 0.9913841022790439,
+        "precision": 0.9873208379272327,
+        "recall": 0.9955530850472485,
+        "f1": 0.9914198726819817,
+        "auroc": 0.9962203385797989,
+        "confusion_matrix": [
+          [
+            1776,
+            23
+          ],
+          [
+            8,
+            1791
+          ]
+        ]
+      },
+      "student_adapter_on_eval": {
+        "accuracy": 0.979426433915212,
+        "precision": 0.9873257287705957,
+        "recall": 0.9713216957605985,
+        "f1": 0.9792583280955374,
+        "auroc": 0.9958395781120764,
+        "confusion_matrix": [
+          [
+            792,
+            10
+          ],
+          [
+            23,
+            779
+          ]
+        ]
+      }
+    },
+    "n_samples": {
+      "teacher_eval": 3598,
+      "student_eval": 1604
+    }
+  }
+]
