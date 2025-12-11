@@ -1,7 +1,7 @@
 \chapter{Methodology}
 
 
-In questo capitolo viene esplorata la metodologia di lavoro adottata per lo sviluppo del progetto. Per la costruzione del prober universale è stato fatto uso dei dataset Belief Bank Facts\cite{BeliefBank}, Belief Bank Constraints\cite{BeliefBank} e Halu Eval\cite{Halueval}. Sono stati presi in considerazione cinque diversi approcci metodologici per allineare lo spazio latente di un modello tester a quello di un modello trainer, dove per modello trainer si intende il modello su cui il prober viene addestrato e per modello tester si intende il modello su cui il prober viene testato (dopo una eventuale fase di allineamento).
+In questo capitolo viene esplorata la metodologia di lavoro adottata per lo sviluppo del progetto. Per la costruzione del prober universale è stato fatto uso dei dataset Belief Bank Facts \cite{BeliefBank}, Belief Bank Constraints \cite{BeliefBank} e Halu Eval \cite{Halueval}. Sono stati presi in considerazione cinque diversi approcci metodologici per allineare lo spazio latente di un modello tester a quello di un modello trainer, dove per modello trainer si intende il modello le cui attivazioni vengono usate per addestrare il modello prober, e per modello tester si intende il modello le cui attivazioni sono usate per testare la trasferibilità del prober  (dopo una eventuale fase di allineamento).
 La prima fase del lavoro ha riguardato la preparazione del dataset e l'estrazione delle attivazioni interne degli LLM su tutti i layer e ogni tipologia di componente di un layer (attention, MLP, hidden states). Successivamente sono stati effettuati studi preliminari per valutare la capacità di ogni singolo componente di layer di discriminare tra affermazioni vere e allucinazioni, al fine di identificare i layer e le componenti più rilevanti per la costruzione del prober universale.
 Sono state dunque calcolate alcune statistiche relative alle allucinazioni dei due modelli e tutte le attivazioni sono state preprocessate per essere utilizzate nei vari approcci metodologici.
 In una prima fase è stato usato un approccio completamente lineare come baseline, per poi esplorare metodi più complessi che includono adattamenti non lineari tramite AdapterMLP, Encoder e AutoEncoder. Ogni metodologia è stata valutata in termini di prestazioni e capacità di trasferimento tra modelli diversi. 
@@ -31,7 +31,7 @@ Il dataset è composto da:
     \item \textbf{Implicazioni positive:} Rappresentazione implicazioni logiche tra affermazioni (se $A$ allora $B$).
     \item \textbf{Mutue esclusioni:} Rappresentazione di vincoli di mutua esclusione tra affermazioni (non entrambi $A$ e $B$).
 \end{itemize}
-Per ogni elemento è stata inserita anche la versione negata per bilanciare le classi. In totale ci sono 25.756 affermazioni da verificare
+Per ogni elemento è stata inserita anche la versione negata per bilanciare le classi. In totale ci sono 25.756 affermazioni da verificare.
 
 \subsubsection{HaluEval} Questo dataset è stato scelto per rilevare allucinazioni in contesti conversazionali complessi. A differenza dei fatti semplici, qui ogni istanza include un contesto composto dalla storia del dialogo e da una conoscenza esterna di supporto.
 
@@ -45,7 +45,7 @@ Il dataset finale è composto da 10.000 esempi.
 
 
 \subsection{Creazione dataset di attivazioni}
-Una volta preparato il dataset di affermazioni e relative etichette di veridicità, il passo successivo è stato l'estrazione delle attivazioni interne dai modelli Qwen2.5-7B \cite{qwen2.5},Falcon3-7B-Base\cite{Falcon3},Llama-3.1-8B-Instruct\cite{LLama3} e gemma-2-9b-it\cite{Gemma2}. 
+Una volta preparato il dataset di affermazioni e relative etichette di veridicità, il passo successivo è stato l'estrazione delle attivazioni interne dai modelli Qwen2.5-7B  \cite{qwen2.5},Falcon3-7B-Base \cite{Falcon3},Llama-3.1-8B-Instruct \cite{LLama3} e gemma-2-9b-it \cite{Gemma2}. 
 Ogni esempio è preceduto da un prompt che viene fornito al modello di linguaggio per guidarne la risposta.
 Per il dataset Belief Bank Facts e Belief Bank Constraints , il prompt utilizzato è il seguente:
 \begin{quote}
@@ -91,7 +91,7 @@ Per gli esperimenti condotti in questo lavoro, sono stati selezionati quattro mo
 Qwen2.5-7B è un modello sviluppato da Alibaba Cloud ed è parte della serie Qwen2.5. È un modello \textit{Decoder-only} basato su Transformer con 7 miliardi di parametri. Rispetto ai suoi predecessori, Qwen2.5 introduce diverse ottimizzazioni architetturali:
 \begin{itemize}
     \item \textbf{Grouped Query Attention (GQA)}: Utilizza GQA invece della standard Multi-Head Attention per ottimizzare l'uso della memoria della cache Key-Value (KV) durante l'inferenza, permettendo contesti più lunghi e una generazione più veloce \cite{GQA}.
-    \item \textbf{SwiGLU Activation}: Sostituisce la classica funzione di attivazione GeLU con SwiGLU, che ha dimostrato empiricamente di migliorare le prestazioni di convergenza\cite{SWIGLU}.
+    \item \textbf{SwiGLU Activation}: Sostituisce la classica funzione di attivazione GeLU con SwiGLU, che ha dimostrato empiricamente di migliorare le prestazioni di convergenza \cite{SWIGLU}.
     \item \textbf{Rotary Positional Embeddings}: Utilizza embeddings posizionali rotativi per gestire meglio le posizioni relative dei token e supportare finestre di contesto molto ampie \cite{RoPE}.
 \end{itemize}
 Il modello è stato pre-addestrato su un corpus massivo e multilingua, dimostrando eccellenti capacità non solo nel ragionamento e nella comprensione del linguaggio, ma anche nel coding e nella matematica.
@@ -148,7 +148,7 @@ Analizzando l'output dei modelli sui dataset sono state calcolate le statistiche
 \end{tabular}
 \end{table}
 
-\textcolor{blue}{Qui non ho sbagliato io, per LLama manca qualche attivazione}
+\textcolor{blue}{Qui non ho sbagliato io, per LLama manca qualche attivazione} \textcolor{red}{oh shit, su gandalf? possibile?}
 
 
 \begin{table}[H]
@@ -313,7 +313,7 @@ Gemma-2-9B-IT & 21, 26, 27 & 23, 24, 28 & 19, 24, 28 \\
 \end{tabular}
 \end{table}
 
-Possiamo notare una tendenza interessante: per LLama i layer tra il 13 e il 16 sembrano essere i più informativi, mentre per Gemma-2-9B-IT i layer più alti (tra il 23 e il 28) sono quelli che offrono le migliori performance. Questo suggerisce che la posizione dei layer più rilevanti può variare significativamente tra modelli diversi, probabilmente a causa delle differenze architetturali e dei processi di addestramento specifici di ciascun modello.
+Possiamo notare una tendenza interessante: per LLama i layer tra il 13 e il 16 sembrano essere i più informativi, mentre per Gemma-2-9B-IT i layer più alti (tra il 23 e il 28) sono quelli che offrono le migliori performance. Questo suggerisce che la posizione dei layer più rilevanti può variare significativamente tra modelli diversi, probabilmente a causa delle differenze architetturali e dei processi di addestramento specifici di ciascun modello. E' possibile notare comunque che i layer intermedi sono i più informativi in ogni modello.\textcolor{red}{però facci caso, per entrambi, quei range corrispondono ai layer intermedi (più o meno a metà). quindi possiamo (ri)confermare che i middle layers sono quelli più informativi (come già visto in altri studi)} \textcolor{blue}{done}
 
 \section{Metodologie per la costruzione del prober universale}
 In questa sezione vengono descritti i cinque approcci metodologici adottati per costruire un prober universale in grado di rilevare le allucinazioni nei modelli di linguaggio.
@@ -323,7 +323,7 @@ La riproducibilità degli esperimenti e l'utilizzo degli stessi set di dati per 
 
 Si distinguono due modalità di gestione del dataset:
 \begin{itemize}
-\item \textbf{Dataset Concordante (per Allineamento):} Si selezionano solo gli esempi in cui Trainer e Tester concordano sulla classificazione (stessa label). Su questi viene applicato un undersampling per bilanciare le classi. Questo è essenziale per apprendere una mappatura coerente tra tester e trainer
+\item \textbf{Dataset Concordante (per Allineamento):} Si selezionano solo gli esempi in cui Trainer e Tester concordano sulla classificazione (stessa label). Su questi viene applicato un undersampling per bilanciare le classi. Questo è essenziale per apprendere una mappatura coerente tra tester e trainer \textcolor{red}{\\ scrivo qui, ma è solo per riferimento: pensavo, possiamo plottare un prima e dopo allineamento delle attivazioni? per capire se in qualche modo si avvicinano?} \textcolor{blue}{provvedo}
 \item \textbf{Dataset Indipendente (per Probing/Autoencoder/Encoder):} Si applica un undersampling per bilanciare le classi specificamente sulle label del modello in esame (Trainer o Tester), indipendentemente dall'altro modello. Questo massimizza la quantità di dati disponibili per addestrare modelli robusti.
 \end{itemize}
 
@@ -358,7 +358,7 @@ In questo approccio si esplora una procedura di adattamento non lineare dello sp
     \caption{Architettura dell'AlignmentNetwork dell'approccio ibrido}
     \label{fig:alignmentnetwork-architecture-hybrid}
 \end{figure}
-Alcune caratteristiche chiave dell'AlignmentNetwork includono: \textcolor{blue}{chiamata io cosi}
+Alcune caratteristiche chiave dell'AlignmentNetwork includono: 
 \begin{itemize}
 \item \textbf{Zero-init:} gli ultimi layer della decompressione sono inizializzati a zero in modo che la rete parta vicino a una trasformazione lineare identità, permettendo alla componente non-lineare di emergere solo se realmente utile.
 \item \textbf{MixedLoss:} la funzione di perdita combina Mean Squared Error (MSE) e una componente basata sulla similarità coseno:
@@ -420,7 +420,6 @@ In tabella \ref{tab:hyperparameters-common} sono riportati gli iperparametri pri
 \end{table}
 
 \subsection{Approccio non-lineare Completo}
-\textcolor{red}{Eri arrivata qui}
 Questo approccio segue il precedente per quanto riguarda la parte di allineamento tra i due LLM. La differenza risiede nel prober non-lineare (MLP) come classificatore sul trainer. L'obiettivo è verificare le performance utilizzando entrambe le componenti non-lineari seguendo la stessa pipeline sperimentale.
 
 \subsubsection{Architettura, componenti e Loss}
@@ -543,7 +542,6 @@ Questo approccio riduce la dimensionalità delle attivazioni tramite autoencoder
 \subsubsection{Pipeline sperimentale}
 La pipeline sperimentale in figura \ref{fig:non-linear-reduced-pipeline} prevede innanzitutto l'addestramento di due autoencoder: uno sulle attivazioni del trainer e l'altro su quelle del tester, ottenendo così due spazi latenti distinti. Successivamente, le attivazioni vengono codificate nei rispettivi spazi latenti. Sullo spazio latente del trainer viene addestrato un classificatore MLP. In seguito, si addestra una Alignment Network che mappa le rappresentazioni latenti del tester nello spazio latente del trainer utilizzando i dati concordanti. Infine, per la valutazione, il classificatore MLP addestrato sul trainer viene utilizzato per classificare le rappresentazioni del tester dopo l'allineamento e la riduzione dimensionale.
 
-\textcolor{blue}{Non sto ri-addestrando qualcosa per allineare. L'autoencoder è uno per ogni modello, la componente encoder la uso perchè l'idea di partenza è che riduca il rumore e migliori l'allineamento. Quindi poi vado ad allineare questi spazi encodati}
 
 \begin{figure}[H]
     \centering
@@ -642,7 +640,7 @@ In questo approccio si adotta una procedura in due fasi pensata per valutare la 
 \subsubsection{Pipeline sperimentale}
 La pipeline sperimentale in figura \ref{fig:OfA-pipeline} prevede innanzitutto l'addestramento congiunto dell'encoder e della head di classificazione sullo spazio delle attivazioni del modello trainer (End-to-End). Una volta completato l'addestramento, la head viene congelata (\emph{Frozen Head}) per mantenere invariata la funzione decisionale appresa. Successivamente, si procede con l'addestramento di un nuovo encoder sullo spazio delle attivazioni del modello tester: l'output di questo nuovo encoder viene passato alla head congelata del trainer, e la loss viene calcolata direttamente sull'errore di classificazione (BCEWithLogitsLoss). In questo modo, lo tester impara a produrre rappresentazioni latenti compatibili con la "testa" del trainer.
 
-\textcolor{blue}{La classification head la addestro una sola volta con il trainer, poi la congelo e la riutilizzo per lo tester. Quindi si: se la riutilizzo sul trainer mantiene gli stessi risultati}
+\textcolor{blue}{La classification head la addestro una sola volta con il trainer, poi la congelo e la riutilizzo per lo tester. Quindi si: se la riutilizzo sul trainer mantiene gli stessi risultati} \textcolor{red}{perfetto, dalla figura avevo capito che veniva re-trainata, sorry}
 
 \begin{figure}[H]
     \centering
