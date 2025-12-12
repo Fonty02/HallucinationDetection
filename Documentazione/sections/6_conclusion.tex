@@ -7,7 +7,7 @@ Questo lavoro ha esplorato la fattibilità di un "prober universale" per il rile
 \begin{itemize}
     \item \textbf{Efficacia del Trasferimento}: I metodi di trasferibilità proposti si sono dimostrati efficaci, specialmente per task di verifica fattuale semplice come quelli presenti in BeliefBank, dove le prestazioni del prober trasferito sono risultate comparabili a quelle dei classificatori dedicati.
     
-    \item \textbf{Limiti nei Contesti Complessi}: In scenari più complessi come HaluEval, la specificità delle rappresentazioni interne degli allucinazioni ha limitato l'efficacia del trasferimento, indicando la necessità di tecniche di allineamento più sofisticate o di un fine-tuning mirato.
+    \item \textbf{Asimmetria nella Generalizzazione}: Gli esperimenti cross-domain hanno rivelato un'interessante asimmetria: l'allineamento appreso su dataset "semplici" (BeliefBank) si trasferisce efficacemente a contesti complessi (HaluEval), mentre il viceversa risulta meno performante. Questo suggerisce che le strutture latenti della veridicità sono più chiaramente definite e "universali" nei compiti fattuali di base.
     
     \item \textbf{Robustezza dell'Approccio One-For-All}: L'approccio One-For-All si è rivelato il metodo più promettente per costruire un prober universale, mostrando robustezza indipendentemente dal tipo di layer analizzato (attn, mlp, hidden).
 \end{itemize}
@@ -15,6 +15,5 @@ Questo lavoro ha esplorato la fattibilità di un "prober universale" per il rile
 \section{Lavori Futuri}
 Il lavoro svolto può essere proseguito in diverse direzioni:
 \begin{itemize}
-    \item \textbf{Verifica cross-dataset}: Testare la capacità di generalizzazione del prober su dataset diversi da quelli utilizzati per l'addestramento.
     \item \textbf{Esperimenti multimodali}: Estendere l'approccio a modelli multimodali che integrano testo e immagini.
 \end{itemize}

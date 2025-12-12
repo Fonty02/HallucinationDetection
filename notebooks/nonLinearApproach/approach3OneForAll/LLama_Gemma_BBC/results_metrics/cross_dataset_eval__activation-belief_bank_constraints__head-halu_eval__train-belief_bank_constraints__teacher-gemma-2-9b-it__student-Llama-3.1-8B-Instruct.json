@@ -1,0 +1,155 @@
+[
+  {
+    "encoder_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_BBC",
+    "head_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_HE",
+    "dataset_train": "belief_bank_constraints",
+    "dataset_activation": "belief_bank_constraints",
+    "dataset_head": "halu_eval",
+    "layer_type": "attn",
+    "teacher_model": "gemma-2-9b-it",
+    "student_model": "Llama-3.1-8B-Instruct",
+    "scaler_fit_on": "train",
+    "eval": {
+      "teacher_on_eval": {
+        "accuracy": 0.9914959259552251,
+        "precision": 0.9944294127009391,
+        "recall": 0.9885293884977454,
+        "f1": 0.9914706232395764,
+        "auroc": 0.9966440226580224,
+        "confusion_matrix": [
+          [
+            12571,
+            70
+          ],
+          [
+            145,
+            12496
+          ]
+        ]
+      },
+      "student_adapter_on_eval": {
+        "accuracy": 0.995064299945662,
+        "precision": 0.996097649514475,
+        "recall": 0.9940228219525449,
+        "f1": 0.9950591541634559,
+        "auroc": 0.9989414296391042,
+        "confusion_matrix": [
+          [
+            10999,
+            43
+          ],
+          [
+            66,
+            10976
+          ]
+        ]
+      }
+    },
+    "n_samples": {
+      "teacher_eval": 25282,
+      "student_eval": 22084
+    }
+  },
+  {
+    "encoder_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_BBC",
+    "head_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_HE",
+    "dataset_train": "belief_bank_constraints",
+    "dataset_activation": "belief_bank_constraints",
+    "dataset_head": "halu_eval",
+    "layer_type": "mlp",
+    "teacher_model": "gemma-2-9b-it",
+    "student_model": "Llama-3.1-8B-Instruct",
+    "scaler_fit_on": "train",
+    "eval": {
+      "teacher_on_eval": {
+        "accuracy": 0.9926429871054505,
+        "precision": 0.9952286282306163,
+        "recall": 0.9900324341428685,
+        "f1": 0.992623730964467,
+        "auroc": 0.9965869025554079,
+        "confusion_matrix": [
+          [
+            12581,
+            60
+          ],
+          [
+            126,
+            12515
+          ]
+        ]
+      },
+      "student_adapter_on_eval": {
+        "accuracy": 0.9844231117551169,
+        "precision": 0.9854783082229079,
+        "recall": 0.9833363521101249,
+        "f1": 0.984406165004533,
+        "auroc": 0.9926689899601531,
+        "confusion_matrix": [
+          [
+            10882,
+            160
+          ],
+          [
+            184,
+            10858
+          ]
+        ]
+      }
+    },
+    "n_samples": {
+      "teacher_eval": 25282,
+      "student_eval": 22084
+    }
+  },
+  {
+    "encoder_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_BBC",
+    "head_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_HE",
+    "dataset_train": "belief_bank_constraints",
+    "dataset_activation": "belief_bank_constraints",
+    "dataset_head": "halu_eval",
+    "layer_type": "hidden",
+    "teacher_model": "gemma-2-9b-it",
+    "student_model": "Llama-3.1-8B-Instruct",
+    "scaler_fit_on": "train",
+    "eval": {
+      "teacher_on_eval": {
+        "accuracy": 0.9950162170714342,
+        "precision": 0.9957220945892419,
+        "recall": 0.9943042480816391,
+        "f1": 0.9950126662444585,
+        "auroc": 0.9957272755189198,
+        "confusion_matrix": [
+          [
+            12587,
+            54
+          ],
+          [
+            72,
+            12569
+          ]
+        ]
+      },
+      "student_adapter_on_eval": {
+        "accuracy": 0.9913964861438145,
+        "precision": 0.9958874063242552,
+        "recall": 0.9868683209563485,
+        "f1": 0.9913573508005823,
+        "auroc": 0.9989485405233959,
+        "confusion_matrix": [
+          [
+            10997,
+            45
+          ],
+          [
+            145,
+            10897
+          ]
+        ]
+      }
+    },
+    "n_samples": {
+      "teacher_eval": 25282,
+      "student_eval": 22084
+    }
+  }
+]

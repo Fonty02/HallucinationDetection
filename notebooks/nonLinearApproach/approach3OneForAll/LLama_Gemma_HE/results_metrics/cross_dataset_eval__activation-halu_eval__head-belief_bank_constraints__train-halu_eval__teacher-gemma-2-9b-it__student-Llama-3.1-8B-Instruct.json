@@ -1,0 +1,155 @@
+[
+  {
+    "encoder_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_HE",
+    "head_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_BBC",
+    "dataset_train": "halu_eval",
+    "dataset_activation": "halu_eval",
+    "dataset_head": "belief_bank_constraints",
+    "layer_type": "attn",
+    "teacher_model": "gemma-2-9b-it",
+    "student_model": "Llama-3.1-8B-Instruct",
+    "scaler_fit_on": "train",
+    "eval": {
+      "teacher_on_eval": {
+        "accuracy": 0.8722291928063571,
+        "precision": 0.8495679497250589,
+        "recall": 0.904642409033877,
+        "f1": 0.8762406319627304,
+        "auroc": 0.9164684379471952,
+        "confusion_matrix": [
+          [
+            2008,
+            383
+          ],
+          [
+            228,
+            2163
+          ]
+        ]
+      },
+      "student_adapter_on_eval": {
+        "accuracy": 0.9066254095376775,
+        "precision": 0.9061818181818182,
+        "recall": 0.9071714597742992,
+        "f1": 0.9066763689285064,
+        "auroc": 0.9242897802003681,
+        "confusion_matrix": [
+          [
+            2489,
+            258
+          ],
+          [
+            255,
+            2492
+          ]
+        ]
+      }
+    },
+    "n_samples": {
+      "teacher_eval": 4782,
+      "student_eval": 5494
+    }
+  },
+  {
+    "encoder_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_HE",
+    "head_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_BBC",
+    "dataset_train": "halu_eval",
+    "dataset_activation": "halu_eval",
+    "dataset_head": "belief_bank_constraints",
+    "layer_type": "mlp",
+    "teacher_model": "gemma-2-9b-it",
+    "student_model": "Llama-3.1-8B-Instruct",
+    "scaler_fit_on": "train",
+    "eval": {
+      "teacher_on_eval": {
+        "accuracy": 0.8732747804265998,
+        "precision": 0.873900293255132,
+        "recall": 0.8724383103304056,
+        "f1": 0.87316868982838,
+        "auroc": 0.9275934727345208,
+        "confusion_matrix": [
+          [
+            2090,
+            301
+          ],
+          [
+            305,
+            2086
+          ]
+        ]
+      },
+      "student_adapter_on_eval": {
+        "accuracy": 0.9053512923188933,
+        "precision": 0.913786696395392,
+        "recall": 0.8951583545686204,
+        "f1": 0.9043766090474439,
+        "auroc": 0.9503195000164988,
+        "confusion_matrix": [
+          [
+            2515,
+            232
+          ],
+          [
+            288,
+            2459
+          ]
+        ]
+      }
+    },
+    "n_samples": {
+      "teacher_eval": 4782,
+      "student_eval": 5494
+    }
+  },
+  {
+    "encoder_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_HE",
+    "head_run_dir": "notebooks/nonLinearApproach/approach3OneForAll/LLama_Gemma_BBC",
+    "dataset_train": "halu_eval",
+    "dataset_activation": "halu_eval",
+    "dataset_head": "belief_bank_constraints",
+    "layer_type": "hidden",
+    "teacher_model": "gemma-2-9b-it",
+    "student_model": "Llama-3.1-8B-Instruct",
+    "scaler_fit_on": "train",
+    "eval": {
+      "teacher_on_eval": {
+        "accuracy": 0.8707653701380176,
+        "precision": 0.855310621242485,
+        "recall": 0.8925135926390632,
+        "f1": 0.8735161686451085,
+        "auroc": 0.9257841819691541,
+        "confusion_matrix": [
+          [
+            2030,
+            361
+          ],
+          [
+            257,
+            2134
+          ]
+        ]
+      },
+      "student_adapter_on_eval": {
+        "accuracy": 0.9035311248634874,
+        "precision": 0.9338551859099804,
+        "recall": 0.8685839097196942,
+        "f1": 0.9000377216144851,
+        "auroc": 0.9074975261757573,
+        "confusion_matrix": [
+          [
+            2578,
+            169
+          ],
+          [
+            361,
+            2386
+          ]
+        ]
+      }
+    },
+    "n_samples": {
+      "teacher_eval": 4782,
+      "student_eval": 5494
+    }
+  }
+]
