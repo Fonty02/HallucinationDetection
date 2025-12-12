@@ -12,39 +12,52 @@
 \contentsline {section}{\numberline {2.4}Probing}{9}{}%
 \contentsline {chapter}{\numberline {3}Methodology}{11}{}%
 \contentsline {section}{\numberline {3.1}Dataset}{11}{}%
-\contentsline {subsection}{\numberline {3.1.1}BeliefBank Facts}{11}{}%
-\contentsline {paragraph}{Generazione e Struttura}{12}{}%
-\contentsline {paragraph}{Composizione del Dataset Utilizzato}{12}{}%
-\contentsline {subsection}{\numberline {3.1.2}Creazione dataset di attivazioni}{12}{}%
+\contentsline {subsection}{\numberline {3.1.1}Dataset utilizzati}{11}{}%
+\contentsline {subsubsection}{Belief Bank Facts}{11}{}%
+\contentsline {subsubsection}{Belief Bank Constraints}{12}{}%
+\contentsline {subsubsection}{HaluEval}{12}{}%
+\contentsline {subsection}{\numberline {3.1.2}Creazione dataset di attivazioni}{13}{}%
 \contentsline {section}{\numberline {3.2}LLM utilizzati}{13}{}%
 \contentsline {subsection}{\numberline {3.2.1}Qwen2.5-7B}{13}{}%
-\contentsline {subsection}{\numberline {3.2.2}Falcon3-7B-Base}{13}{}%
+\contentsline {subsection}{\numberline {3.2.2}Falcon3-7B-Base}{14}{}%
 \contentsline {subsection}{\numberline {3.2.3}Llama-3.1-8B-Instruct}{14}{}%
-\contentsline {subsection}{\numberline {3.2.4}Gemma-2-9B-IT}{14}{}%
-\contentsline {section}{\numberline {3.3}Studi preliminari}{14}{}%
-\contentsline {subsection}{\numberline {3.3.1}Statistiche sulle allucinazioni}{14}{}%
-\contentsline {subsection}{\numberline {3.3.2}Studio delle singole componenti di layer}{15}{}%
-\contentsline {section}{\numberline {3.4}Metodologie per la costruzione del prober universale}{18}{}%
-\contentsline {subsection}{\numberline {3.4.1}Baseline}{19}{}%
-\contentsline {subsubsection}{Pipeline sperimentale}{19}{}%
-\contentsline {subsection}{\numberline {3.4.2}Approccio Ibrido}{20}{}%
-\contentsline {subsubsection}{Architettura e loss}{20}{}%
-\contentsline {subsubsection}{Pipeline sperimentale}{21}{}%
-\contentsline {subsection}{\numberline {3.4.3}Approccio non-lineare Completo}{22}{}%
-\contentsline {subsubsection}{Architettura, componenti e Loss}{23}{}%
+\contentsline {subsection}{\numberline {3.2.4}Gemma-2-9B-IT}{15}{}%
+\contentsline {section}{\numberline {3.3}Studi preliminari}{15}{}%
+\contentsline {subsection}{\numberline {3.3.1}Statistiche sulle allucinazioni}{15}{}%
+\contentsline {subsection}{\numberline {3.3.2}Studio delle singole componenti di layer}{16}{}%
+\contentsline {section}{\numberline {3.4}Metodologie per la costruzione del prober universale}{22}{}%
+\contentsline {subsection}{\numberline {3.4.1}Baseline}{23}{}%
 \contentsline {subsubsection}{Pipeline sperimentale}{23}{}%
-\contentsline {subsection}{\numberline {3.4.4}Approccio non-lineare ridotto}{25}{}%
-\contentsline {subsubsection}{Architettura e componenti principali}{25}{}%
-\contentsline {subsubsection}{Pipeline sperimentale}{26}{}%
-\contentsline {subsection}{\numberline {3.4.5}Approccio One‑For‑All (Frozen Head)}{28}{}%
+\contentsline {subsection}{\numberline {3.4.2}Approccio Ibrido}{24}{}%
+\contentsline {subsubsection}{Architettura e loss}{24}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{25}{}%
+\contentsline {subsection}{\numberline {3.4.3}Approccio non-lineare Completo}{26}{}%
+\contentsline {subsubsection}{Architettura, componenti e Loss}{26}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{27}{}%
+\contentsline {subsection}{\numberline {3.4.4}Approccio non-lineare ridotto}{28}{}%
 \contentsline {subsubsection}{Architettura e componenti principali}{29}{}%
-\contentsline {subsubsection}{Pipeline sperimentale}{29}{}%
-\contentsline {chapter}{\numberline {4}Risultati}{31}{}%
-\contentsline {section}{\numberline {4.1}Falcon3-7B-Base e Qwen2.5-7B su BeliefBankFacts}{32}{}%
-\contentsline {section}{\numberline {4.2}LLama-3.1-8B-Instruct e Gemma-2-9B-IT su BeliefBankFacts}{33}{}%
-\contentsline {chapter}{\numberline {5}Discussione}{35}{}%
-\contentsline {chapter}{\numberline {6}Conclusioni}{37}{}%
-\contentsline {section}{\numberline {6.1}Sintesi dei Risultati}{37}{}%
-\contentsline {section}{\numberline {6.2}Lavori Futuri}{37}{}%
-\contentsline {chapter}{Appendices}{43}{}%
-\contentsline {chapter}{\numberline {A}Attivazioni dei Modelli}{45}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{30}{}%
+\contentsline {subsection}{\numberline {3.4.5}Approccio One‑For‑All (Frozen Head)}{32}{}%
+\contentsline {subsubsection}{Architettura e componenti principali}{33}{}%
+\contentsline {subsubsection}{Pipeline sperimentale}{33}{}%
+\contentsline {chapter}{\numberline {4}Risultati}{35}{}%
+\contentsline {section}{\numberline {4.1}Falcon3-7B-Base e Qwen2.5-7B su BeliefBankFacts}{36}{}%
+\contentsline {section}{\numberline {4.2}LLama-3.1-8B-Instruct e Gemma-2-9B-IT su BeliefBankFacts}{37}{}%
+\contentsline {section}{\numberline {4.3}LLama-3.1-8B-Instruct e Gemma-2-9B-IT su BeliefBankCalibration}{38}{}%
+\contentsline {section}{\numberline {4.4}LLama-3.1-8B-Instruct e Gemma-2-9B-IT su HaluEval}{39}{}%
+\contentsline {chapter}{\numberline {5}Discussione}{41}{}%
+\contentsline {section}{\numberline {5.1}Confronto tra Metodi}{41}{}%
+\contentsline {section}{\numberline {5.2}Analisi dei Dataset}{41}{}%
+\contentsline {section}{\numberline {5.3}Analisi dei Modelli}{42}{}%
+\contentsline {section}{\numberline {5.4}Analisi dei Layer}{42}{}%
+\contentsline {chapter}{\numberline {6}Studi Cross-Domain}{43}{}%
+\contentsline {chapter}{\numberline {7}Conclusioni}{45}{}%
+\contentsline {section}{\numberline {7.1}Sintesi dei Risultati}{45}{}%
+\contentsline {section}{\numberline {7.2}Lavori Futuri}{45}{}%
+\contentsline {chapter}{Appendices}{51}{}%
+\contentsline {chapter}{\numberline {A}Attivazioni dei Modelli}{53}{}%
+\contentsline {chapter}{\numberline {B}Allineamento dei Modelli}{79}{}%
+\contentsline {section}{\numberline {B.1}Linear Approach}{80}{}%
+\contentsline {section}{\numberline {B.2}Approach 1}{84}{}%
+\contentsline {section}{\numberline {B.3}Hybrid Approach}{88}{}%
+\contentsline {section}{\numberline {B.4}Projected Approach}{92}{}%
