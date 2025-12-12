@@ -67,15 +67,13 @@ Il ciclo di vita tipico di un LLM si divide in fasi distinte:
 Una caratteristica emergente degli LLM è la capacità di \textit{In-Context Learning}, ovvero la capacità di apprendere nuovi task semplicemente osservando alcuni esempi nel prompt, senza aggiornare i pesi del modello.
 
 \section{Allucinazioni nei LLM}
-Nonostante le straordinarie capacità generative, gli LLM soffrono di una limitazione critica nota come allucinazione. Nel contesto dell'intelligenza artificiale, un'allucinazione si verifica quando un modello genera un output che è sintatticamente corretto e fluido, ma fattualmente errato, logicamente incoerente o non fedele alla sorgente di input fornita \cite{surveyHallucination}.
-
-
-
-Kazlaris et al. dividono le allucinazioni e in due tipologie\cite{AllucType}:
+Nonostante le straordinarie capacità generative, gli LLM soffrono di una limitazione critica nota come allucinazione. Nel contesto dell'intelligenza artificiale, un'allucinazione si verifica quando un modello genera un output che è sintatticamente corretto e fluido, ma fattualmente errato, logicamente incoerente o non fedele alla sorgente di input fornita. Huang et al. \cite{surveyHallucination} definiscono diverse tipologie di allucinazioni:
 \begin{itemize}
-    \item \textbf{Allucinazioni intrinseche (Intrinsic  Hallucinations)}: Il modello genera informazioni che contraddicono la conoscenza del mondo reale. Un esempio tipico è l'attribuzione di una citazione alla persona sbagliata o l'invenzione di eventi storici mai accaduti. Questo fenomeno è spesso legato alla natura probabilistica del modello, che tende a completare pattern linguistici piuttosto che recuperare fatti deterministici.
-    \item \textbf{Allucinazioni di Fedeltà (Faithfulness Hallucinations)}: Si verificano in task come la summarization o la Question Answering basata su documenti (RAG), quando il modello genera informazioni che non sono presenti nel testo sorgente o le contraddicono, pur essendo magari vere nel mondo reale (allucinazione estrinseca) o false (allucinazione intrinseca).
+    \item \textbf{Allucinazioni Fattuali (Factual Hallucinations)}: Il modello produce informazioni che sono semplicemente false o inesatte rispetto alla realtà.
+    \item \textbf{Allucinazioni Logiche (Logical Hallucinations)}: Si verificano quando il modello genera risposte che sono logicamente incoerenti o contraddittorie. 
+    \item \textbf{Incoerenza di Contesto (Context Inconsistencies)}: Si verificanoo quando il modello contraddice il contesto fornito nell'input.
 \end{itemize}
+
 
 Le cause delle allucinazioni sono molteplici e includono: la compressione con perdita della conoscenza durante il training, dati di addestramento rumorosi o contraddittori, e la tendenza del modello a privilegiare la fluidità del testo rispetto all'accuratezza fattuale definita come \textit{sycophancy}, ovvero la tendenza a compiacere l'utente confermando i suoi bias\cite{sycophancyLLM}. Rilevare e mitigare le allucinazioni è attualmente una delle sfide più aperte nella ricerca sugli LLM.
 

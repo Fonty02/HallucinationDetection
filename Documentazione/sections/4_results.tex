@@ -1,6 +1,6 @@
 \chapter{Risultati}
 
-In questo capitolo vengono presentati i risultati ottenuti dagli esperimenti condotti per valutare l'efficacia del prober universale nel rilevamento delle allucinazioni negli LLM. In particolare viene riportata una tabella per ogni coppia (teacher-student)-Dataset in modo da analizzare il miglior approccio per ogni combinazione.
+In questo capitolo vengono presentati i risultati ottenuti dagli esperimenti condotti per valutare l'efficacia del prober universale nel rilevamento delle allucinazioni negli LLM. In particolare viene riportata una tabella per ogni coppia (trainer-tester)-Dataset in modo da analizzare il miglior approccio per ogni combinazione.
 
 \section{Falcon3-7B-Base e Qwen2.5-7B su BeliefBankFacts}
 
@@ -13,7 +13,7 @@ In questo capitolo vengono presentati i risultati ottenuti dagli esperimenti con
 \label{tab:results-bbf-falcon-qwen}
 \begin{tabular}{|l l l l| c c c c|}
 \hline
-Teacher & Student & Approach & Type & AccT & AccS & AurocT & AurocS \\
+Trainer & Tester & Approach & Type & AccT & AccS & AurocT & AurocS \\
 \hline
 Qwen2.5-7B & Falcon3-7B-Base & Baseline & attn  & 0.987 & 0.962 & 0.999 & 0.992 \\
 Qwen2.5-7B & Falcon3-7B-Base & Baseline & mlp   & 0.986 & 0.967 & 0.999 & 0.987 \\
@@ -63,7 +63,7 @@ Falcon3-7B-Base & Qwen2.5-7B & One-For-All & mlp   & 0.9869 & 0.9874 & 0.9985 & 
 \label{tab:results-bbf-llama-gemma}
 \begin{tabular}{|l l l l| c c c c|}
 \hline
-Teacher & Student & Approach & Type & AccT & AccS & AurocT & AurocS \\
+Trainer & Tester & Approach & Type & AccT & AccS & AurocT & AurocS \\
 \hline
 gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & attn  & 0.965 & 0.919 & 0.986 & 0.974 \\
 gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & mlp   & 0.963 & 0.928 & 0.988 & 0.977 \\
@@ -99,6 +99,102 @@ gemma-2-9b-it & Llama-3.1-8B-Instruct & One-For-All & hidden& 0.9502 & 0.9843 & 
 Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & attn  & 0.9861 & 0.9627 & 0.9982 & 0.9894 \\
 Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & mlp   & 0.9852 & 0.9523 & 0.9984 & 0.9874 \\
 Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & hidden& 0.9778 & 0.9606 & 0.9950 & 0.9891 \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{LLama-3.1-8B-Instruct e Gemma-2-9B-IT su BeliefBankCalibration}
+\begin{table}[H]
+\scriptsize
+\centering
+\caption{Risultati per coppia (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) su BeliefBankCalibration}
+\label{tab:results-bbc-llama-gemma}
+\begin{tabular}{|l l l l| c c c c|}
+\hline
+Trainer & Tester & Approach & Type & AccT & AccS & AurocT & AurocS \\
+\hline
+gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & attn & 0.9713 & 0.9665 & 0.9950 & 0.9926 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & mlp & 0.9727 & 0.9725 & 0.9953 & 0.9946 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & hidden & 0.9744 & 0.9742 & 0.9953 & 0.9949 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & attn & 0.9697 & 0.9715 & 0.9955 & 0.9936 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & mlp & 0.9730 & 0.9698 & 0.9958 & 0.9933 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & hidden & 0.9736 & 0.9699 & 0.9960 & 0.9936 \\
+\hline
+\rowcolor{red!25}gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & attn & 0.9713 & 0.7972 & 0.9950 & 0.8789 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & mlp & 0.9727 & 0.8723 & 0.9953 & 0.9352 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & hidden & 0.9744 & 0.8790 & 0.9953 & 0.9440 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & attn & 0.9697 & 0.8820 & 0.9955 & 0.9424 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & mlp & 0.9730 & 0.8982 & 0.9958 & 0.9554 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & hidden & 0.9736 & 0.8903 & 0.9960 & 0.9521 \\
+\hline
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullNonLinear & attn & 0.9848 & 0.8541 & 0.9982 & 0.9093 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullNonLinear & mlp & 0.9842 & 0.9016 & 0.9984 & 0.9397 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullNonLinear & hidden & 0.9856 & 0.9042 & 0.9986 & 0.9510 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullNonLinear & attn & 0.9893 & 0.8991 & 0.9990 & 0.9512 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullNonLinear & mlp & 0.9829 & 0.9395 & 0.9984 & 0.9756 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullNonLinear & hidden & 0.9848 & 0.9111 & 0.9983 & 0.9546 \\
+\hline
+gemma-2-9b-it & Llama-3.1-8B-Instruct & ReducedNonLinear & attn & 0.9713 & 0.9096 & 0.9955 & 0.9786 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & ReducedNonLinear & mlp & 0.9680 & 0.8485 & 0.9950 & 0.9544 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & ReducedNonLinear & hidden & 0.9719 & 0.8367 & 0.9959 & 0.9687 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & ReducedNonLinear & attn & 0.9673 & 0.8816 & 0.9958 & 0.9683 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & ReducedNonLinear & mlp & 0.9679 & 0.9279 & 0.9942 & 0.9785 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & ReducedNonLinear & hidden & 0.9651 & 0.9438 & 0.9938 & 0.9824 \\
+\hline
+\rowcolor{green!25}gemma-2-9b-it & Llama-3.1-8B-Instruct & One-For-All & attn & 0.9843 & 0.9885 & 0.9985 & 0.9986 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & attn & 0.9878 & 0.9844 & 0.9989 & 0.9979 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & One-For-All & mlp & 0.9847 & 0.9807 & 0.9980 & 0.9971 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & mlp & 0.9793 & 0.9855 & 0.9978 & 0.9986 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & One-For-All & hidden & 0.9873 & 0.9828 & 0.9984 & 0.9957 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & hidden & 0.9840 & 0.9838 & 0.9985 & 0.9983 \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{LLama-3.1-8B-Instruct e Gemma-2-9B-IT su HaluEval}
+\begin{table}[H]
+\scriptsize
+\centering
+\caption{Risultati per coppia (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) su HaluEval}
+\label{tab:results-he-llama-gemma}
+\begin{tabular}{|l l l l| c c c c|}
+\hline
+Trainer & Tester & Approach & Type & AccT & AccS & AurocT & AurocS \\
+\hline
+\rowcolor{green!25}gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & attn & 0.6962 & 0.7884 & 0.7670 & 0.8525 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & mlp & 0.7010 & 0.7799 & 0.7582 & 0.8559 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & hidden & 0.6955 & 0.7647 & 0.7715 & 0.8380 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & attn & 0.7568 & 0.7540 & 0.8231 & 0.8161 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & mlp & 0.7599 & 0.7519 & 0.8297 & 0.8218 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & hidden & 0.7508 & 0.7408 & 0.8173 & 0.8138 \\
+\hline
+gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & attn & 0.6962 & 0.7508 & 0.7670 & 0.8113 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & mlp & 0.7010 & 0.7483 & 0.7582 & 0.8133 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & hidden & 0.6955 & 0.7544 & 0.7715 & 0.8199 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & attn & 0.7568 & 0.7157 & 0.8231 & 0.7680 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & mlp & 0.7599 & 0.7185 & 0.8297 & 0.7908 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & hidden & 0.7508 & 0.7352 & 0.8173 & 0.7882 \\
+\hline
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullNonLinear & attn & 0.7226 & 0.7605 & 0.7897 & 0.8335 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullNonLinear & mlp & 0.7310 & 0.7677 & 0.7968 & 0.8417 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullNonLinear & hidden & 0.7178 & 0.7647 & 0.7934 & 0.8350 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullNonLinear & attn & 0.7799 & 0.7247 & 0.8528 & 0.7906 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullNonLinear & mlp & 0.7720 & 0.7415 & 0.8515 & 0.7952 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullNonLinear & hidden & 0.7708 & 0.7463 & 0.8470 & 0.8099 \\
+\hline
+gemma-2-9b-it & Llama-3.1-8B-Instruct & ReducedNonLinear & attn & 0.7038 & 0.7053 & 0.7720 & 0.7883 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & ReducedNonLinear & mlp & 0.7010 & 0.6695 & 0.7832 & 0.7445 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & ReducedNonLinear & hidden & 0.6941 & 0.6956 & 0.7663 & 0.7729 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & ReducedNonLinear & attn & 0.7404 & 0.6509 & 0.8293 & 0.7177 \\
+\rowcolor{red!25}Llama-3.1-8B-Instruct & gemma-2-9b-it & ReducedNonLinear & mlp & 0.7544 & 0.6272 & 0.8309 & 0.6985 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & ReducedNonLinear & hidden & 0.7465 & 0.6523 & 0.8354 & 0.7145 \\
+\hline
+gemma-2-9b-it & Llama-3.1-8B-Instruct & One-For-All & attn & 0.7094 & 0.7762 & 0.7683 & 0.8553 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & attn & 0.7793 & 0.7010 & 0.8502 & 0.7680 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & One-For-All & mlp & 0.7066 & 0.7629 & 0.7728 & 0.8445 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & mlp & 0.7696 & 0.7045 & 0.8492 & 0.7666 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & One-For-All & hidden & 0.7129 & 0.7768 & 0.7715 & 0.8484 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & hidden & 0.7574 & 0.7052 & 0.8371 & 0.7714 \\
 \hline
 \end{tabular}
 \end{table}

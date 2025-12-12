@@ -3,13 +3,17 @@
 In questo capitolo vengono riassunti i principali risultati ottenuti dal lavoro svolto e le prospettive future.
 
 \section{Sintesi dei Risultati}
-\textcolor{red}{TODO: Aggiungere una sintesi dei risultati principali ottenuti dagli esperimenti}
+Questo lavoro ha esplorato la fattibilità di un "prober universale" per il rilevamento delle allucinazioni negli LLM, valutando diverse tecniche di allineamento degli spazi latenti tra modelli "Trainer" e "Tester". Gli esperimenti condotti su coppie di modelli eterogenei (Llama-3, Gemma-2, Falcon-3 e Qwen-2.5) e su dataset di diversa complessità (BeliefBank e HaluEval) hanno portato ai seguenti risultati chiave:
+\begin{itemize}
+    \item \textbf{Efficacia del Trasferimento}: I metodi di trasferibilità proposti si sono dimostrati efficaci, specialmente per task di verifica fattuale semplice come quelli presenti in BeliefBank, dove le prestazioni del prober trasferito sono risultate comparabili a quelle dei classificatori dedicati.
+    
+    \item \textbf{Asimmetria nella Generalizzazione}: Gli esperimenti cross-domain hanno rivelato un'interessante asimmetria: l'allineamento appreso su dataset "semplici" (BeliefBank) si trasferisce efficacemente a contesti complessi (HaluEval), mentre il viceversa risulta meno performante. Questo suggerisce che le strutture latenti della veridicità sono più chiaramente definite e "universali" nei compiti fattuali di base.
+    
+    \item \textbf{Robustezza dell'Approccio One-For-All}: L'approccio One-For-All si è rivelato il metodo più promettente per costruire un prober universale, mostrando robustezza indipendentemente dal tipo di layer analizzato (attn, mlp, hidden).
+\end{itemize}
 
 \section{Lavori Futuri}
 Il lavoro svolto può essere proseguito in diverse direzioni:
 \begin{itemize}
-    \item \textbf{Espansione degli esperimenti}: Ripetere gli esperimenti con diversi modelli e diversi dataset
-    \item \textbf{Verifica cross-dataset}: Testare la capacità di generalizzazione del prober su dataset diversi da quelli utilizzati per l'addestramento.
-    \item \textbf{Ottimizzazione delle architetture}: Capire quali sono i migliori layer da utilizzare per l'estrazione delle attivazioni e sperimentare
     \item \textbf{Esperimenti multimodali}: Estendere l'approccio a modelli multimodali che integrano testo e immagini.
 \end{itemize}

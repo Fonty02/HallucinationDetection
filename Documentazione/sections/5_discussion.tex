@@ -1,5 +1,94 @@
 \chapter{Discussione}
 
-In questo capitolo vengono discussi i risultati ottenuti dagli esperimenti condotti per valutare i diversi approcci proposti per il rilevamento delle allucinazioni negli LLM.
+In questo capitolo vengono discussi i risultati ottenuti dagli esperimenti condotti per valutare i diversi approcci proposti per il rilevamento delle allucinazioni negli LLM. L'obiettivo principale è analizzare l'efficacia del trasferimento delle capacità di rilevamento da un modello "Trainer" a un modello "Tester" attraverso diverse tecniche di allineamento.
 
-\textcolor{red}{TODO: Aggiungere discussione sui risultati ottenuti, confrontando le performance dei vari approcci e analizzando i punti di forza e di debolezza di ciascuno}
+\section{Confronto tra Metodi}
+I risulati mostrano che i metodi di trasferibilità suggeriti sono abbastanza equivalenti tra di loro, presentando delle metriche sul tester e sul trainer molto simili tra di loro. Lo studio dimostra dunque che è possibile trasferire prober per il rilevamento delle allucinazioni tra modelli diversi, specialmente per task di verifica fattuale semplice. L'approccio \textit{One-For-All} si rivela il metodo più promettente per costruire un "prober universale".
+
+\section{Analisi dei Dataset}
+
+I risultati evidenziano una netta distinzione tra i dataset basati su fatti semplici (BeliefBank) e quelli più complessi (HaluEval).
+
+\begin{itemize}
+    \item \textbf{BeliefBankFacts e BeliefBankCalibration}: Su questi dataset, tutti i modelli e gli approcci ottengono prestazioni molto elevate, con accuratezze spesso superiori al 95\%. Questo suggerisce che la distinzione tra affermazioni vere e false su fatti di conoscenza generale è codificata in modo molto chiaro e linearmente separabile negli spazi di attivazione degli LLM. La trasferibilità è quindi alta.
+    
+    \item \textbf{HaluEval}: Questo dataset si rivela significativamente più difficile. Le accuratezze crollano intorno al 70-80\% per tutti gli approcci. In questo scenario, la \textit{Baseline} spesso supera nettamente gli approcci di trasferimento. Ciò indica che le "direzioni" che codificano le allucinazioni in contesti più complessi sono molto più specifiche per il singolo modello e meno trasferibili attraverso le tecniche di allineamento testate.
+\end{itemize}
+
+\section{Analisi dei Modelli}
+
+Il confronto tra le coppie di modelli offre ulteriori spunti:
+
+\begin{itemize}
+    \item \textbf{Falcon3-7B-Base e Qwen2.5-7B}: Questa coppia mostra una compatibilità eccezionale su BeliefBankFacts, con risultati di trasferimento quasi perfetti. Questo potrebbe indicare una similarità strutturale o nel pre-training che facilita l'allineamento dei loro spazi latenti.
+    
+    \item \textbf{Llama-3.1-8B-Instruct e Gemma-2-9B-IT}: Anche questa coppia performa bene su BeliefBank, ma mostra maggiori difficoltà su HaluEval. È interessante notare come in alcuni casi (es. HaluEvaL), lo "tester" superi il "trainer", suggerendo che alcune rappresentazioni interne possano essere più adatte per il rilevamento delle allucinazioni in contesti complessi.
+\end{itemize}
+
+\section{Analisi dei Layer}
+
+Per quanto riguarda il tipo di layer (\textit{attn}, \textit{mlp}, \textit{hidden}), non emerge un vincitore assoluto in tutti gli scenari. Tuttavia, si nota spesso che le attivazioni \textit{attn} (attention output) e \textit{hidden} (hidden states) tendono a fornire prestazioni leggermente più stabili rispetto a \textit{mlp}. L'approccio \textit{One-For-All} dimostra comunque una notevole robustezza indipendentemente dal tipo di layer utilizzato, riuscendo a estrarre informazioni utili da tutte le componenti interne analizzate.
+
+
+\chapter{Studi Cross-Domain}
+Per valutare ulteriormente la generalizzabilità dei prober trasferiti, sono stati condotti esperimenti cross-domain. In questo contesto, l'approccio \textit{One-For-All} è stato valutato addestrando l'allineamento su un dataset sorgente ("Train Set") e applicandolo per proiettare le attivazioni di un dataset target ("Test Set"), utilizzando però la Head del Teacher specifica per il dataset target. Questo scenario valuta la robustezza dell'allineamento appreso.
+
+I risultati, riassunti nella Tabella \ref{tab:cross-domain-results}, mostrano che l'allineamento appreso su dataset di fatti semplici (BeliefBank) si trasferisce con eccezionale efficacia anche al dataset più complesso (HaluEval), permettendo al Tester di raggiungere prestazioni quasi identiche al Trainer (spesso >99\% di accuratezza).
+Al contrario, l'allineamento appreso su HaluEval, pur ottenendo buoni risultati, mostra un calo di prestazioni quando trasferito su BeliefBank (circa 87--90\% di accuratezza), suggerendo che la struttura dello spazio latente appresa su compiti complessi potrebbe essere meno "universale" o più rumorosa rispetto a quella appresa su fatti semplici.
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lllccccccc}
+\toprule
+\textbf{Align Train} & \textbf{Target/Head} & \textbf{Teacher} & \textbf{Student} & \textbf{Layer} & \textbf{Acc (Tr)} & \textbf{AUROC (Tr)} & \textbf{Acc (Te)} & \textbf{AUROC (Te)} \\
+\midrule
+BBC & BBF & Gemma & Llama & attn & 99.1 & 99.9 & 99.5 & 99.9 \\
+BBC & BBF & Gemma & Llama & mlp & 99.2 & 99.8 & 98.4 & 99.5 \\
+BBC & BBF & Gemma & Llama & hidden & 99.5 & 99.7 & 99.0 & 99.9 \\
+BBC & BBF & Llama & Gemma & attn & 99.1 & 99.6 & 99.4 & 99.9 \\
+BBC & BBF & Llama & Gemma & mlp & 98.0 & 99.5 & 99.4 & 100.0 \\
+BBC & BBF & Llama & Gemma & hidden & 99.3 & 99.9 & 99.3 & 99.9 \\
+\midrule
+BBC & HE & Gemma & Llama & attn & 99.1 & 99.7 & 99.5 & 99.9 \\
+BBC & HE & Gemma & Llama & mlp & 99.3 & 99.7 & 98.4 & 99.3 \\
+BBC & HE & Gemma & Llama & hidden & 99.5 & 99.6 & 99.1 & 99.9 \\
+BBC & HE & Llama & Gemma & attn & 99.3 & 99.8 & 99.4 & 99.9 \\
+BBC & HE & Llama & Gemma & mlp & 98.0 & 99.0 & 99.4 & 100.0 \\
+BBC & HE & Llama & Gemma & hidden & 99.3 & 99.8 & 99.3 & 99.9 \\
+\midrule
+BBF & BBC & Gemma & Llama & attn & 98.6 & 99.7 & 99.4 & 99.7 \\
+BBF & BBC & Gemma & Llama & mlp & 98.3 & 99.2 & 99.4 & 99.8 \\
+BBF & BBC & Gemma & Llama & hidden & 97.2 & 99.5 & 99.3 & 99.8 \\
+BBF & BBC & Llama & Gemma & attn & 99.4 & 99.7 & 98.7 & 99.4 \\
+BBF & BBC & Llama & Gemma & mlp & 99.2 & 99.9 & 98.3 & 98.7 \\
+BBF & BBC & Llama & Gemma & hidden & 99.2 & 99.9 & 97.7 & 98.6 \\
+\midrule
+BBF & HE & Gemma & Llama & attn & 98.5 & 99.3 & 99.5 & 99.7 \\
+BBF & HE & Gemma & Llama & mlp & 98.4 & 98.9 & 99.4 & 99.8 \\
+BBF & HE & Gemma & Llama & hidden & 97.1 & 99.1 & 99.3 & 99.7 \\
+BBF & HE & Llama & Gemma & attn & 99.4 & 99.8 & 98.6 & 99.7 \\
+BBF & HE & Llama & Gemma & mlp & 99.2 & 100.0 & 98.3 & 99.6 \\
+BBF & HE & Llama & Gemma & hidden & 99.1 & 99.6 & 97.9 & 99.6 \\
+\midrule
+HE & BBC & Gemma & Llama & attn & 87.2 & 91.6 & 90.7 & 92.4 \\
+HE & BBC & Gemma & Llama & mlp & 87.3 & 92.8 & 90.5 & 95.0 \\
+HE & BBC & Gemma & Llama & hidden & 87.1 & 92.6 & 90.4 & 90.7 \\
+HE & BBC & Llama & Gemma & attn & 90.9 & 94.1 & 88.4 & 89.4 \\
+HE & BBC & Llama & Gemma & mlp & 90.0 & 94.4 & 87.1 & 89.7 \\
+HE & BBC & Llama & Gemma & hidden & 89.3 & 93.5 & 88.0 & 92.8 \\
+\midrule
+HE & BBF & Gemma & Llama & attn & 87.7 & 92.5 & 90.6 & 95.0 \\
+HE & BBF & Gemma & Llama & mlp & 87.2 & 92.4 & 90.3 & 94.5 \\
+HE & BBF & Gemma & Llama & hidden & 87.2 & 92.8 & 90.5 & 94.0 \\
+HE & BBF & Llama & Gemma & attn & 90.7 & 94.8 & 88.5 & 93.2 \\
+HE & BBF & Llama & Gemma & mlp & 90.1 & 95.0 & 87.1 & 92.8 \\
+HE & BBF & Llama & Gemma & hidden & 89.7 & 93.5 & 88.0 & 92.9 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Risultati Cross-Domain (One-For-All). Tr=Trainer, Te=Tester, BBC=BeliefBankConstraints, BBF=BeliefBankFacts, HE=HaluEval}
+\label{tab:cross-domain-results}
+\end{table}
+
+
