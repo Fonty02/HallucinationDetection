@@ -1,0 +1,97 @@
+\section{Risultati}
+
+\begin{frame}{Risultati: Falcon3 e Qwen2.5 su BeliefBankFacts}
+    \framesubtitle{Qwen2.5 $\rightarrow$ Falcon3 (Tutti gli approcci)}
+    \begin{table}
+        \centering
+        \resizebox{\textwidth}{!}{
+        \begin{tabular}{lllcc}
+            \toprule
+            \textbf{Trainer $\rightarrow$ Tester} & \textbf{Approach} & \textbf{Type} & \textbf{AUROC (Tr)} & \textbf{AUROC (Te)} \\
+            \midrule
+            Qwen $\rightarrow$ Falcon & Baseline & attn & 0.999 & 0.992 \\
+            Qwen $\rightarrow$ Falcon & HApproach & attn & 0.999 & 0.984 \\
+            Qwen $\rightarrow$ Falcon & FullNonLinear & attn & 1.000 & 0.994 \\
+            Qwen $\rightarrow$ Falcon & ReducedNonLinear & attn & 0.999 & 0.995 \\
+            Qwen $\rightarrow$ Falcon & One-For-All & attn & 1.000 & 0.999 \\
+            \bottomrule
+        \end{tabular}
+        }
+        \caption{Confronto Approcci (Qwen $\rightarrow$ Falcon)}
+    \end{table}
+    \begin{itemize}
+        \item \textbf{One-For-All} e \textbf{FullNonLinear} ottengono i risultati migliori.
+        \item \textbf{Baseline} è già molto forte in questo caso.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Risultati: Llama-3.1 e Gemma-2 su BeliefBankFacts}
+    \framesubtitle{Gemma-2 $\rightarrow$ Llama-3.1 (Tutti gli approcci)}
+    \begin{table}
+        \centering
+        \resizebox{\textwidth}{!}{
+        \begin{tabular}{lllcc}
+            \toprule
+            \textbf{Trainer $\rightarrow$ Tester} & \textbf{Approach} & \textbf{Type} & \textbf{AUROC (Tr)} & \textbf{AUROC (Te)} \\
+            \midrule
+            Gemma $\rightarrow$ Llama & Baseline & attn & 0.986 & 0.974 \\
+            Gemma $\rightarrow$ Llama & HApproach & attn & 0.986 & 0.961 \\
+            Gemma $\rightarrow$ Llama & FullNonLinear & attn & 0.994 & 0.976 \\
+            Gemma $\rightarrow$ Llama & ReducedNonLinear & attn & 0.993 & 0.970 \\
+            Gemma $\rightarrow$ Llama & One-For-All & attn & 0.992 & 0.997 \\
+            \bottomrule
+        \end{tabular}
+        }
+        \caption{Confronto Approcci (Gemma $\rightarrow$ Llama)}
+    \end{table}
+    \begin{itemize}
+        \item \textbf{One-For-All} mostra un netto miglioramento rispetto alla Baseline.
+        \item Gli approcci non lineari (Full/Reduced) non superano One-For-All.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Risultati: Llama-3.1 e Gemma-2 su HaluEval}
+    \framesubtitle{Gemma-2 $\rightarrow$ Llama-3.1 (Tutti gli approcci)}
+    \begin{table}
+        \centering
+        \resizebox{\textwidth}{!}{
+        \begin{tabular}{lllcc}
+            \toprule
+            \textbf{Trainer $\rightarrow$ Tester} & \textbf{Approach} & \textbf{Type} & \textbf{AUROC (Tr)} & \textbf{AUROC (Te)} \\
+            \midrule
+            Gemma $\rightarrow$ Llama & Baseline & attn & 0.767 & 0.853 \\
+            Gemma $\rightarrow$ Llama & HApproach & attn & 0.767 & 0.811 \\
+            Gemma $\rightarrow$ Llama & FullNonLinear & attn & 0.790 & 0.834 \\
+            Gemma $\rightarrow$ Llama & ReducedNonLinear & attn & 0.772 & 0.788 \\
+            Gemma $\rightarrow$ Llama & One-For-All & attn & 0.768 & 0.855 \\
+            \bottomrule
+        \end{tabular}
+        }
+        \caption{Confronto Approcci su HaluEval}
+    \end{table}
+    \begin{itemize}
+        \item Su dataset complessi, \textbf{Baseline} rimane molto competitiva.
+        \item \textbf{One-For-All} mantiene buone performance ma il gap è ridotto.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Risultati}
+    \framesubtitle{Cross-Domain: One-For-All}
+    \begin{table}
+        \centering
+        \resizebox{\textwidth}{!}{
+        \begin{tabular}{lllcc}
+            \toprule
+            \textbf{Align Train} & \textbf{Target} & \textbf{Coppia} & \textbf{AUROC (Tr)} & \textbf{AUROC (Te)} \\
+            \midrule
+            BeliefBank & HaluEval & Gemma $\rightarrow$ Llama & 99.7\% & 99.9\% \\
+            BeliefBank & HaluEval & Llama $\rightarrow$ Gemma & 99.8\% & 99.9\% \\
+            HaluEval & BeliefBank & Gemma $\rightarrow$ Llama & 91.6\% & 92.4\% \\
+            HaluEval & BeliefBank & Llama $\rightarrow$ Gemma & 94.1\% & 89.4\% \\
+            \bottomrule
+        \end{tabular}
+        }
+        \caption{Sintesi risultati Cross-Domain}
+    \end{table}
+    \textbf{Osservazione}: Addestrare su task semplici (BeliefBank) generalizza meglio a task complessi (HaluEval) che viceversa.
+\end{frame}
