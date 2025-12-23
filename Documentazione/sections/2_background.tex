@@ -71,15 +71,15 @@ Nonostante le straordinarie capacità generative, gli LLM soffrono di una limita
 \begin{itemize}
     \item \textbf{Allucinazioni Fattuali (Factual Hallucinations)}: Il modello produce informazioni che sono semplicemente false o inesatte rispetto alla realtà.
     \item \textbf{Allucinazioni Logiche (Logical Hallucinations)}: Si verificano quando il modello genera risposte che sono logicamente incoerenti o contraddittorie. 
-    \item \textbf{Incoerenza di Contesto (Context Inconsistencies)}: Si verificanoo quando il modello contraddice il contesto fornito nell'input.
+    \item \textbf{Incoerenza contestuale (Context Inconsistencies)}: Si verificano quando il modello contraddice il contesto fornito nell'input.
 \end{itemize}
 
 
-Le cause delle allucinazioni sono molteplici e includono: la compressione con perdita della conoscenza durante il training, dati di addestramento rumorosi o contraddittori, e la tendenza del modello a privilegiare la fluidità del testo rispetto all'accuratezza fattuale definita come \textit{sycophancy}, ovvero la tendenza a compiacere l'utente confermando i suoi bias\cite{sycophancyLLM}. Rilevare e mitigare le allucinazioni è attualmente una delle sfide più aperte nella ricerca sugli LLM.
+Le cause delle allucinazioni sono molteplici e includono: la compressione con perdita della conoscenza durante il training, dati di addestramento rumorosi o contraddittori, e la tendenza del modello a privilegiare la fluidità del testo rispetto all'accuratezza fattuale definita come \textit{sycophancy}, ovvero la tendenza a compiacere l'utente confermando i suoi bias \cite{sycophancyLLM}. Rilevare e mitigare le allucinazioni è attualmente una delle sfide più aperte nella ricerca sugli LLM.
 
 \section{Probing}
 Il \textit{Probing} (o \textit{Probing Classifiers}) è una tecnica di analisi utilizzata nel campo dell'\textit{Explainable AI} (XAI) per interpretare le rappresentazioni interne delle reti neurali profonde. L'idea fondamentale è che, sebbene gli LLM siano spesso considerati delle black box, le loro attivazioni interne (i valori degli hidden states e degli output dei vari moduli a ogni layer) contengano informazioni ricche e strutturate riguardanti l'input elaborato. In particolare Marks e Tegmark \cite{Geometry} hanno dimostrato che negli LLM il concetto di verità e falsità emergono mediante strutture lineari nello spazio delle rappresentazioni interne del modello. E' possibile dunque utilizzare i probers per sondare queste rappresentazioni e verificare se un LLM stia allucinando o meno.
-La strategia di linear probing (qui descritta) è sicuramente la più comune:
+La strategia di linear probing (qui descritta) è sicuramente la più comune (un esempio è SAPLMA \cite{azaria2023internal}) :
 \begin{enumerate}
     \item \textbf{Estrazione delle attivazioni}: Si fornisce un input al modello (frozen, ovvero con i pesi congelati) e si registrano i vettori di attivazione \( h_l \) generati in uno specifico layer \( l \).
     \item \textbf{Addestramento del Prober}: Si addestra un classificatore supervisionato semplice (spesso una Regressione Lineare o un Perceptron Multistrato semplice) che prende in input le attivazioni \( h_l \) e cerca di predire una specifica proprietà \( y \) dell'input (ad esempio: la parte del discorso, la lunghezza della frase, o, nel caso di questo lavoro, la veridicità dell'affermazione).
@@ -88,12 +88,15 @@ La strategia di linear probing (qui descritta) è sicuramente la più comune:
 
 ma esistono anche varianti.
 
+
+
 Fadeeva et al. propongono la Claim-Conditioned Probability (CCP) \cite{CCP} la cui idea centrale è confrontare la probabilità dell’affermazione data con quella delle varianti controfattuali generate mascherando token importanti e rigenerando condizionalmente. Un valore basso suggerisce che il modello stesso ritiene fragile l’affermazione generata.
 
-Voita et al. propongono invece una tecnicha di probing basata sulla Minimum Description Length (MDL) \cite{MDL} che misura l’effettiva quantità di informazione codificata nelle rappresentazioni interne del modello riguardo a una specifica proprietà.
 
 Hewitt et al. propongono invece il \textit{Structural Probing} \cite{structuralProbe} che mira a verificare se le rappresentazioni interne di un modello linguistico contengano informazioni sulla struttura sintattica delle frasi, come gli alberi di dipendenza.
 
+
+Manakul et al. propongono \textit{SelfCheckGPT} \cite{manakul2023selfcheckgpt} che non fa uso delle attivazioni bensì generare diverse risposte alla stessa domanda e le confronta: se sono coerenti tra loro il modello non allucina, mentre se sono diverse significa che il modello ha allucinato
 
 
 

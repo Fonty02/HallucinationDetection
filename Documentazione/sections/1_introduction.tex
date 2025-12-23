@@ -3,7 +3,7 @@
 
 
 \section{Scopi e Obiettivi}
-Il rilascio di GPT-3\cite{GPT3} aperto al pubblico da parte di OpenAI ha segnato una svolta significativa nel Natural Language Processing (NLP), aprendo la strada a una nuova era di modelli di linguaggio di grandi dimensioni (LLM) in grado poter mantenere una conversazione in maniera fluida e naturale come una persona. Il rilascio del ChatBot è stato solo l'inizio: ora gli LLM sono utilizzati in una vasta gamma di applicazioni e sono ormai uno strumento irrinunciabili sia in ambito privato che accademico che industriale, il loro utilizzo è pressocchè sconfinato.
+Il rilascio di GPT-3 \cite{GPT3} aperto al pubblico da parte di OpenAI ha segnato una svolta significativa nel Natural Language Processing (NLP), aprendo la strada a una nuova era di modelli di linguaggio di grandi dimensioni (LLM) in grado poter mantenere una conversazione in maniera fluida e naturale come una persona. Il rilascio del ChatBot è stato solo l'inizio: ora gli LLM sono utilizzati in una vasta gamma di applicazioni e sono ormai uno strumento irrinunciabili sia in ambito privato che accademico che industriale, il loro utilizzo è pressocchè sconfinato.
 
 Tuttavia, uno dei principali ostacoli all'adozione diffusa e sicura di queste tecnologie in ambiti critici è il fenomeno delle
  \textit{allucinazioni}. Nonostante la coerenza sintattica, gli LLM tendono occasionalmente a generare informazioni fattualmente errate o inventate con un alto grado di confidenza. In contesti come l'assistenza sanitaria, il supporto legale o l'educazione, tali allucinazioni possono portare a conseguenze gravi (es. diagnosi errate, consigli legali sbagliati o diffusione di disinformazione). Questo comportamento deriva dalla natura stocastica degli LLM: questi ultimi non sanno contare o effettuare un ragionamento logico basato su regole e fatti: la loro abilità nel produrre il testo dipende esclusivamente dalle statistiche apprese durante la fase di addestramento su grandi corpora testuali. Si parla di \textit{next token prediction}: un LLM dunque, dato il contesto (cioè l'insieme dei token precedenti), predice il token successivo più probabile in base alle distribuzioni apprese (possiamo pensare a un token come a una parola o parte di essa).
@@ -33,8 +33,10 @@ Gli obiettivi principali di questa progetto sono:
 
 Il resto del progetto è strutturato come seguee:
 \begin{itemize}
-    \item \textbf{Capitolo 2: Background e Lavori Correlati} - Una panoramica delle tecniche esistenti per il rilevamento delle allucinazioni nei LLM.
+    \item \textbf{Capitolo 2: Background} - Backroung teorico e panoramica delle tecniche esistenti per il rilevamento delle allucinazioni nei LLM.
     \item \textbf{Capitolo 3: Metodologia} - Descrizione dettagliata delle architetture utilizzate, delle tecniche di allineamento e del design del prober universale.
-    \item \textbf{Capitolo 4: Esperimenti e Risultati} - Presentazione dei risultati ottenuti, analisi delle prestazioni del prober e discussione sui pattern comuni identificati.
-    \item \textbf{Capitolo 5: Conclusioni e Lavori Futuri} - Sintesi dei contributi del progetto e suggerimenti per ricerche future in questo ambito.
+    \item \textbf{Capitolo 4: Risultati} - Presentazione dei risultati ottenuti
+    \item \textbf{Capitolo 5:Discussione} - Discussione dei risultati ottenuti
+    \item \textbf{Capitolo 6: Studi Cross-Domain}: Utilizzo cross-domain del prober One-For-All
+    \item \textbf{Capitolo 7: Conclusioni} : Conclusioni finali e proposta lavori futuri
 \end{itemize}
