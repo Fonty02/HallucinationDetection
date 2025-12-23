@@ -76,7 +76,7 @@
 \end{frame}
 
 \begin{frame}{Risultati}
-    \framesubtitle{Cross-Domain: One-For-All}
+    \textbf{Cross-Domain: One-For-All}
     \begin{table}
         \centering
         \resizebox{\textwidth}{!}{
@@ -84,14 +84,14 @@
             \toprule
             \textbf{Align Train} & \textbf{Target} & \textbf{Coppia} & \textbf{AUROC (Tr)} & \textbf{AUROC (Te)} \\
             \midrule
-            BeliefBank & HaluEval & Gemma $\rightarrow$ Llama & 99.7\% & 99.9\% \\
-            BeliefBank & HaluEval & Llama $\rightarrow$ Gemma & 99.8\% & 99.9\% \\
-            HaluEval & BeliefBank & Gemma $\rightarrow$ Llama & 91.6\% & 92.4\% \\
-            HaluEval & BeliefBank & Llama $\rightarrow$ Gemma & 94.1\% & 89.4\% \\
+            BeliefBankFacts & HaluEval & Gemma $\rightarrow$ Llama & 99.7\% & 99.9\% \\
+            BeliefBankFacts & HaluEval & Llama $\rightarrow$ Gemma & 99.8\% & 99.9\% \\
+            HaluEval & BeliefBankFacts & Gemma $\rightarrow$ Llama & 91.6\% & 92.4\% \\
+            HaluEval & BeliefBankFacts & Llama $\rightarrow$ Gemma & 94.1\% & 89.4\% \\
             \bottomrule
         \end{tabular}
         }
         \caption{Sintesi risultati Cross-Domain}
     \end{table}
-    \textbf{Osservazione}: Addestrare su task semplici (BeliefBank) generalizza meglio a task complessi (HaluEval) che viceversa.
+    \textbf{Osservazione}: Addestrare su task semplici (BeliefBankFacts) generalizza meglio a task complessi (HaluEval) che viceversa.
 \end{frame}
