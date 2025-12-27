@@ -26,20 +26,10 @@
 
 
 \begin{frame}{Metodologia}
-    \textbf{Pipeline di Estrazione}
-    \begin{enumerate}
-        \item Prompting del modello (es. "Is the fact true?").
-        \item Estrazione attivazioni da tutti i layer e componenti (Attention, MLP, Hidden).
-        \item Etichettatura basata sulla risposta generata (Yes/No).
-    \end{enumerate}
-
-    \textbf{Pipeline generale di addestramento}
-
-    \begin{enumerate}
-    \item Addestramento prober sulle attivazioni del modello trainer
-    \item Allineamento delle attivazioni in comune tra trainer e tester
-    \item Valutazione delle attivazioni allineate del tester sul prober del trainer
-    \end{enumerate}
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.9\textwidth, height=0.8\textheight]{images/modelsss/metodologia.pdf}
+   \end{figure}
 \end{frame}
 
 \begin{frame}{Metodologia: Baseline}

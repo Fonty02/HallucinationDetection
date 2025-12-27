@@ -4,7 +4,7 @@
     \framesubtitle{Confronto tra Metodi}
     \begin{itemize}
         \item I metodi di trasferibilità sono generalmente efficaci.
-        \item \textbf{One-For-All} emerge come il metodo più promettente e robusto.
+        \item \textbf{One-For-All} emerge come il metodo più promettente e robusto. Questo probabilmente è dovuto all'addestramento End-To-End di Encoder e Classification Head che forza l'encoder a imparare una rappresentazione utile ai fini della classificazione
         \item La trasferibilità è particolarmente alta per task di verifica fattuale semplice.
     \end{itemize}
 \end{frame}
@@ -23,14 +23,6 @@
             \item Le allucinazioni sono più specifiche del modello e del contesto.
             \item Minore trasferibilità.
         \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Discussione}
-    \framesubtitle{Analisi dei Modelli e Layer}
-    \begin{itemize}
-        \item \textbf{Falcon3 \& Qwen2.5}: Altissima compatibilità, suggerisce similarità strutturale.
-        \item \textbf{Llama-3.1 \& Gemma-2}: Buona compatibilità, ma minore su task complessi.
         \item \textbf{Layer}:
         \begin{itemize}
             \item \textit{Attention} e \textit{Hidden States} spesso più stabili di \textit{MLP}.
