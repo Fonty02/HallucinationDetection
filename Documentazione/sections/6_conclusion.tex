@@ -1,19 +1,19 @@
-\chapter{Conclusioni}
+\chapter{Conclusions}
 
-In questo capitolo vengono riassunti i principali risultati ottenuti dal lavoro svolto e le prospettive future.
+In this chapter, the main results obtained from the work performed and future perspectives are summarized.
 
-\section{Sintesi dei Risultati}
-Questo lavoro ha esplorato la fattibilità di un "prober universale" per il rilevamento delle allucinazioni negli LLM, valutando diverse tecniche di allineamento degli spazi latenti tra modelli "Trainer" e "Tester". Gli esperimenti condotti su coppie di modelli eterogenei (Llama-3, Gemma-2, Falcon-3 e Qwen-2.5) e su dataset di diversa complessità (BeliefBank e HaluEval) hanno portato ai seguenti risultati chiave:
+\section{Summary of Results}
+This work explored the feasibility of a "universal prober" for hallucination detection in LLMs, evaluating various latent space alignment techniques between "Trainer" and "Tester" models. Experiments conducted on heterogeneous model pairs (Llama-3, Gemma-2, Falcon-3 and Qwen-2.5) and on datasets of varying complexity (BeliefBank and HaluEval) led to the following key results:
 \begin{itemize}
-    \item \textbf{Efficacia del Trasferimento}: I metodi di trasferibilità proposti si sono dimostrati efficaci, specialmente per task di verifica fattuale semplice come quelli presenti in BeliefBank, dove le prestazioni del prober trasferito sono risultate comparabili a quelle dei classificatori dedicati.
+    \item \textbf{Transfer Effectiveness}: The proposed transferability methods proved effective, especially for simple factual verification tasks such as those in BeliefBank, where the performance of the transferred prober was comparable to that of dedicated classifiers.
     
-    \item \textbf{Asimmetria nella Generalizzazione}: Gli esperimenti cross-domain hanno rivelato un'interessante asimmetria: l'allineamento appreso su dataset "semplici" (BeliefBank) si trasferisce efficacemente a contesti complessi (HaluEval), mentre il viceversa risulta meno performante. Questo suggerisce che le strutture latenti della veridicità sono più chiaramente definite e "universali" nei compiti fattuali di base.
+    \item \textbf{Asymmetry in Generalization}: Cross-domain experiments revealed an interesting asymmetry: alignment learned on "simple" datasets (BeliefBank) transfers effectively to complex contexts (HaluEval), while the reverse is less performant. This suggests that latent structures of veracity are more clearly defined and "universal" in basic factual tasks.
     
-    \item \textbf{Robustezza dell'Approccio One-For-All}: L'approccio One-For-All si è rivelato il metodo più promettente per costruire un prober universale, mostrando robustezza indipendentemente dal tipo di layer analizzato (attn, mlp, hidden).
+    \item \textbf{Robustness of the One-For-All Approach}: The One-For-All approach proved to be the most promising method for building a universal prober, showing robustness regardless of the layer type analyzed (attn, mlp, hidden).
 \end{itemize}
 
-\section{Lavori Futuri}
-Il lavoro svolto può essere proseguito in diverse direzioni:
+\section{Future Work}
+The work performed can be continued in various directions:
 \begin{itemize}
-    \item \textbf{Esperimenti multimodali}: Estendere l'approccio a modelli multimodali che integrano testo e immagini.
+    \item \textbf{Multimodal experiments}: Extend the approach to multimodal models that integrate text and images.
 \end{itemize}
