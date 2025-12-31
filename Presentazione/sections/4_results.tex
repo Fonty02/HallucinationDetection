@@ -87,15 +87,15 @@
             \toprule
             \textbf{Train Dataset} & \textbf{Test Dataset} & \textbf{Trainer} & \textbf{Tester} & \textbf{Layer} & \textbf{Acc (Tr)} & \textbf{AUROC (Tr)} & \textbf{Acc (Te)} & \textbf{AUROC (Te)} \\
             \midrule
-            BBF & HE & Gemma & Llama & attn & 0.985 & 0.993 & 0.99.5 & 0.997 \\
-            BBF & HE & Llama & Gemma & attn & 0.994 & 0.998 & 0.98.6 & 0.997 \\
-            HE & BBF & Gemma & Llama & attn & 0.877 & 0.925 & 0.90.6 & 0.950 \\
-            HE & BBF & Llama & Gemma & attn & 0.907 & 0.948 & 0.88.5 & 0.932 \\
+            BBF & HE & Gemma & Llama & attn & 0.985 & 0.993 & 0.995 & 0.997 \\
+            BBF & HE & Llama & Gemma & attn & 0.994 & 0.998 & 0.986 & 0.997 \\
+            HE & BBF & Gemma & Llama & attn & 0.877 & 0.925 & 0.906 & 0.950 \\
+            HE & BBF & Llama & Gemma & attn & 0.907 & 0.948 & 0.885 & 0.932 \\
             \bottomrule
         \end{tabular}
         }
         \caption{Sintesi risultati Cross-Domain (Layer: attn)}
-        \scriptsize Tr=Trainer, Te=Tester
+        \scriptsize Tr=Trainer, Te=Tester. Train Dataset = dataset su cui è addestrato l'encoder.
     \end{table}
-    \textbf{Osservazione}: Addestrare su task semplici (BeliefBankFacts) generalizza meglio a task complessi (HaluEval) che viceversa.
+    \textbf{Osservazione}: L'encoder addestrato su task semplici (BBF) generalizza bene a task complessi (HE), mentre il viceversa funziona peggio.
 \end{frame}
