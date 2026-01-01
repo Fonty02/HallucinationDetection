@@ -13,7 +13,7 @@ In this chapter, the results obtained from experiments conducted to evaluate the
 \label{tab:results-bbf-falcon-qwen}
 \begin{tabular}{|l l l l| c c c c|}
 \hline
-Trainer & Tester & Approach & Type & AccT & AccS & AurocT & AurocS \\
+Trainer & Tester & Approach & Type & AccTr & AccTe & AurocTr & AurocTe \\
 \hline
 Qwen2.5-7B & Falcon3-7B-Base & Baseline & attn  & 0.987 & 0.962 & 0.999 & 0.992 \\
 Qwen2.5-7B & Falcon3-7B-Base & Baseline & mlp   & 0.986 & 0.967 & 0.999 & 0.987 \\
@@ -63,7 +63,7 @@ Falcon3-7B-Base & Qwen2.5-7B & One-For-All & mlp   & 0.9869 & 0.9874 & 0.9985 & 
 \label{tab:results-bbf-llama-gemma}
 \begin{tabular}{|l l l l| c c c c|}
 \hline
-Trainer & Tester & Approach & Type & AccT & AccS & AurocT & AurocS \\
+Trainer & Tester & Approach & Type & AccTr & AccTe & AurocTr & AurocTe \\
 \hline
 gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & attn  & 0.965 & 0.919 & 0.986 & 0.974 \\
 gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & mlp   & 0.963 & 0.928 & 0.988 & 0.977 \\
@@ -111,7 +111,7 @@ Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & hidden& 0.9778 & 0.9606 & 
 \label{tab:results-bbc-llama-gemma}
 \begin{tabular}{|l l l l| c c c c|}
 \hline
-Trainer & Tester & Approach & Type & AccT & AccS & AurocT & AurocS \\
+Trainer & Tester & Approach & Type & AccTr & AccTe & AurocTr & AurocTe \\
 \hline
 gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & attn & 0.9713 & 0.9665 & 0.9950 & 0.9926 \\
 gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & mlp & 0.9727 & 0.9725 & 0.9953 & 0.9946 \\
@@ -159,7 +159,7 @@ Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & hidden & 0.9840 & 0.9838 &
 \label{tab:results-he-llama-gemma}
 \begin{tabular}{|l l l l| c c c c|}
 \hline
-Trainer & Tester & Approach & Type & AccT & AccS & AurocT & AurocS \\
+Trainer & Tester & Approach & Type & AccTr & AccTe & AurocTr & AurocTe \\
 \hline
 \rowcolor{green!25}gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & attn & 0.6962 & 0.7884 & 0.7670 & 0.8525 \\
 gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & mlp & 0.7010 & 0.7799 & 0.7582 & 0.8559 \\
