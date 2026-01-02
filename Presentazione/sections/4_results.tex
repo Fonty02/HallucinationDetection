@@ -10,7 +10,7 @@
             \textbf{Trainer $\rightarrow$ Tester} & \textbf{Approach} & \textbf{Type} & \textbf{AUROC (Tr)} & \textbf{AUROC (Te)} \\
             \midrule
             Qwen $\rightarrow$ Falcon & Baseline & attn & 0.999 & 0.992 \\
-            Qwen $\rightarrow$ Falcon & HApproach & attn & 0.999 & 0.984 \\
+            Qwen $\rightarrow$ Falcon & AdapterMLP & attn & 0.999 & 0.984 \\
             Qwen $\rightarrow$ Falcon & FullNonLinear & attn & 1.000 & 0.994 \\
             Qwen $\rightarrow$ Falcon & ReducedNonLinear & attn & 0.999 & 0.995 \\
             \textbf{Qwen $\rightarrow$ Falcon} & \textbf{One-For-All} & \textbf{attn} & \textbf{1.000} & \textbf{0.999} \\
@@ -36,7 +36,7 @@
             \textbf{Trainer $\rightarrow$ Tester} & \textbf{Approach} & \textbf{Type} & \textbf{AUROC (Tr)} & \textbf{AUROC (Te)} \\
             \midrule
             Gemma $\rightarrow$ Llama & Baseline & attn & 0.986 & 0.974 \\
-            Gemma $\rightarrow$ Llama & HApproach & attn & 0.986 & 0.961 \\
+            Gemma $\rightarrow$ Llama & AdapterMLP & attn & 0.986 & 0.961 \\
             Gemma $\rightarrow$ Llama & FullNonLinear & attn & 0.994 & 0.976 \\
             Gemma $\rightarrow$ Llama & ReducedNonLinear & attn & 0.993 & 0.970 \\
             \textbf{Gemma $\rightarrow$ Llama} & \textbf{One-For-All} & \textbf{attn} & \textbf{0.992} & \textbf{0.997} \\
@@ -62,7 +62,7 @@
             \textbf{Trainer $\rightarrow$ Tester} & \textbf{Approach} & \textbf{Type} & \textbf{AUROC (Tr)} & \textbf{AUROC (Te)} \\
             \midrule
             Gemma $\rightarrow$ Llama & Baseline & attn & 0.767 & 0.853 \\
-            Gemma $\rightarrow$ Llama & HApproach & attn & 0.767 & 0.811 \\
+            Gemma $\rightarrow$ Llama & AdapterMLP & attn & 0.767 & 0.811 \\
             Gemma $\rightarrow$ Llama & FullNonLinear & attn & 0.790 & 0.834 \\
             Gemma $\rightarrow$ Llama & ReducedNonLinear & attn & 0.772 & 0.788 \\
             \textbf{Gemma $\rightarrow$ Llama} & \textbf{One-For-All} & \textbf{attn} & \textbf{0.768} & \textbf{0.855} \\
