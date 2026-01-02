@@ -22,12 +22,12 @@ Falcon3-7B-Base & Qwen2.5-7B & Baseline & attn  & 0.987 & 0.958 & 0.997 & 0.989 
 Falcon3-7B-Base & Qwen2.5-7B & Baseline & mlp   & 0.983 & 0.961 & 0.996 & 0.989 \\
 Falcon3-7B-Base & Qwen2.5-7B & Baseline & hidden& 0.983 & 0.959 & 0.996 & 0.984 \\
 \hline
-Qwen2.5-7B & Falcon3-7B-Base & HApproach & attn  & 0.987 & 0.968 & 0.999 & 0.984 \\
-Qwen2.5-7B & Falcon3-7B-Base & HApproach & mlp   & 0.986 & 0.969 & 0.999 & 0.986 \\
-Qwen2.5-7B & Falcon3-7B-Base & HApproach & hidden& 0.985 & 0.968 & 0.999 & 0.990 \\
-\rowcolor{red!25}Falcon3-7B-Base & Qwen2.5-7B & HApproach & attn  & 0.987 & 0.848 & 0.997 & 0.912 \\
-Falcon3-7B-Base & Qwen2.5-7B & HApproach & mlp   & 0.983 & 0.913 & 0.996 & 0.967 \\
-Falcon3-7B-Base & Qwen2.5-7B & HApproach & hidden& 0.983 & 0.889 & 0.996 & 0.922 \\
+Qwen2.5-7B & Falcon3-7B-Base & AdapterMLP & attn  & 0.987 & 0.968 & 0.999 & 0.984 \\
+Qwen2.5-7B & Falcon3-7B-Base & AdapterMLP & mlp   & 0.986 & 0.969 & 0.999 & 0.986 \\
+Qwen2.5-7B & Falcon3-7B-Base & AdapterMLP & hidden& 0.985 & 0.968 & 0.999 & 0.990 \\
+\rowcolor{red!25}Falcon3-7B-Base & Qwen2.5-7B & AdapterMLP & attn  & 0.987 & 0.848 & 0.997 & 0.912 \\
+Falcon3-7B-Base & Qwen2.5-7B & AdapterMLP & mlp   & 0.983 & 0.913 & 0.996 & 0.967 \\
+Falcon3-7B-Base & Qwen2.5-7B & AdapterMLP & hidden& 0.983 & 0.889 & 0.996 & 0.922 \\
 \hline
 Qwen2.5-7B & Falcon3-7B-Base & FullNonLinear & attn  & 0.993 & 0.981 & 1.000 & 0.994 \\
 Qwen2.5-7B & Falcon3-7B-Base & FullNonLinear & mlp   & 0.994 & 0.977 & 1.000 & 0.994 \\
@@ -72,12 +72,12 @@ Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & attn  & 0.982 & 0.959 & 0.996
 Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & mlp   & 0.973 & 0.948 & 0.997 & 0.983 \\
 Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & hidden& 0.969 & 0.946 & 0.996 & 0.983 \\
 \hline
-gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & attn  & 0.965 & 0.901 & 0.986 & 0.961 \\
-gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & mlp   & 0.9627 & 0.9074 & 0.9883 & 0.9624 \\
-gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & hidden& 0.9585 & 0.9204 & 0.9878 & 0.9752 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & attn  & 0.982 & 0.938 & 0.996 & 0.974 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & mlp   & 0.973 & 0.936 & 0.997 & 0.975 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & hidden& 0.969 & 0.934 & 0.996 & 0.975 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & AdapterMLP & attn  & 0.965 & 0.901 & 0.986 & 0.961 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & AdapterMLP & mlp   & 0.9627 & 0.9074 & 0.9883 & 0.9624 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & AdapterMLP & hidden& 0.9585 & 0.9204 & 0.9878 & 0.9752 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & AdapterMLP & attn  & 0.982 & 0.938 & 0.996 & 0.974 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & AdapterMLP & mlp   & 0.973 & 0.936 & 0.997 & 0.975 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & AdapterMLP & hidden& 0.969 & 0.934 & 0.996 & 0.975 \\
 \hline
 gemma-2-9b-it & Llama-3.1-8B-Instruct & FullNonLinear & attn  & 0.975 & 0.938 & 0.994 & 0.976 \\
 gemma-2-9b-it & Llama-3.1-8B-Instruct & FullNonLinear & mlp   & 0.954 & 0.917 & 0.990 & 0.967 \\
@@ -120,12 +120,12 @@ Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & attn & 0.9697 & 0.9715 & 0.99
 Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & mlp & 0.9730 & 0.9698 & 0.9958 & 0.9933 \\
 Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & hidden & 0.9736 & 0.9699 & 0.9960 & 0.9936 \\
 \hline
-\rowcolor{red!25}gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & attn & 0.9713 & 0.7972 & 0.9950 & 0.8789 \\
-gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & mlp & 0.9727 & 0.8723 & 0.9953 & 0.9352 \\
-gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & hidden & 0.9744 & 0.8790 & 0.9953 & 0.9440 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & attn & 0.9697 & 0.8820 & 0.9955 & 0.9424 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & mlp & 0.9730 & 0.8982 & 0.9958 & 0.9554 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & hidden & 0.9736 & 0.8903 & 0.9960 & 0.9521 \\
+\rowcolor{red!25}gemma-2-9b-it & Llama-3.1-8B-Instruct & AdapterMLP & attn & 0.9713 & 0.7972 & 0.9950 & 0.8789 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & AdapterMLP & mlp & 0.9727 & 0.8723 & 0.9953 & 0.9352 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & AdapterMLP & hidden & 0.9744 & 0.8790 & 0.9953 & 0.9440 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & AdapterMLP & attn & 0.9697 & 0.8820 & 0.9955 & 0.9424 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & AdapterMLP & mlp & 0.9730 & 0.8982 & 0.9958 & 0.9554 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & AdapterMLP & hidden & 0.9736 & 0.8903 & 0.9960 & 0.9521 \\
 \hline
 gemma-2-9b-it & Llama-3.1-8B-Instruct & FullNonLinear & attn & 0.9848 & 0.8541 & 0.9982 & 0.9093 \\
 gemma-2-9b-it & Llama-3.1-8B-Instruct & FullNonLinear & mlp & 0.9842 & 0.9016 & 0.9984 & 0.9397 \\
@@ -168,12 +168,12 @@ Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & attn & 0.7568 & 0.7540 & 0.82
 Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & mlp & 0.7599 & 0.7519 & 0.8297 & 0.8218 \\
 Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & hidden & 0.7508 & 0.7408 & 0.8173 & 0.8138 \\
 \hline
-gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & attn & 0.6962 & 0.7508 & 0.7670 & 0.8113 \\
-gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & mlp & 0.7010 & 0.7483 & 0.7582 & 0.8133 \\
-gemma-2-9b-it & Llama-3.1-8B-Instruct & HApproach & hidden & 0.6955 & 0.7544 & 0.7715 & 0.8199 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & attn & 0.7568 & 0.7157 & 0.8231 & 0.7680 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & mlp & 0.7599 & 0.7185 & 0.8297 & 0.7908 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & HApproach & hidden & 0.7508 & 0.7352 & 0.8173 & 0.7882 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & AdapterMLP & attn & 0.6962 & 0.7508 & 0.7670 & 0.8113 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & AdapterMLP & mlp & 0.7010 & 0.7483 & 0.7582 & 0.8133 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & AdapterMLP & hidden & 0.6955 & 0.7544 & 0.7715 & 0.8199 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & AdapterMLP & attn & 0.7568 & 0.7157 & 0.8231 & 0.7680 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & AdapterMLP & mlp & 0.7599 & 0.7185 & 0.8297 & 0.7908 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & AdapterMLP & hidden & 0.7508 & 0.7352 & 0.8173 & 0.7882 \\
 \hline
 gemma-2-9b-it & Llama-3.1-8B-Instruct & FullNonLinear & attn & 0.7226 & 0.7605 & 0.7897 & 0.8335 \\
 gemma-2-9b-it & Llama-3.1-8B-Instruct & FullNonLinear & mlp & 0.7310 & 0.7677 & 0.7968 & 0.8417 \\

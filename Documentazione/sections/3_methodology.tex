@@ -342,7 +342,7 @@ For the Logistic Regressor, the following hyperparameters were used:
 \item \textbf{class\_weight:} \texttt{balanced}
 \end{itemize}
 
-\subsection{Hybrid Approach}
+\subsection{AdapterMLP Approach}
 
 In this approach, a non-linear adaptation procedure of the tester model's latent space towards the trainer model's space is explored using a low-dimensional alignment network (called AlignmentNetwork or AdapterMLP). The objective is to observe whether introducing a non-linear component in the alignment improves universal prober performance, while maintaining a linear classifier (Logistic Regression) on the trainer model. 
 
@@ -351,7 +351,7 @@ In this approach, a non-linear adaptation procedure of the tester model's latent
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AlignApp1.png}
-    \caption{AlignmentNetwork architecture of the hybrid approach}
+    \caption{AlignmentNetwork architecture of the AdapterMLP approach}
     \label{fig:alignmentnetwork-architecture-hybrid}
 \end{figure}
 Some key characteristics of the AlignmentNetwork include: 
@@ -379,7 +379,7 @@ The experimental pipeline in figure \ref{fig:hybrid-pipeline} first involves tra
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AppH.png}
-    \caption{Hybrid approach experimental pipeline}
+    \caption{AdapterMLP approach experimental pipeline}
     \label{fig:hybrid-pipeline}
 \end{figure}
 
@@ -446,7 +446,7 @@ where $\sigma(x)$ is the sigmoid function:
 
 
 \subsubsection{Experimental Pipeline}
-The experimental pipeline in figure \ref{fig:non-linear-complete-pipeline} is therefore identical to that of the hybrid approach, with the difference that the classifier on the trainer is now a non-linear MLP Prober.
+The experimental pipeline in figure \ref{fig:non-linear-complete-pipeline} is therefore identical to that of the AdapterMLP approach, with the difference that the classifier on the trainer is now a non-linear MLP Prober.
 
 \begin{figure}[H]
     \centering
