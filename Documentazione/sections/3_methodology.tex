@@ -4,7 +4,7 @@
 This chapter explores the methodology adopted for the project development. For building the universal prober, the datasets Belief Bank Facts \cite{BeliefBank}, Belief Bank Constraints \cite{BeliefBank} and Halu Eval \cite{Halueval} were used. Five different methodological approaches were considered to align the latent space of a tester model to that of a trainer model, where trainer model refers to the model whose activations are used to train the prober model, and tester model refers to the model whose activations are used to test the prober's transferability (after a possible alignment phase).
 The first phase of the work involved dataset preparation and extraction of internal activations from the LLMs across all layers and each type of layer component (attention, MLP, hidden states). Subsequently, preliminary studies were conducted to evaluate the ability of each individual layer component to discriminate between true statements and hallucinations, in order to identify the most relevant layers and components for building the universal prober.
 Some statistics related to hallucinations of the two models were then calculated, and all activations were preprocessed to be used in the various methodological approaches.
-In an initial phase, a completely linear approach was used as baseline, then more complex methods were explored including non-linear adaptations via AdapterMLP, Encoder and AutoEncoder. Each methodology was evaluated in terms of performance and transfer capability between different models. 
+In an initial phase, a completely linear approach was used, then more complex methods were explored including non-linear adaptations via AdapterMLP, Encoder and AutoEncoder. Each methodology was evaluated in terms of performance and transfer capability between different models. 
 
 \section{Dataset}
 
@@ -323,14 +323,14 @@ Two dataset management modes are distinguished:
 \item \textbf{Independent Dataset (for Probing/Autoencoder/Encoder):} Undersampling is applied to balance classes specifically on the labels of the model in question (Trainer or Tester), independently from the other model. This maximizes the amount of data available for training robust models.
 \end{itemize}
 
-\subsection{Baseline}
-As a baseline for building the universal prober, a linear approach was adopted. In this scenario, the internal activations of the models, extracted from the selected layers and components, were used to train and evaluate a Logistic Regression classifier. The objective is to verify performance using only linear methods.
+\subsection{FullLinear Approach}
+The first approch for building the universal prober, a linear approach was adopted. In this scenario, the internal activations of the models, extracted from the selected layers and components, were used to train and evaluate a Logistic Regression classifier. The objective is to verify performance using only linear methods.
 
 \subsubsection{Experimental Pipeline}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AppL.png}
-    \caption{Baseline experimental pipeline}
+    \caption{FullLinear experimental pipeline}
     \label{fig:linear-pipeline}
 \end{figure}
 The experimental pipeline in figure \ref{fig:linear-pipeline} consists of training a Logistic Regression classifier on the activation space of the trainer model to detect hallucinations, followed by evaluating its performance through accuracy metrics. Subsequently, a linear alignment is performed between the latent space of the tester model and that of the trainer model via a linear projection (Ridge Regression) trained on a subset of concordant data. Finally, the classifier's ability to discriminate hallucinations on tester model data after alignment is evaluated.

@@ -12,7 +12,7 @@ The results highlight a clear distinction between datasets based on simple facts
 \begin{itemize}
     \item \textbf{BeliefBankFacts and BeliefBankCalibration}: On these datasets, all models and approaches achieve very high performance, with accuracies often exceeding 95\%. This suggests that the distinction between true and false statements about general knowledge facts is encoded very clearly and linearly separable in the activation spaces of LLMs. Transferability is therefore high.
     
-    \item \textbf{HaluEval}: This dataset proves to be significantly more difficult. Accuracies drop to around 70-80\% for all approaches. In this scenario, the \textit{Baseline} often clearly outperforms the transfer approaches. This indicates that the "directions" encoding hallucinations in more complex contexts are much more model-specific and less transferable through the tested alignment techniques.
+    \item \textbf{HaluEval}: This dataset proves to be significantly more difficult. Accuracies drop to around 70-80\% for all approaches. In this scenario, the \textit{FullLinear} often clearly outperforms the transfer approaches. This indicates that the "directions" encoding hallucinations in more complex contexts are much more model-specific and less transferable through the tested alignment techniques.
 \end{itemize}
 
 \section{Model Analysis}

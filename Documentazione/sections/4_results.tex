@@ -15,12 +15,12 @@ In this chapter, the results obtained from experiments conducted to evaluate the
 \hline
 Trainer & Tester & Approach & Type & AccTr & AccTe & AurocTr & AurocTe \\
 \hline
-Qwen2.5-7B & Falcon3-7B-Base & Baseline & attn  & 0.987 & 0.962 & 0.999 & 0.992 \\
-Qwen2.5-7B & Falcon3-7B-Base & Baseline & mlp   & 0.986 & 0.967 & 0.999 & 0.987 \\
-Qwen2.5-7B & Falcon3-7B-Base & Baseline & hidden& 0.985 & 0.967 & 0.999 & 0.990 \\
-Falcon3-7B-Base & Qwen2.5-7B & Baseline & attn  & 0.987 & 0.958 & 0.997 & 0.989 \\
-Falcon3-7B-Base & Qwen2.5-7B & Baseline & mlp   & 0.983 & 0.961 & 0.996 & 0.989 \\
-Falcon3-7B-Base & Qwen2.5-7B & Baseline & hidden& 0.983 & 0.959 & 0.996 & 0.984 \\
+Qwen2.5-7B & Falcon3-7B-Base & FullLinear & attn  & 0.987 & 0.962 & 0.999 & 0.992 \\
+Qwen2.5-7B & Falcon3-7B-Base & FullLinear & mlp   & 0.986 & 0.967 & 0.999 & 0.987 \\
+Qwen2.5-7B & Falcon3-7B-Base & FullLinear & hidden& 0.985 & 0.967 & 0.999 & 0.990 \\
+Falcon3-7B-Base & Qwen2.5-7B & FullLinear & attn  & 0.987 & 0.958 & 0.997 & 0.989 \\
+Falcon3-7B-Base & Qwen2.5-7B & FullLinear & mlp   & 0.983 & 0.961 & 0.996 & 0.989 \\
+Falcon3-7B-Base & Qwen2.5-7B & FullLinear & hidden& 0.983 & 0.959 & 0.996 & 0.984 \\
 \hline
 Qwen2.5-7B & Falcon3-7B-Base & AdapterMLP & attn  & 0.987 & 0.968 & 0.999 & 0.984 \\
 Qwen2.5-7B & Falcon3-7B-Base & AdapterMLP & mlp   & 0.986 & 0.969 & 0.999 & 0.986 \\
@@ -65,12 +65,12 @@ Falcon3-7B-Base & Qwen2.5-7B & One-For-All & mlp   & 0.9869 & 0.9874 & 0.9985 & 
 \hline
 Trainer & Tester & Approach & Type & AccTr & AccTe & AurocTr & AurocTe \\
 \hline
-gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & attn  & 0.965 & 0.919 & 0.986 & 0.974 \\
-gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & mlp   & 0.963 & 0.928 & 0.988 & 0.977 \\
-gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & hidden& 0.959 & 0.941 & 0.988 & 0.982 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & attn  & 0.982 & 0.959 & 0.996 & 0.986 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & mlp   & 0.973 & 0.948 & 0.997 & 0.983 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & hidden& 0.969 & 0.946 & 0.996 & 0.983 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullLinear & attn  & 0.965 & 0.919 & 0.986 & 0.974 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullLinear & mlp   & 0.963 & 0.928 & 0.988 & 0.977 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullLinear & hidden& 0.959 & 0.941 & 0.988 & 0.982 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullLinear & attn  & 0.982 & 0.959 & 0.996 & 0.986 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullLinear & mlp   & 0.973 & 0.948 & 0.997 & 0.983 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullLinear & hidden& 0.969 & 0.946 & 0.996 & 0.983 \\
 \hline
 gemma-2-9b-it & Llama-3.1-8B-Instruct & AdapterMLP & attn  & 0.965 & 0.901 & 0.986 & 0.961 \\
 gemma-2-9b-it & Llama-3.1-8B-Instruct & AdapterMLP & mlp   & 0.9627 & 0.9074 & 0.9883 & 0.9624 \\
@@ -113,12 +113,12 @@ Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & hidden& 0.9778 & 0.9606 & 
 \hline
 Trainer & Tester & Approach & Type & AccTr & AccTe & AurocTr & AurocTe \\
 \hline
-gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & attn & 0.9713 & 0.9665 & 0.9950 & 0.9926 \\
-gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & mlp & 0.9727 & 0.9725 & 0.9953 & 0.9946 \\
-gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & hidden & 0.9744 & 0.9742 & 0.9953 & 0.9949 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & attn & 0.9697 & 0.9715 & 0.9955 & 0.9936 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & mlp & 0.9730 & 0.9698 & 0.9958 & 0.9933 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & hidden & 0.9736 & 0.9699 & 0.9960 & 0.9936 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullLinear & attn & 0.9713 & 0.9665 & 0.9950 & 0.9926 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullLinear & mlp & 0.9727 & 0.9725 & 0.9953 & 0.9946 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullLinear & hidden & 0.9744 & 0.9742 & 0.9953 & 0.9949 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullLinear & attn & 0.9697 & 0.9715 & 0.9955 & 0.9936 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullLinear & mlp & 0.9730 & 0.9698 & 0.9958 & 0.9933 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullLinear & hidden & 0.9736 & 0.9699 & 0.9960 & 0.9936 \\
 \hline
 \rowcolor{red!25}gemma-2-9b-it & Llama-3.1-8B-Instruct & AdapterMLP & attn & 0.9713 & 0.7972 & 0.9950 & 0.8789 \\
 gemma-2-9b-it & Llama-3.1-8B-Instruct & AdapterMLP & mlp & 0.9727 & 0.8723 & 0.9953 & 0.9352 \\
@@ -161,12 +161,12 @@ Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & hidden & 0.9840 & 0.9838 &
 \hline
 Trainer & Tester & Approach & Type & AccTr & AccTe & AurocTr & AurocTe \\
 \hline
-\rowcolor{green!25}gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & attn & 0.6962 & 0.7884 & 0.7670 & 0.8525 \\
-gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & mlp & 0.7010 & 0.7799 & 0.7582 & 0.8559 \\
-gemma-2-9b-it & Llama-3.1-8B-Instruct & Baseline & hidden & 0.6955 & 0.7647 & 0.7715 & 0.8380 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & attn & 0.7568 & 0.7540 & 0.8231 & 0.8161 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & mlp & 0.7599 & 0.7519 & 0.8297 & 0.8218 \\
-Llama-3.1-8B-Instruct & gemma-2-9b-it & Baseline & hidden & 0.7508 & 0.7408 & 0.8173 & 0.8138 \\
+\rowcolor{green!25}gemma-2-9b-it & Llama-3.1-8B-Instruct & FullLinear & attn & 0.6962 & 0.7884 & 0.7670 & 0.8525 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullLinear & mlp & 0.7010 & 0.7799 & 0.7582 & 0.8559 \\
+gemma-2-9b-it & Llama-3.1-8B-Instruct & FullLinear & hidden & 0.6955 & 0.7647 & 0.7715 & 0.8380 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullLinear & attn & 0.7568 & 0.7540 & 0.8231 & 0.8161 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullLinear & mlp & 0.7599 & 0.7519 & 0.8297 & 0.8218 \\
+Llama-3.1-8B-Instruct & gemma-2-9b-it & FullLinear & hidden & 0.7508 & 0.7408 & 0.8173 & 0.8138 \\
 \hline
 gemma-2-9b-it & Llama-3.1-8B-Instruct & AdapterMLP & attn & 0.6962 & 0.7508 & 0.7670 & 0.8113 \\
 gemma-2-9b-it & Llama-3.1-8B-Instruct & AdapterMLP & mlp & 0.7010 & 0.7483 & 0.7582 & 0.8133 \\

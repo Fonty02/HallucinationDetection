@@ -9,7 +9,7 @@
             \toprule
             \textbf{Trainer $\rightarrow$ Tester} & \textbf{Approach} & \textbf{Type} & \textbf{AUROC (Tr)} & \textbf{AUROC (Te)} \\
             \midrule
-            Qwen $\rightarrow$ Falcon & Baseline & attn & 0.999 & 0.992 \\
+            Qwen $\rightarrow$ Falcon & FullLinear & attn & 0.999 & 0.992 \\
             Qwen $\rightarrow$ Falcon & AdapterMLP & attn & 0.999 & 0.984 \\
             Qwen $\rightarrow$ Falcon & FullNonLinear & attn & 1.000 & 0.994 \\
             Qwen $\rightarrow$ Falcon & ReducedNonLinear & attn & 0.999 & 0.995 \\
@@ -22,7 +22,7 @@
     \end{table}
     \begin{itemize}
         \item \textbf{One-For-All} e \textbf{FullNonLinear} ottengono i risultati migliori.
-        \item \textbf{Baseline} è già molto forte in questo caso.
+        \item \textbf{FullLinear} è già molto forte in questo caso.
     \end{itemize}
 \end{frame}
 
@@ -35,7 +35,7 @@
             \toprule
             \textbf{Trainer $\rightarrow$ Tester} & \textbf{Approach} & \textbf{Type} & \textbf{AUROC (Tr)} & \textbf{AUROC (Te)} \\
             \midrule
-            Gemma $\rightarrow$ Llama & Baseline & attn & 0.986 & 0.974 \\
+            Gemma $\rightarrow$ Llama & FullLinear & attn & 0.986 & 0.974 \\
             Gemma $\rightarrow$ Llama & AdapterMLP & attn & 0.986 & 0.961 \\
             Gemma $\rightarrow$ Llama & FullNonLinear & attn & 0.994 & 0.976 \\
             Gemma $\rightarrow$ Llama & ReducedNonLinear & attn & 0.993 & 0.970 \\
@@ -47,7 +47,7 @@
         \scriptsize Tr=Trainer, Te=Tester
     \end{table}
     \begin{itemize}
-        \item \textbf{One-For-All} mostra un netto miglioramento rispetto alla Baseline.
+        \item \textbf{One-For-All} mostra un netto miglioramento rispetto alla FullLinear.
         \item Gli approcci non lineari (Full/Reduced) non superano One-For-All.
     \end{itemize}
 \end{frame}
@@ -61,7 +61,7 @@
             \toprule
             \textbf{Trainer $\rightarrow$ Tester} & \textbf{Approach} & \textbf{Type} & \textbf{AUROC (Tr)} & \textbf{AUROC (Te)} \\
             \midrule
-            Gemma $\rightarrow$ Llama & Baseline & attn & 0.767 & 0.853 \\
+            Gemma $\rightarrow$ Llama & FullLinear & attn & 0.767 & 0.853 \\
             Gemma $\rightarrow$ Llama & AdapterMLP & attn & 0.767 & 0.811 \\
             Gemma $\rightarrow$ Llama & FullNonLinear & attn & 0.790 & 0.834 \\
             Gemma $\rightarrow$ Llama & ReducedNonLinear & attn & 0.772 & 0.788 \\
@@ -73,7 +73,7 @@
         \scriptsize Tr=Trainer, Te=Tester
     \end{table}
     \begin{itemize}
-        \item Su dataset complessi, \textbf{Baseline} rimane molto competitiva.
+        \item Su dataset complessi, \textbf{FullLinear} rimane molto competitiva.
         \item \textbf{One-For-All} mantiene buone performance ma il gap è ridotto.
     \end{itemize}
 \end{frame}
