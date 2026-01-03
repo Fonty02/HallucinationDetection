@@ -7,9 +7,9 @@ REPO_NAME = "pminervini/HaluEval"
 class HaluEvalDataset(Dataset):
     def __init__(self, label=0, recreate_ids=True, use_local=False):
         if not use_local:
-            self.dataset = load_dataset(REPO_NAME, "dialogue")['train']      # Dummy split, it can be val or test, too
+            self.dataset = load_dataset(REPO_NAME, "qa")['train']      # Dummy split, it can be val or test, too
         else:
-            local_model_path = get_weight_dir(REPO_NAME, repo_type="datasets", subset="dialogue")
+            local_model_path = get_weight_dir(REPO_NAME, repo_type="datasets", subset="qa")
             self.dataset = load_dataset("parquet", data_dir=local_model_path)['train']      # Dummy split, it can be val or test, too
 
         if ('instance_id' not in self.dataset.column_names) or recreate_ids:

@@ -24,21 +24,24 @@
             "dropout": 0.2
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "latent_dim": 128,
+            "hidden_dim": 256,
+            "dropout": 0.2,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 300,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "MSELoss"
           },
           "training_results": {
             "best_val_loss": 0.09652,
             "epochs_trained": 287,
-            "model_saved_path": "models\\attn\\CONFIG1_autoencoder_Qwen2.5-7B.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\attn\\CONFIG1_autoencoder_Qwen2.5-7B.pt"
           }
         },
         "student_autoencoder": {
@@ -49,21 +52,24 @@
             "dropout": 0.2
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "latent_dim": 128,
+            "hidden_dim": 256,
+            "dropout": 0.2,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 300,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "MSELoss"
           },
           "training_results": {
             "best_val_loss": 0.083049,
             "epochs_trained": 259,
-            "model_saved_path": "models\\attn\\CONFIG1_autoencoder_Falcon3-7B-Base.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\attn\\CONFIG1_autoencoder_Falcon3-7B-Base.pt"
           }
         },
         "prober_model": {
@@ -74,22 +80,25 @@
             "dropout": 0.3
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "type": "MLPProber",
+            "hidden_dim": 64,
+            "dropout": 0.3,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 200,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "BCEWithLogitsLoss",
             "use_class_weights": true
           },
           "training_results": {
             "best_val_acc": 0.9933,
             "epochs_trained": 28,
-            "model_saved_path": "models\\attn\\CONFIG1_mlp_prober_Qwen2.5-7B.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\attn\\CONFIG1_mlp_prober_Qwen2.5-7B.pt"
           }
         },
         "alignment_model": {
@@ -101,15 +110,19 @@
             "dropout": 0.3
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "hidden_dim": 256,
+            "dropout": 0.3,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 32,
             "max_epochs": 500,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 50,
-            "early_stopping_min_delta": 0.0001
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_alpha": 0.5,
+            "loss_beta": 0.5
           },
           "loss_function": {
             "type": "MixedLoss",
@@ -119,7 +132,7 @@
           "training_results": {
             "best_val_loss": 0.275919,
             "epochs_trained": 413,
-            "model_saved_path": "models\\attn\\CONFIG1_aligner_Falcon3-7B-Base_to_Qwen2.5-7B.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\attn\\CONFIG1_aligner_Falcon3-7B-Base_to_Qwen2.5-7B.pt"
           }
         },
         "metrics": {
@@ -173,21 +186,24 @@
             "dropout": 0.2
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "latent_dim": 128,
+            "hidden_dim": 256,
+            "dropout": 0.2,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 300,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "MSELoss"
           },
           "training_results": {
             "best_val_loss": 0.084977,
             "epochs_trained": 276,
-            "model_saved_path": "models\\mlp\\CONFIG1_autoencoder_Qwen2.5-7B.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\mlp\\CONFIG1_autoencoder_Qwen2.5-7B.pt"
           }
         },
         "student_autoencoder": {
@@ -198,21 +214,24 @@
             "dropout": 0.2
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "latent_dim": 128,
+            "hidden_dim": 256,
+            "dropout": 0.2,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 300,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "MSELoss"
           },
           "training_results": {
             "best_val_loss": 0.054064,
             "epochs_trained": 242,
-            "model_saved_path": "models\\mlp\\CONFIG1_autoencoder_Falcon3-7B-Base.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\mlp\\CONFIG1_autoencoder_Falcon3-7B-Base.pt"
           }
         },
         "prober_model": {
@@ -223,22 +242,25 @@
             "dropout": 0.3
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "type": "MLPProber",
+            "hidden_dim": 64,
+            "dropout": 0.3,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 200,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "BCEWithLogitsLoss",
             "use_class_weights": true
           },
           "training_results": {
             "best_val_acc": 0.9933,
             "epochs_trained": 22,
-            "model_saved_path": "models\\mlp\\CONFIG1_mlp_prober_Qwen2.5-7B.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\mlp\\CONFIG1_mlp_prober_Qwen2.5-7B.pt"
           }
         },
         "alignment_model": {
@@ -250,15 +272,19 @@
             "dropout": 0.3
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "hidden_dim": 256,
+            "dropout": 0.3,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 32,
             "max_epochs": 500,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 50,
-            "early_stopping_min_delta": 0.0001
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_alpha": 0.5,
+            "loss_beta": 0.5
           },
           "loss_function": {
             "type": "MixedLoss",
@@ -268,7 +294,7 @@
           "training_results": {
             "best_val_loss": 0.281967,
             "epochs_trained": 271,
-            "model_saved_path": "models\\mlp\\CONFIG1_aligner_Falcon3-7B-Base_to_Qwen2.5-7B.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\mlp\\CONFIG1_aligner_Falcon3-7B-Base_to_Qwen2.5-7B.pt"
           }
         },
         "metrics": {
@@ -322,21 +348,24 @@
             "dropout": 0.2
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "latent_dim": 128,
+            "hidden_dim": 256,
+            "dropout": 0.2,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 300,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "MSELoss"
           },
           "training_results": {
             "best_val_loss": 0.065256,
             "epochs_trained": 259,
-            "model_saved_path": "models\\hidden\\CONFIG1_autoencoder_Qwen2.5-7B.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\hidden\\CONFIG1_autoencoder_Qwen2.5-7B.pt"
           }
         },
         "student_autoencoder": {
@@ -347,21 +376,24 @@
             "dropout": 0.2
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "latent_dim": 128,
+            "hidden_dim": 256,
+            "dropout": 0.2,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 300,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "MSELoss"
           },
           "training_results": {
             "best_val_loss": 0.059189,
             "epochs_trained": 186,
-            "model_saved_path": "models\\hidden\\CONFIG1_autoencoder_Falcon3-7B-Base.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\hidden\\CONFIG1_autoencoder_Falcon3-7B-Base.pt"
           }
         },
         "prober_model": {
@@ -372,22 +404,25 @@
             "dropout": 0.3
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "type": "MLPProber",
+            "hidden_dim": 64,
+            "dropout": 0.3,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 200,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "BCEWithLogitsLoss",
             "use_class_weights": true
           },
           "training_results": {
             "best_val_acc": 0.9933,
             "epochs_trained": 24,
-            "model_saved_path": "models\\hidden\\CONFIG1_mlp_prober_Qwen2.5-7B.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\hidden\\CONFIG1_mlp_prober_Qwen2.5-7B.pt"
           }
         },
         "alignment_model": {
@@ -399,15 +434,19 @@
             "dropout": 0.3
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "hidden_dim": 256,
+            "dropout": 0.3,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 32,
             "max_epochs": 500,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 50,
-            "early_stopping_min_delta": 0.0001
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_alpha": 0.5,
+            "loss_beta": 0.5
           },
           "loss_function": {
             "type": "MixedLoss",
@@ -417,7 +456,7 @@
           "training_results": {
             "best_val_loss": 0.284021,
             "epochs_trained": 396,
-            "model_saved_path": "models\\hidden\\CONFIG1_aligner_Falcon3-7B-Base_to_Qwen2.5-7B.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\hidden\\CONFIG1_aligner_Falcon3-7B-Base_to_Qwen2.5-7B.pt"
           }
         },
         "metrics": {
@@ -461,10 +500,10 @@
         "data_info": {
           "alignment_samples_train": 4030,
           "alignment_samples_val": 1728,
-          "model_a_train": 4991,
-          "model_a_test": 2139,
-          "model_b_train": 10543,
-          "model_b_test": 4519,
+          "model_a_train": 10543,
+          "model_a_test": 4519,
+          "model_b_train": 4991,
+          "model_b_test": 2139,
           "concordant_undersampling_for_alignment": true,
           "separate_undersampling_per_model": true
         },
@@ -476,21 +515,24 @@
             "dropout": 0.2
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "latent_dim": 128,
+            "hidden_dim": 256,
+            "dropout": 0.2,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 300,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "MSELoss"
           },
           "training_results": {
             "best_val_loss": 0.083049,
             "epochs_trained": 259,
-            "model_saved_path": "models\\attn\\CONFIG1_autoencoder_Falcon3-7B-Base.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\attn\\CONFIG1_autoencoder_Falcon3-7B-Base.pt"
           }
         },
         "student_autoencoder": {
@@ -501,21 +543,24 @@
             "dropout": 0.2
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "latent_dim": 128,
+            "hidden_dim": 256,
+            "dropout": 0.2,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 300,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "MSELoss"
           },
           "training_results": {
             "best_val_loss": 0.09652,
             "epochs_trained": 287,
-            "model_saved_path": "models\\attn\\CONFIG1_autoencoder_Qwen2.5-7B.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\attn\\CONFIG1_autoencoder_Qwen2.5-7B.pt"
           }
         },
         "prober_model": {
@@ -526,22 +571,25 @@
             "dropout": 0.3
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "type": "MLPProber",
+            "hidden_dim": 64,
+            "dropout": 0.3,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 200,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "BCEWithLogitsLoss",
             "use_class_weights": true
           },
           "training_results": {
             "best_val_acc": 0.9924,
             "epochs_trained": 36,
-            "model_saved_path": "models\\attn\\CONFIG1_mlp_prober_Falcon3-7B-Base.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\attn\\CONFIG1_mlp_prober_Falcon3-7B-Base.pt"
           }
         },
         "alignment_model": {
@@ -553,15 +601,19 @@
             "dropout": 0.3
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "hidden_dim": 256,
+            "dropout": 0.3,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 32,
             "max_epochs": 500,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 50,
-            "early_stopping_min_delta": 0.0001
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_alpha": 0.5,
+            "loss_beta": 0.5
           },
           "loss_function": {
             "type": "MixedLoss",
@@ -571,7 +623,7 @@
           "training_results": {
             "best_val_loss": 0.282234,
             "epochs_trained": 177,
-            "model_saved_path": "models\\attn\\CONFIG1_aligner_Qwen2.5-7B_to_Falcon3-7B-Base.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\attn\\CONFIG1_aligner_Qwen2.5-7B_to_Falcon3-7B-Base.pt"
           }
         },
         "metrics": {
@@ -610,10 +662,10 @@
         "data_info": {
           "alignment_samples_train": 4030,
           "alignment_samples_val": 1728,
-          "model_a_train": 4991,
-          "model_a_test": 2139,
-          "model_b_train": 10543,
-          "model_b_test": 4519,
+          "model_a_train": 10543,
+          "model_a_test": 4519,
+          "model_b_train": 4991,
+          "model_b_test": 2139,
           "concordant_undersampling_for_alignment": true,
           "separate_undersampling_per_model": true
         },
@@ -625,21 +677,24 @@
             "dropout": 0.2
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "latent_dim": 128,
+            "hidden_dim": 256,
+            "dropout": 0.2,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 300,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "MSELoss"
           },
           "training_results": {
             "best_val_loss": 0.054064,
             "epochs_trained": 242,
-            "model_saved_path": "models\\mlp\\CONFIG1_autoencoder_Falcon3-7B-Base.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\mlp\\CONFIG1_autoencoder_Falcon3-7B-Base.pt"
           }
         },
         "student_autoencoder": {
@@ -650,21 +705,24 @@
             "dropout": 0.2
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "latent_dim": 128,
+            "hidden_dim": 256,
+            "dropout": 0.2,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 300,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "MSELoss"
           },
           "training_results": {
             "best_val_loss": 0.084977,
             "epochs_trained": 276,
-            "model_saved_path": "models\\mlp\\CONFIG1_autoencoder_Qwen2.5-7B.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\mlp\\CONFIG1_autoencoder_Qwen2.5-7B.pt"
           }
         },
         "prober_model": {
@@ -675,22 +733,25 @@
             "dropout": 0.3
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "type": "MLPProber",
+            "hidden_dim": 64,
+            "dropout": 0.3,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 200,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "BCEWithLogitsLoss",
             "use_class_weights": true
           },
           "training_results": {
             "best_val_acc": 0.9873,
             "epochs_trained": 123,
-            "model_saved_path": "models\\mlp\\CONFIG1_mlp_prober_Falcon3-7B-Base.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\mlp\\CONFIG1_mlp_prober_Falcon3-7B-Base.pt"
           }
         },
         "alignment_model": {
@@ -702,15 +763,19 @@
             "dropout": 0.3
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "hidden_dim": 256,
+            "dropout": 0.3,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 32,
             "max_epochs": 500,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 50,
-            "early_stopping_min_delta": 0.0001
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_alpha": 0.5,
+            "loss_beta": 0.5
           },
           "loss_function": {
             "type": "MixedLoss",
@@ -720,7 +785,7 @@
           "training_results": {
             "best_val_loss": 0.303948,
             "epochs_trained": 173,
-            "model_saved_path": "models\\mlp\\CONFIG1_aligner_Qwen2.5-7B_to_Falcon3-7B-Base.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\mlp\\CONFIG1_aligner_Qwen2.5-7B_to_Falcon3-7B-Base.pt"
           }
         },
         "metrics": {
@@ -759,10 +824,10 @@
         "data_info": {
           "alignment_samples_train": 4030,
           "alignment_samples_val": 1728,
-          "model_a_train": 4991,
-          "model_a_test": 2139,
-          "model_b_train": 10543,
-          "model_b_test": 4519,
+          "model_a_train": 10543,
+          "model_a_test": 4519,
+          "model_b_train": 4991,
+          "model_b_test": 2139,
           "concordant_undersampling_for_alignment": true,
           "separate_undersampling_per_model": true
         },
@@ -774,21 +839,24 @@
             "dropout": 0.2
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "latent_dim": 128,
+            "hidden_dim": 256,
+            "dropout": 0.2,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 300,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "MSELoss"
           },
           "training_results": {
             "best_val_loss": 0.059189,
             "epochs_trained": 186,
-            "model_saved_path": "models\\hidden\\CONFIG1_autoencoder_Falcon3-7B-Base.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\hidden\\CONFIG1_autoencoder_Falcon3-7B-Base.pt"
           }
         },
         "student_autoencoder": {
@@ -799,21 +867,24 @@
             "dropout": 0.2
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "latent_dim": 128,
+            "hidden_dim": 256,
+            "dropout": 0.2,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 300,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "MSELoss"
           },
           "training_results": {
             "best_val_loss": 0.065256,
             "epochs_trained": 259,
-            "model_saved_path": "models\\hidden\\CONFIG1_autoencoder_Qwen2.5-7B.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\hidden\\CONFIG1_autoencoder_Qwen2.5-7B.pt"
           }
         },
         "prober_model": {
@@ -824,22 +895,25 @@
             "dropout": 0.3
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "type": "MLPProber",
+            "hidden_dim": 64,
+            "dropout": 0.3,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 64,
             "max_epochs": 200,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 30,
             "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
             "loss_function": "BCEWithLogitsLoss",
             "use_class_weights": true
           },
           "training_results": {
             "best_val_acc": 0.9779,
             "epochs_trained": 56,
-            "model_saved_path": "models\\hidden\\CONFIG1_mlp_prober_Falcon3-7B-Base.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\hidden\\CONFIG1_mlp_prober_Falcon3-7B-Base.pt"
           }
         },
         "alignment_model": {
@@ -851,15 +925,19 @@
             "dropout": 0.3
           },
           "training_hyperparameters": {
-            "optimizer": "AdamW",
+            "hidden_dim": 256,
+            "dropout": 0.3,
             "learning_rate": 0.001,
             "weight_decay": 0.01,
             "batch_size": 32,
             "max_epochs": 500,
-            "scheduler": "CosineAnnealingLR",
-            "gradient_clip_max_norm": 1.0,
             "early_stopping_patience": 50,
-            "early_stopping_min_delta": 0.0001
+            "early_stopping_min_delta": 0.0001,
+            "gradient_clip_max_norm": 1.0,
+            "optimizer": "AdamW",
+            "scheduler": "CosineAnnealingLR",
+            "loss_alpha": 0.5,
+            "loss_beta": 0.5
           },
           "loss_function": {
             "type": "MixedLoss",
@@ -869,7 +947,7 @@
           "training_results": {
             "best_val_loss": 0.297232,
             "epochs_trained": 208,
-            "model_saved_path": "models\\hidden\\CONFIG1_aligner_Qwen2.5-7B_to_Falcon3-7B-Base.pt"
+            "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach2Projected\\QWEN_FALCON_BBF\\models\\hidden\\CONFIG1_aligner_Qwen2.5-7B_to_Falcon3-7B-Base.pt"
           }
         },
         "metrics": {

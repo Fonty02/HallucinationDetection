@@ -1,9 +1,5 @@
-# %% [markdown]
-# # In this notebook a LogisticRegression model for each type of layer is trained and evaluated.
-# 
-# This is useful to understand which layers are more suitable for the hallucination detection task.
 
-# %%
+
 import json
 import os
 import numpy as np
@@ -70,10 +66,7 @@ CACHE_DIR_NAME = "activation_cache"
 HF_DEFAULT_HOME = os.environ.get("HF_HOME", "~\\.cache\\huggingface\\hub")
 
 
-# %%
-# Funzione per statistiche compatibile con la nuova struttura
-# La nuova struttura ha le attivazioni separate in cartelle hallucinated/ e not_hallucinated/
-# invece di un file hallucination_labels.json
+
 
 def stats_per_json(model_name, dataset_name):
     """
@@ -149,14 +142,13 @@ def get_stats(model_name, dataset_name):
     else:
         return stats_per_json(model_name, dataset_name)
 
-# %%
-# Elenca i modelli e dataset disponibili
+
 available_models = os.listdir(os.path.join(PROJECT_ROOT, CACHE_DIR_NAME))
 print("Modelli disponibili:", available_models)
 
 # Scegli modello e dataset
 MODEL_NAME = "gemma-2-9b-it"  # Cambia secondo necessità
-DATASET_NAME = "halu_eval"      # Cambia secondo necessità
+DATASET_NAME = "belief_bank_constraints"      # Cambia secondo necessità
 
 # Verifica la struttura
 structure_type = detect_structure_type(MODEL_NAME, DATASET_NAME)
@@ -203,7 +195,7 @@ def layers_in_model(model, dataset=None):
         layer_files = [f for f in os.listdir(layer_dir) if f.endswith('_activations.pt')]
         return len(layer_files)
 
-# %%
+
 def load_activations_and_labels(model_name, dataset_name, layer, layer_type):
     """
     Carica le attivazioni e le label per un dato layer e tipo.
@@ -281,8 +273,7 @@ def load_activations_and_labels(model_name, dataset_name, layer, layer_type):
         
         return X, y, instance_ids
 
-# %%
-# Verifica che le attivazioni siano ordinate correttamente per instance_id
+
 def verify_ordering(model_name, dataset_name, layer=0, layer_type="attn"):
     """
     Verifica che le attivazioni siano ordinate per instance_id.
@@ -327,8 +318,7 @@ print(f"IDs attn == IDs hidden: {np.array_equal(ids_attn, ids_hidden)}")
 print(f"Labels attn == Labels mlp: {np.array_equal(y_attn, y_mlp)}")
 print(f"Labels attn == Labels hidden: {np.array_equal(y_attn, y_hidden)}")
 
-# %%
-# Configurazione
+
 MODELS_TO_ANALYZE = [MODEL_NAME]  # Aggiungi altri modelli se necessario
 if "Llama-3.1-8B-Instruct" in available_models:
     MODELS_TO_ANALYZE.append("Llama-3.1-8B-Instruct")
@@ -551,5 +541,138 @@ content = json.load(open('all_layers_sorted_GEMMA_LLAMA_BBF.json', 'r'))
 DATASET = DATASET_NAME
 for model_name in content.keys():
     plot_accuracy_from_json(content, model_name, DATASET)
+
+# %%
+import matplotlib.pyplot as plt
+
+def plot_single_model_multi_dataset(json_files, dataset_names, model_name, output_filename=None):
+    """
+    Genera una figura con 1 riga e 3 colonne (una per dataset) per un singolo modello.
+    
+    Args:
+        json_files: lista dei path ai file JSON
+        dataset_names: lista dei nomi dei dataset (per i titoli)
+        model_name: nome del modello da plottare (es. "gemma" o "llama")
+        output_filename: nome del file di output (se None, viene generato automaticamente)
+    """
+    
+    # Carica tutti i dati JSON
+    all_data = {}
+    for json_file, dataset_name in zip(json_files, dataset_names):
+        with open(json_file, 'r') as f:
+            all_data[dataset_name] = json.load(f)
+    
+    # Configurazione dello Stile (allineata a plot_accuracy_from_json)
+    plt.rcParams.update({
+        "font.family": "serif",
+        "font.weight": "bold",
+        "axes.labelweight": "bold",
+        "axes.labelsize": 14,
+        "axes.titlesize": 14,
+        "axes.titleweight": "bold",
+        "xtick.labelsize": 12,
+        "ytick.labelsize": 12,
+        "legend.fontsize": 10,
+        "legend.title_fontsize": 11,
+        "lines.linewidth": 2
+    })
+    
+    # Mappatura colori
+    styles = {
+        "hidden": {"color": "red", "label": "hidden"},
+        "mlp":    {"color": "blue", "label": "mlp"},
+        "attn":   {"color": "green", "label": "attn"}
+    }
+    
+    # Creazione della figura: dimensioni compatte
+    fig, axes = plt.subplots(1, len(dataset_names), figsize=(15, 4))
+    
+    # Trova il nome completo del modello dal primo JSON
+    full_model_name = None
+    for key in all_data[dataset_names[0]].keys():
+        if model_name.lower() in key.lower():
+            full_model_name = key
+            break
+    
+    if full_model_name is None:
+        print(f"Modello '{model_name}' non trovato nei dati.")
+        return
+    
+    for col_idx, dataset_name in enumerate(dataset_names):
+        ax = axes[col_idx]
+        
+        # Cerca il modello nei dati del dataset
+        data = all_data[dataset_name]
+        
+        # Trova il nome del modello nel JSON
+        matching_model = None
+        for key in data.keys():
+            if model_name.lower() in key.lower():
+                matching_model = key
+                break
+        
+        if matching_model is None:
+            ax.set_title(dataset_name)
+            ax.text(0.5, 0.5, "Model not found", ha='center', va='center', transform=ax.transAxes)
+            continue
+        
+        model_data = data[matching_model]
+        
+        # Plotta le curve per ogni tipo di layer
+        for key in ["hidden", "mlp", "attn"]:
+            if key in model_data:
+                points = model_data[key]
+                sorted_points = sorted(points, key=lambda x: x['layer'])
+                layers = [item['layer'] for item in sorted_points]
+                accuracies = [item['accuracy'] for item in sorted_points]
+                ax.plot(layers, accuracies, 
+                        color=styles[key]["color"], 
+                        label=styles[key]["label"])
+        
+        # Titolo: nome del dataset
+        ax.set_title(dataset_name)
+        
+        # Etichette assi
+        ax.set_xlabel("Layer")
+        ax.set_ylabel("Accuracy")
+        
+        # Griglia
+        ax.grid(True, linestyle='-', alpha=1.0)
+        
+        # Legenda in ogni subplot
+        legend = ax.legend(title="activation", loc="upper left", frameon=True)
+        plt.setp(legend.get_title(), fontweight='bold')
+    
+    plt.tight_layout()
+    
+    # Crea la cartella img se non esiste
+    os.makedirs("img", exist_ok=True)
+    
+    if output_filename is None:
+        output_filename = f"{model_name}_3datasets_comparison.pdf"
+    
+    plt.savefig(f"img/{output_filename}")
+    plt.show()
+    print(f"Figura salvata in img/{output_filename}")
+
+# File JSON disponibili
+json_files = [
+    "all_layers_sorted_GEMMA_LLAMA_BBC.json",
+    "all_layers_sorted_GEMMA_LLAMA_BBF.json",
+    "all_layers_sorted_GEMMA_LLAMA_HE.json"
+]
+
+# Nomi dei dataset (per i titoli delle colonne)
+dataset_names = [
+    "Belief Bank Constraints",
+    "Belief Bank Facts", 
+    "HaluEval"
+]
+
+# Genera un grafico per Gemma
+plot_single_model_multi_dataset(json_files, dataset_names, "gemma", "gemma_3datasets_comparison.pdf")
+
+# Genera un grafico per Llama
+plot_single_model_multi_dataset(json_files, dataset_names, "llama", "llama_3datasets_comparison.pdf")
 
 

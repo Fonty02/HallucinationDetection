@@ -10,60 +10,20 @@
       "student_test_samples": 4519,
       "independent_undersampling_per_model": true
     },
-    "encoder_config": {
-      "architecture": {
-        "latent_dim": 256,
-        "hidden_dim": 512,
-        "dropout": 0.3
-      },
-      "training_hyperparameters": {
-        "learning_rate": 0.001,
-        "weight_decay": 0.01,
-        "batch_size": 64,
-        "max_epochs": 100,
-        "early_stopping_patience": 15,
-        "early_stopping_min_delta": 0.0001,
-        "gradient_clip_max_norm": 1.0,
-        "optimizer": "AdamW",
-        "scheduler": "CosineAnnealingLR",
-        "loss_function": "BCEWithLogitsLoss",
-        "use_class_weights": true
-      }
-    },
-    "head_config": {
-      "architecture": {
-        "latent_dim": 256,
-        "hidden_dim": 128,
-        "dropout": 0.3
-      },
-      "training_hyperparameters": {
-        "learning_rate": 0.001,
-        "weight_decay": 0.01,
-        "batch_size": 64,
-        "max_epochs": 100,
-        "early_stopping_patience": 15,
-        "early_stopping_min_delta": 0.0001,
-        "gradient_clip_max_norm": 1.0,
-        "optimizer": "AdamW",
-        "scheduler": "CosineAnnealingLR",
-        "loss_function": "BCEWithLogitsLoss",
-        "use_class_weights": true
-      }
-    },
     "training_results": {
       "teacher_encoder": {
         "input_dim": 10752,
         "epochs_trained": 3,
-        "model_saved_path": "models_frozen_head\\attn\\frozen_head_encoder_Qwen2.5-7B.pt"
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\attn\\frozen_head_encoder_Qwen2.5-7B.pt"
       },
       "shared_head": {
         "epochs_trained": 3,
-        "model_saved_path": "models_frozen_head\\attn\\frozen_head_shared_head_Qwen2.5-7B.pt"
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\attn\\frozen_head_shared_head_Qwen2.5-7B.pt"
       },
       "student_encoder": {
         "input_dim": 9216,
         "epochs_trained": 38,
-        "model_saved_path": "models_frozen_head\\attn\\frozen_head_encoder_Falcon3-7B-Base_adapter.pt"
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\attn\\frozen_head_encoder_Falcon3-7B-Base_adapter.pt"
       }
     },
     "metrics": {
@@ -109,60 +69,20 @@
       "student_test_samples": 2139,
       "independent_undersampling_per_model": true
     },
-    "encoder_config": {
-      "architecture": {
-        "latent_dim": 256,
-        "hidden_dim": 512,
-        "dropout": 0.3
-      },
-      "training_hyperparameters": {
-        "learning_rate": 0.001,
-        "weight_decay": 0.01,
-        "batch_size": 64,
-        "max_epochs": 100,
-        "early_stopping_patience": 15,
-        "early_stopping_min_delta": 0.0001,
-        "gradient_clip_max_norm": 1.0,
-        "optimizer": "AdamW",
-        "scheduler": "CosineAnnealingLR",
-        "loss_function": "BCEWithLogitsLoss",
-        "use_class_weights": true
-      }
-    },
-    "head_config": {
-      "architecture": {
-        "latent_dim": 256,
-        "hidden_dim": 128,
-        "dropout": 0.3
-      },
-      "training_hyperparameters": {
-        "learning_rate": 0.001,
-        "weight_decay": 0.01,
-        "batch_size": 64,
-        "max_epochs": 100,
-        "early_stopping_patience": 15,
-        "early_stopping_min_delta": 0.0001,
-        "gradient_clip_max_norm": 1.0,
-        "optimizer": "AdamW",
-        "scheduler": "CosineAnnealingLR",
-        "loss_function": "BCEWithLogitsLoss",
-        "use_class_weights": true
-      }
-    },
     "training_results": {
       "teacher_encoder": {
         "input_dim": 9216,
         "epochs_trained": 20,
-        "model_saved_path": "models_frozen_head\\attn\\frozen_head_encoder_Falcon3-7B-Base.pt"
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\attn\\frozen_head_encoder_Falcon3-7B-Base.pt"
       },
       "shared_head": {
         "epochs_trained": 20,
-        "model_saved_path": "models_frozen_head\\attn\\frozen_head_shared_head_Falcon3-7B-Base.pt"
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\attn\\frozen_head_shared_head_Falcon3-7B-Base.pt"
       },
       "student_encoder": {
         "input_dim": 10752,
         "epochs_trained": 3,
-        "model_saved_path": "models_frozen_head\\attn\\frozen_head_encoder_Qwen2.5-7B_adapter.pt"
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\attn\\frozen_head_encoder_Qwen2.5-7B_adapter.pt"
       }
     },
     "metrics": {
@@ -208,60 +128,20 @@
       "student_test_samples": 4519,
       "independent_undersampling_per_model": true
     },
-    "encoder_config": {
-      "architecture": {
-        "latent_dim": 256,
-        "hidden_dim": 512,
-        "dropout": 0.3
-      },
-      "training_hyperparameters": {
-        "learning_rate": 0.001,
-        "weight_decay": 0.01,
-        "batch_size": 64,
-        "max_epochs": 100,
-        "early_stopping_patience": 15,
-        "early_stopping_min_delta": 0.0001,
-        "gradient_clip_max_norm": 1.0,
-        "optimizer": "AdamW",
-        "scheduler": "CosineAnnealingLR",
-        "loss_function": "BCEWithLogitsLoss",
-        "use_class_weights": true
-      }
-    },
-    "head_config": {
-      "architecture": {
-        "latent_dim": 256,
-        "hidden_dim": 128,
-        "dropout": 0.3
-      },
-      "training_hyperparameters": {
-        "learning_rate": 0.001,
-        "weight_decay": 0.01,
-        "batch_size": 64,
-        "max_epochs": 100,
-        "early_stopping_patience": 15,
-        "early_stopping_min_delta": 0.0001,
-        "gradient_clip_max_norm": 1.0,
-        "optimizer": "AdamW",
-        "scheduler": "CosineAnnealingLR",
-        "loss_function": "BCEWithLogitsLoss",
-        "use_class_weights": true
-      }
-    },
     "training_results": {
       "teacher_encoder": {
         "input_dim": 10752,
         "epochs_trained": 10,
-        "model_saved_path": "models_frozen_head\\mlp\\frozen_head_encoder_Qwen2.5-7B.pt"
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\mlp\\frozen_head_encoder_Qwen2.5-7B.pt"
       },
       "shared_head": {
         "epochs_trained": 10,
-        "model_saved_path": "models_frozen_head\\mlp\\frozen_head_shared_head_Qwen2.5-7B.pt"
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\mlp\\frozen_head_shared_head_Qwen2.5-7B.pt"
       },
       "student_encoder": {
         "input_dim": 9216,
         "epochs_trained": 24,
-        "model_saved_path": "models_frozen_head\\mlp\\frozen_head_encoder_Falcon3-7B-Base_adapter.pt"
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\mlp\\frozen_head_encoder_Falcon3-7B-Base_adapter.pt"
       }
     },
     "metrics": {
@@ -307,60 +187,20 @@
       "student_test_samples": 2139,
       "independent_undersampling_per_model": true
     },
-    "encoder_config": {
-      "architecture": {
-        "latent_dim": 256,
-        "hidden_dim": 512,
-        "dropout": 0.3
-      },
-      "training_hyperparameters": {
-        "learning_rate": 0.001,
-        "weight_decay": 0.01,
-        "batch_size": 64,
-        "max_epochs": 100,
-        "early_stopping_patience": 15,
-        "early_stopping_min_delta": 0.0001,
-        "gradient_clip_max_norm": 1.0,
-        "optimizer": "AdamW",
-        "scheduler": "CosineAnnealingLR",
-        "loss_function": "BCEWithLogitsLoss",
-        "use_class_weights": true
-      }
-    },
-    "head_config": {
-      "architecture": {
-        "latent_dim": 256,
-        "hidden_dim": 128,
-        "dropout": 0.3
-      },
-      "training_hyperparameters": {
-        "learning_rate": 0.001,
-        "weight_decay": 0.01,
-        "batch_size": 64,
-        "max_epochs": 100,
-        "early_stopping_patience": 15,
-        "early_stopping_min_delta": 0.0001,
-        "gradient_clip_max_norm": 1.0,
-        "optimizer": "AdamW",
-        "scheduler": "CosineAnnealingLR",
-        "loss_function": "BCEWithLogitsLoss",
-        "use_class_weights": true
-      }
-    },
     "training_results": {
       "teacher_encoder": {
         "input_dim": 9216,
         "epochs_trained": 31,
-        "model_saved_path": "models_frozen_head\\mlp\\frozen_head_encoder_Falcon3-7B-Base.pt"
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\mlp\\frozen_head_encoder_Falcon3-7B-Base.pt"
       },
       "shared_head": {
         "epochs_trained": 31,
-        "model_saved_path": "models_frozen_head\\mlp\\frozen_head_shared_head_Falcon3-7B-Base.pt"
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\mlp\\frozen_head_shared_head_Falcon3-7B-Base.pt"
       },
       "student_encoder": {
         "input_dim": 10752,
         "epochs_trained": 8,
-        "model_saved_path": "models_frozen_head\\mlp\\frozen_head_encoder_Qwen2.5-7B_adapter.pt"
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\mlp\\frozen_head_encoder_Qwen2.5-7B_adapter.pt"
       }
     },
     "metrics": {
@@ -406,91 +246,51 @@
       "student_test_samples": 4519,
       "independent_undersampling_per_model": true
     },
-    "encoder_config": {
-      "architecture": {
-        "latent_dim": 256,
-        "hidden_dim": 512,
-        "dropout": 0.3
-      },
-      "training_hyperparameters": {
-        "learning_rate": 0.001,
-        "weight_decay": 0.01,
-        "batch_size": 64,
-        "max_epochs": 100,
-        "early_stopping_patience": 15,
-        "early_stopping_min_delta": 0.0001,
-        "gradient_clip_max_norm": 1.0,
-        "optimizer": "AdamW",
-        "scheduler": "CosineAnnealingLR",
-        "loss_function": "BCEWithLogitsLoss",
-        "use_class_weights": true
-      }
-    },
-    "head_config": {
-      "architecture": {
-        "latent_dim": 256,
-        "hidden_dim": 128,
-        "dropout": 0.3
-      },
-      "training_hyperparameters": {
-        "learning_rate": 0.001,
-        "weight_decay": 0.01,
-        "batch_size": 64,
-        "max_epochs": 100,
-        "early_stopping_patience": 15,
-        "early_stopping_min_delta": 0.0001,
-        "gradient_clip_max_norm": 1.0,
-        "optimizer": "AdamW",
-        "scheduler": "CosineAnnealingLR",
-        "loss_function": "BCEWithLogitsLoss",
-        "use_class_weights": true
-      }
-    },
     "training_results": {
       "teacher_encoder": {
         "input_dim": 10752,
-        "epochs_trained": 17,
-        "model_saved_path": "models_frozen_head\\hidden\\frozen_head_encoder_Qwen2.5-7B.pt"
+        "epochs_trained": 3,
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\hidden\\frozen_head_encoder_Qwen2.5-7B.pt"
       },
       "shared_head": {
-        "epochs_trained": 17,
-        "model_saved_path": "models_frozen_head\\hidden\\frozen_head_shared_head_Qwen2.5-7B.pt"
+        "epochs_trained": 3,
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\hidden\\frozen_head_shared_head_Qwen2.5-7B.pt"
       },
       "student_encoder": {
         "input_dim": 9216,
-        "epochs_trained": 39,
-        "model_saved_path": "models_frozen_head\\hidden\\frozen_head_encoder_Falcon3-7B-Base_adapter.pt"
+        "epochs_trained": 18,
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\hidden\\frozen_head_encoder_Falcon3-7B-Base_adapter.pt"
       }
     },
     "metrics": {
       "teacher": {
-        "accuracy": 0.9906,
-        "precision": 0.9918,
-        "recall": 0.99,
-        "f1_score": 0.9909,
-        "auroc": 0.9998,
+        "accuracy": 0.9902,
+        "precision": 0.9882,
+        "recall": 0.9927,
+        "f1_score": 0.9905,
+        "auroc": 0.9997,
         "confusion_matrix": {
-          "TN": 1032,
-          "FP": 9,
-          "FN": 11,
-          "TP": 1087
+          "TN": 1028,
+          "FP": 13,
+          "FN": 8,
+          "TP": 1090
         }
       },
       "student_adapter": {
-        "accuracy": 0.9898,
-        "precision": 0.9914,
-        "recall": 0.9878,
-        "f1_score": 0.9896,
-        "auroc": 0.9991,
+        "accuracy": 0.9863,
+        "precision": 0.9864,
+        "recall": 0.9855,
+        "f1_score": 0.986,
+        "auroc": 0.9983,
         "confusion_matrix": {
-          "TN": 2289,
-          "FP": 19,
-          "FN": 27,
-          "TP": 2184
+          "TN": 2278,
+          "FP": 30,
+          "FN": 32,
+          "TP": 2179
         }
       },
       "transfer_gap": {
-        "accuracy_gap": 0.0008
+        "accuracy_gap": 0.0039
       }
     }
   },
@@ -505,60 +305,20 @@
       "student_test_samples": 2139,
       "independent_undersampling_per_model": true
     },
-    "encoder_config": {
-      "architecture": {
-        "latent_dim": 256,
-        "hidden_dim": 512,
-        "dropout": 0.3
-      },
-      "training_hyperparameters": {
-        "learning_rate": 0.001,
-        "weight_decay": 0.01,
-        "batch_size": 64,
-        "max_epochs": 100,
-        "early_stopping_patience": 15,
-        "early_stopping_min_delta": 0.0001,
-        "gradient_clip_max_norm": 1.0,
-        "optimizer": "AdamW",
-        "scheduler": "CosineAnnealingLR",
-        "loss_function": "BCEWithLogitsLoss",
-        "use_class_weights": true
-      }
-    },
-    "head_config": {
-      "architecture": {
-        "latent_dim": 256,
-        "hidden_dim": 128,
-        "dropout": 0.3
-      },
-      "training_hyperparameters": {
-        "learning_rate": 0.001,
-        "weight_decay": 0.01,
-        "batch_size": 64,
-        "max_epochs": 100,
-        "early_stopping_patience": 15,
-        "early_stopping_min_delta": 0.0001,
-        "gradient_clip_max_norm": 1.0,
-        "optimizer": "AdamW",
-        "scheduler": "CosineAnnealingLR",
-        "loss_function": "BCEWithLogitsLoss",
-        "use_class_weights": true
-      }
-    },
     "training_results": {
       "teacher_encoder": {
         "input_dim": 9216,
         "epochs_trained": 33,
-        "model_saved_path": "models_frozen_head\\hidden\\frozen_head_encoder_Falcon3-7B-Base.pt"
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\hidden\\frozen_head_encoder_Falcon3-7B-Base.pt"
       },
       "shared_head": {
         "epochs_trained": 33,
-        "model_saved_path": "models_frozen_head\\hidden\\frozen_head_shared_head_Falcon3-7B-Base.pt"
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\hidden\\frozen_head_shared_head_Falcon3-7B-Base.pt"
       },
       "student_encoder": {
         "input_dim": 10752,
-        "epochs_trained": 20,
-        "model_saved_path": "models_frozen_head\\hidden\\frozen_head_encoder_Qwen2.5-7B_adapter.pt"
+        "epochs_trained": 33,
+        "model_saved_path": "C:\\Users\\fonta\\Desktop\\HallucinationDetection\\notebooks\\nonLinearApproach\\approach3OneForAll\\QWEN_FALCON_BBF\\models_frozen_head\\hidden\\frozen_head_encoder_Qwen2.5-7B_adapter.pt"
       }
     },
     "metrics": {
@@ -576,20 +336,20 @@
         }
       },
       "student_adapter": {
-        "accuracy": 0.9949,
-        "precision": 0.9936,
-        "recall": 0.9964,
-        "f1_score": 0.995,
+        "accuracy": 0.9958,
+        "precision": 0.9982,
+        "recall": 0.9936,
+        "f1_score": 0.9959,
         "auroc": 0.9999,
         "confusion_matrix": {
-          "TN": 1034,
-          "FP": 7,
-          "FN": 4,
-          "TP": 1094
+          "TN": 1039,
+          "FP": 2,
+          "FN": 7,
+          "TP": 1091
         }
       },
       "transfer_gap": {
-        "accuracy_gap": -0.0059
+        "accuracy_gap": -0.0069
       }
     }
   }
