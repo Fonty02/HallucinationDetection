@@ -1,8 +1,3 @@
-"""
-Universal Prober for LLM - Linear Analysis
-Logic: Identical to FullLinear.ipynb (Hardcoded paths, Concatenation of layers).
-"""
-
 import json
 import os
 import gc
@@ -24,29 +19,54 @@ from sklearn.model_selection import train_test_split
 # CONFIGURATION
 # ==================================================================
 class Config:
-    # ROOT_DIR punta alla cartella principale del progetto (2 livelli sopra lo script)
     ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     CACHE_DIR_NAME = "activation_cache"
     
     SEED = 42
     DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    # Configurazione identica al Notebook
     LAYER_CONFIG = {
-        "belief_bank_facts": {
-            "Qwen2.5-7B": {
-                "attn": [14, 15, 17],
-                "mlp": [14, 23, 25],
-                "hidden": [15, 16, 17]
-            },
-            "Falcon3-7B-Base": {
-                "attn": [18, 19, 26],
-                "mlp": [18, 19, 20],
-                "hidden": [17, 18, 21]
-            },
-            "save_dir": "Qwen_Falcon_BBF_Linear_Results"
-        }
+    "belief_bank_constraints": {
+        "Llama-3.1-8B-InstructI3nstruct": {
+            "attn": [5, 8, 12],
+            "mlp": [13, 14, 15],
+            "hidden": [13, 14, 15]
+        },
+        "gemma-2-9b-it": {
+            "attn": [23, 27, 33],
+            "mlp": [24, 25, 26],
+            "hidden": [23, 24, 27]
+        },
+        "save_dir": "LLama_Gemma_BBC"
+    },
+    "belief_bank_facts": {
+        "Llama-3.1-8B-Instruct": {
+            "attn": [8, 13, 14],
+            "mlp": [21, 14, 15],
+            "hidden": [16, 14, 15]
+        },
+        "gemma-2-9b-it": {
+            "attn": [21, 27, 24],
+            "mlp": [22, 25, 27],
+            "hidden": [23, 26, 34]
+        },
+        "save_dir": "LLama_Gemma_BBF"
+    },
+    "halu_eval": {
+        "Llama-3.1-8B-Instruct": {
+            "attn": [14, 15, 16],
+            "mlp": [13, 14, 15],
+            "hidden": [16, 14, 15]
+        },
+        "gemma-2-9b-it": {
+            "attn": [21, 27, 26],
+            "mlp": [24, 23, 28],
+            "hidden": [19, 24, 28]
+        },
+        "save_dir": "LLama_Gemma_HE"
     }
+}
+
 
 # ==================================================================
 # REPRODUCIBILITY & UTILS

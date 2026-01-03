@@ -1,7 +1,3 @@
-# %%
-# Cross-dataset evaluation (OneForAll / frozen-head)
-# - NO training: loads saved checkpoints from an existing run directory
-# - Evaluates activations from a different dataset on the saved prober (shared head + encoder)
 
 from __future__ import annotations
 
