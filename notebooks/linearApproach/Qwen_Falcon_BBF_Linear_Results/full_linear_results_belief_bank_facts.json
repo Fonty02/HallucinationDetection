@@ -1,0 +1,176 @@
+[
+  {
+    "layer_type": "attn",
+    "teacher_name": "Qwen2.5-7B",
+    "student_name": "Falcon3-7B-Base",
+    "teacher": {
+      "accuracy": 0.9873772791023843,
+      "precision": 0.9863760217983651,
+      "recall": 0.9890710382513661,
+      "f1": 0.9877216916780355,
+      "auroc": 0.9985975723916858
+    },
+    "cross": {
+      "accuracy": 0.9623810577561407,
+      "precision": 0.967475950526798,
+      "recall": 0.9552238805970149,
+      "f1": 0.9613108784706418,
+      "auroc": 0.9918851465063214
+    },
+    "confusion_matrix_cross": [
+      [
+        2237,
+        71
+      ],
+      [
+        99,
+        2112
+      ]
+    ]
+  },
+  {
+    "layer_type": "attn",
+    "teacher_name": "Falcon3-7B-Base",
+    "student_name": "Qwen2.5-7B",
+    "teacher": {
+      "accuracy": 0.9867227262668732,
+      "precision": 0.9838056680161943,
+      "recall": 0.989145183175034,
+      "f1": 0.986468200270636,
+      "auroc": 0.9972864917573784
+    },
+    "cross": {
+      "accuracy": 0.9579242636746143,
+      "precision": 0.9658040665434381,
+      "recall": 0.9517304189435337,
+      "f1": 0.9587155963302753,
+      "auroc": 0.9886029791306873
+    },
+    "confusion_matrix_cross": [
+      [
+        1004,
+        37
+      ],
+      [
+        53,
+        1045
+      ]
+    ]
+  },
+  {
+    "layer_type": "mlp",
+    "teacher_name": "Qwen2.5-7B",
+    "student_name": "Falcon3-7B-Base",
+    "teacher": {
+      "accuracy": 0.9859747545582047,
+      "precision": 0.9863387978142076,
+      "recall": 0.9863387978142076,
+      "f1": 0.9863387978142076,
+      "auroc": 0.9989527723972851
+    },
+    "cross": {
+      "accuracy": 0.9674706793538393,
+      "precision": 0.979108635097493,
+      "recall": 0.9538670284938942,
+      "f1": 0.9663230240549828,
+      "auroc": 0.9872210163927486
+    },
+    "confusion_matrix_cross": [
+      [
+        2263,
+        45
+      ],
+      [
+        102,
+        2109
+      ]
+    ]
+  },
+  {
+    "layer_type": "mlp",
+    "teacher_name": "Falcon3-7B-Base",
+    "student_name": "Qwen2.5-7B",
+    "teacher": {
+      "accuracy": 0.982518256251383,
+      "precision": 0.9810469314079422,
+      "recall": 0.9832654907281773,
+      "f1": 0.9821549582109781,
+      "auroc": 0.995738771088625
+    },
+    "cross": {
+      "accuracy": 0.9611968209443665,
+      "precision": 0.981042654028436,
+      "recall": 0.9426229508196722,
+      "f1": 0.9614491407338597,
+      "auroc": 0.9889791761809525
+    },
+    "confusion_matrix_cross": [
+      [
+        1021,
+        20
+      ],
+      [
+        63,
+        1035
+      ]
+    ]
+  },
+  {
+    "layer_type": "hidden",
+    "teacher_name": "Qwen2.5-7B",
+    "student_name": "Falcon3-7B-Base",
+    "teacher": {
+      "accuracy": 0.9850397381954185,
+      "precision": 0.9845454545454545,
+      "recall": 0.9863387978142076,
+      "f1": 0.9854413102820746,
+      "auroc": 0.9990175132850052
+    },
+    "cross": {
+      "accuracy": 0.9672493914582873,
+      "precision": 0.977325312355391,
+      "recall": 0.9552238805970149,
+      "f1": 0.9661482159194876,
+      "auroc": 0.989523001033904
+    },
+    "confusion_matrix_cross": [
+      [
+        2259,
+        49
+      ],
+      [
+        99,
+        2112
+      ]
+    ]
+  },
+  {
+    "layer_type": "hidden",
+    "teacher_name": "Falcon3-7B-Base",
+    "student_name": "Qwen2.5-7B",
+    "teacher": {
+      "accuracy": 0.9831821199380394,
+      "precision": 0.9828132066938037,
+      "recall": 0.9828132066938037,
+      "f1": 0.9828132066938037,
+      "auroc": 0.996363503108375
+    },
+    "cross": {
+      "accuracy": 0.9588592800374006,
+      "precision": 0.988394584139265,
+      "recall": 0.930783242258652,
+      "f1": 0.9587242026266416,
+      "auroc": 0.9839118894015667
+    },
+    "confusion_matrix_cross": [
+      [
+        1029,
+        12
+      ],
+      [
+        76,
+        1022
+      ]
+    ]
+  }
+]
