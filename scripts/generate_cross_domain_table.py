@@ -2,7 +2,7 @@ import json
 import os
 import glob
 
-base_path = "c:/Users/fonta/Desktop/HallucinationDetection/notebooks/nonLinearApproach/approach3OneForAll"
+base_path = "allucinationDetection/notebooks/nonLinearApproach/approach3OneForAll"
 folders = ["LLama_Gemma_BBC", "LLama_Gemma_BBF", "LLama_Gemma_HE"]
 
 print("\\begin{table}[H]")
