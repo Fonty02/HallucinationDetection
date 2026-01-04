@@ -1,0 +1,94 @@
+\chapter{Discussion}
+
+This chapter discusses the results obtained from the experiments conducted to evaluate the different approaches proposed for hallucination detection in LLMs. The main objective is to analyze the effectiveness of transferring detection capabilities from a "Trainer" model to a "Tester" model through different alignment techniques.
+
+\section{Comparison Between Methods}
+The results show that the suggested transferability methods are fairly equivalent to each other, presenting very similar metrics on both the tester and trainer. The study therefore demonstrates that it is possible to transfer probers for hallucination detection between different models, especially for simple factual verification tasks. The \textit{One-For-All} approach proves to be the most promising method for building a "universal prober".
+
+\section{Dataset Analysis}
+
+The results highlight a clear distinction between datasets based on simple facts (BeliefBank) and more complex ones (HaluEval).
+
+\begin{itemize}
+    \item \textbf{BeliefBankFacts and BeliefBankCalibration}: On these datasets, all models and approaches achieve very high performance, with accuracies often exceeding 95\%. This suggests that the distinction between true and false statements about general knowledge facts is encoded very clearly and linearly separable in the activation spaces of LLMs. Transferability is therefore high.
+    
+    \item \textbf{HaluEval}: This dataset proves to be significantly more difficult. Accuracies drop to around 70-80\% for all approaches. In this scenario, the \textit{FullLinear} often clearly outperforms the transfer approaches. This indicates that the "directions" encoding hallucinations in more complex contexts are much more model-specific and less transferable through the tested alignment techniques.
+\end{itemize}
+
+\section{Model Analysis}
+
+The comparison between model pairs offers further insights:
+
+\begin{itemize}
+    \item \textbf{Falcon3-7B-Base and Qwen2.5-7B}: This pair shows exceptional compatibility on BeliefBankFacts, with nearly perfect transfer results. This could indicate a structural or pre-training similarity that facilitates the alignment of their latent spaces.
+    
+    \item \textbf{Llama-3.1-8B-Instruct and Gemma-2-9B-IT}: This pair also performs well on BeliefBank, but shows greater difficulties on HaluEval. It is interesting to note that in some cases (e.g., HaluEval), the "tester" outperforms the "trainer", suggesting that some internal representations may be more suitable for hallucination detection in complex contexts.
+\end{itemize}
+
+\section{Layer Analysis}
+
+Regarding the layer type (\textit{attn}, \textit{mlp}, \textit{hidden}), no absolute winner emerges across all scenarios. However, it is often noted that \textit{attn} (attention output) and \textit{hidden} (hidden states) activations tend to provide slightly more stable performance compared to \textit{mlp}. The \textit{One-For-All} approach nevertheless demonstrates remarkable robustness regardless of the layer type used, managing to extract useful information from all internal components analyzed.
+
+
+\chapter{Cross-Domain Studies}
+To further evaluate the generalizability of transferred probers, cross-domain experiments were conducted. In this context, the \textit{One-For-All} approach was evaluated by training the encoder on a source dataset ("Train Set") and applying it to project the activations of the \textbf{same source dataset}, but classifying them using the Teacher's Head specific to a different target dataset ("Head Set"). This scenario evaluates the \textbf{universality of the latent space}: it tests whether the representation of truth learned in one domain is compatible with the decision boundary learned in another domain.
+
+The results, summarized in Table \ref{tab:cross-domain-results}, show that the encoding learned via encoder on simple facts datasets (BeliefBank) transfers with exceptional effectiveness even to the classification head learned on a more complex dataset (HaluEval), allowing the Tester to achieve performance nearly identical to the Trainer (often >99\% accuracy).
+Conversely, the encoding learned on HaluEval, while achieving good results, shows a performance drop when transferred to BeliefBank (approximately 87--90\% accuracy), suggesting that the latent space structure learned on complex tasks may be less "universal" or noisier compared to that learned on simple facts.
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lllccccccc}
+\toprule
+\textbf{Align Train} & \textbf{Target/Head} & \textbf{Teacher} & \textbf{Student} & \textbf{Layer} & \textbf{Acc (Tr)} & \textbf{AUROC (Tr)} & \textbf{Acc (Te)} & \textbf{AUROC (Te)} \\
+\midrule
+BBC & BBF & Gemma & Llama & attn & 0.991 & 0.999 & 0.995 & 0.999 \\
+BBC & BBF & Gemma & Llama & mlp & 0.992 & 0.998 & 0.984 & 0.995 \\
+BBC & BBF & Gemma & Llama & hidden & 0.995 & 0.997 & 0.990 & 0.999 \\
+BBC & BBF & Llama & Gemma & attn & 0.991 & 0.996 & 0.994 & 0.999 \\
+BBC & BBF & Llama & Gemma & mlp & 0.980 & 0.995 & 0.994 & 1.000 \\
+BBC & BBF & Llama & Gemma & hidden & 0.993 & 0.999 & 0.993 & 0.999 \\
+\midrule
+BBC & HE & Gemma & Llama & attn & 0.991 & 0.997 & 0.995 & 0.999 \\
+BBC & HE & Gemma & Llama & mlp & 0.993 & 0.997 & 0.984 & 0.993 \\
+BBC & HE & Gemma & Llama & hidden & 0.995 & 0.996 & 0.991 & 0.999 \\
+BBC & HE & Llama & Gemma & attn & 0.993 & 0.998 & 0.994 & 0.999 \\
+BBC & HE & Llama & Gemma & mlp & 0.980 & 0.990 & 0.994 & 1.000 \\
+BBC & HE & Llama & Gemma & hidden & 0.993 & 0.998 & 0.993 & 0.999 \\
+\midrule
+BBF & BBC & Gemma & Llama & attn & 0.986 & 0.997 & 0.994 & 0.997 \\
+BBF & BBC & Gemma & Llama & mlp & 0.983 & 0.992 & 0.994 & 0.998 \\
+BBF & BBC & Gemma & Llama & hidden & 0.972 & 0.995 & 0.993 & 0.998 \\
+BBF & BBC & Llama & Gemma & attn & 0.994 & 0.997 & 0.987 & 0.994 \\
+BBF & BBC & Llama & Gemma & mlp & 0.992 & 0.999 & 0.983 & 0.987 \\
+BBF & BBC & Llama & Gemma & hidden & 0.992 & 0.999 & 0.977 & 0.986 \\
+\midrule
+BBF & HE & Gemma & Llama & attn & 0.985 & 0.993 & 0.995 & 0.997 \\
+BBF & HE & Gemma & Llama & mlp & 0.984 & 0.989 & 0.994 & 0.998 \\
+BBF & HE & Gemma & Llama & hidden & 0.971 & 0.991 & 0.993 & 0.997 \\
+BBF & HE & Llama & Gemma & attn & 0.994 & 0.998 & 0.986 & 0.997 \\
+BBF & HE & Llama & Gemma & mlp & 0.992 & 1.000 & 0.983 & 0.996 \\
+BBF & HE & Llama & Gemma & hidden & 0.991 & 0.996 & 0.979 & 0.996 \\
+\midrule
+HE & BBC & Gemma & Llama & attn & 0.872 & 0.916 & 0.907 & 0.924 \\
+HE & BBC & Gemma & Llama & mlp & 0.873 & 0.928 & 0.905 & 0.950 \\
+HE & BBC & Gemma & Llama & hidden & 0.871 & 0.926 & 0.904 & 0.907 \\
+HE & BBC & Llama & Gemma & attn & 0.909 & 0.941 & 0.884 & 0.894 \\
+HE & BBC & Llama & Gemma & mlp & 0.900 & 0.944 & 0.871 & 0.897 \\
+HE & BBC & Llama & Gemma & hidden & 0.893 & 0.935 & 0.880 & 0.928 \\
+\midrule
+HE & BBF & Gemma & Llama & attn & 0.877 & 0.925 & 0.906 & 0.950 \\
+HE & BBF & Gemma & Llama & mlp & 0.872 & 0.924 & 0.903 & 0.945 \\
+HE & BBF & Gemma & Llama & hidden & 0.872 & 0.928 & 0.905 & 0.940 \\
+HE & BBF & Llama & Gemma & attn & 0.907 & 0.948 & 0.885 & 0.932 \\
+HE & BBF & Llama & Gemma & mlp & 0.901 & 0.950 & 0.871 & 0.928 \\
+HE & BBF & Llama & Gemma & hidden & 0.897 & 0.935 & 0.880 & 0.929 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Cross-Domain Results (One-For-All). Tr=Trainer, Te=Tester, BBC=BeliefBankConstraints, BBF=BeliefBankFacts, HE=HaluEval}
+\label{tab:cross-domain-results}
+\end{table}
+
+

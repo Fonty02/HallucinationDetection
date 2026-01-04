@@ -1,0 +1,40 @@
+\section{Background}
+
+\begin{frame}{Background}
+    \framesubtitle{Transformer e Self-Attention}
+    \begin{itemize}
+        \item \textbf{Transformer} (Vaswani et al., 2017): Architettura basata su Self-Attention.
+        \item Elaborazione parallela dell'intera sequenza.
+        \item \textbf{Self-Attention}:
+        \[ \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V \]
+        \item Permette di catturare relazioni a lungo raggio.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Background}
+    \framesubtitle{Large Language Models (LLM)}
+    \begin{itemize}
+        \item Modelli probabilistici addestrati su enormi corpora (Next Token Prediction).
+        \item \textbf{Scaling Laws}: Prestazioni migliorano con parametri e dati.
+        \item Ciclo di vita:
+        \begin{enumerate}
+            \item Pre-training (Unsupervised)
+            \item Supervised Fine-Tuning (SFT)
+            \item Alignment (RLHF/DPO)
+        \end{enumerate}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Background}
+    \framesubtitle{Allucinazioni}
+    \begin{itemize}
+        \item \textbf{Tipologie di allucinazione}:
+        \begin{itemize}
+            \item Fattuali (Falsità oggettive)
+            \item Logiche (Incoerenze nel ragionamento)
+            \item Incoerenza di Contesto (Contraddizione del prompt)
+        \end{itemize}
+        \item \textbf{Cause}: Compressione con perdita, dati rumorosi, Sycophancy.
+    \end{itemize}
+\end{frame}
+

@@ -1,0 +1,34 @@
+%BACKGROUND EXTRA MATERIAL
+
+\section{Deep Learning}
+In recent years, \textit{Deep Learning} has revolutionized the field of artificial intelligence, enabling extraordinary results in multiple domains, including image recognition, natural language processing, and games. Deep Learning is nothing more than a branch of Machine Learning (itself a branch of Artificial Intelligence) and is based on the use of Deep Neural Networks (DNN) to learn complex representations of data. The substantial difference between Deep Learning and traditional Machine Learning lies in the data representation to be provided to the algorithm: in traditional Machine Learning (Decision Trees, SVM, etc.) it is necessary to provide hand-engineered features, while in Deep Learning neural networks are able to automatically learn the most useful representations for the task directly from raw data.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/AI.png}
+    \caption{Representation of Artificial Intelligence branches}
+    \label{fig:Artificial Intelligence}
+\end{figure}
+
+\subsection{Historical background}
+Many think that Deep Learning is an extremely recent technology, science fiction until before ChatGPT. In reality, the theoretical foundations of Deep Learning date back to the 1940s with the first models like Rosenblatt's Perceptron. However, due to computational limitations, theoretical issues (Vanishing Gradient Problem), and data availability, Deep Learning could not express its full potential until the 2000s. With the advent of Graphics Processing Units (GPU), originally designed for graphics rendering and gaming, it became possible to significantly accelerate the computations necessary for training deep neural networks. GPUs, unlike CPUs, are designed to execute a limited set of simple operations in parallel, making them ideal for matrix and vector operations typical of Deep Learning. Additionally, the availability of large datasets, such as ImageNet, has allowed neural networks to learn more robust and generalizable representations. Finally, theoretical advances, such as the introduction of new activation functions (ReLU), regularization techniques (Dropout), and optimization algorithms (Adam), have further improved the performance of deep neural networks.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/DLTimeline.png}
+    \caption{Timeline of major historical events in the Deep Learning field}
+    \label{fig:Deep Learning Timeline}
+    
+\end{figure}
+\
+\subsection{DNN Architecture and Training}
+Deep neural networks consist of many layers of artificial neurons connected to each other (as if they were neurons in a biological brain). The first layer is the input layer, which receives raw data, while the last layer is the output layer, which produces final predictions: the output layer configuration depends on the type of task to be performed (classification, regression, etc.). Between the input and output layers there are several hidden layers, which progressively transform data through linear operations (weights and biases) and non-linear operations (activation functions such as ReLU, Sigmoid, Tanh). DNN training occurs in 2 main phases:
+\begin{itemize}
+    \item \textbf{Forward propagation}: input data is propagated through the network, calculating the activations of each neuron until producing the final output. This output is compared with the target value (ground truth) using a loss function that measures the prediction error. Data thus flows from the input layer to the output layer.
+    \item \textbf{Backward propagation}: using the backpropagation algorithm, the calculated error is propagated backward through the network. Using the chain rule, gradients are computed with respect to the loss function and these are propagated backward to update the network's weights and biases using an optimization algorithm (such as Stochastic Gradient Descent, Adam, etc.). Data thus flows from the output layer to the input layer.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/BackProp.png}
+    \caption{Representation of forward and backward propagation in a neural network}
+    \label{fig:Neural Network Forward Backward}
+\end{figure}

@@ -1,0 +1,41 @@
+\section{Discussione}
+
+\begin{frame}{Discussione}
+    \framesubtitle{Confronto tra Metodi}
+    \begin{itemize}
+        \item I metodi di trasferibilità sono generalmente efficaci.
+        \item \textbf{One-For-All} emerge come il metodo più promettente e robusto. Questo probabilmente è dovuto all'addestramento End-To-End di Encoder e Classification Head che forza l'encoder a imparare una rappresentazione utile ai fini della classificazione
+        \item La trasferibilità è particolarmente alta per task di verifica fattuale semplice.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Discussione}
+    \framesubtitle{Analisi dei Dataset}
+    \begin{itemize}
+        \item \textbf{BeliefBank (Facts \& Constraints)}:
+        \begin{itemize}
+            \item Alta separabilità lineare (Acc > 95\%).
+            \item Concetto di verità "universale" e ben definito.
+        \end{itemize}
+        \item \textbf{HaluEval}:
+        \begin{itemize}
+            \item Molto più complesso (Acc 70-80\%).
+            \item Le allucinazioni sono più specifiche del modello e del contesto.
+            \item Minore trasferibilità.
+        \end{itemize}
+        \item \textbf{Layer}:
+        \begin{itemize}
+            \item \textit{Attention} e \textit{Hidden States} spesso più stabili di \textit{MLP}.
+            \item One-For-All è robusto su tutte le componenti.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Discussione}
+    \framesubtitle{Asimmetria Cross-Domain}
+    \begin{itemize}
+        \item \textbf{Simple $\rightarrow$ Complex}: Funziona molto bene.
+        \item \textbf{Complex $\rightarrow$ Simple}: Funziona peggio.
+        \item \textbf{Ipotesi}: Le strutture latenti apprese su fatti semplici sono fondamentali e universali. Quelle apprese su contesti complessi sono più rumorose o specifiche.
+    \end{itemize}
+\end{frame}

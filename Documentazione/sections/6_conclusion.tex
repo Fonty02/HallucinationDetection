@@ -1,0 +1,19 @@
+\chapter{Conclusions}
+
+This chapter summarizes the main results obtained from this work and future perspectives.
+
+\section{Summary of Results}
+This work explored the feasibility of a "universal prober" for hallucination detection in LLMs, evaluating different techniques for aligning latent spaces between "Trainer" and "Tester" models. The experiments conducted on heterogeneous model pairs (Llama-3, Gemma-2, Falcon-3, and Qwen-2.5) and on datasets of varying complexity (BeliefBank and HaluEval) led to the following key results:
+\begin{itemize}
+    \item \textbf{Transfer Effectiveness}: The proposed transferability methods proved effective, especially for simple factual verification tasks such as those in BeliefBank, where the performance of the transferred prober was comparable to that of dedicated classifiers.
+    
+    \item \textbf{Asymmetry in Generalization}: Cross-domain experiments revealed an interesting asymmetry: the encoding learned on "simple" datasets (BeliefBank) transfers effectively to complex contexts (HaluEval), while the reverse is less performant. This suggests that latent structures of truthfulness are more clearly defined and "universal" in basic factual tasks.
+    
+    \item \textbf{Robustness of the One-For-All Approach}: The One-For-All approach proved to be the most promising method for building a universal prober, showing robustness regardless of the type of layer analyzed (attn, mlp, hidden).
+\end{itemize}
+
+\section{Future Work}
+This work can be continued in several directions:
+\begin{itemize}
+    \item \textbf{Multimodal Experiments}: Extend the approach to multimodal models that integrate text and images.
+\end{itemize}

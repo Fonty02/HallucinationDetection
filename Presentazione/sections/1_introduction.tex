@@ -1,0 +1,43 @@
+\section{Introduzione}
+
+\begin{frame}{Introduzione}
+    \framesubtitle{Il contesto}
+    \begin{itemize}
+        \item L'avvento di GPT-3 e degli LLM ha rivoluzionato il NLP.
+        \item Gli LLM sono strumenti potenti ma soffrono di \textbf{allucinazioni}.
+        \item \textbf{Allucinazione}: generazione di testo sintatticamente corretto ma fattualmente errato.
+        \item Esempio:
+        \begin{quote}
+            \textbf{Utente:} How many r's are there in the word strawberries?\\
+            \textbf{LLM:} 2
+        \end{quote}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Introduzione}
+    \framesubtitle{Il problema}
+    \begin{itemize}
+        \item Le allucinazioni limitano l'uso degli LLM in ambiti critici (medicina, legge).
+        \item Tecniche attuali (RAG, CoT) non sono infallibili.
+        \item Necessità di rilevare quando un modello sta allucinando.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Introduzione}
+    \framesubtitle{La soluzione proposta: Probing}
+    \begin{itemize}
+        \item \textbf{Probing}: analisi delle attivazioni interne del modello.
+        \item Ipotesi: la veridicità è codificata nello spazio latente.
+        \item Obiettivo: creare un \textbf{prober universale}.
+        \item Trasferire la capacità di rilevamento da un modello all'altro senza supervisione aggiuntiva.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Obiettivi del progetto}
+    \begin{itemize}
+        \item Analizzare le attivazioni interne di diverse famiglie di LLM (Qwen, Falcon, Llama, Gemma).
+        \item Identificare pattern comuni associati alle allucinazioni.
+        \item Sviluppare metodologie di allineamento tra spazi latenti.
+        \item Costruire e validare il prober.
+    \end{itemize}
+\end{frame}

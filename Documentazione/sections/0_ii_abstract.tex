@@ -1,0 +1,9 @@
+\chapter*{\Large \center Abstract}
+
+Large Language Models have demonstrated exceptional capabilities in numerous natural language processing tasks, yet they still suffer from the critical problem of "hallucinations," i.e., the generation of factually incorrect information presented with high confidence. Although analyzing the internal states of models (probing) has proven effective for detecting these anomalies, most current approaches require training classifiers specific to each individual architecture, limiting their scalability and general applicability.
+
+This work explores the feasibility of a "universal prober" for hallucination detection, investigating whether and how detection capabilities learned on a "Trainer" model can be transferred to a different "Tester" model. We developed and compared various latent space alignment methodologies, ranging from hybrid approaches to non-linear projections.
+
+The results demonstrate that transferring truthfulness-related features is highly effective, especially when using the \textit{One-For-All} approach. It emerged that latent space alignment learned in simpler contexts is surprisingly robust and transferable even to more complex contexts, allowing high detection performance to be maintained. Conversely, alignment learned on complex and noisy data shows lower generalization capability toward simpler tasks.
+
+This work highlights the potential of alignment techniques for creating cross-model safety systems, while also outlining the current limitations of internal representation transferability for advanced reasoning tasks.

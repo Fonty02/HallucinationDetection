@@ -1,0 +1,63 @@
+\contentsline {chapter}{\numberline {1}Introduction}{1}{}%
+\contentsline {section}{\numberline {1.1}Goals and Objectives}{1}{}%
+\contentsline {section}{\numberline {1.2}Document Overview}{2}{}%
+\contentsline {chapter}{\numberline {2}Background}{3}{}%
+\contentsline {section}{\numberline {2.1}Transformer Overview}{3}{}%
+\contentsline {subsection}{\numberline {2.1.1}Transformer Architecture}{4}{}%
+\contentsline {subsubsection}{Encoder}{4}{}%
+\contentsline {subsubsection}{Decoder}{5}{}%
+\contentsline {subsection}{\numberline {2.1.2}Self-Attention Mechanism}{5}{}%
+\contentsline {section}{\numberline {2.2}Large Language Models (LLM)}{6}{}%
+\contentsline {section}{\numberline {2.3}Hallucinations in LLMs}{7}{}%
+\contentsline {section}{\numberline {2.4}Probing}{7}{}%
+\contentsline {chapter}{\numberline {3}Methodology}{9}{}%
+\contentsline {section}{\numberline {3.1}Dataset}{9}{}%
+\contentsline {subsection}{\numberline {3.1.1}Datasets Used}{9}{}%
+\contentsline {subsubsection}{Belief Bank Facts}{9}{}%
+\contentsline {subsubsection}{Belief Bank Constraints}{10}{}%
+\contentsline {subsubsection}{HaluEval}{10}{}%
+\contentsline {subsection}{\numberline {3.1.2}Activation Dataset Creation}{11}{}%
+\contentsline {section}{\numberline {3.2}LLMs Used}{12}{}%
+\contentsline {subsection}{\numberline {3.2.1}Qwen2.5-7B}{12}{}%
+\contentsline {subsection}{\numberline {3.2.2}Falcon3-7B-Base}{12}{}%
+\contentsline {subsection}{\numberline {3.2.3}Llama-3.1-8B-Instruct}{12}{}%
+\contentsline {subsection}{\numberline {3.2.4}Gemma-2-9B-IT}{12}{}%
+\contentsline {section}{\numberline {3.3}Preliminary Studies}{13}{}%
+\contentsline {subsection}{\numberline {3.3.1}Hallucination Statistics}{13}{}%
+\contentsline {subsection}{\numberline {3.3.2}Studio delle singole componenti di layer}{14}{}%
+\contentsline {section}{\numberline {3.4}Methodologies for Building the Universal Prober}{20}{}%
+\contentsline {subsection}{\numberline {3.4.1}FullLinear Approach}{21}{}%
+\contentsline {subsubsection}{Experimental Pipeline}{21}{}%
+\contentsline {subsection}{\numberline {3.4.2}AdapterMLP Approach}{22}{}%
+\contentsline {subsubsection}{Architecture and Loss}{22}{}%
+\contentsline {subsubsection}{Experimental Pipeline}{23}{}%
+\contentsline {subsection}{\numberline {3.4.3}Full Non-linear Approach}{24}{}%
+\contentsline {subsubsection}{Architecture, Components and Loss}{24}{}%
+\contentsline {subsubsection}{Experimental Pipeline}{25}{}%
+\contentsline {subsection}{\numberline {3.4.4}Reduced Non-linear Approach}{26}{}%
+\contentsline {subsubsection}{Architecture and Main Components}{26}{}%
+\contentsline {subsubsection}{Experimental Pipeline}{27}{}%
+\contentsline {subsection}{\numberline {3.4.5}One-For-All Approach (Frozen Head)}{29}{}%
+\contentsline {subsubsection}{Architecture and main components}{30}{}%
+\contentsline {subsubsection}{Experimental pipeline}{30}{}%
+\contentsline {chapter}{\numberline {4}Results}{33}{}%
+\contentsline {section}{\numberline {4.1}Falcon3-7B-Base e Qwen2.5-7B su BeliefBankFacts}{34}{}%
+\contentsline {section}{\numberline {4.2}LLama-3.1-8B-Instruct e Gemma-2-9B-IT su BeliefBankFacts}{35}{}%
+\contentsline {section}{\numberline {4.3}LLama-3.1-8B-Instruct e Gemma-2-9B-IT su BeliefBankCalibration}{36}{}%
+\contentsline {section}{\numberline {4.4}LLama-3.1-8B-Instruct e Gemma-2-9B-IT su HaluEval}{37}{}%
+\contentsline {chapter}{\numberline {5}Discussion}{39}{}%
+\contentsline {section}{\numberline {5.1}Comparison Between Methods}{39}{}%
+\contentsline {section}{\numberline {5.2}Dataset Analysis}{39}{}%
+\contentsline {section}{\numberline {5.3}Model Analysis}{40}{}%
+\contentsline {section}{\numberline {5.4}Layer Analysis}{40}{}%
+\contentsline {chapter}{\numberline {6}Cross-Domain Studies}{41}{}%
+\contentsline {chapter}{\numberline {7}Conclusions}{43}{}%
+\contentsline {section}{\numberline {7.1}Summary of Results}{43}{}%
+\contentsline {section}{\numberline {7.2}Future Work}{43}{}%
+\contentsline {chapter}{Appendices}{49}{}%
+\contentsline {chapter}{\numberline {A}Model Activations}{51}{}%
+\contentsline {chapter}{\numberline {B}Model Alignment}{77}{}%
+\contentsline {section}{\numberline {B.1}Linear Approach}{78}{}%
+\contentsline {section}{\numberline {B.2}Approach 1}{82}{}%
+\contentsline {section}{\numberline {B.3}Hybrid Approach}{86}{}%
+\contentsline {section}{\numberline {B.4}Projected Approach}{90}{}%

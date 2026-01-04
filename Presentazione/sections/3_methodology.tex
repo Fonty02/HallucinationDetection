@@ -1,0 +1,79 @@
+\section{Metodologia}
+
+\begin{frame}{Metodologia}
+    \framesubtitle{Dataset Utilizzati}
+    \begin{itemize}
+        \item \textbf{Belief Bank Facts}:
+        \begin{itemize}
+            \item Fatti affermativi e negati (es. "An eagle is a bird").
+            \item 27.416 affermazioni (Bilanciato).
+            \item Rilevamento \textit{Factual Hallucinations}.
+        \end{itemize}
+        \item \textbf{Belief Bank Constraints}:
+        \begin{itemize}
+            \item Implicazioni e mutue esclusioni.
+            \item 25.756 affermazioni.
+            \item Rilevamento \textit{Logical Inconsistencies}.
+        \end{itemize}
+        \item \textbf{HaluEval}:
+        \begin{itemize}
+            \item Contesti conversazionali complessi.
+            \item 10.000 esempi.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Metodologia}
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.9\textwidth, height=0.8\textheight]{images/modelsss/metodologia.pdf}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Metodologia: FullLinear}
+    \framesubtitle{Approccio Lineare}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\textwidth, height=0.7\textheight]{images/modelsss/AppL.png}
+        \caption{Pipeline FullLinear: Logistic Regression su Trainer, Ridge Regression per allineamento Tester.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Metodologia: Approccio AdapterMLP}
+    \framesubtitle{Allineamento Non-Lineare + Prober Lineare}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\textwidth, height=0.6\textheight]{images/modelsss/AppH.png}
+        \caption{Pipeline Ibrida: AlignmentNetwork non-lineare per proiettare il Tester, classificatore lineare fisso.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Metodologia: Approccio Non-Lineare Completo}
+    \framesubtitle{Allineamento Non-Lineare + Prober Non-Lineare}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\textwidth, height=0.6\textheight]{images/modelsss/PipeApp1.png}
+        \caption{Pipeline Completa: AlignmentNetwork e MLP Prober entrambi non-lineari.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Metodologia: Approccio Non-Lineare Ridotto}
+    \framesubtitle{Riduzione Dimensionale con Autoencoder}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\textwidth, height=0.7\textheight]{images/modelsss/PipeApp2.png}
+        \caption{Pipeline Ridotta: Autoencoder per ridurre il rumore, poi allineamento nello spazio latente.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Metodologia: One-For-All}
+    \framesubtitle{Frozen Head \& Encoder Adaptation}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\textwidth, height=0.7\textheight]{images/modelsss/PipeApp3.png}
+        \caption{Pipeline One-For-All: Encoder specifico per modello, Classification Head congelata dal Trainer.}
+    \end{figure}
+\end{frame}
+

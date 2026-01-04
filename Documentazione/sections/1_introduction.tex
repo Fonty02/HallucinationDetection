@@ -1,0 +1,41 @@
+﻿\chapter{Introduction}
+
+
+
+\section{Goals and Objectives}
+The public release of GPT-3 \cite{GPT3} by OpenAI marked a significant turning point in Natural Language Processing (NLP), paving the way for a new era of Large Language Models (LLMs) capable of maintaining conversations as fluently and naturally as a human. The release of the ChatBot was just the beginning: now LLMs are used in a wide range of applications and have become indispensable tools in private, academic, and industrial settings, with virtually unlimited applications.
+
+However, one of the main obstacles to the widespread and safe adoption of these technologies in critical areas is the phenomenon of \textit{hallucinations}. Despite syntactic coherence, LLMs occasionally tend to generate factually incorrect or fabricated information with a high degree of confidence. In contexts such as healthcare, legal support, or education, such hallucinations can lead to serious consequences (e.g., misdiagnoses, incorrect legal advice, or spread of misinformation). This behavior stems from the stochastic nature of LLMs: they cannot count or perform logical reasoning based on rules and facts; their ability to produce text depends solely on the statistics learned during the training phase on large text corpora. This is called \textit{next token prediction}: given the context (i.e., the set of previous tokens), an LLM predicts the most probable next token based on learned distributions (we can think of a token as a word or part of it).
+A classic example of hallucination present in the earliest LLMs is:
+\begin{quote}
+    \textbf{User:} How many r's are there in the word strawberries?\\
+    \textbf{LLM:} 2
+\end{quote}
+
+Currently, techniques to mitigate this problem are often based on external fact verification (\textit{retrieval-augmented generation}), specific \textit{fine-tuning}, or \textit{Chain of Thought} (CoT), but these techniques are not infallible, and it is therefore crucial to understand when a model is hallucinating and when it is not.
+
+\textit{Probing} of internal activations (or \textit{probing classifiers}) represents an innovative solution to this problem. This methodology allows analyzing the internal state of the model during generation, hypothesizing that information about the truthfulness of a statement is encoded in the latent space of neurons, regardless of the final textual output which is generated stochastically as it is influenced by multiple factors (temperature, top-k sampling, etc.). 
+Several recent studies have demonstrated that it is possible to train simple linear classifiers to distinguish true statements from false ones by observing the activations of internal layers, and that generally activations related to hallucinations and those related to correct answers tend to be easily separable \cite{Geometry}
+
+However, most research has focused on creating probes specific to a single model or a specific architecture, leaving the problem of transferability relatively unexplored.
+This work aims to study whether there exists a universal representation of hallucinations in LLMs, regardless of the underlying architecture. In particular, the goal is to develop a general \textit{prober} capable of detecting hallucinations in different models without the need for specific training for each of them (at most with a preliminary alignment between the latent spaces, as these differ between different models).
+
+The main objectives of this project are:
+\begin{itemize}
+    \item Analyze and compare the internal activations of different LLM families (e.g., Qwen, Falcon) to identify common patterns associated with the hallucination phenomenon.
+    \item Develop and evaluate alignment methodologies (linear and non-linear) between the latent spaces of a \textit{trainer} model and a \textit{tester} model.
+    \item Build a universal \textit{prober} capable of transferring hallucination detection capability from one model to another without additional supervision on the target model.
+\end{itemize}
+
+
+\section{Document Overview}
+
+The rest of the document is structured as follows:
+\begin{itemize}
+    \item \textbf{Chapter 2: Background} - Theoretical background and overview of existing techniques for hallucination detection in LLMs.
+    \item \textbf{Chapter 3: Methodology} - Detailed description of the architectures used, alignment techniques, and universal prober design.
+    \item \textbf{Chapter 4: Results} - Presentation of obtained results
+    \item \textbf{Chapter 5: Discussion} - Discussion of obtained results
+    \item \textbf{Chapter 6: Cross-Domain Studies}: Cross-domain use of the One-For-All prober
+    \item \textbf{Chapter 7: Conclusions}: Final conclusions and proposal for future work
+\end{itemize}

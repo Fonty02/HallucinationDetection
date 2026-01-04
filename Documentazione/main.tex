@@ -1,0 +1,115 @@
+\documentclass[12pt,twoside]{book}
+\usepackage[margin=1.2in]{geometry}
+\usepackage[toc,page]{appendix}
+\usepackage{graphicx}
+\usepackage[square,numbers]{natbib}
+\usepackage{lipsum}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{url}
+\usepackage{MnSymbol,wasysym}
+\usepackage{xcolor}
+\usepackage{booktabs} % For professional horizontal lines (\toprule, etc.)
+\usepackage{graphicx} % For the \resizebox command
+\usepackage{amsmath}  % For mathematical symbols
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{booktabs}     % per \toprule, \midrule, \bottomrule
+\usepackage{array}
+\usepackage[table]{xcolor}
+
+\begin{document}
+
+%\captionsetup[figure]{margin=1.5cm,font=small,labelfont={bf},name={Figure},labelsep=colon,textfont={it}}
+%\captionsetup[table]{margin=1.5cm,font=small,labelfont={bf},name={Table},labelsep=colon,textfont={it}}
+%\SetLipsumDefault{1}
+
+\frontmatter
+
+\begin{titlepage}
+
+% -------------------------------------------------------------------
+% You need to edit the details here
+% -------------------------------------------------------------------
+
+\begin{center}
+{\LARGE University of Bari Aldo Moro}\\[0.25cm]
+{\Large Department of Computer Science}\\[1cm]
+%{\large \emph{A thesis submitted in partial fulfillment of the requirements for the\\degree of Doctor of Philosophy in Computer Science}}\\[2.5cm]
+\linespread{1.2}\huge {\bfseries One-For-All: A Prober to Detect Them All}\\[1.5cm]
+\linespread{1}
+\includegraphics[width=3.5cm]{images/uniba-logo.png}\\[1.5cm]
+{\Large\bf Emanuele Fontana}\\[1cm]
+%\large \emph{Supervisor:}\\
+%Dr.~Gennaro Vessio\\[1cm] 
+\vspace{\fill}
+\today
+\end{center}
+
+\end{titlepage}
+
+% -------------------------------------------------------------------
+% Declaration
+% -------------------------------------------------------------------
+
+%\newpage
+%\section*{\Large Declaration}
+
+%All sentences or passages quoted in this document from other people's work have been specifically acknowledged by clear cross-referencing to author, work and page(s). Any illustrations that are not the work of the author of this report have been used with the explicit permission of the originator and are specifically acknowledged.  I understand that failure to do this amounts to plagiarism and will be considered grounds for failure.\\[1cm]
+
+%\noindent Name:\\[1mm]
+%\rule[1em]{25em}{0.5pt}
+
+%\noindent Signature:\\[1mm]
+%\rule[1em]{25em}{0.5pt}
+
+%\noindent Date:\\[1mm]
+%\rule[1em]{25em}{0.5pt}
+
+% \includepdf[pages=-]{forms/form.pdf}
+
+%\input{sections/0_i_ack.tex}
+
+% -------------------------------------------------------------------
+% Abstract
+% -------------------------------------------------------------------
+
+\input{sections/0_ii_abstract.tex}
+
+% -------------------------------------------------------------------
+% Contents, list of figures, list of tables
+% -------------------------------------------------------------------
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+% -------------------------------------------------------------------
+% Main sections (as required)
+% -------------------------------------------------------------------
+
+\mainmatter
+
+\input{sections/1_introduction.tex}
+\input{sections/2_background.tex}
+\input{sections/3_methodology.tex}
+\input{sections/4_results.tex}
+\input{sections/5_discussion.tex}
+\input{sections/6_conclusion.tex}
+% -------------------------------------------------------------------
+% Bibliography
+% -------------------------------------------------------------------
+
+\bibliographystyle{plainnat}
+\bibliography{main} 
+
+% -------------------------------------------------------------------
+% Appendices
+% -------------------------------------------------------------------
+
+\begin{appendices}
+\input{sections/appendixA.tex}
+\input{sections/appendixB.tex}
+\end{appendices}
+
+\end{document}
