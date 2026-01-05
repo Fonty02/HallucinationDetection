@@ -665,7 +665,9 @@ def run_frozen_head_experiment(teacher_data, teacher_name, student_data, student
             "transfer_gap": {
                 "accuracy_gap": round(metrics_t['acc'] - metrics_s['acc'], 4)
             }
-        }
+        },
+        "encoder_config": Config.ENCODER_CONFIG,
+        "head_config": Config.HEAD_CONFIG
     }
 
 # ==================================================================
