@@ -4,9 +4,8 @@ import time
 import torch
 from tqdm import tqdm
 import src.model.utils as ut
-from src.data.SimpleQADataset import SimpleQADataset
-from src.data.HaluBenchDataset import HaluBenchDataset
 from src.data.BeliefBankDataset import BeliefBankDataset
+from src.data.HaluEvalDataset import HaluEvalDataset
 from src.model.InspectOutputContext import InspectOutputContext
 from src.model.prompts import SYSTEM_PROMPT_BB, USER_PROMPT_BB, SYSTEM_PROMPT_HE, USER_PROMPT_HE
 
@@ -33,12 +32,10 @@ class HallucinationDetection:
         print(f"Loading dataset {dataset_name}")
         print("--"*50)
         
-        if dataset_name == "simpleqa":
+       
+        if dataset_name == "halu_eval":
             self.dataset_name = dataset_name
-            self.dataset = SimpleQADataset(use_local=use_local)
-        elif dataset_name == "halu_bench":
-            self.dataset_name = dataset_name
-            self.dataset = HaluBenchDataset(use_local=use_local)
+            self.dataset = HaluEvalDataset(use_local=use_local)
         elif dataset_name == "belief_bank":
             self.dataset_name = dataset_name
             # data_type: "facts" o "constraints"
@@ -125,7 +122,7 @@ class HallucinationDetection:
         print(f"Processing {num_samples} samples out of {len(self.dataset)} total")
         
         # Process dataset in batches to save memory
-        BATCH_SIZE = 64
+        BATCH_SIZE = 1
         num_batches = (num_samples + BATCH_SIZE - 1) // BATCH_SIZE
         print(f"Processing in {num_batches} batches of {BATCH_SIZE} samples")
 
