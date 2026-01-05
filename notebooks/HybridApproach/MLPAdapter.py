@@ -81,23 +81,7 @@ class Config:
     }
     
 
-    """
-    LAYER_CONFIG = {
-        "belief_bank_facts": {
-            "Qwen2.5-7B": {
-                "attn": [14, 15, 17],
-                "mlp": [14, 23, 25],
-                "hidden": [15, 16, 17]
-            },
-            "Falcon3-7B-Base": {
-                "attn": [18, 19, 26],
-                "mlp": [18, 19, 20],
-                "hidden": [17, 18, 21]
-            },
-            "save_dir": "Qwen_Falcon_BBF_MIAO"
-        }
-    }
-    """ 
+ 
     ALIGNMENT_CONFIG = {
         "hidden_dim": 128,
         "dropout": 0.5,
