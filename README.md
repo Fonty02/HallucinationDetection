@@ -10,7 +10,7 @@ The goal is to save LLM activations when processing questions and answers from t
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Fonty02/HallucinationDetection.git
+git clone [github.repo]
 cd HallucinationDetection
 ```
 
@@ -24,102 +24,99 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```bash
 uv sync
 ```
+## 📚 Methodology
 
-## 📊 Dataset
+This project implements the **One4All** approach, a unified model-agnostic framework for detecting three types of hallucinations in LLMs:
 
-This project uses **SimpleQA-verified**, a 1,000-prompt factuality benchmark from Google DeepMind and Google Research, available on [🤗 HuggingFace](https://huggingface.co/datasets/google/simpleqa-verified).
+### Types of Hallucinations Detected
 
-The dataset contains:
-- **problem**: Question testing parametric knowledge
-- **answer**: Gold answer for verification
-- **topic**: Subject category (e.g., Politics, Art, Sports)
-- **answer_type**: Type of answer (Person, Date, Number, Place, Other)
-- **multi_step**: Whether question requires multiple sources
-- **requires_reasoning**: Whether complex reasoning is needed
-- **urls**: Supporting URLs for verification
+1. **Factual Hallucinations**: Inconsistencies between model outputs and established world knowledge
+   - Datasets: BeliefBank Facts
+   
+2. **Logical Hallucinations**: Violations of logical consistency in reasoning
+   - Dataset: BeliefBank Constraints
+   
+3. **Contextual Hallucinations**: Discrepancies between generated text and provided context
+   - Dataset: HaluEval
+
+### Activation Extraction
+
+The framework extracts internal representations from different model components:
+
+- **Hidden States**: Final layer representations before the output layer
+- **MLP Outputs**: Feed-forward network outputs at each layer
+- **Attention Outputs**: Multi-head attention outputs at each layer
+
+These activations are extracted at specific token positions to capture the model's internal state when processing information.
+
+
+## 🗂️ Project Structure
+
+### Data Directories
+- `data/beliefbank/`: Facts, constraints, and templates for factual/logical hallucination detection
+
+### Models
+- `models_frozen_head/`: Trained probe models organized by:
+  - Dataset: `belief_bank_constraints/`, `belief_bank_facts/`, `halu_eval/`
+  - Component: `attn/`, `hidden/`, `mlp/`
+  - Architecture: encoder-only, shared-head, adapter-based
+
+### Source Code
+- `src/model/HallucinationDetection.py`: Used to store activations
+- `src/data/`: Dataset loaders for BeliefBank and HaluEval
+- `src/model/predict.py`: Inference utilities
+
+### Notebooks
+- `notebooks/HybridApproach/`: MLP adapter experiments
+- `notebooks/linearApproach/`: Linear probe experiments
+- `notebooks/nonLinearApproach/`: Non-linear probe variants
+- `notebooks/layersStudies/`: Layer-wise analysis
 
 ## 🚀 Usage
 
-### Save Model Activations
-
-To save LLM activations for the SimpleQA dataset:
+### Extracting Activations
 
 ```bash
-python -m src.model.predict --model_name "meta-llama/Meta-Llama-3-8B" --data_name "simpleqa" --use_local
-```
-
-Parameters:
-- `--model_name`: HuggingFace model identifier (default: "meta-llama/Meta-Llama-3-8B")
-- `--data_name`: Dataset name (default: "simpleqa")
-- `--use_local`: Use locally cached model and dataset
-
-### What Gets Saved
-
-The script saves:
-1. **Hidden states** from each transformer layer (32 layers for Llama-3-8B)
-2. **MLP outputs** from each layer
-3. **Attention outputs** from each layer
-4. **Model generations** (LLM responses to questions)
-5. **Logits** (output probabilities)
-
-All activations are saved in `activation_cache/{model_name}/simpleqa/`:
-- `activation_hidden/` - Hidden states
-- `activation_mlp/` - MLP layer outputs
-- `activation_attn/` - Attention layer outputs
-- `generations/` - Text generations
-- `logits/` - Output logits
-
-## 📁 Project Structure
 
 ```
-HallucinationDetection/
-├── 📄 README.md
-├── 📄 requirements.txt
-├── 📄 setup.py
-├── 📁 src/
-│   ├── 📁 data/
-│   │   ├── SimpleQADataset.py          # SimpleQA dataset loader
-│   │   └── __init__.py
-│   ├── 📁 model/
-│   │   ├── HallucinationDetection.py   # Main class for activation extraction
-│   │   ├── InspectOutputContext.py     # Context manager for layer inspection
-│   │   ├── predict.py                  # Script to run activation saving
-│   │   ├── prompts.py                  # Prompt templates
-│   │   ├── utils.py                    # Utility functions
-│   │   └── __init__.py
-│   └── __init__.py
-├── 📁 activation_cache/                 # Saved activations (created at runtime)
-└── 📁 notebooks/                        # Analysis notebooks
+
+### Training Probes
+
+```bash
+# Train encoder probe on BeliefBank facts
+python scripts/train_probe.py \
+    --dataset belief_bank_facts \
+    --model_name meta-llama/Llama-3.1-8B-Instruct \
+    --component hidden \
+    --probe_type encoder
 ```
 
-## 💻 Example Code
+### Cross-Model Evaluation
 
-```python
-from src.model.HallucinationDetection import HallucinationDetection
-
-# Initialize
-detector = HallucinationDetection(project_dir=".")
-
-# Save activations for SimpleQA
-detector.save_model_activations(
-    llm_name="meta-llama/Meta-Llama-3-8B",
-    data_name="simpleqa",
-    use_local=True
-)
+```bash
+# Evaluate cross-domain transfer
+python scripts/generate_cross_domain_table.py \
+    --source_model meta-llama/Llama-3.1-8B-Instruct \
+    --target_model google/gemma-2-9b-it \
+    --dataset belief_bank_constraints
 ```
 
-## 🔧 Technical Details
+## 📊 Results
 
-- **Supported Models**: Any HuggingFace Transformers model (tested with Llama-3-8B)
-- **Activation Extraction**: Uses custom context manager to hook into model layers
-- **Storage Format**: PyTorch tensors (.pt files) + JSON metadata
-- **Layers Analyzed**: All 32 transformer layers (configurable via `TARGET_LAYERS`)
-- **Quantization**: Supports BitsAndBytes 4-bit/8-bit quantization
+The project includes comprehensive evaluation across:
+- Multiple LLM families (Llama, Gemma, Qwen, Falcon)
+- Different activation components (hidden states, MLP, attention)
+- Cross-model transfer scenarios
+- Layer-wise analysis (see `notebooks/layersStudies/`)
 
-## 📝 Notes
+Confusion matrices and performance metrics are stored in `confusion_matrices_frozen_head/`.
 
-- Activation extraction requires significant disk space (~GB per model run)
-- GPU with sufficient VRAM is recommended (tested on CUDA-enabled GPUs)
-- The script processes all 1,000 examples from SimpleQA-verified
-- Activations are saved per-instance and then combined into layer-wise tensors
+## 🔬 Key Findings
+
+Based on the One4All approach:
+
+1. **Model-Agnostic Transfer**: Probes trained on one model can effectively detect hallucinations in other models
+2. **Component Importance**: Hidden states and MLP outputs generally provide better hallucination signals than attention
+3. **Layer Analysis**: Middle-to-late layers contain the most informative representations for hallucination detection
+4. **Unified Detection**: A single probe can detect multiple types of hallucinations across different domains
 
