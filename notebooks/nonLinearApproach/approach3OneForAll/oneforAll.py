@@ -615,13 +615,13 @@ def run_frozen_head_experiment(teacher_data, teacher_name, student_data, student
     os.makedirs(save_dirs['models'], exist_ok=True)
     
     path_t_enc = os.path.join(save_dirs['models'], f"frozen_head_encoder_{teacher_name}.pt")
-    torch.save({'model_state_dict': enc_teacher.state_dict(), 'config': Config.ENCODER_CONFIG}, path_t_enc)
+    torch.save({'model_state_dict': enc_teacher.state_dict(), 'encoder_config': Config.ENCODER_CONFIG, 'input_dim': teacher_data["X_train"].shape[1], 'latent_dim': Config.ENCODER_CONFIG['latent_dim']}, path_t_enc)
     
     path_head = os.path.join(save_dirs['models'], f"frozen_head_shared_head_{teacher_name}.pt")
-    torch.save({'model_state_dict': head_shared.state_dict(), 'config': Config.HEAD_CONFIG}, path_head)
+    torch.save({'model_state_dict': head_shared.state_dict(), 'head_config': Config.HEAD_CONFIG, 'latent_dim': Config.ENCODER_CONFIG['latent_dim']}, path_head)
     
     path_s_enc = os.path.join(save_dirs['models'], f"frozen_head_encoder_{student_name}_adapter.pt")
-    torch.save({'model_state_dict': enc_student.state_dict(), 'config': Config.ENCODER_CONFIG}, path_s_enc)
+    torch.save({'model_state_dict': enc_student.state_dict(), 'encoder_config': Config.ENCODER_CONFIG, 'input_dim': student_data["X_train"].shape[1], 'latent_dim': Config.ENCODER_CONFIG['latent_dim']}, path_s_enc)
 
     return {
         "layer_type": layer_type,
