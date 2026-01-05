@@ -602,10 +602,38 @@ def run_experiment(X_teacher, y_teacher, teacher_name,
         torch.save({**meta, "model_state_dict": model.state_dict()}, path)
         return path
 
-    ae_t_path = save(ae_teacher, f"autoencoder_{teacher_name}", {"config": Config.AUTOENCODER_CONFIG})
-    ae_s_path = save(ae_student, f"autoencoder_{student_name}", {"config": Config.AUTOENCODER_CONFIG})
-    prob_path = save(prober, f"mlp_prober_{teacher_name}", {"config": Config.PROBER_CONFIG})
-    align_path = save(aligner, f"aligner_{student_name}_to_{teacher_name}", {"config": Config.ALIGNMENT_CONFIG})
+    ae_t_path = save(ae_teacher, f"autoencoder_{teacher_name}", {
+        'autoencoder_config': Config.AUTOENCODER_CONFIG,
+        'input_dim': int(X_teacher['X_train'].shape[1]),
+        'latent_dim': Config.AUTOENCODER_CONFIG['latent_dim'],
+        'best_val_loss': ae_t_loss,
+        'epochs_trained': ae_t_ep,
+        'model_name': teacher_name,
+    })
+    ae_s_path = save(ae_student, f"autoencoder_{student_name}", {
+        'autoencoder_config': Config.AUTOENCODER_CONFIG,
+        'input_dim': int(X_student['X_train'].shape[1]),
+        'latent_dim': Config.AUTOENCODER_CONFIG['latent_dim'],
+        'best_val_loss': ae_s_loss,
+        'epochs_trained': ae_s_ep,
+        'model_name': student_name,
+    })
+    prob_path = save(prober, f"mlp_prober_{teacher_name}", {
+        'prober_config': Config.PROBER_CONFIG,
+        'input_dim': Config.AUTOENCODER_CONFIG['latent_dim'],
+        'best_val_acc': prob_acc,
+        'epochs_trained': prob_ep,
+        'teacher_model': teacher_name,
+    })
+    align_path = save(aligner, f"aligner_{student_name}_to_{teacher_name}", {
+        'alignment_config': Config.ALIGNMENT_CONFIG,
+        'input_dim': Config.AUTOENCODER_CONFIG['latent_dim'],
+        'output_dim': Config.AUTOENCODER_CONFIG['latent_dim'],
+        'best_val_loss': align_loss,
+        'epochs_trained': align_ep,
+        'student_model': student_name,
+        'teacher_model': teacher_name,
+    })
 
     # 8. Construct JSON Output (Exactly matching notebook schema)
     return {
