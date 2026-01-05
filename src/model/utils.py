@@ -8,6 +8,8 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from transformers import BitsAndBytesConfig
 import random
 import unicodedata
+import re
+import string
 
 
 HF_DEFAULT_HOME = os.environ.get("HF_HOME", "~/.cache/huggingface/hub")
@@ -107,13 +109,14 @@ def load_tokenizer(model_name, local=False):
     return tokenizer
 
 
-def build_messages(system_prompt, user_prompt, k=0, sample_user_prompts=[], assistant_prompts=[], assistant=""):
+def build_messages(system_prompt, user_prompt, k=0, sample_user_prompts=[], assistant_prompts=[], assistant="", use_system=True):
     """
         Builds the messages to be sent to the LLM.
     """
     messages = []
 
-    messages.append({ "role": "system", "content": system_prompt })
+    if use_system:
+        messages.append({ "role": "system", "content": system_prompt })
 
     for i in range(k):
         messages.append({ "role": "user", "content": sample_user_prompts[i][0] })
