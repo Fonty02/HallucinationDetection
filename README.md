@@ -55,16 +55,9 @@ These activations are extracted at specific token positions to capture the model
 ### Data Directories
 - `data/beliefbank/`: Facts, constraints, and templates for factual/logical hallucination detection
 
-### Models
-- `models_frozen_head/`: Trained probe models organized by:
-  - Dataset: `belief_bank_constraints/`, `belief_bank_facts/`, `halu_eval/`
-  - Component: `attn/`, `hidden/`, `mlp/`
-  - Architecture: encoder-only, shared-head, adapter-based
-
 ### Source Code
-- `src/model/HallucinationDetection.py`: Used to store activations
+- `src/model/`: Used to store activations
 - `src/data/`: Dataset loaders for BeliefBank and HaluEval
-- `src/model/predict.py`: Inference utilities
 
 ### Notebooks
 - `notebooks/HybridApproach/`: MLP adapter experiments
@@ -107,7 +100,7 @@ python src/model/predict.py \
 
 Each script must be run from its own directory to ensure relative paths work correctly.
 
-#### Linear Approach
+#### Linear Approach (FullyLinear)
 
 ```bash
 cd notebooks/linearApproach
@@ -119,7 +112,7 @@ cd notebooks/linearApproach
 uv run fullLinear.py
 ```
 
-#### MLP Adapter Approach 
+#### MLP Adapter Approach (AdapterMLP)
 
 ```bash
 cd notebooks/HybridApproach
@@ -133,7 +126,7 @@ uv run MLPAdapter.py
 
 #### Non-Linear Approaches
 
-**Approach 1 (Full Dimension)**
+**Approach 1 (FullyNonLinear)**
 ```bash
 cd notebooks/nonLinearApproach/approach1FullDIM
 python app1.py
@@ -144,7 +137,7 @@ cd notebooks/nonLinearApproach/approach1FullDIM
 uv run app1.py
 ```
 
-**Approach 2 (Projected)**
+**Approach 2 (ReducedNonLinear)**
 ```bash
 cd notebooks/nonLinearApproach/approach2Projected
 python app2.py
