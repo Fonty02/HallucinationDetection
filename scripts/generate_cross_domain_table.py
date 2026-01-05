@@ -2,7 +2,7 @@ import json
 import os
 import glob
 
-base_path = "allucinationDetection/notebooks/nonLinearApproach/approach3OneForAll"
+base_path = "HallucinationDetection/notebooks/nonLinearApproach/approach3OneForAll"
 folders = ["LLama_Gemma_BBC", "LLama_Gemma_BBF", "LLama_Gemma_HE"]
 
 print("\\begin{table}[H]")
@@ -53,6 +53,6 @@ for folder in folders:
 print("\\bottomrule")
 print("\\end{tabular}")
 print("}")
-print("\\caption{Risultati Cross-Domain (One-For-All). T=Teacher (Baseline), S=Student (Projected)}")
+print("\\caption{Cross-Domain Results (One-For-All). T=Teacher (Baseline), S=Student (Projected)}")
 print("\\label{tab:cross-domain-results}")
 print("\\end{table}")

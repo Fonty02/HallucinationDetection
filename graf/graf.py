@@ -1,6 +1,6 @@
 """
-Script per generare grafici PCA delle attivazioni per ogni combinazione LLM-LayerType.
-Per ogni combinazione, genera una figura con 3 subplot (uno per dataset).
+Script to generate PCA plots of activations for each LLM-LayerType combination.
+For each combination, generates a figure with 3 subplots (one per dataset).
 """
 
 import os
@@ -17,8 +17,8 @@ from sklearn.decomposition import PCA
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 SEED = 42
 
-# Struttura dei dati: {cartella_dataset: {model: {layer_type: layer_num}}}
-# I layer sono quelli disponibili nei file .pt
+# Data structure: {dataset_folder: {model: {layer_type: layer_num}}}
+# The layers are those available in the .pt files
 DATASET_CONFIG = {
     "beliefbank_constr": {
         "dataset_name": "belief_bank_constraints",
@@ -77,7 +77,7 @@ DATASET_FOLDERS = ["beliefbank_constr", "beliefbank_fact", "halu_eval"]
 
 def load_activations(dataset_folder, model_name, layer_type, layer_num):
     """
-    Carica le attivazioni da file .pt per hallucinated e not_hallucinated.
+    Load activations from .pt files for hallucinated and not_hallucinated.
     
     Returns:
         X: numpy array delle attivazioni concatenate
@@ -96,16 +96,16 @@ def load_activations(dataset_folder, model_name, layer_type, layer_num):
     hall_path = os.path.join(base_path, "hallucinated", f"layer{layer_num}_activations.pt")
     not_hall_path = os.path.join(base_path, "not_hallucinated", f"layer{layer_num}_activations.pt")
     
-    # Verifica che i file esistano
+    # Verify that files exist
     if not os.path.exists(hall_path) or not os.path.exists(not_hall_path):
-        print(f"  [WARN] File non trovati per {model_name}/{dataset_folder}/{layer_type}/layer{layer_num}")
+        print(f"  [WARN] Files not found for {model_name}/{dataset_folder}/{layer_type}/layer{layer_num}")
         return None, None
     
-    # Carica attivazioni
+    # Load activations
     hall_activations = torch.load(hall_path, map_location='cpu')
     not_hall_activations = torch.load(not_hall_path, map_location='cpu')
     
-    # Limita a 1000 campioni per ogni label
+    # Limit to 1000 samples per label
     max_samples = 1000
     if isinstance(hall_activations, torch.Tensor):
         hall_activations = hall_activations[:max_samples] if hall_activations.shape[0] > max_samples else hall_activations
@@ -114,7 +114,7 @@ def load_activations(dataset_folder, model_name, layer_type, layer_num):
         not_hall_activations = not_hall_activations[:max_samples] if not_hall_activations.shape[0] > max_samples else not_hall_activations
         not_hall_activations = not_hall_activations.cpu().numpy().astype(np.float32)
     
-    # Prova a caricare gli instance ids e riordinare come in FullLinear.ipynb
+    # Try to load instance ids and reorder as in FullLinear.ipynb
     hall_ids_path = os.path.join(base_path, "hallucinated", f"layer{layer_num}_instance_ids.json")
     not_hall_ids_path = os.path.join(base_path, "not_hallucinated", f"layer{layer_num}_instance_ids.json")
     try:
@@ -133,7 +133,7 @@ def load_activations(dataset_folder, model_name, layer_type, layer_num):
         X = X_concat[sort_idx]
         y = y_concat[sort_idx]
     except Exception:
-        # Fallback: mantieni la concatenazione semplice se i file di ids non sono presenti
+        # Fallback: keep simple concatenation if ids files are not present
         X = np.vstack([hall_activations, not_hall_activations])
         y = np.concatenate([
             np.ones(hall_activations.shape[0], dtype=int),
@@ -145,30 +145,30 @@ def load_activations(dataset_folder, model_name, layer_type, layer_num):
 
 def create_pca_subplot(ax, X, y, title, show_ylabel=True):
     """
-    Crea un singolo subplot PCA.
+    Create a single PCA subplot.
     
     Args:
         ax: matplotlib axes
-        X: attivazioni (n_samples, hidden_dim)
-        y: label (n_samples,)
-        title: titolo del subplot
-        show_ylabel: se mostrare l'etichetta dell'asse Y
+        X: activations (n_samples, hidden_dim)
+        y: labels (n_samples,)
+        title: subplot title
+        show_ylabel: whether to show Y-axis label
     """
     if X is None or y is None:
-        ax.text(0.5, 0.5, 'Dati non disponibili', 
+        ax.text(0.5, 0.5, 'Data not available', 
                 ha='center', va='center', transform=ax.transAxes, fontsize=12)
         ax.set_title(title, fontsize=14, fontweight='bold')
         return
     
-    # Applica direttamente la PCA senza StandardScaler (come nei notebook originali)
+    # Apply PCA directly without StandardScaler (as in original notebooks)
     pca = PCA(n_components=2, random_state=SEED)
     X_pca = pca.fit_transform(X)
     
-    # Separa per classe
+    # Separate by class
     mask_hall = y == 1
     mask_not_hall = y == 0
     
-    # Plot - prima not_hallucinated (blu), poi hallucinated (rosso) per visibilità
+    # Plot - first not_hallucinated (blue), then hallucinated (red) for visibility
     ax.scatter(X_pca[mask_not_hall, 0], X_pca[mask_not_hall, 1], 
                c='blue', alpha=0.5, s=25, label='Not Hallucinated', zorder=1)
     ax.scatter(X_pca[mask_hall, 0], X_pca[mask_hall, 1], 
@@ -183,18 +183,18 @@ def create_pca_subplot(ax, X, y, title, show_ylabel=True):
 
 def plot_model_layer_combination(model_name, layer_type, output_dir="output_plots"):
     """
-    Genera una figura con 3 subplot (uno per dataset) per una combinazione model-layer_type.
+    Generate a figure with 3 subplots (one per dataset) for a model-layer_type combination.
     
     Args:
-        model_name: nome del modello
-        layer_type: tipo di layer (attn, mlp, hidden)
-        output_dir: directory di output per i grafici
+        model_name: model name
+        layer_type: layer type (attn, mlp, hidden)
+        output_dir: output directory for plots
     """
-    # Crea directory di output se non esiste
+    # Create output directory if it doesn't exist
     output_path = os.path.join(SCRIPT_DIR, output_dir)
     os.makedirs(output_path, exist_ok=True)
     
-    # Configurazione stile
+    # Style configuration
     plt.rcParams.update({
         "font.family": "serif",
         "font.weight": "bold",
@@ -205,10 +205,10 @@ def plot_model_layer_combination(model_name, layer_type, output_dir="output_plot
         "legend.fontsize": 10,
     })
     
-    # Crea figura con 3 subplot
+    # Create figure with 3 subplots
     fig, axes = plt.subplots(1, 3, figsize=(15, 5))
     
-    # Nome modello per il titolo (abbreviato)
+    # Model name for title (abbreviated)
     model_short = "Gemma-2-9B" if "gemma" in model_name.lower() else "Llama-3.1-8B"
     
     
@@ -217,11 +217,11 @@ def plot_model_layer_combination(model_name, layer_type, output_dir="output_plot
         display_name = config["display_name"]
         layer_num = config["models"][model_name][layer_type]
         
-        print(f"  Caricamento {dataset_folder} - layer {layer_num}...")
+        print(f"  Loading {dataset_folder} - layer {layer_num}...")
         X, y = load_activations(dataset_folder, model_name, layer_type, layer_num)
         
         if X is not None:
-            print(f"    Campioni: {len(y)} (Hall: {np.sum(y==1)}, Not Hall: {np.sum(y==0)})")
+            print(f"    Samples: {len(y)} (Hall: {np.sum(y==1)}, Not Hall: {np.sum(y==0)})")
         
         create_pca_subplot(
             axes[idx], 
@@ -231,20 +231,20 @@ def plot_model_layer_combination(model_name, layer_type, output_dir="output_plot
             show_ylabel=(idx == 0)
         )
     
-    # Aggiungi legenda condivisa: posizionala al centro sopra il titolo per evitare sovrapposizioni
+    # Add shared legend: position it at center above title to avoid overlaps
     handles, labels = axes[0].get_legend_handles_labels()
     if handles:
         fig.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, 1.12), ncol=2, frameon=True)
     
     plt.tight_layout()
     
-    # Salva il grafico
+    # Save the plot
     filename = f"PCA_{model_short}_{layer_type}.pdf"
     filepath = os.path.join(output_path, filename)
     plt.savefig(filepath, dpi=300, bbox_inches='tight')
-    print(f"  Salvato: {filepath}")
+    print(f"  Saved: {filepath}")
     
-    # Salva anche in PNG per preview rapida
+    # Also save as PNG for quick preview
     filename_png = f"PCA_{model_short}_{layer_type}.png"
     filepath_png = os.path.join(output_path, filename_png)
     plt.savefig(filepath_png, dpi=150, bbox_inches='tight')
@@ -254,10 +254,10 @@ def plot_model_layer_combination(model_name, layer_type, output_dir="output_plot
 
 def generate_all_plots():
     """
-    Genera tutti i grafici per ogni combinazione LLM-LayerType.
+    Generate all plots for each LLM-LayerType combination.
     """
     print("="*60)
-    print("Generazione grafici PCA per tutte le combinazioni")
+    print("Generating PCA plots for all combinations")
     print("="*60)
     
     for model in MODELS:
@@ -266,7 +266,7 @@ def generate_all_plots():
             plot_model_layer_combination(model, layer_type)
     
     print("\n" + "="*60)
-    print("Generazione completata!")
+    print("Generation completed!")
     print("="*60)
 
 

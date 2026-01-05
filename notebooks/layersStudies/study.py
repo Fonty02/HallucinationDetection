@@ -30,17 +30,7 @@ def set_seed(seed=SEED):
 set_seed(SEED)
 
 def get_balanced_indices(y, seed=SEED):
-    """
-    Calcola gli indici per bilanciare il dataset tramite undersampling.
-    Questa funzione è DETERMINISTICA dato lo stesso seed e le stesse label.
     
-    Args:
-        y: numpy array delle label
-        seed: seed per la riproducibilità
-    
-    Returns:
-        balanced_indices: numpy array degli indici selezionati (ordinati)
-    """
     rng = np.random.RandomState(seed)
     
     unique_classes, counts = np.unique(y, return_counts=True)
@@ -69,9 +59,6 @@ HF_DEFAULT_HOME = os.environ.get("HF_HOME", "~\\.cache\\huggingface\\hub")
 
 
 def stats_per_json(model_name, dataset_name):
-    """
-    Versione originale per la vecchia struttura con hallucination_labels.json
-    """
     file_path = os.path.join(PROJECT_ROOT, CACHE_DIR_NAME, model_name, dataset_name,"generations","hallucination_labels.json")
     with open(file_path, 'r') as file:
         data = json.load(file)
@@ -89,9 +76,6 @@ def stats_per_json(model_name, dataset_name):
     }
 
 def stats_from_new_structure(model_name, dataset_name):
-    """
-    Nuova funzione per la struttura con cartelle hallucinated/ e not_hallucinated/
-    """
     base_path = os.path.join(PROJECT_ROOT, CACHE_DIR_NAME, model_name, dataset_name, "activation_attn")
     hallucinated_path = os.path.join(base_path, "hallucinated")
     not_hallucinated_path = os.path.join(base_path, "not_hallucinated")
@@ -121,11 +105,7 @@ def stats_from_new_structure(model_name, dataset_name):
     }
 
 def detect_structure_type(model_name, dataset_name):
-    """
-    Rileva automaticamente se la struttura è vecchia o nuova.
-    Ritorna 'new' se esistono le cartelle hallucinated/not_hallucinated,
-    altrimenti 'old'.
-    """
+    
     base_path = os.path.join(PROJECT_ROOT, CACHE_DIR_NAME, model_name, dataset_name, "activation_attn")
     hallucinated_path = os.path.join(base_path, "hallucinated")
     if os.path.isdir(hallucinated_path):
@@ -133,9 +113,7 @@ def detect_structure_type(model_name, dataset_name):
     return 'old'
 
 def get_stats(model_name, dataset_name):
-    """
-    Funzione wrapper che rileva automaticamente la struttura e chiama la funzione appropriata.
-    """
+    
     structure = detect_structure_type(model_name, dataset_name)
     if structure == 'new':
         return stats_from_new_structure(model_name, dataset_name)
@@ -144,38 +122,34 @@ def get_stats(model_name, dataset_name):
 
 
 available_models = os.listdir(os.path.join(PROJECT_ROOT, CACHE_DIR_NAME))
-print("Modelli disponibili:", available_models)
+print("Available models:", available_models)
 
-# Scegli modello e dataset
-MODEL_NAME = "gemma-2-9b-it"  # Cambia secondo necessità
-DATASET_NAME = "belief_bank_constraints"      # Cambia secondo necessità
-
-# Verifica la struttura
+# Choose model and dataset
+MODEL_NAME = "gemma-2-9b-it"  # Change as needed
+DATASET_NAME = "belief_bank_constraints"      # Change as needed
+# Check the structure
 structure_type = detect_structure_type(MODEL_NAME, DATASET_NAME)
-print(f"Struttura dati rilevata per {MODEL_NAME}/{DATASET_NAME}: {structure_type}")
+print(f"Data structure detected for {MODEL_NAME}/{DATASET_NAME}: {structure_type}")
 
-# Ottieni statistiche
+# Get statistics
 stats = get_stats(MODEL_NAME, DATASET_NAME)
-print(f"\nStatistiche per {MODEL_NAME}:")
-print(f"  Totale campioni: {stats['total']}")
-print(f"  Allucinazioni: {stats['hallucinations']} ({stats['percent_hallucinations']:.2f}%)")
+print(f"\nStatistics for {MODEL_NAME}:")
+print(f"  Total samples: {stats['total']}")
+print(f"  Hallucinations: {stats['hallucinations']} ({stats['percent_hallucinations']:.2f}%)")
 
-# Se vuoi confrontare più modelli
+# If you want to compare multiple models
 if "Llama-3.1-8B-Instruct" in available_models:
     gemma_stats = get_stats("Llama-3.1-8B-Instruct", DATASET_NAME)
-    print(f"\nStatistiche per Llama-3.1-8B-Instruct")
-    print(f"  Totale campioni: {gemma_stats['total']}")
-    print(f"  Allucinazioni: {gemma_stats['hallucinations']} ({gemma_stats['percent_hallucinations']:.2f}%)")
+    print(f"\nStatistics for Llama-3.1-8B-Instruct")
+    print(f"  Total samples: {gemma_stats['total']}")
+    print(f"  Hallucinations: {gemma_stats['hallucinations']} ({gemma_stats['percent_hallucinations']:.2f}%)")
 
 # %%
 def layers_in_model(model, dataset=None):
-    """
-    Conta il numero di layer nel modello.
-    Supporta sia la vecchia che la nuova struttura.
-    """
+    
     file_path = os.path.join(PROJECT_ROOT, CACHE_DIR_NAME, model)
     
-    # Se non viene specificato il dataset, prendi il primo disponibile
+    # If dataset is not specified, take the first available one
     if dataset is None:
         subdirs = [d for d in os.listdir(file_path) if os.path.isdir(os.path.join(file_path, d))]
         if not subdirs:
@@ -184,59 +158,47 @@ def layers_in_model(model, dataset=None):
     
     layer_dir = os.path.join(file_path, dataset, "activation_attn")
     
-    # Controlla se è la nuova struttura (con cartelle hallucinated/not_hallucinated)
+    # Check if it's the new structure (with hallucinated/not_hallucinated folders)
     hallucinated_path = os.path.join(layer_dir, "hallucinated")
     if os.path.isdir(hallucinated_path):
-        # Nuova struttura: conta i file layer*_activations.pt nella cartella hallucinated
+        # New structure: count layer*_activations.pt files in hallucinated folder
         layer_files = [f for f in os.listdir(hallucinated_path) if f.endswith('_activations.pt')]
         return len(layer_files)
     else:
-        # Vecchia struttura: conta i file layer*_activations.pt direttamente
+        # Old structure: count layer*_activations.pt files directly
         layer_files = [f for f in os.listdir(layer_dir) if f.endswith('_activations.pt')]
         return len(layer_files)
 
 
 def load_activations_and_labels(model_name, dataset_name, layer, layer_type):
-    """
-    Carica le attivazioni e le label per un dato layer e tipo.
-    Supporta sia la vecchia che la nuova struttura dati.
     
-    IMPORTANTE: Per la nuova struttura, le attivazioni vengono ordinate
-    in base agli instance_ids per garantire la corretta corrispondenza
-    tra campioni di diversi layer/tipi.
-    
-    Returns:
-        X: numpy array delle attivazioni (n_samples, hidden_dim) - ordinate per instance_id
-        y: numpy array delle label (n_samples,) - 1=hallucination, 0=correct
-        instance_ids: numpy array degli instance_ids (n_samples,) - ordinati
-    """
     structure = detect_structure_type(model_name, dataset_name)
     base_path = os.path.join(PROJECT_ROOT, CACHE_DIR_NAME, model_name, dataset_name, f"activation_{layer_type}")
     
     if structure == 'new':
-        # Nuova struttura: carica da hallucinated/ e not_hallucinated/
+        # New structure: load from hallucinated/ and not_hallucinated/
         hall_act_path = os.path.join(base_path, "hallucinated", f"layer{layer}_activations.pt")
         hall_ids_path = os.path.join(base_path, "hallucinated", f"layer{layer}_instance_ids.json")
         not_hall_act_path = os.path.join(base_path, "not_hallucinated", f"layer{layer}_activations.pt")
         not_hall_ids_path = os.path.join(base_path, "not_hallucinated", f"layer{layer}_instance_ids.json")
         
-        # Carica attivazioni
+        # Load activations
         hall_activations = torch.load(hall_act_path)
         not_hall_activations = torch.load(not_hall_act_path)
         
-        # Carica instance_ids
+        # Load instance_ids
         with open(hall_ids_path, 'r') as f:
             hall_ids = json.load(f)
         with open(not_hall_ids_path, 'r') as f:
             not_hall_ids = json.load(f)
         
-        # Converti in numpy
+        # Convert to numpy
         if isinstance(hall_activations, torch.Tensor):
             hall_activations = hall_activations.cpu().numpy().astype(np.float32)
         if isinstance(not_hall_activations, torch.Tensor):
             not_hall_activations = not_hall_activations.cpu().numpy().astype(np.float32)
         
-        # Concatena attivazioni, label e ids
+        # Concatenate activations, labels and ids
         X_concat = np.vstack([hall_activations, not_hall_activations])
         y_concat = np.concatenate([
             np.ones(hall_activations.shape[0], dtype=int),
@@ -244,7 +206,7 @@ def load_activations_and_labels(model_name, dataset_name, layer, layer_type):
         ])
         ids_concat = np.array(hall_ids + not_hall_ids)
         
-        # Ordina tutto in base agli instance_ids
+        # Sort everything by instance_ids
         sort_indices = np.argsort(ids_concat)
         X = X_concat[sort_indices]
         y = y_concat[sort_indices]
@@ -253,7 +215,7 @@ def load_activations_and_labels(model_name, dataset_name, layer, layer_type):
         return X, y, instance_ids
     
     else:
-        # Vecchia struttura: carica tutto insieme e usa hallucination_labels.json
+        # Old structure: load everything together and use hallucination_labels.json
         file_path = os.path.join(base_path, f"layer{layer}_activations.pt")
         activations = torch.load(file_path)
         
@@ -262,51 +224,49 @@ def load_activations_and_labels(model_name, dataset_name, layer, layer_type):
         else:
             X = activations.astype(np.float32)
         
-        # Carica le label dal JSON
+        # Load labels from JSON
         labels_path = os.path.join(PROJECT_ROOT, CACHE_DIR_NAME, model_name, dataset_name, 
                                    "generations", "hallucination_labels.json")
         with open(labels_path, 'r') as f:
             labels_data = json.load(f)
         
         y = np.array([item['is_hallucination'] for item in labels_data], dtype=int)
-        instance_ids = np.arange(len(y))  # IDs sequenziali per la vecchia struttura
+        instance_ids = np.arange(len(y))  # Sequential IDs for old structure
         
         return X, y, instance_ids
 
 
 def verify_ordering(model_name, dataset_name, layer=0, layer_type="attn"):
-    """
-    Verifica che le attivazioni siano ordinate per instance_id.
-    """
+   
     X, y, instance_ids = load_activations_and_labels(model_name, dataset_name, layer, layer_type)
     
-    print(f"=== Verifica ordinamento per {model_name}/{dataset_name} ===")
-    print(f"Layer: {layer}, Tipo: {layer_type}")
-    print(f"Numero di campioni: {len(instance_ids)}")
-    print(f"\nPrimi 20 instance_ids: {instance_ids[:20].tolist()}")
-    print(f"Ultime 20 instance_ids: {instance_ids[-20:].tolist()}")
+    print(f"=== Verify ordering for {model_name}/{dataset_name} ===")
+    print(f"Layer: {layer}, Type: {layer_type}")
+    print(f"Number of samples: {len(instance_ids)}")
+    print(f"\nFirst 20 instance_ids: {instance_ids[:20].tolist()}")
+    print(f"Last 20 instance_ids: {instance_ids[-20:].tolist()}")
     
-    # Verifica se sono ordinati
+    # Check if sorted
     is_sorted = np.all(instance_ids[:-1] <= instance_ids[1:])
-    print(f"\nGli instance_ids sono ordinati in ordine crescente: {is_sorted}")
+    print(f"\nInstance_ids are sorted in ascending order: {is_sorted}")
     
-    # Verifica corrispondenza label
-    print(f"\nPrime 20 label (y): {y[:20].tolist()}")
-    print(f"Ultime 20 label (y): {y[-20:].tolist()}")
+    # Check label correspondence
+    print(f"\nFirst 20 labels (y): {y[:20].tolist()}")
+    print(f"Last 20 labels (y): {y[-20:].tolist()}")
     
-    # Statistiche sulle label
-    print(f"\nDistribuzione label:")
+    # Label statistics
+    print(f"\nLabel distribution:")
     print(f"  Hallucination (y=1): {np.sum(y == 1)}")
     print(f"  Not hallucination (y=0): {np.sum(y == 0)}")
     
     return X, y, instance_ids
 
-# Esegui verifica
+# Run verification
 X_test, y_test, ids_test = verify_ordering(MODEL_NAME, DATASET_NAME, layer=0, layer_type="attn")
 
-# Verifica anche che diversi layer/tipi abbiano lo stesso ordinamento
+# Also verify that different layers/types have the same ordering
 print("\n" + "="*60)
-print("Verifica consistenza tra diversi layer/tipi...")
+print("Checking consistency across different layers/types...")
 print("="*60)
 
 _, y_attn, ids_attn = load_activations_and_labels(MODEL_NAME, DATASET_NAME, 0, "attn")
@@ -319,41 +279,40 @@ print(f"Labels attn == Labels mlp: {np.array_equal(y_attn, y_mlp)}")
 print(f"Labels attn == Labels hidden: {np.array_equal(y_attn, y_hidden)}")
 
 
-MODELS_TO_ANALYZE = [MODEL_NAME]  # Aggiungi altri modelli se necessario
+MODELS_TO_ANALYZE = [MODEL_NAME]
 if "Llama-3.1-8B-Instruct" in available_models:
     MODELS_TO_ANALYZE.append("Llama-3.1-8B-Instruct")
 
 DATASET = DATASET_NAME
 
-# Inizializza i risultati
+# Initialize results
 results = {model: {"attn": {}, "mlp": {}, "hidden": {}} for model in MODELS_TO_ANALYZE}
 
-# Per ogni modello
+# For each model
 for model in MODELS_TO_ANALYZE:
     print(f"\n{'='*60}")
-    print(f"Elaborazione modello: {model}")
+    print(f"Processing model: {model}")
     print(f"{'='*60}")
     
     num_layers = layers_in_model(model, DATASET)
-    print(f"Numero di layer rilevati: {num_layers}")
+    print(f"Number of detected layers: {num_layers}")
     
     # ============================================
-    # CALCOLA INDICI UNA SOLA VOLTA
+    # CALCULATE INDICES ONLY ONCE
     # ============================================
     X_sample, y_sample, _ = load_activations_and_labels(model, DATASET, 0, "attn")
     n_samples = X_sample.shape[0]
-    print(f"Numero di campioni originali: {n_samples}")
-    print(f"Distribuzione originale: {np.bincount(y_sample)}")
+    print(f"Number of original samples: {n_samples}")
+    print(f"Original distribution: {np.bincount(y_sample)}")
     
-    del X_sample  # Libera subito
+    del X_sample  # Free memory immediately
     
-    # Undersampling globale
     balanced_indices = get_balanced_indices(y_sample, seed=SEED)
     y_balanced = y_sample[balanced_indices]
-    print(f"Dopo undersampling: {len(balanced_indices)} campioni")
-    print(f"Distribuzione bilanciata: {np.bincount(y_balanced)}")
+    print(f"After undersampling: {len(balanced_indices)} samples")
+    print(f"Balanced distribution: {np.bincount(y_balanced)}")
     
-    # Split stratificato sui dati bilanciati
+    # Stratified split on balanced data
     train_rel_idx, test_rel_idx = train_test_split(
         np.arange(len(balanced_indices)),
         test_size=0.3,
@@ -376,23 +335,20 @@ for model in MODELS_TO_ANALYZE:
     # ============================================
     for layer in range(num_layers):
         for layer_type in ["attn", "mlp", "hidden"]:
-            # Carica attivazioni e label
             X_layer, y, _ = load_activations_and_labels(model, DATASET, layer, layer_type)
             
-            # Applica gli indici PRE-CALCOLATI
             X_train = X_layer[train_indices]
             y_train = y[train_indices]
             X_test = X_layer[test_indices]
             y_test = y[test_indices]
             
-            del X_layer, y  # Libera memoria subito
+            del X_layer, y  # Free memory immediately
             
-            # Normalizzazione
             scaler = StandardScaler()
             X_train = scaler.fit_transform(X_train)
             X_test = scaler.transform(X_test)
             
-            # Addestramento (lbfgs è più veloce per dataset piccoli)
+            # Training (lbfgs is faster for small datasets)
             clf = LogisticRegression(max_iter=10000, class_weight='balanced', solver='lbfgs', n_jobs=-1)
             clf.fit(X_train, y_train)
             y_pred = clf.predict(X_test)
@@ -403,7 +359,7 @@ for model in MODELS_TO_ANALYZE:
             f1 = f1_score(y_test, y_pred)
             auroc = roc_auc_score(y_test, y_proba)
             
-            # Salva i risultati
+            # Save the results
             results[model][layer_type][layer] = (accuracy, f1, auroc)
             
             print(f"  Layer {layer} {layer_type}: Acc={accuracy:.4f}, F1={f1:.4f}, AUROC={auroc:.4f}")
@@ -416,33 +372,23 @@ print("Training completato!")
 print("="*60)
 
 # %%
-# Funzione per ordinare tutti i layer per accuracy e salvare su JSON
+# Function to sort all layers by accuracy and save to JSON
 def sort_and_save_all_results(results, output_file="sorted_results.json"):
-    """
-    Ordina tutti i layer per accuracy in ordine decrescente e salva su JSON.
     
-    Args:
-        results: dizionario completo dei risultati nel formato:
-                 {model_name: {layer_type: {layer_num: (accuracy, f1, auroc)}}}
-        output_file: path del file JSON di output
-    
-    Returns:
-        dizionario con tutti i risultati ordinati
-    """
     sorted_results = {}
     
     for model_name, layer_types in results.items():
         sorted_results[model_name] = {}
         
         for layer_type, layer_data in layer_types.items():
-            # Ordina i layer per accuracy decrescente
+            # Sort layers by descending accuracy
             sorted_layers = sorted(
                 [(layer, acc, f1, auroc) for layer, (acc, f1, auroc) in layer_data.items()],
-                key=lambda x: x[1],  # ordina per accuracy
-                reverse=True  # ordine decrescente
+                key=lambda x: x[1],  # sort by accuracy
+                reverse=True  # descending order
             )
             
-            # Salva in formato lista ordinata
+            # Save in sorted list format
             sorted_results[model_name][layer_type] = [
                 {
                     "layer": layer,
@@ -453,41 +399,33 @@ def sort_and_save_all_results(results, output_file="sorted_results.json"):
                 for layer, acc, f1, auroc in sorted_layers
             ]
     
-    # Salva su JSON
+    # Save to JSON
     with open(output_file, 'w') as f:
         json.dump(sorted_results, f, indent=4)
-    print(f"Tutti i risultati ordinati salvati in {output_file}")
+    print(f"All sorted results saved to {output_file}")
     
     return sorted_results
 
-# Salva tutti i risultati ordinati
+# Save all sorted results
 sorted_all = sort_and_save_all_results(results, "all_layers_sorted.json")
 
 # %%
 import matplotlib.pyplot as plt
 
 def plot_accuracy_from_json(json_data, model_name=None, dataset="Dataset"):
-    """
-    Genera un grafico dell'accuracy per layer.
     
-    Args:
-        json_data (dict): Il dizionario caricato dal file JSON.
-        model_name (str): Il nome del modello da plottare.
-                          Se None, prende il primo modello trovato nel JSON.
-        dataset (str): Nome del dataset per il titolo del file.
-    """
     
-    # 1. Selezione del modello
+    # 1. Model selection
     if model_name is None:
         model_name = list(json_data.keys())[0]
     
     if model_name not in json_data:
-        print(f"Errore: Modello '{model_name}' non trovato nel JSON.")
+        print(f"Error: Model '{model_name}' not found in JSON.")
         return
 
     data = json_data[model_name]
 
-    # 2. Configurazione dello Stile
+    # 2. Style Configuration
     plt.rcParams.update({
         "font.family": "serif",
         "font.weight": "bold",
@@ -500,17 +438,15 @@ def plot_accuracy_from_json(json_data, model_name=None, dataset="Dataset"):
         "lines.linewidth": 2
     })
 
-    # Creazione della figura
     fig, ax = plt.subplots(figsize=(12, 8))
 
-    # Mappatura colori
+    # Color mapping
     styles = {
         "hidden": {"color": "red", "label": "hidden"},
         "mlp":    {"color": "blue", "label": "mlp"},
         "attn":   {"color": "green", "label": "attn"}
     }
 
-    # 3. Estrazione e Ordinamento dei dati
     for key in ["hidden", "mlp", "attn"]:
         if key in data:
             points = data[key]
@@ -521,7 +457,7 @@ def plot_accuracy_from_json(json_data, model_name=None, dataset="Dataset"):
                     color=styles[key]["color"], 
                     label=styles[key]["label"])
 
-    # 4. Rifinitura Grafica
+    # 4. Graphic Refinement
     ax.set_xlabel("Layer")
     ax.set_ylabel("Accuracy")
     ax.grid(True, linestyle='-', alpha=1.0)
@@ -531,12 +467,11 @@ def plot_accuracy_from_json(json_data, model_name=None, dataset="Dataset"):
 
     plt.tight_layout()
     
-    # Crea la cartella img se non esiste
     os.makedirs("img", exist_ok=True)
     plt.savefig(f"img/{model_name}_{dataset}_activations.pdf")
     #plt.show()
 
-# Carica e visualizza i risultati
+# Load and display results
 content = json.load(open('all_layers_sorted_GEMMA_LLAMA_BBF.json', 'r'))
 DATASET = DATASET_NAME
 for model_name in content.keys():
@@ -546,23 +481,13 @@ for model_name in content.keys():
 import matplotlib.pyplot as plt
 
 def plot_single_model_multi_dataset(json_files, dataset_names, model_name, output_filename=None):
-    """
-    Genera una figura con 1 riga e 3 colonne (una per dataset) per un singolo modello.
     
-    Args:
-        json_files: lista dei path ai file JSON
-        dataset_names: lista dei nomi dei dataset (per i titoli)
-        model_name: nome del modello da plottare (es. "gemma" o "llama")
-        output_filename: nome del file di output (se None, viene generato automaticamente)
-    """
     
-    # Carica tutti i dati JSON
     all_data = {}
     for json_file, dataset_name in zip(json_files, dataset_names):
         with open(json_file, 'r') as f:
             all_data[dataset_name] = json.load(f)
     
-    # Configurazione dello Stile (allineata a plot_accuracy_from_json)
     plt.rcParams.update({
         "font.family": "serif",
         "font.weight": "bold",
@@ -577,17 +502,14 @@ def plot_single_model_multi_dataset(json_files, dataset_names, model_name, outpu
         "lines.linewidth": 2
     })
     
-    # Mappatura colori
     styles = {
         "hidden": {"color": "red", "label": "hidden"},
         "mlp":    {"color": "blue", "label": "mlp"},
         "attn":   {"color": "green", "label": "attn"}
     }
     
-    # Creazione della figura: dimensioni compatte
     fig, axes = plt.subplots(1, len(dataset_names), figsize=(15, 4))
     
-    # Trova il nome completo del modello dal primo JSON
     full_model_name = None
     for key in all_data[dataset_names[0]].keys():
         if model_name.lower() in key.lower():
@@ -601,10 +523,8 @@ def plot_single_model_multi_dataset(json_files, dataset_names, model_name, outpu
     for col_idx, dataset_name in enumerate(dataset_names):
         ax = axes[col_idx]
         
-        # Cerca il modello nei dati del dataset
         data = all_data[dataset_name]
         
-        # Trova il nome del modello nel JSON
         matching_model = None
         for key in data.keys():
             if model_name.lower() in key.lower():
@@ -618,7 +538,6 @@ def plot_single_model_multi_dataset(json_files, dataset_names, model_name, outpu
         
         model_data = data[matching_model]
         
-        # Plotta le curve per ogni tipo di layer
         for key in ["hidden", "mlp", "attn"]:
             if key in model_data:
                 points = model_data[key]
@@ -629,23 +548,18 @@ def plot_single_model_multi_dataset(json_files, dataset_names, model_name, outpu
                         color=styles[key]["color"], 
                         label=styles[key]["label"])
         
-        # Titolo: nome del dataset
         ax.set_title(dataset_name)
         
-        # Etichette assi
         ax.set_xlabel("Layer")
         ax.set_ylabel("Accuracy")
         
-        # Griglia
         ax.grid(True, linestyle='-', alpha=1.0)
         
-        # Legenda in ogni subplot
         legend = ax.legend(title="activation", loc="upper left", frameon=True)
         plt.setp(legend.get_title(), fontweight='bold')
     
     plt.tight_layout()
     
-    # Crea la cartella img se non esiste
     os.makedirs("img", exist_ok=True)
     
     if output_filename is None:
@@ -653,26 +567,26 @@ def plot_single_model_multi_dataset(json_files, dataset_names, model_name, outpu
     
     plt.savefig(f"img/{output_filename}")
     plt.show()
-    print(f"Figura salvata in img/{output_filename}")
+    print(f"Figure saved to img/{output_filename}")
 
-# File JSON disponibili
+# Available JSON files
 json_files = [
     "all_layers_sorted_GEMMA_LLAMA_BBC.json",
     "all_layers_sorted_GEMMA_LLAMA_BBF.json",
     "all_layers_sorted_GEMMA_LLAMA_HE.json"
 ]
 
-# Nomi dei dataset (per i titoli delle colonne)
+# Dataset names (for column titles)
 dataset_names = [
     "Belief Bank Constraints",
     "Belief Bank Facts", 
     "HaluEval"
 ]
 
-# Genera un grafico per Gemma
+# Generate a plot for Gemma
 plot_single_model_multi_dataset(json_files, dataset_names, "gemma", "gemma_3datasets_comparison.pdf")
 
-# Genera un grafico per Llama
+# Generate a plot for Llama
 plot_single_model_multi_dataset(json_files, dataset_names, "llama", "llama_3datasets_comparison.pdf")
 
 

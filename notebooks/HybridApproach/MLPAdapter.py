@@ -36,7 +36,7 @@ class Config:
 
     LAYER_TYPES = ["attn", "mlp", "hidden"]
 
-    # Configurazione identica al Notebook
+    # Configuration identical to Notebook
 
     LAYER_CONFIG = {
         "belief_bank_constraints": {

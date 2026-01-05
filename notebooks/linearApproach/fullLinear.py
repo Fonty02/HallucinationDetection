@@ -82,9 +82,7 @@ def set_seed(seed=Config.SEED):
     os.environ['PYTHONHASHSEED'] = str(seed)
 
 def get_balanced_indices(y, seed=Config.SEED):
-    """
-    Funzione di bilanciamento (undersampling) identica al notebook.
-    """
+    
     rng = np.random.RandomState(seed)
     unique_classes, counts = np.unique(y, return_counts=True)
     min_count = counts.min()
@@ -103,13 +101,13 @@ def get_balanced_indices(y, seed=Config.SEED):
 
 def get_concordant_indices_and_undersample(y_a, y_b, seed=Config.SEED):
     """
-    Trova campioni dove ENTRAMBI i modelli concordano sulla label,
-    poi applica undersampling per bilanciare le classi.
-    Identica alla logica del notebook.
+    Find samples where BOTH models agree on the label,
+    then apply undersampling to balance classes.
+    Identical to the notebook logic.
     """
-    assert len(y_a) == len(y_b), "Le label dei due modelli devono avere la stessa lunghezza"
+    assert len(y_a) == len(y_b), "Labels from both models must have the same length"
     
-    # Trova campioni concordanti
+    # Find concordant samples
     concordant_mask = (y_a == y_b)
     concordant_indices = np.where(concordant_mask)[0]
     concordant_labels = y_a[concordant_mask]
@@ -119,7 +117,6 @@ def get_concordant_indices_and_undersample(y_a, y_b, seed=Config.SEED):
     
     print(f"   Concordant samples: {len(concordant_indices)} (Hall: {n_hall}, Non-Hall: {n_non_hall})")
     
-    # Undersampling
     min_count = min(n_hall, n_non_hall)
     rng = np.random.RandomState(seed)
     
@@ -155,12 +152,12 @@ def plot_confusion_matrix(cm, layer_type, model_name, save_dir):
     plt.close()
 
 # ==================================================================
-# DATA MANAGEMENT (LOGICA NOTEBOOK)
+# DATA MANAGEMENT
 # ==================================================================
 class DataManager:
     @staticmethod
     def detect_structure_type(model_name, dataset_name, layer_type):
-        """Rileva se la struttura ha cartelle hallucinated/not_hallucinated."""
+        """Detect if structure has hallucinated/not_hallucinated folders."""
         base_path = os.path.join(
             Config.ROOT_DIR, Config.CACHE_DIR_NAME, 
             model_name, dataset_name, f"activation_{layer_type}"
@@ -170,11 +167,7 @@ class DataManager:
 
     @staticmethod
     def load_activations_and_labels(model_name, dataset_name, layer, layer_type):
-        """
-        Carica attivazioni e label per un singolo layer.
-        Supporta sia struttura vecchia che nuova (con hallucinated/not_hallucinated).
-        Path reale: activation_cache/model_name/dataset_name/activation_{layer_type}/
-        """
+        
         structure = DataManager.detect_structure_type(model_name, dataset_name, layer_type)
         base_path = os.path.join(
             Config.ROOT_DIR, Config.CACHE_DIR_NAME, 
@@ -182,7 +175,7 @@ class DataManager:
         )
         
         if structure == 'new':
-            # Nuova struttura con cartelle separate
+            # New structure with separate folders
             hall_act_path = os.path.join(base_path, "hallucinated", f"layer{layer}_activations.pt")
             hall_ids_path = os.path.join(base_path, "hallucinated", f"layer{layer}_instance_ids.json")
             not_hall_act_path = os.path.join(base_path, "not_hallucinated", f"layer{layer}_activations.pt")
@@ -208,7 +201,7 @@ class DataManager:
             ])
             ids_concat = np.array(hall_ids + not_hall_ids)
             
-            # Ordina per instance_id
+            # Sort by instance_id
             sort_indices = np.argsort(ids_concat)
             X = X_concat[sort_indices]
             y = y_concat[sort_indices]
@@ -216,7 +209,7 @@ class DataManager:
             
             return X, y, instance_ids
         else:
-            # Vecchia struttura: file singoli + labels da generations/
+            # Old structure: single files + labels from generations/
             file_path = os.path.join(base_path, f"layer{layer}_activations.pt")
             activations = torch.load(file_path, map_location=Config.DEVICE)
             
@@ -239,10 +232,7 @@ class DataManager:
 
     @staticmethod
     def load_concatenated_layers(dataset_name, model_name, layer_type, layer_indices):
-        """
-        Carica i layer specificati e li concatena (feature stacking),
-        replicando la logica del notebook.
-        """
+        
         combined_X = []
         common_y = None
         
@@ -259,21 +249,21 @@ class DataManager:
                     common_y = y_layer
                 else:
                     if not np.array_equal(common_y, y_layer):
-                        raise ValueError(f"Mismatch label nel layer {idx} per {model_name}")
+                        raise ValueError(f"Mismatch label in layer {idx} for {model_name}")
 
                 combined_X.append(X_layer)
 
             except FileNotFoundError as e:
-                print(f"     [WARN] Layer {idx} non trovato: {e}. Skipping.")
+                print(f"     [WARN] Layer {idx} not found: {e}. Skipping.")
                 continue
             except Exception as e:
-                print(f"     [ERROR] Errore caricamento layer {idx}: {e}")
+                print(f"     [ERROR] Error loading layer {idx}: {e}")
                 raise e
 
         if not combined_X:
-            raise FileNotFoundError(f"Nessun dato trovato per {model_name} {layer_type}")
+            raise FileNotFoundError(f"No data found for {model_name} {layer_type}")
 
-        # Concatenazione feature (asse 1)
+        # Feature concatenation (axis 1)
         X_final = np.concatenate(combined_X, axis=1)
         print(f"   -> Final Combined Shape: {X_final.shape}")
         
@@ -286,12 +276,7 @@ def run_experiment_pipeline(X_t_train, y_t_train, X_t_test, y_t_test,
                            X_s_test_raw, y_s_test,
                            X_align_t, X_align_s, scaler_s,
                            teacher_name, student_name, layer_type):
-    """
-    Pipeline identica al notebook:
-    - Prober: addestrato sul dataset bilanciato del teacher
-    - Allineamento: addestrato sui dati concordanti
-    - Test cross-model: dati student → proiettati → valutati con prober teacher
-    """
+    
     # 1. Train Teacher Prober
     clf = LogisticRegression(max_iter=10000, class_weight='balanced', solver='lbfgs', n_jobs=-1, random_state=Config.SEED)
     clf.fit(X_t_train, y_t_train)
@@ -308,7 +293,7 @@ def run_experiment_pipeline(X_t_train, y_t_train, X_t_test, y_t_test,
         "auroc": roc_auc_score(y_t_test, proba_t)
     }
     
-    # 2. Train Alignment su campioni concordanti
+    # 2. Train Alignment on concordant samples  
     aligner = Ridge(alpha=1000.0, fit_intercept=False)
     aligner.fit(X_align_s, X_align_t)  # Student -> Teacher
     
@@ -345,12 +330,12 @@ def main():
     
     for d_name, d_config in Config.LAYER_CONFIG.items():
         save_dir_name = d_config.get("save_dir", f"results_{d_name}")
-        save_dir = os.path.join(os.path.dirname(__file__), save_dir_name)  # Cartella dove si trova il file Python
+        save_dir = os.path.join(os.path.dirname(__file__), save_dir_name)  # Folder where the Python file is located
         os.makedirs(save_dir, exist_ok=True)
         
         models = [k for k in d_config.keys() if k != "save_dir"]
         if len(models) < 2:
-            print("Serve una coppia Teacher-Student. Trovati:", models)
+            print("A Teacher-Student pair is required. Found:", models)
             continue
             
         model_A, model_B = models[0], models[1]
@@ -365,15 +350,15 @@ def main():
             print(f"\n--- Processing {l_type.upper()} ---")
             
             try:
-                # 1. Caricamento dati COMPLETI
+                # 1. Load COMPLETE data
                 X_a_full, y_a = DataManager.load_concatenated_layers(d_name, model_A, l_type, d_config[model_A][l_type])
                 X_b_full, y_b = DataManager.load_concatenated_layers(d_name, model_B, l_type, d_config[model_B][l_type])
                 
-                # 2. Trova campioni CONCORDANTI per allineamento
+                # 2. Find CONCORDANT samples for alignment
                 print("\n   Finding concordant samples for alignment...")
                 align_indices, align_labels = get_concordant_indices_and_undersample(y_a, y_b, Config.SEED)
                 
-                # Split alignment data (70/30, solo train usato per alignment)
+                # Split alignment data (70/30, only train used for alignment)
                 rng = np.random.RandomState(Config.SEED)
                 n_align = len(align_indices)
                 shuffled_align = rng.permutation(n_align)
@@ -383,10 +368,10 @@ def main():
                 X_align_a = X_a_full[align_indices][align_train_local]
                 X_align_b = X_b_full[align_indices][align_train_local]
                 
-                # 3. Undersampling SEPARATO per ogni modello (per probing)
+                # 3. SEPARATE undersampling for each model (for probing)
                 print("\n   Balancing datasets for probing...")
                 idx_a_bal = get_balanced_indices(y_a, Config.SEED)
-                idx_b_bal = get_balanced_indices(y_b, Config.SEED)  # STESSO SEED come nel notebook
+                idx_b_bal = get_balanced_indices(y_b, Config.SEED)  # SAME SEED as in the notebook
                 
                 X_a_bal, y_a_bal = X_a_full[idx_a_bal], y_a[idx_a_bal]
                 X_b_bal, y_b_bal = X_b_full[idx_b_bal], y_b[idx_b_bal]
@@ -394,7 +379,7 @@ def main():
                 print(f"   {model_A} balanced: {len(idx_a_bal)} ({np.sum(y_a_bal==1)} hall, {np.sum(y_a_bal==0)} non-hall)")
                 print(f"   {model_B} balanced: {len(idx_b_bal)} ({np.sum(y_b_bal==1)} hall, {np.sum(y_b_bal==0)} non-hall)")
                 
-                # 4. Split train/test per ogni modello
+                # 4. Train/test split for each model
                 rng_a = np.random.RandomState(Config.SEED)
                 rng_b = np.random.RandomState(Config.SEED + 1)
                 
@@ -428,7 +413,7 @@ def main():
                 print(f"\n   Scenario: {model_A} (Teacher) -> {model_B} (Student)")
                 res_ab = run_experiment_pipeline(
                     X_a_train_sc, y_a_train, X_a_test_sc, y_a_test,
-                    X_b_test, y_b_test,  # raw test per student
+                    X_b_test, y_b_test,  # raw test for student
                     X_align_a_sc, X_align_b_sc, scaler_align_b,
                     model_A, model_B, l_type
                 )
@@ -454,11 +439,11 @@ def main():
                 print(f"!!! Error processing {l_type}: {e}")
                 traceback.print_exc()
         
-        # Salva risultati
+        # Save results
         json_path = os.path.join(save_dir, f"full_linear_results_{d_name}.json")
         with open(json_path, 'w') as f:
             json.dump(all_results, f, indent=2)
-        print(f"\n✓ Risultati salvati in: {json_path}")
+        print(f"\n✓ Results saved to: {json_path}")
 
 if __name__ == "__main__":
     main()

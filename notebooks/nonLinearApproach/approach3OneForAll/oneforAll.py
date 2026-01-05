@@ -154,10 +154,7 @@ def plot_confusion_matrix(y_true, y_pred, title, filename, save_dir):
 # ==================================================================
 
 def get_balanced_indices(y, seed=Config.SEED):
-    """
-    Calcola gli indici per bilanciare il dataset tramite undersampling.
-    Questa funzione è DETERMINISTICA dato lo stesso seed e le stesse label.
-    """
+    
     rng = np.random.RandomState(seed)
     unique_classes, counts = np.unique(y, return_counts=True)
     min_count = counts.min()
@@ -176,9 +173,7 @@ def get_balanced_indices(y, seed=Config.SEED):
     return np.sort(np.array(selected_indices))
 
 def get_undersampled_indices_per_model(stats, seed=Config.SEED):
-    """
-    Applica undersampling al dataset di un singolo modello.
-    """
+   
     total = stats['total']
     # 'hallucinated_ids' matches 'hallucinated_items' from notebook logic
     hall_set = set(stats['hallucinated_ids']) 
@@ -261,7 +256,7 @@ class DataManager:
             base_path = os.path.join(cls._cache_root, model_name, dataset_name, "activation_" + layer_type)
             
             if structure_type == 'new':
-                # Nuova struttura
+                # New structure
                 hall_path = os.path.join(base_path, "hallucinated", f"layer{layer_idx}_activations.pt")
                 not_hall_path = os.path.join(base_path, "not_hallucinated", f"layer{layer_idx}_activations.pt")
                 hall_ids_path = os.path.join(base_path, "hallucinated", f"layer{layer_idx}_instance_ids.json")
@@ -301,7 +296,7 @@ class DataManager:
                 del acts_hall, acts_not_hall, X_hall, X_not_hall
                 
             else:
-                # Vecchia struttura
+                # Old structure
                 file_path = os.path.join(base_path, f"layer{layer_idx}_activations.pt")
                 if not os.path.exists(file_path):
                     print(f" Warning: Layer {layer_idx} non trovato. Salto.")

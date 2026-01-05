@@ -163,9 +163,9 @@ legend_prop = {"size": 20, "weight": "bold"}
 
 scenarios_to_plot = [pair for pair in scenario_pairs if scenario_data[pair]]
 if not scenarios_to_plot:
-    raise RuntimeError("Nessun scenario valido trovato per i modelli trainer/tester configurati.")
+    raise RuntimeError("No valid scenario found for the configured trainer/tester models.")
 
-# Salva figure separate per ogni scenario
+# Save separate figures for each scenario
 for scenario_key in scenarios_to_plot:
     teacher_name, student_name = scenario_key
     setup_data = scenario_data[scenario_key]
