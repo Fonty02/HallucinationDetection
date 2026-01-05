@@ -105,10 +105,13 @@ def load_activations(dataset_folder, model_name, layer_type, layer_num):
     hall_activations = torch.load(hall_path, map_location='cpu')
     not_hall_activations = torch.load(not_hall_path, map_location='cpu')
     
-    # Converti in numpy
+    # Limita a 1000 campioni per ogni label
+    max_samples = 1000
     if isinstance(hall_activations, torch.Tensor):
+        hall_activations = hall_activations[:max_samples] if hall_activations.shape[0] > max_samples else hall_activations
         hall_activations = hall_activations.cpu().numpy().astype(np.float32)
     if isinstance(not_hall_activations, torch.Tensor):
+        not_hall_activations = not_hall_activations[:max_samples] if not_hall_activations.shape[0] > max_samples else not_hall_activations
         not_hall_activations = not_hall_activations.cpu().numpy().astype(np.float32)
     
     # Prova a caricare gli instance ids e riordinare come in FullLinear.ipynb

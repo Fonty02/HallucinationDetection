@@ -76,40 +76,103 @@ These activations are extracted at specific token positions to capture the model
 
 ### Extracting Activations
 
+To extract and save activations from a model, use the `src/model/predict.py` script. Run this command from the root of the repository.
+
+**Example: Extracting activations for BeliefBank (Facts)**
 ```bash
-
-```
-
-### Training Probes
-
-```bash
-# Train encoder probe on BeliefBank facts
-python scripts/train_probe.py \
-    --dataset belief_bank_facts \
+python src/model/predict.py \
     --model_name meta-llama/Llama-3.1-8B-Instruct \
-    --component hidden \
-    --probe_type encoder
+    --data_name belief_bank \
+    --belief_bank_data_type facts \
+    --quantization
 ```
 
-### Cross-Model Evaluation
+**Example: Extracting activations for HaluEval**
+```bash
+python src/model/predict.py \
+    --model_name meta-llama/Llama-3.1-8B-Instruct \
+    --data_name halu_eval \
+    --quantization
+```
+
+**Available Arguments:**
+- `--model_name`: HuggingFace model identifier (default: `meta-llama/Meta-Llama-3-8B`)
+- `--data_name`: Dataset to use (`belief_bank`, `halu_eval`)
+- `--belief_bank_data_type`: For BeliefBank, specify `facts` or `constraints`
+- `--quantization`: Use 4-bit quantization (recommended for consumer GPUs)
+- `--max_samples`: Limit the number of samples to process
+- `--use_local`: Use a local model path instead of downloading from Hub
+
+### Running Experiments
+
+Each script must be run from its own directory to ensure relative paths work correctly.
+
+#### Linear Approach
 
 ```bash
-# Evaluate cross-domain transfer
-python scripts/generate_cross_domain_table.py \
-    --source_model meta-llama/Llama-3.1-8B-Instruct \
-    --target_model google/gemma-2-9b-it \
-    --dataset belief_bank_constraints
+cd notebooks/linearApproach
+python fullLinear.py
+```
+or
+```bash
+cd notebooks/linearApproach
+uv run fullLinear.py
+```
+
+#### MLP Adapter Approach 
+
+```bash
+cd notebooks/HybridApproach
+python MLPAdapter.py
+```
+or
+```bash
+cd notebooks/HybridApproach
+uv run MLPAdapter.py
+```
+
+#### Non-Linear Approaches
+
+**Approach 1 (Full Dimension)**
+```bash
+cd notebooks/nonLinearApproach/approach1FullDIM
+python app1.py
+```
+or
+```bash
+cd notebooks/nonLinearApproach/approach1FullDIM
+uv run app1.py
+```
+
+**Approach 2 (Projected)**
+```bash
+cd notebooks/nonLinearApproach/approach2Projected
+python app2.py
+```
+or
+```bash
+cd notebooks/nonLinearApproach/approach2Projected
+uv run app2.py
+```
+
+**Approach 3 (OneForAll)**
+```bash
+cd notebooks/nonLinearApproach/approach3OneForAll
+python oneforAll.py
+```
+or
+```bash
+cd notebooks/nonLinearApproach/approach3OneForAll
+uv run oneforAll.py
 ```
 
 ## 📊 Results
 
 The project includes comprehensive evaluation across:
-- Multiple LLM families (Llama, Gemma, Qwen, Falcon)
+- Multiple LLM families (Llama, Gemma)
 - Different activation components (hidden states, MLP, attention)
 - Cross-model transfer scenarios
 - Layer-wise analysis (see `notebooks/layersStudies/`)
-
-Confusion matrices and performance metrics are stored in `confusion_matrices_frozen_head/`.
 
 ## 🔬 Key Findings
 
