@@ -15,7 +15,7 @@ class HallucinationDetection:
     # Constants
     # -------------
     TARGET_LAYERS = list(range(0, 32))     # Upper bound excluded
-    MAX_NEW_TOKENS = 5
+    MAX_NEW_TOKENS = 5 # Is fine for Yes/No answers
     DEFAULT_DATASET = "belief_bank"
     CACHE_DIR_NAME = "activation_cache"
     ACTIVATION_TARGET = ["hidden", "mlp", "attn"]
@@ -139,8 +139,10 @@ class HallucinationDetection:
                 question, answer, instance_id = self.dataset[idx]
                 test_instance_prompt = self.user_prompt.format(question=question)
 
+                use_sys_role = True
                 messages = ut.build_messages(self.system_prompt, test_instance_prompt, k=1, sample_user_prompts=[demonstration_shot], assistant_prompts=[sample_answer], use_system=use_sys_role)
-                tokens = self.tokenizer(messages, return_tensors="pt")
+                prompt = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+                tokens = self.tokenizer(prompt, return_tensors="pt")
                 attention_mask = tokens["attention_mask"].to("cuda") if "attention_mask" in tokens else None
 
                 with InspectOutputContext(self.llm, module_names, save_generation=True, save_dir=self.generation_save_dir) as inspect:
@@ -208,6 +210,7 @@ class HallucinationDetection:
             with open(labels_path, 'w') as f:
                 json.dump(hallucination_labels, f, indent=4)
             print(f"Saved intermediate labels after batch {batch_idx+1}")
+            #break  --> useful for quick testing
 
         # Save final hallucination labels
         labels_path = os.path.join(self.generation_save_dir, "hallucination_labels.json")
