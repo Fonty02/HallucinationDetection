@@ -609,80 +609,37 @@ def run_experiment(X_teacher, y_teacher, teacher_name,
 
     # 8. Construct JSON Output (Exactly matching notebook schema)
     return {
-        "layer_type": layer_type,
-        "teacher_model": teacher_name,
-        "student_model": student_name,
-        "data_info": {
-            "alignment_samples_train": len(Z_align_t_train),
-            "alignment_samples_val": len(Z_align_t_val),
-            "model_a_train": len(X_teacher['y_train']),
-            "model_a_test": len(X_teacher['y_test']),
-            "model_b_train": len(X_student['y_train']),
-            "model_b_test": len(X_student['y_test']),
-            "concordant_undersampling_for_alignment": True,
-            "separate_undersampling_per_model": True
+        "type": layer_type,
+        "teacher_name": teacher_name,
+        "student_name": student_name,
+        "autoencoder_teacher": {
+            "input_dim": int(X_teacher['X_train'].shape[1]),
+            "config": Config.AUTOENCODER_CONFIG,
+            "best_val_loss": float(ae_t_loss),
+            "epochs_trained": ae_t_ep,
+            "model_path": ae_t_path
         },
-        "teacher_autoencoder": {
-            "architecture": {
-                "input_dim": int(X_teacher['X_train'].shape[1]),
-                "latent_dim": Config.AUTOENCODER_CONFIG['latent_dim'],
-                "hidden_dim": Config.AUTOENCODER_CONFIG['hidden_dim'],
-                "dropout": Config.AUTOENCODER_CONFIG['dropout']
-            },
-            "training_hyperparameters": Config.AUTOENCODER_CONFIG,
-            "training_results": {
-                "best_val_loss": round(float(ae_t_loss), 6),
-                "epochs_trained": ae_t_ep,
-                "model_saved_path": ae_t_path
-            }
-        },
-        "student_autoencoder": {
-            "architecture": {
-                "input_dim": int(X_student['X_train'].shape[1]),
-                "latent_dim": Config.AUTOENCODER_CONFIG['latent_dim'],
-                "hidden_dim": Config.AUTOENCODER_CONFIG['hidden_dim'],
-                "dropout": Config.AUTOENCODER_CONFIG['dropout']
-            },
-            "training_hyperparameters": Config.AUTOENCODER_CONFIG,
-            "training_results": {
-                "best_val_loss": round(float(ae_s_loss), 6),
-                "epochs_trained": ae_s_ep,
-                "model_saved_path": ae_s_path
-            }
+        "autoencoder_student": {
+            "input_dim": int(X_student['X_train'].shape[1]),
+            "config": Config.AUTOENCODER_CONFIG,
+            "best_val_loss": float(ae_s_loss),
+            "epochs_trained": ae_s_ep,
+            "model_path": ae_s_path
         },
         "prober_model": {
-            "architecture": {
-                "type": "MLPProber",
-                "input_dim": Config.AUTOENCODER_CONFIG['latent_dim'],
-                "hidden_dim": Config.PROBER_CONFIG['hidden_dim'],
-                "dropout": Config.PROBER_CONFIG['dropout']
-            },
-            "training_hyperparameters": Config.PROBER_CONFIG,
-            "training_results": {
-                "best_val_acc": round(float(prob_acc), 4),
-                "epochs_trained": prob_ep,
-                "model_saved_path": prob_path
-            }
+            "input_dim": Config.AUTOENCODER_CONFIG['latent_dim'],
+            "config": Config.PROBER_CONFIG,
+            "best_val_acc": float(prob_acc),
+            "epochs_trained": prob_ep,
+            "model_path": prob_path
         },
         "alignment_model": {
-            "architecture": {
-                "type": "AlignmentNetwork",
-                "input_dim": Config.AUTOENCODER_CONFIG['latent_dim'],
-                "output_dim": Config.AUTOENCODER_CONFIG['latent_dim'],
-                "hidden_dim": Config.ALIGNMENT_CONFIG['hidden_dim'],
-                "dropout": Config.ALIGNMENT_CONFIG['dropout']
-            },
-            "training_hyperparameters": Config.ALIGNMENT_CONFIG,
-            "loss_function": {
-                "type": "MixedLoss",
-                "mse_weight": Config.ALIGNMENT_CONFIG['loss_alpha'],
-                "cosine_weight": Config.ALIGNMENT_CONFIG['loss_beta']
-            },
-            "training_results": {
-                "best_val_loss": round(float(align_loss), 6),
-                "epochs_trained": align_ep,
-                "model_saved_path": align_path
-            }
+            "input_dim": Config.AUTOENCODER_CONFIG['latent_dim'],
+            "output_dim": Config.AUTOENCODER_CONFIG['latent_dim'],
+            "config": Config.ALIGNMENT_CONFIG,
+            "best_val_loss": float(align_loss),
+            "epochs_trained": align_ep,
+            "model_path": align_path
         },
         "metrics": {
             "teacher": {
@@ -713,6 +670,7 @@ def run_experiment(X_teacher, y_teacher, teacher_name,
             }
         }
     }
+
 
 # ==================================================================
 # Main Execution
