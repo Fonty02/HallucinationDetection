@@ -16,13 +16,13 @@ cd HallucinationDetection
 
 2. Create and activate a virtual environment using uv:
 ```bash
-uv venv --python 3.11.5
+uv venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
 3. Install dependencies:
 ```bash
-uv pip install -r requirements.txt
+uv sync
 ```
 
 ## 📊 Dataset

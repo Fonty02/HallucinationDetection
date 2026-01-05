@@ -6,8 +6,8 @@ from typing import Union, Any
 from accelerate import PartialState
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from transformers import BitsAndBytesConfig
-from src.model.InspectOutputContext import InspectOutputContext
-
+import random
+import unicodedata
 
 
 HF_DEFAULT_HOME = os.environ.get("HF_HOME", "~/.cache/huggingface/hub")
@@ -184,3 +184,42 @@ def load_activations(
 
     return torch.load(act_dir, map_location="cuda"), instance_ids
 
+
+def get_random_shot(dataset, current_id):
+    """
+    Get a random shot from the dataset that is not the current_id.
+    """
+    valid_ids = [i for i in range(len(dataset)) if i != current_id]
+    random_id = random.choice(valid_ids)
+    return dataset[random_id]
+
+
+
+def compute_label_with_exact_match(prediction, ground_truth):
+    if normalize_answer(prediction) == normalize_answer(ground_truth):
+        return 0
+    else:
+        return 1
+
+
+def normalize_answer(s):
+    """Normalize answer."""
+    s = unicodedata.normalize("NFD", s)
+
+    if s.endswith("assistant"):
+        s = s[: -len("assistant")].strip()
+
+    def remove_articles(text):
+        return re.sub(r"\b(a|an|the)\b", " ", text)
+
+    def white_space_fix(text):
+        return " ".join(text.split())
+
+    def remove_punc(text):
+        exclude = set(string.punctuation)
+        return "".join(ch for ch in text if ch not in exclude)
+
+    def lower(text):
+        return text.lower()
+
+    return white_space_fix(remove_articles(remove_punc(lower(s))))

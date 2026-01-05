@@ -8,8 +8,8 @@ from src.data.SimpleQADataset import SimpleQADataset
 from src.data.HaluBenchDataset import HaluBenchDataset
 from src.data.BeliefBankDataset import BeliefBankDataset
 from src.model.InspectOutputContext import InspectOutputContext
-from src.model.prompts import PROMPT_QA as prompt
-from src.model.gemini_autorater import GeminiAutorater
+from src.model.prompts import SYSTEM_PROMPT_BB, USER_PROMPT_BB, SYSTEM_PROMPT_HE, USER_PROMPT_HE
+
 
 class HallucinationDetection:
     # -------------
@@ -74,9 +74,6 @@ class HallucinationDetection:
         
         print("--"*50)
 
-    
-
-
 
     # -------------
     # Main Methods
@@ -84,34 +81,23 @@ class HallucinationDetection:
     @torch.no_grad()
     def save_model_activations(self, llm_name, data_name=DEFAULT_DATASET, use_local=False, 
                               dtype=torch.bfloat16, use_device_map=True, use_flash_attn=False,
-                              use_gemini_autorater=False, gemini_model="gemini-2.0-flash-lite",
                               max_samples=None, quantization=False, belief_bank_data_type="facts"):
         """Save LLM activations for the dataset.
         
         Args:
-            use_gemini_autorater: If True, use Gemini API to evaluate hallucinations
-            gemini_model: Gemini model name (gemini-2.0-flash-exp, gemini-1.5-pro, etc.)
             max_samples: Number of samples to process (None = all samples)
             quantization: If True, use 4-bit quantization; if False, use full precision
             belief_bank_data_type: For BeliefBank only - "facts" or "constraints"
         """
         self.load_dataset(dataset_name=data_name, use_local=use_local, belief_bank_data_type=belief_bank_data_type)
         self.max_samples = max_samples
+
+        self.system_prompt = SYSTEM_PROMPT_BB if data_name == "belief_bank" else SYSTEM_PROMPT_HE
+        self.user_prompt = USER_PROMPT_BB if data_name == "belief_bank" else USER_PROMPT_HE
+
         self.load_llm(llm_name, use_local=use_local, dtype=dtype, use_device_map=use_device_map, 
                      use_flash_attn=use_flash_attn, quantization=quantization)
         
-        # Initialize Gemini autorater if requested
-        self.gemini_autorater = None
-        if use_gemini_autorater:
-            print(f"Initializing Gemini autorater with model: {gemini_model}")
-            try:
-                self.gemini_autorater = GeminiAutorater(model_name=gemini_model)
-                print("✓ Gemini autorater initialized successfully")
-            except Exception as e:
-                print(f"⚠ Warning: Could not initialize Gemini autorater: {e}")
-                print("Falling back to substring matching")
-                self.gemini_autorater = None
-
         print("--"*50)
         print("Hallucination Detection - Saving LLM's activations")
         print("--"*50)
@@ -123,12 +109,6 @@ class HallucinationDetection:
         self.save_activations()
         
         print("--"*50)
-
-    
-
-
-
-
 
     
     def save_activations(self):
@@ -145,7 +125,7 @@ class HallucinationDetection:
         print(f"Processing {num_samples} samples out of {len(self.dataset)} total")
         
         # Process dataset in batches to save memory
-        BATCH_SIZE = 10000000
+        BATCH_SIZE = 64
         num_batches = (num_samples + BATCH_SIZE - 1) // BATCH_SIZE
         print(f"Processing in {num_batches} batches of {BATCH_SIZE} samples")
 
@@ -155,10 +135,15 @@ class HallucinationDetection:
             print(f"\nProcessing batch {batch_idx+1}/{num_batches}: samples {start_idx} to {end_idx-1}")
             
             for idx in tqdm(range(start_idx, end_idx), desc=f"Batch {batch_idx+1}/{num_batches}"):
-                question, answer, instance_id = self.dataset[idx]
+                # 1-Shot demonstration to align the output
+                sample_question, sample_answer, _ = ut.get_random_shot(self.dataset, idx)
+                demonstration_shot = self.user_prompt.format(question=sample_question)
 
-                model_input = prompt.format(question=question)
-                tokens = self.tokenizer(model_input, return_tensors="pt")
+                question, answer, instance_id = self.dataset[idx]
+                test_instance_prompt = self.user_prompt.format(question=question)
+
+                messages = ut.build_messages(self.system_prompt, test_instance_prompt, k=1, sample_user_prompts=[demonstration_shot], assistant_prompts=[sample_answer], use_system=use_sys_role)
+                tokens = self.tokenizer(messages, return_tensors="pt")
                 attention_mask = tokens["attention_mask"].to("cuda") if "attention_mask" in tokens else None
 
                 with InspectOutputContext(self.llm, module_names, save_generation=True, save_dir=self.generation_save_dir) as inspect:
@@ -177,22 +162,7 @@ class HallucinationDetection:
                     generated_ids = output.sequences[0][tokens["input_ids"].shape[1]:]
                     generated_text = self.tokenizer.decode(generated_ids, skip_special_tokens=True)
                     
-                    # Determine if this is a hallucination
-                    if self.gemini_autorater is not None:
-                        # Use Gemini API for evaluation
-                        eval_result = self.gemini_autorater.evaluate(
-                            question=question,
-                            gold_answer=answer,
-                            generated_answer=generated_text
-                        )
-                        is_hallucination = eval_result["is_hallucination"]
-                        gemini_response = eval_result["gemini_response"]
-                        confidence = eval_result["confidence"]
-                    else:
-                        # Fallback to simple substring matching
-                        is_hallucination = answer.lower().strip() not in generated_text.lower().strip()
-                        gemini_response = None
-                        confidence = "substring_matching"
+                    is_hallucination = ut.compute_label_with_exact_match(generated_text, answer)
                     
                     # Store label information
                     label_info = {
@@ -201,16 +171,12 @@ class HallucinationDetection:
                         "gold_answer": answer,
                         "generated_answer": generated_text,
                         "is_hallucination": int(is_hallucination),  # 1 = hallucination, 0 = correct
-                        "evaluation_method": "gemini" if self.gemini_autorater else "substring"
+                        "evaluation_method": "exact_match"
                     }
-                    
-                    if gemini_response is not None:
-                        label_info["gemini_response"] = gemini_response
-                        label_info["confidence"] = confidence
                     
                     hallucination_labels.append(label_info)
                     
-                    ut.save_generation_output(generated_text, model_input, instance_id, self.generation_save_dir)
+                    ut.save_generation_output(generated_text, messages, instance_id, self.generation_save_dir)
                     
                     #if hasattr(output, 'scores') and output.scores:
                         #logits = torch.stack(output.scores, dim=1)  # [batch, seq_len, vocab_size]
@@ -303,8 +269,6 @@ class HallucinationDetection:
     # -------------
     # Utility Methods
     # -------------
-
-
     def _create_folders_if_not_exists(self):
         model_name = self.llm_name.split("/")[-1]
 
