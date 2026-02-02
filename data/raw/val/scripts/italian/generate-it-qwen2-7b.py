@@ -1,7 +1,6 @@
 import json
 import csv
 import torch
-import pandas as pd
 import tqdm
 
 from transformers import set_seed, AutoTokenizer, AutoModelForCausalLM

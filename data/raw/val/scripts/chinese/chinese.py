@@ -1,6 +1,5 @@
 import sys
 import json
-import pandas as pd
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 

@@ -27,7 +27,6 @@ random.seed(2202)
 
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from huggingface_hub import hf_hub_download, login
 
 # safely copy your hf_token to this working directoy to login fo HF
 # with open('./hf_token', 'r') as file:

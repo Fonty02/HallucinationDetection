@@ -1,12 +1,10 @@
 import os
-import sys
 import json
 import pandas as pd
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import tqdm.notebook as tqdm
 from transformers.utils import logging
-import json
 
 logging.set_verbosity_warning()
 

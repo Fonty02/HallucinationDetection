@@ -13,13 +13,11 @@ import os
 os.environ['HF_HOME'] = './.hf/'
 
 
-import sys
 import json
 import pandas as pd
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-import pandas as pd
 
 file_path = "questions-de.tsv"
 records = pd.read_csv(file_path, sep='\t').to_dict(orient='records')
@@ -164,7 +162,7 @@ del model
 # In[5]:
 
 
-from transformers import AutoTokenizer, MistralForCausalLM, set_seed
+from transformers import AutoTokenizer, MistralForCausalLM
 model_name = "occiglot/occiglot-7b-de-en-instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = MistralForCausalLM.from_pretrained(model_name).to(device)

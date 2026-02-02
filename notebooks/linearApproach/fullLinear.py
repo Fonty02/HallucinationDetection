@@ -3,7 +3,6 @@ import os
 import gc
 import random
 import traceback
-import sys
 import numpy as np
 import torch
 import matplotlib.pyplot as plt
@@ -13,7 +12,6 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import (
     f1_score, accuracy_score, confusion_matrix, roc_auc_score, precision_score, recall_score
 )
-from sklearn.model_selection import train_test_split
 
 # ==================================================================
 # CONFIGURATION

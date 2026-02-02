@@ -6,7 +6,6 @@ from typing import Union, Any
 from accelerate import PartialState
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from transformers import BitsAndBytesConfig
-from src.model.InspectOutputContext import InspectOutputContext
 
 
 
@@ -163,7 +162,7 @@ def parse_layer_id_and_instance_id(s):
         layer_s, id_s = s.split("-")
         layer_idx = int(layer_s[len("layer"):])
         instance_idx = int(id_s[len("id"):-len(".pt")])
-    except Exception as e:
+    except Exception:
         print(s)
     return layer_idx, instance_idx
 

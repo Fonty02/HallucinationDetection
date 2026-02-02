@@ -1,10 +1,8 @@
 import json
 import csv
-import sys
 import torch
 import random
 import argparse
-import pandas as pd
 import tqdm.notebook as tqdm
 
 from transformers import AutoTokenizer, AutoModelForCausalLM, set_seed

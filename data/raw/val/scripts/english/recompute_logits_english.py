@@ -1,13 +1,10 @@
 import os
 os.environ['HF_HOME'] = './.hf/'
-os.putenv('HF_HOME','./hf/'); #os.system('bash')
+os.putenv('HF_HOME','./hf/') #os.system('bash')
 
 
-import random
-import json
 import torch
 import tqdm
-import pathlib
 import pandas as pd
 import numpy as np
 

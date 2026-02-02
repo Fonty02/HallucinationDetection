@@ -3,7 +3,6 @@ import sys
 sys.path.append('\\'.join(os.getcwd().split('\\')[:-1])+'\\src')
 
 from datasets import load_dataset, concatenate_datasets
-from torch.utils.data import Dataset
 from src.data.MushroomDataset import MushroomDataset
 
 

@@ -13,13 +13,11 @@ import os
 os.environ['HF_HOME'] = './.hf/'
 
 
-import sys
 import json
 import pandas as pd
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-import pandas as pd
 
 file_path = "english-with-questions-valid+test.tsv"
 records = pd.read_csv(file_path, sep='\t').to_dict(orient='records')

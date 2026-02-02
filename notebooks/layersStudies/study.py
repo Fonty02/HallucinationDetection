@@ -163,7 +163,7 @@ print(f"  Allucinazioni: {stats['hallucinations']} ({stats['percent_hallucinatio
 # Se vuoi confrontare più modelli
 if "Llama-3.1-8B-Instruct" in available_models:
     gemma_stats = get_stats("Llama-3.1-8B-Instruct", DATASET_NAME)
-    print(f"\nStatistiche per Llama-3.1-8B-Instruct")
+    print("\nStatistiche per Llama-3.1-8B-Instruct")
     print(f"  Totale campioni: {gemma_stats['total']}")
     print(f"  Allucinazioni: {gemma_stats['hallucinations']} ({gemma_stats['percent_hallucinations']:.2f}%)")
 
@@ -295,7 +295,7 @@ def verify_ordering(model_name, dataset_name, layer=0, layer_type="attn"):
     print(f"Ultime 20 label (y): {y[-20:].tolist()}")
     
     # Statistiche sulle label
-    print(f"\nDistribuzione label:")
+    print("\nDistribuzione label:")
     print(f"  Hallucination (y=1): {np.sum(y == 1)}")
     print(f"  Not hallucination (y=0): {np.sum(y == 0)}")
     
@@ -543,7 +543,6 @@ for model_name in content.keys():
     plot_accuracy_from_json(content, model_name, DATASET)
 
 # %%
-import matplotlib.pyplot as plt
 
 def plot_single_model_multi_dataset(json_files, dataset_names, model_name, output_filename=None):
     """

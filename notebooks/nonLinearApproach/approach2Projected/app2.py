@@ -3,7 +3,6 @@ import json
 import os
 import random
 import traceback
-import math
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -15,7 +14,6 @@ from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
                              precision_score, recall_score, roc_auc_score)
 from sklearn.preprocessing import StandardScaler
 from torch.utils.data import DataLoader, Dataset
-import copy
 
 
 class Config:

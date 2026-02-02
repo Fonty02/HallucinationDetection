@@ -28,7 +28,7 @@ os.environ['HF_HOME'] = './.hf/'
 
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
-from huggingface_hub import hf_hub_download, login
+from huggingface_hub import login
 
 # safely copy your hf_token to this working directoy to login fo HF
 with open('./hf_token', 'r') as file:
