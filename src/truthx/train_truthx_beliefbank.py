@@ -468,7 +468,56 @@ def train_truthx_on_beliefbank(args):
     )
     save_subset_as_jsonl(subset, subset_path)
 
-    if args.extract_activations:
+    # Controllo cache: se le attivazioni per questo modello e subset
+    # esistono già nella cache, salta l'estrazione anche se
+    # l'utente ha impostato il flag. Questo evita overhead e ripetizioni.
+    def _activations_exist_in_cache(cache_dir, model_name, subset_len, activation_type):
+        model_name_safe = model_name.replace("/", "_")
+        base = os.path.join(cache_dir, model_name_safe, "belief_bank_subset")
+
+        labels_path = os.path.join(base, "generations", "hallucination_labels.json")
+        if not os.path.exists(labels_path):
+            return False
+
+        types_to_check = []
+        if activation_type == "all":
+            types_to_check = ["attn", "mlp"]
+        else:
+            types_to_check = [activation_type]
+
+        for t in types_to_check:
+            act_dir = os.path.join(base, f"activation_{t}")
+            if not os.path.isdir(act_dir):
+                return False
+
+            # Raccogli gli instance_id trovati nei file (layer{idx}-id{instance}.pt)
+            ids = set()
+            for fn in os.listdir(act_dir):
+                if not fn.endswith('.pt') or not fn.startswith('layer'):
+                    continue
+                try:
+                    # formato previsto: layer{layer_idx}-id{instance_id}.pt
+                    part = fn.split('-id')[-1]
+                    instance_id = int(part.split('.pt')[0])
+                    ids.add(instance_id)
+                except Exception:
+                    continue
+
+            # Se non troviamo almeno tante istanze quante nel subset, ritorna False
+            if len(ids) < subset_len:
+                return False
+
+        return True
+
+    should_extract = args.extract_activations
+    # Se la cache contiene già le attivazioni, non estrarre.
+    if should_extract:
+        subset_len = len(subset)
+        if _activations_exist_in_cache(args.cache_dir, args.model_name, subset_len, args.activation_type):
+            print("Activations already present in cache; skipping extraction.")
+            should_extract = False
+
+    if should_extract:
         print("\n" + "=" * 50)
         print("STEP 2: EXTRACTING ACTIVATIONS")
         print("=" * 50)
@@ -801,6 +850,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--extract_activations",
         action="store_true",
+        default=False,
         help="Whether to extract activations",
     )
     parser.add_argument(
