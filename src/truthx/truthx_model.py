@@ -11,6 +11,11 @@ class MLPAE(nn.Module):
     Separa le rappresentazioni in:
     - Semantic latent space (contenuto/significato)
     - Truthful latent space (veridicità)
+    
+    Architettura (come da paper):
+    - Semantic Encoder:  input_dim -> 2048 -> 1024 (latent)
+    - Truthful Encoder:  input_dim -> 2048 -> 1024 (latent)
+    - Decoder:           1024 (latent) -> 2048 -> input_dim
     """
 
     def __init__(
@@ -24,13 +29,19 @@ class MLPAE(nn.Module):
     ):
         super().__init__()
 
-        # Architettura TruthX: 2-layer MLPs [4096→2048→1024] come da paper
+        # Architettura TruthX: 2-layer MLPs [input_dim→2048→1024] come da paper
         if semantic_hidden_dims is None:
-            semantic_hidden_dims = [2048, 1024]
+            # Default: input_dim -> 2048 -> 1024 (latent)
+            # Specifica [2048] per avere 1 hidden layer intermedio
+            semantic_hidden_dims = [2048]
         if truthful_hidden_dims is None:
-            truthful_hidden_dims = [2048, 1024]
+            # Default: input_dim -> 2048 -> 1024 (latent)
+            # Specifica [2048] per avere 1 hidden layer intermedio
+            truthful_hidden_dims = [2048]
         if decoder_hidden_dims is None:
-            decoder_hidden_dims = [2048]  # 1024→2048, poi final_layer→4096
+            # Default: 1024 (latent) -> 2048 -> input_dim
+            # Specifica [2048] per avere 1 hidden layer intermedio
+            decoder_hidden_dims = [2048]
 
         # Semantic Encoder
         self.semantic_encoder = self._build_encoder(
@@ -364,19 +375,32 @@ class TruthX:
     """
     Wrapper per l'editing delle rappresentazioni durante l'inferenza.
     Supporta diversi LLM in modo agnostico.
+
+    TruthX richiede due componenti (come da paper Sezione 3.2-3.3):
+    1. Autoencoder (TruthEnc, SemEnc, Dec) per codificare/decodificare
+    2. Steering vectors (pos_center, neg_center, rank) per calcolare δ ed editare
     """
 
     def __init__(
         self,
-        model_path: str,
+        autoencoder_path: str,
+        steering_vectors_path: str,
         hidden_size: int,
         edit_strength: float = 1.0,
         top_layers: int = 10,
+        use_mask: bool = False,
     ):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-        checkpoint = torch.load(model_path, map_location=self.device)
-        args = checkpoint["args"]
+        # 1. Carica Autoencoder
+        ae_checkpoint = torch.load(autoencoder_path, map_location=self.device)
+        args = ae_checkpoint["args"]
+
+        # Se args è un dict, convertilo in namespace per compatibilità
+        if isinstance(args, dict):
+            from argparse import Namespace
+
+            args = Namespace(**args)
 
         # Ricostruisci il modello
         self.ae_model = MLPAE(
@@ -394,58 +418,66 @@ class TruthX:
             else None,
         ).to(self.device)
 
-        self.ae_model.load_state_dict(checkpoint["state_dict"])
-        self.ae_model.pos_center = checkpoint["pos_center"].to(self.device)
-        self.ae_model.neg_center = checkpoint["neg_center"].to(self.device)
+        self.ae_model.load_state_dict(ae_checkpoint["state_dict"])
         self.ae_model.eval()
 
-        self.rank = checkpoint["rank"]
+        # 2. Carica Steering Vectors (pos_center, neg_center, rank)
+        # Come da Eq. 12: δ = H̄_truth^pos - H̄_truth^neg
+        sv_checkpoint = torch.load(steering_vectors_path, map_location=self.device)
+
+        self.ae_model.pos_center = sv_checkpoint["pos_center"].to(self.device)
+        self.ae_model.neg_center = sv_checkpoint["neg_center"].to(self.device)
+
+        # rank contiene gli indici dei virtual layers ordinati per probing accuracy
+        # rank[0] è il miglior layer, rank[1] il secondo, ecc.
+        self.rank = sv_checkpoint["rank"]
+
+        # Crea una mappa inversa: virtual_layer_idx -> posizione nel rank
+        # Se un layer non è nei top-k, non sarà nella mappa
+        self.rank_position = {layer_idx: pos for pos, layer_idx in enumerate(self.rank)}
+
+        # virtual_layer_info: lista di (physical_layer, module_type)
+        # Es: [(0, 'attn'), (0, 'mlp'), (1, 'attn'), (1, 'mlp'), ...]
+        self.virtual_layer_info = sv_checkpoint.get("virtual_layer_info", [])
+
         self.top_layers = top_layers
         self.edit_strength = edit_strength
         self.cur_layer_id = "0"
         self.prompt_length = None
         self.mc = False
+        self.use_mask = use_mask
+        self.mask_type = None  # Può essere 'last_token', 'after_prompt', 'probing'
 
     @torch.inference_mode()
-    def edit(self, X: Tensor) -> Tensor:
+    def edit(self, X: Tensor, physical_layer: int, module_type: str) -> Tensor:
         """
-        Edita le rappresentazioni verso lo spazio truthful.
-        Implementazione ufficiale TruthX.
-
-        Args:
-            X: Tensor di shape [batch_size, seq_len, hidden_dim]
-
-        Returns:
-            Tensor editato della stessa shape di X
+        Versione con maschere opzionali.
         """
-        # Parsing del layer
-        layer_id = int(self.cur_layer_id.split(".")[0])
-        if self.cur_layer_id.endswith("attn"):
-            layer_id = 2 * layer_id
-        else:
-            layer_id = 2 * layer_id + 1
+        # Trova il virtual layer index
+        virtual_layer_idx = None
+        for idx, (pl, mt) in enumerate(self.virtual_layer_info):
+            if pl == physical_layer and mt == module_type:
+                virtual_layer_idx = idx
+                break
 
-        # CORREZIONE: Usa >= invece di > per includere correttamente i top_layers
-        # self.rank contiene gli indici ordinati per distanza decrescente (migliore = indice basso)
-        # Quindi rank[layer_id] è la posizione del layer nella classifica (0 = migliore)
-        if self.rank[layer_id] >= self.top_layers:
+        if virtual_layer_idx is None:
+            return X
+
+        if virtual_layer_idx not in self.rank_position:
+            return X
+
+        rank_pos = self.rank_position[virtual_layer_idx]
+        if rank_pos >= self.top_layers:
             return X
 
         bsz, s_len, d = X.size()
-        x = (
-            X.contiguous()
-            .view(-1, d)
-            .type_as(self.ae_model.semantic_encoder[0][0].weight)
-        )
+        x = X.contiguous().view(-1, d).type_as(self.ae_model.semantic_encoder[0].weight)
 
         x_truthful = self.ae_model.get_truthful_latent_rep(x)
 
-        pos_center = self.ae_model.pos_center[layer_id].unsqueeze(0)
-        neg_center = self.ae_model.neg_center[layer_id].unsqueeze(0)
-
+        pos_center = self.ae_model.pos_center[virtual_layer_idx].unsqueeze(0)
+        neg_center = self.ae_model.neg_center[virtual_layer_idx].unsqueeze(0)
         delta = (pos_center - neg_center).unsqueeze(0)
-
-        # Calcola ricostruzioni positive e negative
         recon_x_pos = (
             self.ae_model(
                 x,
@@ -456,6 +488,7 @@ class TruthX:
             .contiguous()
             .view(bsz, s_len, d)
         )
+        
         recon_x_neg = (
             self.ae_model(
                 x,
@@ -467,35 +500,33 @@ class TruthX:
             .view(bsz, s_len, d)
         )
 
-        # Calcola Delta e normalizza
-        Delta = recon_x_pos - recon_x_neg
-        Delta = Delta.contiguous().to(X.dtype)
-        Delta = F.normalize(Delta, p=2, dim=-1).type_as(X) * torch.norm(
-            X, p=2, dim=-1
-        ).unsqueeze(2)
+        Delta = (recon_x_pos - recon_x_neg).contiguous().to(X.dtype)
 
-        # Maschera per selezionare token da editare
-        mask = torch.ones((bsz, s_len), device=Delta.device)
-
-        if self.mc and self.prompt_length is not None:
-            # Multiple-choice: edita solo i token della risposta
-            mask[:, : self.prompt_length + 1] = 0
-            # Probing posizioni untruthful
-            probing = (
-                torch.nn.functional.cosine_similarity(
-                    x_truthful, neg_center.unsqueeze(1), dim=-1
-                )
-                - torch.nn.functional.cosine_similarity(
-                    x_truthful, pos_center.unsqueeze(1), dim=-1
-                )
-            ).clamp(0, 999)
-            mask = mask * probing
+        if not self.use_mask:
+            # Versione base: Eq. 14 senza maschere
+            new_X = X + self.edit_strength * Delta.type_as(X)
         else:
-            # Open-ended: edita solo l'ultimo token generato
-            mask[:, :-1] = 0
-            mask[:, -1:] = 1
-
-        new_X = X + (Delta.type_as(X)) * self.edit_strength * mask.unsqueeze(2).type_as(
-            X
-        )
+            # Crea maschera
+            mask = torch.ones((bsz, s_len), device=Delta.device)
+            
+            if self.mask_type == "last_token":
+                # Edita solo l'ultimo token
+                mask[:, :-1] = 0
+            elif self.mask_type == "after_prompt" and self.prompt_length is not None:
+                # Edita solo dopo il prompt
+                mask[:, : self.prompt_length + 1] = 0
+            elif self.mask_type == "probing":
+                # Usa probing scores per selezionare token
+                probing = (
+                    torch.nn.functional.cosine_similarity(
+                        x_truthful, neg_center.unsqueeze(1), dim=-1
+                    )
+                    - torch.nn.functional.cosine_similarity(
+                        x_truthful, pos_center.unsqueeze(1), dim=-1
+                    )
+                ).clamp(0, 999)
+                mask = mask * probing
+            
+            new_X = X + self.edit_strength * Delta.type_as(X) * mask.unsqueeze(2).type_as(X)
+        
         return new_X

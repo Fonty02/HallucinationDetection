@@ -1,0 +1,40 @@
+EXPERIMENTS = 
+{
+"Qwen_baseline_BBF" = {
+	"type" = "baseline",
+	"model_to_evaluate" = "Qwen2.5-7B",
+	"dataset_to_evaluate" = "belief_bank_facts",
+	"useTruthX" = False,
+	"truthX_model"=None,
+	"truthX_dataset"=None
+
+},
+"Qwen_TruthX_BBF" ={
+	"type" = "TruthX_Standard",
+	"model_to_evaluate" = "Qwen2.5-7B",
+	"dataset_to_evaluate" = "belief_bank_facts",
+	"useTruthX" = True,
+	"truthX_model"=Qwen2.5-7B,
+	"truthX_dataset"="belief_bank_facts"},
+"Qwen_TruthX_BBFtoBBC"={
+	"type" = "TruthX_crossDataset",
+	"model_to_evaluate" = "Qwen2.5-7B",
+	"dataset_to_evaluate" = "belief_bank_constraints",
+	"useTruthX" = True,
+	"truthX_model"=Qwen2.5-7B,
+	"truthX_dataset"="belief_bank_facts"},
+"Qwen_to_Falcon_TruthX_BBF"={
+	"type" = "TruthX_crossModel",
+	"model_to_evaluate" = "Falcon3-Base-7B",
+	"dataset_to_evaluate" = "belief_bank_facts",
+	"useTruthX" = True,
+	"truthX_model"=Qwen2.5-7B,
+	"truthX_dataset"="belief_bank_facts"},
+"Qwen_to_Falcon_TruthX_BBF_to_BBC"=
+	"type" = "TruthX_Standard",
+	"model_to_evaluate" = "Falcon3-Base-7B",
+	"dataset_to_evaluate" = "belief_bank_constraints",
+	"useTruthX" = True,
+	"truthX_model"=Qwen2.5-7B,
+	"truthX_dataset"="belief_bank_facts"}
+}

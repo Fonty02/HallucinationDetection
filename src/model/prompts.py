@@ -4,4 +4,6 @@ Just answer only with yes or no
 Is the fact true? Fact: {question}
 Answer:"""
 
+PROMPT_TRUTHX="""{question}"""
+
 

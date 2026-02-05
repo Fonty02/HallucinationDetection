@@ -24,8 +24,9 @@ class HallucinationDetection:
     # -------------
     # Constructor
     # -------------
-    def __init__(self, project_dir):
+    def __init__(self, project_dir, cache_dir_name="activation_cache_truthx"):
         self.project_dir = project_dir
+        self.cache_dir_name = cache_dir_name
 
     def load_dataset(
         self,
@@ -321,7 +322,7 @@ class HallucinationDetection:
         self.combine_activations()
 
     def combine_activations(self):
-        results_dir = os.path.join(self.project_dir, self.CACHE_DIR_NAME)
+        results_dir = os.path.join(self.project_dir, self.cache_dir_name)
         model_name = self.llm_name.split("/")[-1]
 
         for aa in self.ACTIVATION_TARGET:
@@ -377,7 +378,7 @@ class HallucinationDetection:
     def _create_folders_if_not_exists(self):
         model_name = self.llm_name.split("/")[-1]
 
-        results_dir = os.path.join(self.project_dir, self.CACHE_DIR_NAME)
+        results_dir = os.path.join(self.project_dir, self.cache_dir_name)
 
         self.hidden_save_dir = os.path.join(
             results_dir, model_name, self.dataset_name, "activation_hidden"
