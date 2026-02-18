@@ -1,0 +1,23 @@
+{
+  "model_name": "Qwen/Qwen2.5-7B",
+  "dataset": "belief_bank_facts",
+  "num_pairs": 6500,
+  "epochs": 100,
+  "batch_size": 16,
+  "lr": 0.0005,
+  "accumulation_steps": 4,
+  "max_length": 256,
+  "warmup_steps": 100,
+  "device": "cuda:0",
+  "project_root": ".",
+  "use_local_halueval": false,
+  "state_dim": 1,
+  "val_split": 0.2,
+  "patience": 5,
+  "min_delta": 0.0001,
+  "slim_rank": 64,
+  "trainable_params": 33933368,
+  "total_training_samples": 13000,
+  "num_train_samples": 10400,
+  "num_val_samples": 2600
+}
