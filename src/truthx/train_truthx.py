@@ -3,6 +3,9 @@ import sys
 import json
 import random
 import numpy as np
+
+
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -21,7 +24,7 @@ if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
 from src.model.HallucinationDetection import HallucinationDetection
-from truthx_model import MLPAE
+from truthx_model import MLPAE, ResidualMLPAE
 
 
 # =============================================================================
@@ -50,6 +53,7 @@ class PairedActivationsDataset(Dataset):
         layer_idx: int,
         activation_type: str,
         pair_mapping: dict = None,
+        dataset_name: str = "belief_bank_facts",
     ):
         """
         Args:
@@ -59,17 +63,19 @@ class PairedActivationsDataset(Dataset):
             activation_type: Tipo di attivazione ("attn", "mlp", "hidden")
             pair_mapping: Dizionario che mappa instance_id_pos -> instance_id_neg
                          per creare le coppie. Se None, viene inferito dai dati.
+            dataset_name: Nome del dataset (es. 'halu_eval', 'belief_bank_facts', 'belief_bank_constraints')
         """
         self.cache_dir = cache_dir
         self.model_name = model_name
         self.layer_idx = layer_idx
         self.activation_type = activation_type
+        self.dataset_name = dataset_name
 
         # Carica le etichette per determinare quali campioni sono positivi/negativi
         labels_path = os.path.join(
             cache_dir,
             model_name,
-            "belief_bank_subset",
+            f"{dataset_name}_subset",
             "generations",
             "hallucination_labels.json",
         )
@@ -82,7 +88,7 @@ class PairedActivationsDataset(Dataset):
 
         # Path base per le attivazioni
         self.activation_path = os.path.join(
-            cache_dir, model_name, "belief_bank_subset", f"activation_{activation_type}"
+            cache_dir, model_name, f"{dataset_name}_subset", f"activation_{activation_type}"
         )
 
     def _build_pairs(self, pair_mapping: dict = None) -> list:
@@ -345,7 +351,7 @@ class TruthXLoss(nn.Module):
         h_sem_pos: torch.Tensor,
         h_sem_neg: torch.Tensor,
     ) -> torch.Tensor:
-        """
+        r"""
         Semantic Contrastive Loss (L_sem, Eq. 6 del paper TruthX).
 
         L_sem = CTR(h_sem^pos, h_sem^neg, H_sem^pos \ h_sem^pos)
@@ -473,17 +479,86 @@ class TruthXLoss(nn.Module):
 # =============================================================================
 
 
+def create_paired_halueval_subset(
+    num_pairs: int = 500,
+    use_local: bool = False,
+):
+    """
+    Crea un subset paired da HaluEval.
+
+    Ogni coppia ha lo stesso contesto (dialogue_history + knowledge) ma:
+    - positive: right_response
+    - negative: hallucinated_response
+
+    Args:
+        num_pairs: Numero di coppie da creare
+        use_local: Se usare dataset locale invece di HuggingFace Hub
+
+    Returns:
+        List di coppie, dove ogni coppia è un dict con:
+        {
+            "positive": {"question": ..., "answer": ..., "instance_id": ...},
+            "negative": {"question": ..., "answer": ..., "instance_id": ...}
+        }
+    """
+    from src.data.HaluEvalDataset import HaluEvalDataset
+
+    # Carica dataset con label=0 (right responses)
+    dataset_right = HaluEvalDataset(label=0, use_local=use_local)
+    # Carica dataset con label=1 (hallucinated responses)
+    dataset_hal = HaluEvalDataset(label=1, use_local=use_local)
+
+    total_samples = min(len(dataset_right), num_pairs)
+    pairs = []
+
+    pair_id = 0
+    for idx in range(total_samples):
+        question_right, answer_right, instance_id = dataset_right[idx]
+        question_hal, answer_hal, _ = dataset_hal[idx]
+
+        # Verifica che il contesto sia lo stesso (dovrebbe sempre essere così)
+        assert question_right == question_hal, f"Context mismatch at index {idx}"
+
+        pair = {
+            "positive": {
+                "question": question_right,
+                "answer": answer_right,
+                "instance_id": pair_id * 2,  # Even IDs for positive
+                "label": 1,
+            },
+            "negative": {
+                "question": question_hal,
+                "answer": answer_hal,
+                "instance_id": pair_id * 2 + 1,  # Odd IDs for negative
+                "label": 0,
+            },
+            "pair_id": pair_id,
+        }
+        pairs.append(pair)
+        pair_id += 1
+
+        # Stampa di debug per la prima coppia
+        if pair_id == 1:
+            print("Debug pair 0 (halu_eval):")
+            print(f"  Positive: {question_right[:80]}... -> {answer_right[:50]}")
+            print(f"  Negative: {question_hal[:80]}... -> {answer_hal[:50]}")
+
+    print(f"Created {len(pairs)} paired samples from HaluEval")
+    return pairs
+
+
 def create_paired_beliefbank_subset(
     project_root: str,
     data_type: str = "facts",
     num_pairs: int = 500,
 ):
     """
-    Crea un subset bilanciato di BeliefBank con coppie esplicite (fact, negated_fact).
+    Crea un subset bilanciato di BeliefBank con coppie esplicite (fact, negated_fact) per facts,
+    o (implication, negated_implication) per constraints.
 
     Ogni coppia ha:
-    - Un fatto truthful (belief=1)
-    - Il suo negato (belief=0, stessa semantica)
+    - Un elemento truthful (belief=1 o implicazione vera)
+    - Il suo negato (belief=0 o implicazione falsa, stessa semantica)
 
     Args:
         project_root: Root directory del progetto
@@ -506,24 +581,18 @@ def create_paired_beliefbank_subset(
         data_type=data_type,
     )
 
-    # Il dataset di BeliefBank è già strutturato con coppie fact/negated_fact
-    # extend_with_negated_facts concatena [facts, negated_facts]
-    # Quindi dataset[i] e dataset[i + len(facts)] sono una coppia
-
     total_samples = len(dataset)
-    half = total_samples // 2
-
     pairs = []
     pair_id = 0
 
-    for i in range(min(num_pairs, half)):
-        # Campione originale (prima metà)
-        fact_pos, label_pos, _ = dataset[i]
-        # Campione negato (seconda metà, stesso indice relativo)
-        fact_neg, label_neg, _ = dataset[i + half]
+    if data_type == "constraints":
+        # Per constraints, le coppie sono consecutive: implicazione positiva e negata
+        for i in range(0, min(num_pairs * 2, total_samples), 2):
+            # Implicazione positiva (vera)
+            fact_pos, label_pos, _ = dataset[i]
+            # Implicazione negata (falsa)
+            fact_neg, label_neg, _ = dataset[i + 1]
 
-        # Determina quale è truthful e quale hallucinated
-        if label_pos == "yes":  # belief=1 è truthful
             positive = {
                 "question": fact_pos,
                 "answer": "True",
@@ -536,24 +605,67 @@ def create_paired_beliefbank_subset(
                 "instance_id": pair_id * 2 + 1,
                 "label": 0,
             }
-        else:
-            positive = {
-                "question": fact_neg,
-                "answer": "True",
-                "instance_id": pair_id * 2,
-                "label": 1,
-            }
-            negative = {
-                "question": fact_pos,
-                "answer": "False",
-                "instance_id": pair_id * 2 + 1,
-                "label": 0,
-            }
 
-        pairs.append({"positive": positive, "negative": negative, "pair_id": pair_id})
-        pair_id += 1
+            pairs.append({"positive": positive, "negative": negative, "pair_id": pair_id})
+            pair_id += 1
 
-    print(f"Created {len(pairs)} paired samples from BeliefBank")
+            # Stampa di debug per la prima coppia
+            if pair_id == 1:
+                print("Debug pair 0 (constraints):")
+                print(f"  Positive: {positive['question']}")
+                print(f"  Negative: {negative['question']}")
+
+    else:  # data_type == "facts"
+        # Il dataset di BeliefBank è già strutturato con coppie fact/negated_fact
+        # extend_with_negated_facts concatena [facts, negated_facts]
+        # Quindi dataset[i] e dataset[i + len(facts)] sono una coppia
+
+        half = total_samples // 2
+
+        for i in range(min(num_pairs, half)):
+            # Campione originale (prima metà)
+            fact_pos, label_pos, _ = dataset[i]
+            # Campione negato (seconda metà, stesso indice relativo)
+            fact_neg, label_neg, _ = dataset[i + half]
+
+            # Determina quale è truthful e quale hallucinated
+            if label_pos == "yes":  # belief=1 è truthful
+                positive = {
+                    "question": fact_pos,
+                    "answer": "True",
+                    "instance_id": pair_id * 2,
+                    "label": 1,
+                }
+                negative = {
+                    "question": fact_neg,
+                    "answer": "False",
+                    "instance_id": pair_id * 2 + 1,
+                    "label": 0,
+                }
+            else:
+                positive = {
+                    "question": fact_neg,
+                    "answer": "True",
+                    "instance_id": pair_id * 2,
+                    "label": 1,
+                }
+                negative = {
+                    "question": fact_pos,
+                    "answer": "False",
+                    "instance_id": pair_id * 2 + 1,
+                    "label": 0,
+                }
+
+            pairs.append({"positive": positive, "negative": negative, "pair_id": pair_id})
+            pair_id += 1
+
+            # Stampa di debug per la prima coppia
+            if pair_id == 1:
+                print("Debug pair 0 (facts):")
+                print(f"  Positive: {positive['question']}")
+                print(f"  Negative: {negative['question']}")
+
+    print(f"Created {len(pairs)} paired samples from BeliefBank ({data_type})")
     return pairs
 
 
@@ -586,17 +698,30 @@ def save_paired_subset_as_jsonl(pairs: list, output_path: str):
 
 
 def extract_activations_for_pairs(
-    project_root: str, llm_name: str, pairs: list, quantization: bool = False
+    project_root: str, 
+    llm_name: str, 
+    pairs: list, 
+    dataset_name: str,
+    quantization: bool = False, 
+    device: str = "cuda:2"
 ):
     """
     Estrae le attivazioni per le coppie usando HallucinationDetection.
+    
+    Args:
+        project_root: Root directory del progetto
+        llm_name: Nome del modello LLM
+        pairs: Lista di coppie (positive, negative)
+        dataset_name: Nome del dataset (es. 'halu_eval', 'belief_bank_facts', 'belief_bank_constraints')
+        quantization: Se usare quantizzazione 4-bit
+        device: Device CUDA da usare
     """
     print("\n" + "=" * 50)
     print("EXTRACTING ACTIVATIONS FOR PAIRED SAMPLES")
     print("=" * 50)
 
     detector = HallucinationDetection(
-        project_dir=project_root, cache_dir_name="activation_cache_truthx"
+        project_dir=project_root, cache_dir_name="activation_cache_truthx", device=device
     )
 
     # Flatten pairs to list of samples
@@ -605,7 +730,7 @@ def extract_activations_for_pairs(
         flat_samples.append(pair["positive"])
         flat_samples.append(pair["negative"])
 
-    class BeliefBankPairedSubset:
+    class PairedSubset:
         def __init__(self, samples):
             self.samples = samples
 
@@ -616,29 +741,29 @@ def extract_activations_for_pairs(
             item = self.samples[idx]
             return item["question"], item["answer"], item["instance_id"]
 
-    detector.dataset = BeliefBankPairedSubset(flat_samples)
-    detector.dataset_name = "belief_bank_subset"
+    detector.dataset = PairedSubset(flat_samples)
+    detector.dataset_name = f"{dataset_name}_subset"
 
     detector.load_llm(llm_name, quantization=quantization)
 
     model_name_safe = llm_name.replace("/", "_")
 
     detector.generation_save_dir = os.path.join(
-        detector.cache_dir_name, model_name_safe, "belief_bank_subset", "generations"
+        detector.cache_dir_name, model_name_safe, f"{dataset_name}_subset", "generations"
     )
     detector.mlp_save_dir = os.path.join(
-        detector.cache_dir_name, model_name_safe, "belief_bank_subset", "activation_mlp"
+        detector.cache_dir_name, model_name_safe, f"{dataset_name}_subset", "activation_mlp"
     )
     detector.attn_save_dir = os.path.join(
         detector.cache_dir_name,
         model_name_safe,
-        "belief_bank_subset",
+        f"{dataset_name}_subset",
         "activation_attn",
     )
     detector.hidden_save_dir = os.path.join(
         detector.cache_dir_name,
         model_name_safe,
-        "belief_bank_subset",
+        f"{dataset_name}_subset",
         "activation_hidden",
     )
 
@@ -685,7 +810,7 @@ def extract_activations_for_pairs(
         tokens = detector.tokenizer(model_input, return_tensors="pt")
         input_length = tokens["input_ids"].shape[1]  # Lunghezza dell'input prompt
         attention_mask = (
-            tokens["attention_mask"].to("cuda") if "attention_mask" in tokens else None
+            tokens["attention_mask"].to(device) if "attention_mask" in tokens else None
         )
 
         with InspectOutputContext(
@@ -697,7 +822,7 @@ def extract_activations_for_pairs(
             # Esegui solo un forward pass sull'input (senza generazione autoregressiva)
             with torch.no_grad():
                 output = detector.llm(
-                    input_ids=tokens["input_ids"].to("cuda"),
+                    input_ids=tokens["input_ids"].to(device),
                     attention_mask=attention_mask,
                 )
 
@@ -740,6 +865,7 @@ def load_paired_activations(
     layer_idx: int,
     activation_type: str,
     pair_mapping: dict,
+    dataset_name: str,
 ) -> tuple:
     """
     Carica le attivazioni in modo paired: (pos_acts, neg_acts) allineati.
@@ -750,12 +876,13 @@ def load_paired_activations(
         layer_idx: Indice del layer fisico
         activation_type: Tipo di attivazione
         pair_mapping: Dict {pos_id: neg_id}
+        dataset_name: Nome del dataset (es. 'halu_eval', 'belief_bank_facts')
 
     Returns:
         (pos_activations, neg_activations) come tensori allineati
     """
     base_path = os.path.join(
-        cache_dir, model_name, "belief_bank_subset", f"activation_{activation_type}"
+        cache_dir, model_name, f"{dataset_name}_subset", f"activation_{activation_type}"
     )
 
     pos_acts = []
@@ -786,7 +913,7 @@ def calculate_probing_accuracy(
     neg_acts: torch.Tensor,
     pos_center: torch.Tensor,
     neg_center: torch.Tensor,
-    device: str = "cuda",
+    device: str = "cuda:2",
 ) -> float:
     """
     Calcola la probing accuracy come da Eq. 15 del paper TruthX.
@@ -857,7 +984,7 @@ def calculate_probing_accuracy_all_modules(
     pos_centers: torch.Tensor,
     neg_centers: torch.Tensor,
     virtual_layer_info: list,
-    device: str = "cuda",
+    device: str = "cuda:2",
 ) -> list:
     """
     Calcola probing accuracy per TUTTI i moduli (attn + ffn per ogni layer).
@@ -1005,7 +1132,14 @@ def train_truthx_on_beliefbank(args):
        - L_recon: ricostruzione dell'input
        - L_edit: cross-reconstruction con swap delle rappresentazioni truthful
     """
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # Use device from args, ensuring it exists
+    device_str = args.device
+    if device_str.startswith("cuda:"):
+        gpu_id = int(device_str.split(":")[1])
+        if gpu_id >= torch.cuda.device_count():
+            print(f"Warning: GPU {gpu_id} not available. Available GPUs: {torch.cuda.device_count()}")
+            device_str = "cpu"
+    device = torch.device(device_str if torch.cuda.is_available() or device_str == "cpu" else "cpu")
 
     # Set seeds for reproducibility
     random.seed(args.seed)
@@ -1020,18 +1154,43 @@ def train_truthx_on_beliefbank(args):
         pass
 
     print("\n" + "=" * 50)
-    print("STEP 1: CREATING PAIRED BELIEFBANK SUBSET")
+    print(f"STEP 1: CREATING PAIRED SUBSET ({args.dataset})")
     print("=" * 50)
 
-    pairs = create_paired_beliefbank_subset(
-        project_root=args.project_root,
-        data_type=args.beliefbank_data_type,
-        num_pairs=args.num_pairs,
-    )
+    # Crea coppie in base al dataset scelto
+    if args.dataset == "halu_eval":
+        pairs = create_paired_halueval_subset(
+            num_pairs=args.num_pairs,
+            use_local=False,
+        )
+        dataset_name = "halu_eval"
+    elif args.dataset == "belief_bank_facts":
+        pairs = create_paired_beliefbank_subset(
+            project_root=args.project_root,
+            data_type="facts",
+            num_pairs=args.num_pairs,
+        )
+        dataset_name = "belief_bank_facts"
+    elif args.dataset == "belief_bank_constraints":
+        pairs = create_paired_beliefbank_subset(
+            project_root=args.project_root,
+            data_type="constraints",
+            num_pairs=args.num_pairs,
+        )
+        dataset_name = "belief_bank_constraints"
+    else:
+        raise ValueError(f"Unknown dataset: {args.dataset}")
 
     subset_suffix = f"pairs{args.num_pairs}"
+    # Determina il path in base al dataset
+    if args.dataset == "halu_eval":
+        subset_dir = os.path.join(args.project_root, "data", "halueval")
+    else:
+        subset_dir = os.path.join(args.project_root, "data", "beliefbank")
+    
+    os.makedirs(subset_dir, exist_ok=True)
     subset_path = os.path.join(
-        args.project_root, "data", "beliefbank", f"beliefbank_paired_subset_{subset_suffix}.jsonl"
+        subset_dir, f"{dataset_name}_paired_subset_{subset_suffix}.jsonl"
     )
     pair_mapping = save_paired_subset_as_jsonl(pairs, subset_path)
     print(f"Paired subset saved to {subset_path}")
@@ -1042,8 +1201,8 @@ def train_truthx_on_beliefbank(args):
     # Check cache per attivazioni esistenti
     model_name_safe = args.model_name.replace("/", "_")
 
-    def _activations_exist_in_cache(cache_dir, model_name, num_pairs):
-        base = os.path.join(cache_dir, model_name, "belief_bank_subset")
+    def _activations_exist_in_cache(cache_dir, model_name, dataset_name, num_pairs):
+        base = os.path.join(cache_dir, model_name, f"{dataset_name}_subset")
         labels_path = os.path.join(base, "generations", "hallucination_labels.json")
         if not os.path.exists(labels_path):
             return False
@@ -1069,9 +1228,11 @@ def train_truthx_on_beliefbank(args):
             project_root=args.project_root,
             llm_name=args.model_name,
             pairs=pairs,
+            dataset_name=dataset_name,
             quantization=args.quantization,
+            device=device_str,
         )
-    elif _activations_exist_in_cache(args.cache_dir, model_name_safe, args.num_pairs):
+    elif _activations_exist_in_cache(args.cache_dir, model_name_safe, dataset_name, args.num_pairs):
         print("Using existing activations from cache.")
     else:
         raise ValueError(
@@ -1081,9 +1242,6 @@ def train_truthx_on_beliefbank(args):
     print("\n" + "=" * 50)
     print("STEP 3: LOADING PAIRED ACTIVATIONS")
     print("=" * 50)
-
-    # Dataset name per salvataggio
-    dataset_name = f"belief_bank_{args.beliefbank_data_type}"
 
     # =========================================================================
     # LAYER SELECTION: Carica TUTTI i layer fisici (attn + ffn)
@@ -1095,7 +1253,7 @@ def train_truthx_on_beliefbank(args):
     if args.target_layers is None:
         # Auto-detect tutti i layer disponibili dalla cache
         base_path = os.path.join(
-            args.cache_dir, model_name_safe, "belief_bank_subset", "activation_attn"
+            args.cache_dir, model_name_safe, f"{dataset_name}_subset", "activation_attn"
         )
         if os.path.exists(base_path):
             layer_files = [f for f in os.listdir(base_path) if f.startswith("layer")]
@@ -1130,7 +1288,7 @@ def train_truthx_on_beliefbank(args):
     for layer_idx in tqdm(args.target_layers, desc="Loading layers"):
         for act_type in activation_types:
             pos_acts, neg_acts = load_paired_activations(
-                args.cache_dir, model_name_safe, layer_idx, act_type, pair_mapping
+                args.cache_dir, model_name_safe, layer_idx, act_type, pair_mapping, dataset_name
             )
 
             if pos_acts.numel() > 0:
@@ -1219,17 +1377,42 @@ def train_truthx_on_beliefbank(args):
     print(f"Semantic hidden dims: {semantic_hidden_dims}")
     print(f"Truthful hidden dims: {truthful_hidden_dims}")
     print(f"Decoder hidden dims: {decoder_hidden_dims}")
+    print(f"Architecture: {'ResidualMLPAE' if args.residual else 'MLPAE'}")
 
-    model = MLPAE(
-        in_channels=hidden_size,
-        semantic_latent_dim=args.semantic_latent_dim,
-        truthful_latent_dim=args.truthful_latent_dim,
-        semantic_hidden_dims=semantic_hidden_dims,
-        truthful_hidden_dims=truthful_hidden_dims,
-        decoder_hidden_dims=decoder_hidden_dims,
-    ).to(device)
+    if args.residual:
+        model = ResidualMLPAE(
+            in_channels=hidden_size,
+            semantic_latent_dim=args.semantic_latent_dim,
+            truthful_latent_dim=args.truthful_latent_dim,
+            semantic_hidden_dims=semantic_hidden_dims,
+            truthful_hidden_dims=truthful_hidden_dims,
+            decoder_hidden_dims=decoder_hidden_dims,
+            dropout=args.dropout,
+        ).to(device)
+    else:
+        model = MLPAE(
+            in_channels=hidden_size,
+            semantic_latent_dim=args.semantic_latent_dim,
+            truthful_latent_dim=args.truthful_latent_dim,
+            semantic_hidden_dims=semantic_hidden_dims,
+            truthful_hidden_dims=truthful_hidden_dims,
+            decoder_hidden_dims=decoder_hidden_dims,
+        ).to(device)
 
-    optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate)
+    optimizer = torch.optim.AdamW(
+        model.parameters(),
+        lr=args.learning_rate,
+        weight_decay=args.weight_decay,
+        betas=(0.9, 0.999),
+    )
+
+    # Learning rate scheduler: CosineAnnealingWarmRestarts
+    # Combinato con warmup lineare per le prime epoche
+    warmup_epochs = min(args.warmup_epochs, args.num_epochs // 10)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
+        optimizer, T_0=max(args.num_epochs // 4, 10), T_mult=2, eta_min=args.learning_rate * 0.01
+    )
+
     loss_fn = TruthXLoss(temperature=args.temperature)
 
     print("\n" + "=" * 50)
@@ -1371,8 +1554,8 @@ def train_truthx_on_beliefbank(args):
 
                 # Total loss (Eq. 11)
                 total_loss = (
-                    recon_loss
-                    + args.contrastive_weight * sem_ctr_loss + truth_loss
+                    args.reconstruction_weight * recon_loss
+                    + args.contrastive_weight * sem_ctr_loss + args.truth_weight * truth_loss
                     + args.editing_weight * edit_loss
                 )
 
@@ -1387,8 +1570,8 @@ def train_truthx_on_beliefbank(args):
                 total_loss.backward()
                 optimizer.step()
 
-                epoch_recon_loss += recon_loss.item()
-                epoch_sem_loss += sem_ctr_loss.item() *args.contrastive_weight
+                epoch_recon_loss += recon_loss.item() * args.reconstruction_weight
+                epoch_sem_loss += sem_ctr_loss.item() * args.contrastive_weight
                 epoch_truth_loss += truth_loss.item()
                 epoch_edit_loss += edit_loss.item()
                 epoch_batches += 1
@@ -1442,7 +1625,7 @@ def train_truthx_on_beliefbank(args):
                     output_pos, x_pos, h_sem_pos, h_truth_pos = model(batch_pos)
                     output_neg, x_neg, h_sem_neg, h_truth_neg = model(batch_neg)
 
-                    val_recon_loss += (
+                    val_recon_loss += args.reconstruction_weight * (
                         loss_fn.reconstruction_loss(output_pos, x_pos)
                         + loss_fn.reconstruction_loss(output_neg, x_neg)
                     ) / 2
@@ -1467,6 +1650,19 @@ def train_truthx_on_beliefbank(args):
         print(f"\nEpoch {epoch + 1}/{args.num_epochs}")
         print(f"  Train | Recon: {avg_recon:.4f}, Semantic: {avg_sem:.4f}, Truthful: {avg_truth:.4f}, Editing: {avg_edit:.4f}, Total: {train_total:.4f}")
         print(f"  Val   | Recon: {avg_val_recon:.4f}, Semantic: {avg_val_sem:.4f}, Truthful: {avg_val_truth:.4f}, Editing: {avg_val_edit:.4f}, Total: {val_total:.4f}")
+
+        # === Learning Rate Scheduler Step ===
+        # Warmup lineare per le prime epoche, poi cosine annealing
+        if epoch < warmup_epochs:
+            # Linear warmup: scala il LR da 0 al valore target
+            warmup_factor = (epoch + 1) / warmup_epochs
+            for param_group in optimizer.param_groups:
+                param_group['lr'] = args.learning_rate * warmup_factor
+        else:
+            scheduler.step(epoch - warmup_epochs)
+
+        current_lr = optimizer.param_groups[0]['lr']
+        print(f"  LR: {current_lr:.2e}")
 
         # === Early Stopping (on validation loss) ===
         try:
@@ -1537,12 +1733,11 @@ def train_truthx_on_beliefbank(args):
     print("STEP 7: SAVING MODEL AND STEERING VECTORS")
     print("=" * 50)
 
-    dataset_name = f"belief_bank_{args.beliefbank_data_type}"
-
     # Salva autoencoder (includi num_pairs e contrastive weight nel nome)
     autoencoder_dir = os.path.join(args.project_root, "AutoEncoder", dataset_name)
     os.makedirs(autoencoder_dir, exist_ok=True)
-    ae_suffix = f"pairs{args.num_pairs}_cw{args.contrastive_weight}"
+    arch_tag = "res" if args.residual else "mlp"
+    ae_suffix = f"pairs{args.num_pairs}_cw{args.contrastive_weight}_tw{args.truth_weight}_ew{args.editing_weight}_rw{args.reconstruction_weight}_{arch_tag}"
     autoencoder_path = os.path.join(
         autoencoder_dir, f"autoencoder_{model_name_safe}_{ae_suffix}.pt"
     )
@@ -1563,7 +1758,7 @@ def train_truthx_on_beliefbank(args):
     # Salva configurazione training set (per evitare data leakage durante inference)
     config_training_dir = os.path.join(args.project_root, "ConfigTraining")
     os.makedirs(config_training_dir, exist_ok=True)
-    config_suffix = f"pairs{args.num_pairs}"
+    config_suffix = f"pairs{args.num_pairs}_cw{args.contrastive_weight}_tw{args.truth_weight}_ew{args.editing_weight}_rw{args.reconstruction_weight}_{arch_tag}"
     config_training_path = os.path.join(
         config_training_dir, f"{model_name_safe}_{dataset_name}_{config_suffix}.json"
     )
@@ -1579,6 +1774,7 @@ def train_truthx_on_beliefbank(args):
         "val_split": val_split,
         "total_pairs": num_pairs_loaded,
         "training_time_seconds": training_time_seconds,
+        "reconstruction_weight": args.reconstruction_weight,
         "timestamp": __import__("datetime").datetime.now().isoformat(),
     }
     
@@ -1593,7 +1789,7 @@ def train_truthx_on_beliefbank(args):
     # Il rank verrà aggiunto dopo il probing
     steering_dir = os.path.join(args.project_root, "SteeringVectors", dataset_name)
     os.makedirs(steering_dir, exist_ok=True)
-    sv_suffix = f"pairs{args.num_pairs}_cw{args.contrastive_weight}"
+    sv_suffix = f"pairs{args.num_pairs}_cw{args.contrastive_weight}_tw{args.truth_weight}_ew{args.editing_weight}_rw{args.reconstruction_weight}_{arch_tag}"
     steering_path = os.path.join(steering_dir, f"steering_vectors_{model_name_safe}_{sv_suffix}.pt")
 
     # =========================================================================
@@ -1647,7 +1843,7 @@ def train_truthx_on_beliefbank(args):
     print(f"\nSteering vectors saved to {steering_path}")
 
     # Salva configurazione layer selection
-    sv_suffix = f"pairs{args.num_pairs}_cw{args.contrastive_weight}"
+    sv_suffix = f"pairs{args.num_pairs}_cw{args.contrastive_weight}_tw{args.truth_weight}_ew{args.editing_weight}_rw{args.reconstruction_weight}_{arch_tag}"
     layer_config_path = os.path.join(
         steering_dir, f"layer_selection_{model_name_safe}_{sv_suffix}.json"
     )
@@ -1695,21 +1891,21 @@ if __name__ == "__main__":
 
     # Model
     parser.add_argument(
-        "--model_name", type=str, default="Qwen/Qwen2.5-7B", help="LLM model name"
+        "--model_name", type=str, default="meta-llama/Llama-3.1-8B-Instruct", help="LLM model name"
     )
 
     # Data
     parser.add_argument(
-        "--beliefbank_data_type",
+        "--dataset",
         type=str,
-        default="facts",
-        choices=["facts", "constraints"],
-        help="BeliefBank data type",
+        default="halu_eval",
+        choices=["halu_eval", "belief_bank_facts", "belief_bank_constraints"],
+        help="Dataset to use for training (HaluEval or BeliefBank facts/constraints)",
     )
     parser.add_argument(
         "--num_pairs",
         type=int,
-        default=2000,
+        default=2500,
         help="Number of (truthful, hallucinated) pairs",
     )
     parser.add_argument(
@@ -1778,7 +1974,7 @@ if __name__ == "__main__":
         "--val_split",
         type=float,
         default=0.2,
-        help="Validation split ratio (0.2 = 20% validation)",
+        help="Validation split ratio (0.2 = 20%% validation)",
     )
     parser.add_argument(
         "--learning_rate", type=float, default=1e-4, help="Learning rate"
@@ -1793,7 +1989,19 @@ if __name__ == "__main__":
         help="Weight for contrastive losses",
     )
     parser.add_argument(
+        "--truth_weight",
+        type=float,
+        default=1.0,
+        help="Weight for truthful contrastive loss",
+    )
+    parser.add_argument(
         "--editing_weight", type=float, default=1.0, help="Weight for editing loss"
+    )
+    parser.add_argument(
+        "--reconstruction_weight",
+        type=float,
+        default=0.0,
+        help="Weight for reconstruction loss",
     )
     parser.add_argument(
         "--temperature",
@@ -1814,8 +2022,42 @@ if __name__ == "__main__":
         help="Number of top modules to select based on probing accuracy",
     )
 
+    # Architecture
+    parser.add_argument(
+        "--residual",
+        action="store_true",
+        default=False,
+        help="Use ResidualMLPAE with skip connections, dropout and LayerNorm (default: MLPAE)",
+    )
+    parser.add_argument(
+        "--dropout",
+        type=float,
+        default=0.1,
+        help="Dropout rate for ResidualMLPAE (only used if --residual is set)",
+    )
+
+    # Optimizer
+    parser.add_argument(
+        "--weight_decay",
+        type=float,
+        default=1e-5,
+        help="Weight decay for AdamW optimizer",
+    )
+    parser.add_argument(
+        "--warmup_epochs",
+        type=int,
+        default=5,
+        help="Number of warmup epochs with linear LR increase",
+    )
+
     # Reproducibility
     parser.add_argument("--seed", type=int, default=42, help="Random seed")
+    parser.add_argument(
+        "--device",
+        type=str,
+        default="cuda:1",
+        help="Device to use for training (e.g., 'cuda:0', 'cuda:2', 'cpu')",
+    )
     parser.add_argument(
         "--debug",
         action="store_true",
@@ -1824,6 +2066,8 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
+
+
 
     # Configure logging based on debug flag
     if args.debug:

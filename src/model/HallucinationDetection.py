@@ -6,9 +6,10 @@ import src.model.utils as ut
 from src.data.SimpleQADataset import SimpleQADataset
 from src.data.HaluBenchDataset import HaluBenchDataset
 from src.data.BeliefBankDataset import BeliefBankDataset
+from src.data.HaluEvalDataset import HaluEvalDataset
 from src.model.InspectOutputContext import InspectOutputContext
 from src.model.prompts import PROMPT_QA as prompt
-from src.model.gemini_autorater import GeminiAutorater
+#from src.model.gemini_autorater import GeminiAutorater
 
 
 class HallucinationDetection:
@@ -24,9 +25,10 @@ class HallucinationDetection:
     # -------------
     # Constructor
     # -------------
-    def __init__(self, project_dir, cache_dir_name="activation_cache_truthx"):
+    def __init__(self, project_dir, cache_dir_name="activation_cache_truthx", device="cuda"):
         self.project_dir = project_dir
         self.cache_dir_name = cache_dir_name
+        self.device = device
 
     def load_dataset(
         self,
@@ -53,9 +55,13 @@ class HallucinationDetection:
                 recreate_ids=True,
             )
             print(f"BeliefBank loaded with data_type='{belief_bank_data_type}'")
+        elif dataset_name == "halu_eval":
+            self.dataset_name = dataset_name
+            self.dataset = HaluEvalDataset(label=0, recreate_ids=True, use_local=use_local)
+            print(f"HaluEval loaded (label=0, right answers)")
         else:
             raise ValueError(
-                f"Dataset {dataset_name} not supported. Available: 'simpleqa', 'halu_bench', 'belief_bank'"
+                f"Dataset {dataset_name} not supported. Available: 'simpleqa', 'halu_bench', 'belief_bank', 'halu_eval'"
             )
 
     def load_llm(
@@ -84,6 +90,7 @@ class HallucinationDetection:
             dtype=dtype,
             use_device_map=use_device_map,
             use_flash_attention=use_flash_attn,
+            device=self.device,
         )
         print("\n\nQUANTIZATION\n\n:", quantization)
 
@@ -142,7 +149,7 @@ class HallucinationDetection:
         if use_gemini_autorater:
             print(f"Initializing Gemini autorater with model: {gemini_model}")
             try:
-                self.gemini_autorater = GeminiAutorater(model_name=gemini_model)
+                self.gemini_autorater = None
                 print("✓ Gemini autorater initialized successfully")
             except Exception as e:
                 print(f"⚠ Warning: Could not initialize Gemini autorater: {e}")
@@ -200,7 +207,7 @@ class HallucinationDetection:
                 model_input = prompt.format(question=question)
                 tokens = self.tokenizer(model_input, return_tensors="pt")
                 attention_mask = (
-                    tokens["attention_mask"].to("cuda")
+                    tokens["attention_mask"].to(self.device)
                     if "attention_mask" in tokens
                     else None
                 )
@@ -212,7 +219,7 @@ class HallucinationDetection:
                     save_dir=self.generation_save_dir,
                 ) as inspect:
                     output = self.llm.generate(
-                        input_ids=tokens["input_ids"].to("cuda"),
+                        input_ids=tokens["input_ids"].to(self.device),
                         max_new_tokens=self.MAX_NEW_TOKENS,
                         attention_mask=attention_mask,
                         do_sample=False,

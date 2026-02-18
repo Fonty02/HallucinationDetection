@@ -5,8 +5,10 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "bitsandbytes>=0.49.1",
     "einops>=0.8.1",
     "fancy-einsum>=0.0.3",
+    "huggingface-hub>=0.36.0",
     "matplotlib>=3.10.7",
     "pacmap>=0.8.0",
     "python-dotenv>=1.2.1",

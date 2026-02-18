@@ -1,0 +1,34 @@
+{
+  "trainer_model": "meta-llama_Llama-3.1-8B-Instruct",
+  "target_model": "google_gemma-2-9b-it",
+  "dataset": "belief_bank_facts",
+  "trainer_num_physical_layers": 32,
+  "target_num_physical_layers": 42,
+  "num_selected_modules": 1,
+  "layer_mapping": [
+    {
+      "trainer_layer": 16,
+      "trainer_type": "mlp",
+      "target_layer": 21,
+      "target_type": "mlp",
+      "depth_pct": 51.61290322580645
+    }
+  ],
+  "trainer_shape": [
+    13000,
+    4096
+  ],
+  "target_shape": [
+    13000,
+    3584
+  ],
+  "mlp_training": {
+    "optimizer": "AdamW",
+    "loss": "MSE",
+    "epochs_run": 835,
+    "best_val_loss": 0.0004349581595474424,
+    "patience": 50,
+    "split": "70-30",
+    "seed": 42
+  }
+}

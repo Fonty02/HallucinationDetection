@@ -1,40 +1,91 @@
-EXPERIMENTS = 
-{
-"Qwen_baseline_BBF" = {
-	"type" = "baseline",
-	"model_to_evaluate" = "Qwen2.5-7B",
-	"dataset_to_evaluate" = "belief_bank_facts",
-	"useTruthX" = False,
-	"truthX_model"=None,
-	"truthX_dataset"=None
-
-},
-"Qwen_TruthX_BBF" ={
-	"type" = "TruthX_Standard",
-	"model_to_evaluate" = "Qwen2.5-7B",
-	"dataset_to_evaluate" = "belief_bank_facts",
-	"useTruthX" = True,
-	"truthX_model"=Qwen2.5-7B,
-	"truthX_dataset"="belief_bank_facts"},
-"Qwen_TruthX_BBFtoBBC"={
-	"type" = "TruthX_crossDataset",
-	"model_to_evaluate" = "Qwen2.5-7B",
-	"dataset_to_evaluate" = "belief_bank_constraints",
-	"useTruthX" = True,
-	"truthX_model"=Qwen2.5-7B,
-	"truthX_dataset"="belief_bank_facts"},
-"Qwen_to_Falcon_TruthX_BBF"={
-	"type" = "TruthX_crossModel",
-	"model_to_evaluate" = "Falcon3-Base-7B",
-	"dataset_to_evaluate" = "belief_bank_facts",
-	"useTruthX" = True,
-	"truthX_model"=Qwen2.5-7B,
-	"truthX_dataset"="belief_bank_facts"},
-"Qwen_to_Falcon_TruthX_BBF_to_BBC"=
-	"type" = "TruthX_Standard",
-	"model_to_evaluate" = "Falcon3-Base-7B",
-	"dataset_to_evaluate" = "belief_bank_constraints",
-	"useTruthX" = True,
-	"truthX_model"=Qwen2.5-7B,
-	"truthX_dataset"="belief_bank_facts"}
-}
+ "Gemma_BBF_TO_BBC" : {
+        "type" : "Cross-Dataset",
+        "model_to_evaluate" : "google/gemma-2-9b-it",
+        "dataset_to_evaluate" : "belief_bank_constraints",
+        "useTruthX" : True,
+        "truthX_autoencoder": "AutoEncoder/belief_bank_facts/autoencoder_google_gemma-2-9b-it_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_steering_vectors": "SteeringVectors/belief_bank_facts/steering_vectors_google_gemma-2-9b-it_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_dataset": "belief_bank_facts"
+    },
+    "Gemma_BBC_TO_BBF" : {
+        "type" : "Cross-Dataset",
+        "model_to_evaluate" : "google/gemma-2-9b-it",
+        "dataset_to_evaluate" : "belief_bank_facts",
+        "useTruthX" : True,
+        "truthX_autoencoder": "AutoEncoder/belief_bank_constraints/autoencoder_google_gemma-2-9b-it_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_steering_vectors": "SteeringVectors/belief_bank_constraints/steering_vectors_google_gemma-2-9b-it_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_dataset": "belief_bank_constraints"
+    },
+    "LLama_BBF_TO_BBC" : {
+        "type" : "Cross-Dataset",
+        "model_to_evaluate" : "meta-llama/Llama-3.1-8B-Instruct",
+        "dataset_to_evaluate" : "belief_bank_constraints",
+        "useTruthX" : True,
+        "truthX_autoencoder": "AutoEncoder/belief_bank_facts/autoencoder_meta-llama_Llama-3.1-8B-Instruct_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_steering_vectors": "SteeringVectors/belief_bank_facts/steering_vectors_meta-llama_Llama-3.1-8B-Instruct_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_dataset": "belief_bank_facts"
+    },
+    "Llama_BBC_TO_BBF" : {
+        "type" : "Cross-Dataset",
+        "model_to_evaluate" : "meta-llama/Llama-3.1-8B-Instruct",
+        "dataset_to_evaluate" : "belief_bank_facts",
+        "useTruthX" : True,
+        "truthX_autoencoder": "AutoEncoder/belief_bank_constraints/autoencoder_meta-llama_Llama-3.1-8B-Instruct_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_steering_vectors": "SteeringVectors/belief_bank_constraints/steering_vectors_meta-llama_Llama-3.1-8B-Instruct_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_dataset": "belief_bank_constraints"
+    },
+    # ---- HaluEval Cross-Dataset experiments ----
+    "Gemma_BBF_TO_HaluEval" : {
+        "type" : "Cross-Dataset",
+        "model_to_evaluate" : "google/gemma-2-9b-it",
+        "dataset_to_evaluate" : "halu_eval",
+        "useTruthX" : True,
+        "truthX_autoencoder": "AutoEncoder/belief_bank_facts/autoencoder_google_gemma-2-9b-it_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_steering_vectors": "SteeringVectors/belief_bank_facts/steering_vectors_google_gemma-2-9b-it_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_dataset": "belief_bank_facts"
+    },
+    "Gemma_BBC_TO_HaluEval" : {
+        "type" : "Cross-Dataset",
+        "model_to_evaluate" : "google/gemma-2-9b-it",
+        "dataset_to_evaluate" : "halu_eval",
+        "useTruthX" : True,
+        "truthX_autoencoder": "AutoEncoder/belief_bank_constraints/autoencoder_google_gemma-2-9b-it_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_steering_vectors": "SteeringVectors/belief_bank_constraints/steering_vectors_google_gemma-2-9b-it_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_dataset": "belief_bank_constraints"
+    },
+    "Gemma_HaluEval_TO_BBF" : {
+        "type" : "Cross-Dataset",
+        "model_to_evaluate" : "google/gemma-2-9b-it",
+        "dataset_to_evaluate" : "belief_bank_facts",
+        "useTruthX" : True,
+        "truthX_autoencoder": "AutoEncoder/halu_eval/autoencoder_google_gemma-2-9b-it_pairs2500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_steering_vectors": None,
+        "truthX_dataset": "halu_eval"
+    },
+    "Gemma_HaluEval_TO_BBC" : {
+        "type" : "Cross-Dataset",
+        "model_to_evaluate" : "google/gemma-2-9b-it",
+        "dataset_to_evaluate" : "belief_bank_constraints",
+        "useTruthX" : True,
+        "truthX_autoencoder": "AutoEncoder/halu_eval/autoencoder_google_gemma-2-9b-it_pairs2500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_steering_vectors": None,
+        "truthX_dataset": "halu_eval"
+    },
+    "LLama_BBF_TO_HaluEval" : {
+        "type" : "Cross-Dataset",
+        "model_to_evaluate" : "meta-llama/Llama-3.1-8B-Instruct",
+        "dataset_to_evaluate" : "halu_eval",
+        "useTruthX" : True,
+        "truthX_autoencoder": "AutoEncoder/belief_bank_facts/autoencoder_meta-llama_Llama-3.1-8B-Instruct_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_steering_vectors": "SteeringVectors/belief_bank_facts/steering_vectors_meta-llama_Llama-3.1-8B-Instruct_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_dataset": "belief_bank_facts"
+    },
+    "LLama_BBC_TO_HaluEval" : {
+        "type" : "Cross-Dataset",
+        "model_to_evaluate" : "meta-llama/Llama-3.1-8B-Instruct",
+        "dataset_to_evaluate" : "halu_eval",
+        "useTruthX" : True,
+        "truthX_autoencoder": "AutoEncoder/belief_bank_constraints/autoencoder_meta-llama_Llama-3.1-8B-Instruct_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_steering_vectors": "SteeringVectors/belief_bank_constraints/steering_vectors_meta-llama_Llama-3.1-8B-Instruct_pairs6500_cw1.0_tw1.0_ew1.0_rw0.0_mlp.pt",
+        "truthX_dataset": "belief_bank_constraints"
+    }

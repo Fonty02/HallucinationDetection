@@ -7,10 +7,29 @@ REPO_NAME = "pminervini/HaluEval"
 class HaluEvalDataset(Dataset):
     def __init__(self, label=0, recreate_ids=True, use_local=False):
         if not use_local:
-            self.dataset = load_dataset(REPO_NAME, "qa")['train']      # Dummy split, it can be val or test, too
+            dataset_dict = load_dataset(REPO_NAME, "qa")
+            # HaluEval might not have standard splits, use the first available split
+            if isinstance(dataset_dict, dict):
+                # If it's a DatasetDict, get the first available split
+                available_splits = list(dataset_dict.keys())
+                if available_splits:
+                    self.dataset = dataset_dict[available_splits[0]]
+                else:
+                    raise ValueError(f"No splits found in dataset {REPO_NAME}")
+            else:
+                # If it's already a Dataset, use it directly
+                self.dataset = dataset_dict
         else:
             local_model_path = get_weight_dir(REPO_NAME, repo_type="datasets", subset="qa")
-            self.dataset = load_dataset("parquet", data_dir=local_model_path)['train']      # Dummy split, it can be val or test, too
+            dataset_dict = load_dataset("parquet", data_dir=local_model_path)
+            if isinstance(dataset_dict, dict):
+                available_splits = list(dataset_dict.keys())
+                if available_splits:
+                    self.dataset = dataset_dict[available_splits[0]]
+                else:
+                    raise ValueError(f"No splits found in local dataset at {local_model_path}")
+            else:
+                self.dataset = dataset_dict
 
         if ('instance_id' not in self.dataset.column_names) or recreate_ids:
             self.dataset = self.create_instance_ids()
@@ -25,15 +44,32 @@ class HaluEvalDataset(Dataset):
     def __getitem__(self, idx):
         id = self.dataset[idx]['instance_id']
 
-        history = self.dataset[idx]['dialogue_history']
-        knowledge = self.dataset[idx]['knowledge']
-
-        question = history + "\n[Further Knowledge]\n" + knowledge
-
-        if self.label == 0:
-            answer = self.dataset[idx]['right_response']
+        # Check which format we have (dialogue vs QA)
+        if 'dialogue_history' in self.dataset.column_names:
+            # Original format with dialogue
+            history = self.dataset[idx]['dialogue_history']
+            knowledge = self.dataset[idx]['knowledge']
+            question = history + "\n[Further Knowledge]\n" + knowledge
+            
+            if self.label == 0:
+                answer = self.dataset[idx]['right_response']
+            else:
+                answer = self.dataset[idx]['hallucinated_response']
         else:
-            answer = self.dataset[idx]['hallucinated_response']
+            # QA format (pminervini/HaluEval)
+            question_text = self.dataset[idx].get('question', '')
+            knowledge = self.dataset[idx].get('knowledge', '')
+            
+            # Combine question and knowledge
+            if knowledge:
+                question = question_text + "\n[Further Knowledge]\n" + knowledge
+            else:
+                question = question_text
+            
+            if self.label == 0:
+                answer = self.dataset[idx]['right_answer']
+            else:
+                answer = self.dataset[idx]['hallucinated_answer']
 
         return question, answer, id
     

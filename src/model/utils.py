@@ -62,11 +62,11 @@ def create_bnb_config():
     return bnb_config
 
 
-def load_llm(model_name, bnb_config, local=False, dtype=torch.bfloat16, use_device_map=True, use_flash_attention=False):
+def load_llm(model_name, bnb_config, local=False, dtype=torch.bfloat16, use_device_map=True, use_flash_attention=False, device="cuda"):
     n_gpus = torch.cuda.device_count()
     max_memory = {i: "10000MB" for i in range(n_gpus)}
     attention = "flash_attention_2" if use_flash_attention else "eager"
-    device_string = PartialState().process_index
+    device_string = device if device.startswith("cuda") else PartialState().process_index
     max_memory_config = max_memory if use_device_map else None
 
     if not local:

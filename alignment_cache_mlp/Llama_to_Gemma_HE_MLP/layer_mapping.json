@@ -1,0 +1,34 @@
+{
+  "trainer_model": "google_gemma-2-9b-it",
+  "target_model": "meta-llama_Llama-3.1-8B-Instruct",
+  "dataset": "halu_eval",
+  "trainer_num_physical_layers": 42,
+  "target_num_physical_layers": 32,
+  "num_selected_modules": 1,
+  "layer_mapping": [
+    {
+      "trainer_layer": 0,
+      "trainer_type": "attn",
+      "target_layer": 0,
+      "target_type": "attn",
+      "depth_pct": 0.0
+    }
+  ],
+  "trainer_shape": [
+    5000,
+    3584
+  ],
+  "target_shape": [
+    5000,
+    4096
+  ],
+  "mlp_training": {
+    "optimizer": "AdamW",
+    "loss": "MSE",
+    "epochs_run": 354,
+    "best_val_loss": 0.004716039052853982,
+    "patience": 50,
+    "split": "70-30",
+    "seed": 42
+  }
+}
