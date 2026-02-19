@@ -6,7 +6,6 @@ con quantizzazione 4-bit BitsAndBytes, mixed precision training,
 gradient accumulation, e linear warmup scheduler.
 
 Salva i checkpoint in SteeringVectors/SLiM/.
-
 Uso:
     python -m src.SLiM.train_hallucination \
         --model_name Qwen/Qwen2.5-7B \
@@ -118,7 +117,7 @@ def train_slim(
     optimizer: optim.Optimizer,
     scheduler=None,
     device: str = "cuda",
-    accumulation_steps: int = 4,
+    accumulation_steps: int = 8,
     epochs: int = 3,
     save_path: str = None,
     tokenizer=None,
@@ -321,20 +320,7 @@ def train_slim(
             msg += f" | tempo: {training_time:.1f}s"
             tqdm.write(msg)
 
-        # ── CHECKPOINT EPOCA ──────────────────────────────────────────────────
-        if save_path:
-            epoch_path = save_path.replace(".pth", f"_epoch{epoch+1}.pth")
-            save_slim_checkpoint(
-                model=model,
-                tokenizer=tokenizer,
-                epoch=epoch + 1,
-                loss=epoch_loss if val_loss is None else val_loss,
-                perplexity=epoch_ppx if val_ppx is None else val_ppx,
-                save_path=epoch_path,
-                training_time=training_time,
-                args_dict=args_dict,
-                final=False,
-            )
+        # Checkpoint per-epoch disabilitati: salviamo solo il best.
 
         # ── EARLY STOPPING ────────────────────────────────────────────────────
         if val_dataloader is not None and epochs_no_improve >= patience:
@@ -356,6 +342,21 @@ def train_slim(
     final_loss = total_loss / max(step, 1)
     final_ppx = torch.exp(torch.tensor(final_loss)).item()
     total_time = time.time() - training_start
+
+    # Fallback: se non c'è validation, salva un unico checkpoint finale come best.
+    if val_dataloader is None and save_path:
+        best_path = save_path.replace(".pth", "_best.pth")
+        save_slim_checkpoint(
+            model=model,
+            tokenizer=tokenizer,
+            epoch=epochs,
+            loss=final_loss,
+            perplexity=final_ppx,
+            save_path=best_path,
+            training_time=total_time,
+            args_dict=args_dict,
+            final=True,
+        )
 
     tqdm.write("\n[SLiM] Training completato!")
     tqdm.write(f"  Loss finale (train): {final_loss:.4f}")
@@ -409,7 +410,7 @@ def main():
     parser.add_argument("--use_local_halueval", action="store_true", help="Usa HaluEval locale")
     parser.add_argument("--state_dim", type=int, default=1, help="Dimensione stato (1 = scalare)")
     parser.add_argument("--val_split", type=float, default=0.2, help="Frazione dataset usata per validation (0.0 = nessuna validation)")
-    parser.add_argument("--patience", type=int, default=5, help="Epoche senza miglioramento prima di early stopping")
+    parser.add_argument("--patience", type=int, default=10, help="Epoche senza miglioramento prima di early stopping")
     parser.add_argument("--min_delta", type=float, default=1e-4, help="Miglioramento minimo val_loss per resettare patience")
     parser.add_argument("--slim_rank", type=int, default=64, help="Rank low-rank per SLiM_scale/SLiM_shift (default 64; aumentare per più capacità)")
 

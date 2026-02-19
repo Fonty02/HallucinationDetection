@@ -1,0 +1,23 @@
+{
+  "model_name": "google/gemma-2-9b-it",
+  "dataset": "belief_bank_constraints",
+  "num_pairs": 6500,
+  "epochs": 1000,
+  "batch_size": 16,
+  "lr": 0.0005,
+  "accumulation_steps": 4,
+  "max_length": 0,
+  "warmup_steps": 100,
+  "device": "cuda:2",
+  "project_root": ".",
+  "use_local_halueval": false,
+  "state_dim": 1,
+  "val_split": 0.2,
+  "patience": 10,
+  "min_delta": 0.0001,
+  "slim_rank": 64,
+  "trainable_params": 46878804,
+  "total_training_samples": 13000,
+  "num_train_samples": 10400,
+  "num_val_samples": 2600
+}
