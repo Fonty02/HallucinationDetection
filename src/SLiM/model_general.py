@@ -127,6 +127,10 @@ class GeneralSLiMedNet(nn.Module):
                 "modulated": [],
             }
 
+        # Contrastive training: capture mode
+        self._capture_mode = False
+        self.captured_representations = {}
+
     def _register_hooks(self) -> list:
         """Register a forward hook on the target transformer layer."""
         hooks = []
@@ -144,6 +148,15 @@ class GeneralSLiMedNet(nn.Module):
             scale = tanh(W_scale · projected)
             shift = tanh(W_shift · projected)
             output' = LayerNorm((output * scale + shift) + output)
+
+        In capture mode (contrastive training):
+        - Saves the modulated hidden state WITH gradients for loss computation.
+          torch.enable_grad() is required because bitsandbytes 4-bit quantization
+          may run the base model's forward inside a torch.no_grad() context,
+          which would strip grad_fn from steered_output even though SLiM params
+          have requires_grad=True.
+        - Detaches the output sent to subsequent layers to save memory
+          (subsequent layers are frozen and their output is not used)
         """
         def hook(module, input, output):
             if self.current_state_embed is None:
@@ -151,16 +164,28 @@ class GeneralSLiMedNet(nn.Module):
 
             hidden = output[0] if isinstance(output, tuple) else output
 
-            # Compute FiLM modulation
-            state_input = self.current_state_embed.to(self.slim_dtype)
-            projected_state = self.state_proj(state_input)
-            scale = torch.tanh(self.SLiM_scale(projected_state))
-            shift = torch.tanh(self.SLiM_shift(projected_state))
-            steered_output = (hidden * scale + shift)
-            # Residual connection (Appendix F of paper)
-            steered_output = steered_output + hidden
-            # Layer normalization for stability (Appendix D of paper)
-            steered_output = F.layer_norm(steered_output, steered_output.shape[-1:])
+            # ── SLiM FiLM computation ────────────────────────────────────────
+            # torch.enable_grad() ensures gradient tracking is active even if
+            # the 4-bit base model runs in a no_grad context internally.
+            with torch.enable_grad():
+                state_input = self.current_state_embed.to(self.slim_dtype)
+                projected_state = self.state_proj(state_input)
+                scale = torch.tanh(self.SLiM_scale(projected_state))
+                shift = torch.tanh(self.SLiM_shift(projected_state))
+                steered_output = (hidden.detach() * scale + shift)
+                # Residual connection (Appendix F of paper)
+                steered_output = steered_output + hidden.detach()
+                # Layer normalization for stability (Appendix D of paper)
+                steered_output = F.layer_norm(steered_output, steered_output.shape[-1:])
+
+            # --- Capture mode for contrastive training ---
+            if self._capture_mode:
+                # Save WITH grad_fn (through scale/shift ← SLiM params)
+                self.captured_representations["modulated"] = steered_output
+                # Detach what propagates to frozen subsequent layers
+                steered_for_model = steered_output.detach()
+            else:
+                steered_for_model = steered_output.detach()
 
             # Record values for analysis
             if self.record_SLiM:
@@ -174,7 +199,7 @@ class GeneralSLiMedNet(nn.Module):
             # Record hidden states
             if self.record_hidden_states:
                 self.hidden_states["modulated"].append(
-                    steered_output.detach().cpu().numpy()
+                    steered_for_model.detach().cpu().numpy()
                 )
                 self.hidden_states["unmodulated"].append(
                     hidden.detach().cpu().numpy()
@@ -182,9 +207,9 @@ class GeneralSLiMedNet(nn.Module):
 
             # Reconstruct output tuple if needed
             if isinstance(output, tuple):
-                output = (steered_output,) + output[1:]
+                output = (steered_for_model,) + output[1:]
             else:
-                output = steered_output
+                output = steered_for_model
 
             return output
 
@@ -247,6 +272,48 @@ class GeneralSLiMedNet(nn.Module):
     # =========================================================================
     # Utility Methods
     # =========================================================================
+
+    # =========================================================================
+    # Contrastive Training Support
+    # =========================================================================
+
+    def set_capture_mode(self, enabled: bool):
+        """
+        Enable/disable representation capture for contrastive training.
+
+        When enabled, the hook saves the modulated hidden state WITH gradients
+        and detaches what flows to subsequent layers (memory optimization).
+        """
+        self._capture_mode = enabled
+        if not enabled:
+            self.captured_representations = {}
+
+    def get_captured_representation(self) -> Optional[torch.Tensor]:
+        """
+        Get the captured modulated representation from the last forward pass.
+
+        Returns:
+            Tensor [batch, seq_len, hidden_size] with gradient connection
+            to SLiM parameters, or None if not in capture mode.
+        """
+        return self.captured_representations.get("modulated", None)
+
+    @staticmethod
+    def extract_last_token(hidden_states: torch.Tensor, attention_mask: torch.Tensor) -> torch.Tensor:
+        """
+        Extract the hidden state of the last non-padding token for each sample.
+
+        Args:
+            hidden_states: [batch, seq_len, hidden_size]
+            attention_mask: [batch, seq_len] with 1 for real tokens, 0 for padding
+
+        Returns:
+            [batch, hidden_size] — last-token representation (preserves gradients)
+        """
+        # Index of last real token per sample
+        lengths = attention_mask.sum(dim=1).long() - 1  # [batch]
+        batch_indices = torch.arange(hidden_states.size(0), device=hidden_states.device)
+        return hidden_states[batch_indices, lengths]  # [batch, H]
 
     def get_trainable_params_count(self) -> int:
         """Count the number of trainable parameters (SLiM only, not base model)."""

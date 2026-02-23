@@ -1,10 +1,15 @@
 """
 Dataset per SLiM Hallucination Reduction.
 
-Converte i paired dataset di TruthX (BeliefBank Facts, BeliefBank Constraints,
-HaluEval) nel formato SLiM: (tokenized_text, state), dove:
-- state = [1.0] per campioni truthful (positive)
-- state = [0.0] per campioni hallucinated (negative)
+Supporta due modalità:
+1. SLiMHallucinationDataset: flat dataset con (input_ids, target_ids, mask, state)
+   per training con CrossEntropy (backward-compatible).
+2. SLiMPairedDataset: dataset paired (pos_tokens, neg_tokens)
+   per training contrastivo (InfoNCE). Ogni coppia ha:
+   - pos: campione truthful (text = prompt + answer)
+   - neg: campione hallucinated (text = prompt + answer)
+   Entrambi vengono processati con state=1.0 — il SLiM module deve apprendere
+   scale/shift che separano truthful da hallucinated nello spazio nascosto.
 
 Riutilizza le funzioni create_paired_beliefbank_subset() e
 create_paired_halueval_subset() da train_truthx.py.
@@ -255,6 +260,143 @@ class SLiMHallucinationDataset(Dataset):
         return s["input_ids"], s["target_ids"], s["attention_mask"], s["state"]
 
 
+# =============================================================================
+# PAIRED DATASET FOR CONTRASTIVE TRAINING
+# =============================================================================
+
+
+class SLiMPairedDataset(Dataset):
+    """
+    Dataset per contrastive training di SLiM (InfoNCE).
+
+    Restituisce coppie (pos_tokens, neg_tokens) mantenendo l'allineamento.
+    Ogni campione include il testo completo (prompt + answer) per garantire
+    che le rappresentazioni differiscano anche per HaluEval dove le domande
+    sono identiche per pos e neg.
+
+    NOTA: state=1.0 per ENTRAMBI (pos e neg). La stessa trasformazione FiLM
+    viene applicata a entrambi: scale agisce come selettore di feature e
+    shift come bias direzionale, forzando lo spazio nascosto a separare
+    truth da hallucination in base al CONTENUTO, non allo stato.
+    """
+
+    def __init__(
+        self,
+        pairs: List[Dict],
+        tokenizer,
+        prompt_template: str,
+        max_length: int = 0,
+    ):
+        """
+        Args:
+            pairs: Lista di coppie dal formato TruthX
+                   [{"positive": {...}, "negative": {...}}]
+            tokenizer: Tokenizer HuggingFace
+            prompt_template: Template del prompt (es. PROMPT_TRUTHX)
+            max_length: Lunghezza massima della sequenza (0 = no truncation)
+        """
+        self.tokenizer = tokenizer
+        self.prompt_template = prompt_template
+        self.max_length = max_length
+        self.samples = []
+
+        for pair in pairs:
+            pos = pair["positive"]
+            neg = pair["negative"]
+
+            pos_text = self._build_text(pos)
+            neg_text = self._build_text(neg)
+
+            pos_enc = self._tokenize(pos_text)
+            neg_enc = self._tokenize(neg_text)
+
+            # Verifica che i token non siano vuoti
+            if pos_enc["input_ids"].size(0) > 0 and neg_enc["input_ids"].size(0) > 0:
+                self.samples.append({
+                    "pos_input_ids": pos_enc["input_ids"],
+                    "pos_attention_mask": pos_enc["attention_mask"],
+                    "neg_input_ids": neg_enc["input_ids"],
+                    "neg_attention_mask": neg_enc["attention_mask"],
+                })
+
+        print(f"[SLiM Paired] Creati {len(self.samples)} coppie da {len(pairs)} pairs")
+
+    def _build_text(self, sample: Dict) -> str:
+        """Costruisce il testo completo (prompt + answer)."""
+        question = sample["question"]
+        answer = sample.get("answer", "")
+        prompt = self.prompt_template.format(question=question)
+        if answer:
+            return f"{prompt} {answer}"
+        return prompt
+
+    def _tokenize(self, text: str) -> Dict:
+        """Tokenizza il testo con troncamento opzionale."""
+        if self.max_length is None or self.max_length <= 0:
+            encoded = self.tokenizer(
+                text, truncation=False, return_tensors="pt", padding=False
+            )
+        else:
+            encoded = self.tokenizer(
+                text, truncation=True, max_length=self.max_length,
+                return_tensors="pt", padding=False
+            )
+        return {
+            "input_ids": encoded["input_ids"].squeeze(0),
+            "attention_mask": encoded["attention_mask"].squeeze(0),
+        }
+
+    def __len__(self):
+        return len(self.samples)
+
+    def __getitem__(self, idx):
+        s = self.samples[idx]
+        return (
+            s["pos_input_ids"], s["pos_attention_mask"],
+            s["neg_input_ids"], s["neg_attention_mask"],
+        )
+
+
+def collate_fn_paired(batch):
+    """
+    Collate function per SLiMPairedDataset.
+
+    Padda pos e neg separatamente (possono avere lunghezze diverse) e
+    restituisce tensori pronti per il training contrastivo.
+
+    Args:
+        batch: List of (pos_input_ids, pos_mask, neg_input_ids, neg_mask)
+
+    Returns:
+        (pos_input_ids, pos_attention_mask, neg_input_ids, neg_attention_mask)
+        tutti padded a lunghezza massima nel rispettivo gruppo.
+    """
+    pos_ids_list, pos_masks_list, neg_ids_list, neg_masks_list = zip(*batch)
+
+    def _pad_sequences(ids_list, masks_list, pad_value=0):
+        max_len = max(x.size(0) for x in ids_list)
+        padded_ids = []
+        padded_masks = []
+        for ids, mask in zip(ids_list, masks_list):
+            pad_len = max_len - ids.size(0)
+            if pad_len > 0:
+                padded_ids.append(
+                    torch.cat([ids, torch.full((pad_len,), pad_value, dtype=ids.dtype)])
+                )
+                padded_masks.append(
+                    torch.cat([mask, torch.zeros(pad_len, dtype=mask.dtype)])
+                )
+            else:
+                padded_ids.append(ids)
+                padded_masks.append(mask)
+        return torch.stack(padded_ids), torch.stack(padded_masks)
+
+    pos_ids, pos_masks = _pad_sequences(pos_ids_list, pos_masks_list)
+    neg_ids, neg_masks = _pad_sequences(neg_ids_list, neg_masks_list)
+
+    return pos_ids, pos_masks, neg_ids, neg_masks
+
+
 def create_slim_dataset(
     dataset_name: str,
     tokenizer,
@@ -262,9 +404,10 @@ def create_slim_dataset(
     num_pairs: int = 500,
     max_length: int = 0,  # 0 = no truncation (use actual input length)
     use_local_halueval: bool = False,
-) -> SLiMHallucinationDataset:
+    paired: bool = False,
+):
     """
-    Factory function: crea un SLiMHallucinationDataset dal nome del dataset.
+    Factory function: crea un SLiMHallucinationDataset o SLiMPairedDataset.
 
     Args:
         dataset_name: "belief_bank_facts", "belief_bank_constraints", o "halu_eval"
@@ -273,9 +416,11 @@ def create_slim_dataset(
         num_pairs: Numero di coppie
         max_length: Lunghezza massima sequenza
         use_local_halueval: Se usare HaluEval locale
+        paired: Se True, restituisce SLiMPairedDataset per contrastive training.
+                Se False, restituisce SLiMHallucinationDataset (flat, per CE loss).
 
     Returns:
-        SLiMHallucinationDataset pronto per il DataLoader
+        SLiMPairedDataset o SLiMHallucinationDataset
     """
     from src.model.prompts import PROMPT_QA, PROMPT_HALU, PROMPT_TRUTHX
 
@@ -296,6 +441,14 @@ def create_slim_dataset(
         raise ValueError(
             f"Dataset sconosciuto: {dataset_name}. "
             f"Usa 'belief_bank_facts', 'belief_bank_constraints', o 'halu_eval'"
+        )
+
+    if paired:
+        return SLiMPairedDataset(
+            pairs=pairs,
+            tokenizer=tokenizer,
+            prompt_template=prompt_template,
+            max_length=max_length,
         )
 
     return SLiMHallucinationDataset(

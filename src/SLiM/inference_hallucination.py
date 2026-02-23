@@ -654,14 +654,25 @@ def run_inference(
 # =============================================================================
 # PREDEFINED EXPERIMENTS (stile TruthX)
 # =============================================================================
+# slim_checkpoint_dir: percorso relativo alla directory del checkpoint SLiM.
+#   Il runner risolve automaticamente al _best.pth più recente nella cartella.
+#   Usare None per esperimenti Baseline.
 
 EXPERIMENTS = {
-    "Gemma_Baseline_BBC": {
+       "Gemma_Baseline_BBC": {
         "type": "Baseline",
         "model": "google/gemma-2-9b-it",
         "dataset_eval": "belief_bank_constraints",
         "dataset_train": None,
-        "slim_checkpoint": None,
+        "slim_checkpoint_dir": None,
+        "state_value": 1.0,
+    },
+    "Gemma_SLiM_BBC": {
+        "type": "SLiM",
+        "model": "google/gemma-2-9b-it",
+        "dataset_eval": "belief_bank_constraints",
+        "dataset_train": "belief_bank_constraints",
+        "slim_checkpoint_dir": "SteeringVectors/SLiM/google_gemma-2-9b-it/belief_bank_constraints",
         "state_value": 1.0,
     },
 }
@@ -750,26 +761,40 @@ def build_experiments(
     return experiments
 
 
-def find_latest_checkpoint(directory: str) -> str:
-    """Trova il checkpoint più recente (ultima epoca) in una directory."""
+def find_best_checkpoint(directory: str) -> str:
+    """
+    Trova il checkpoint migliore in una directory.
+
+    Priorità:
+    1. *_best.pth  (salvato da train_slim con early stopping)
+    2. Qualsiasi .pth più recente come fallback
+
+    Returns:
+        Percorso assoluto al checkpoint, o None se la directory non esiste
+        o non contiene checkpoint.
+    """
     if not os.path.isdir(directory):
         return None
 
-    checkpoints = [
-        f for f in os.listdir(directory)
-        if f.endswith(".pth") and "epoch" in f
-    ]
-
-    if not checkpoints:
-        # Fallback: qualsiasi .pth
-        checkpoints = [f for f in os.listdir(directory) if f.endswith(".pth")]
-
-    if not checkpoints:
+    all_pth = [f for f in os.listdir(directory) if f.endswith(".pth")]
+    if not all_pth:
         return None
 
-    # Ordina per numero di epoca (o per data di modifica)
-    checkpoints.sort(key=lambda f: os.path.getmtime(os.path.join(directory, f)), reverse=True)
-    return os.path.join(directory, checkpoints[0])
+    # Preferisci _best.pth
+    best = [f for f in all_pth if f.endswith("_best.pth")]
+    if best:
+        # Se ci sono più _best.pth (run diverse), prendi il più recente
+        best.sort(key=lambda f: os.path.getmtime(os.path.join(directory, f)), reverse=True)
+        return os.path.join(directory, best[0])
+
+    # Fallback: qualsiasi .pth più recente
+    all_pth.sort(key=lambda f: os.path.getmtime(os.path.join(directory, f)), reverse=True)
+    return os.path.join(directory, all_pth[0])
+
+
+def find_latest_checkpoint(directory: str) -> str:
+    """Alias mantenuto per compatibilità con build_experiments()."""
+    return find_best_checkpoint(directory)
 
 
 # =============================================================================
@@ -789,7 +814,7 @@ def main():
                         choices=["Baseline", "SLiM", "CrossDataset","CrossModel"])
 
     # Modalità batch (tutti gli esperimenti)
-    parser.add_argument("--run_all", action="store_true", help="Esegui tutti gli esperimenti", default=True)
+    parser.add_argument("--run_all", action="store_true", help="Esegui tutti gli esperimenti", default=False)
     parser.add_argument("--models", nargs="+", default=None,
                         help="Lista modelli per modalità batch")
     parser.add_argument("--datasets", nargs="+", default=None,
@@ -815,21 +840,20 @@ def main():
     failure_log = os.path.join(project_root, args.failure_log) if not os.path.isabs(args.failure_log) else args.failure_log
     checkpoint_dir = args.checkpoint_dir or os.path.join(project_root, "SteeringVectors", "SLiM")
 
-    if args.run_all:
+    if args.run_all or (not args.model_name and not args.dataset):
         # ============================
         # Modalità batch
         # ============================
-        if args.use_predefined_experiments or (args.models is None and args.datasets is None):
+        if args.use_predefined_experiments or args.models is None:
             experiments = EXPERIMENTS
-            print("Uso esperimenti predefiniti da EXPERIMENTS")
+            print(f"Uso esperimenti predefiniti da EXPERIMENTS ({len(experiments)} totali)")
         else:
-            models = args.models or ["Qwen/Qwen2.5-7B", "tiiuae/Falcon3-7B-Base"]
+            models = args.models
             datasets = args.datasets or [
                 "belief_bank_facts",
                 "belief_bank_constraints",
                 "halu_eval",
             ]
-
             experiments = build_experiments(
                 models=models,
                 datasets=datasets,
@@ -841,11 +865,26 @@ def main():
 
         completed = 0
         failed = 0
+        skipped = 0
 
         for exp_id, exp_config in experiments.items():
             try:
-                slim_ckpt = exp_config.get("slim_checkpoint")
-                if slim_ckpt and not os.path.isabs(slim_ckpt):
+                # Risolvi slim_checkpoint_dir → file _best.pth
+                slim_ckpt = exp_config.get("slim_checkpoint")  # path file esplicito (legacy)
+                ckpt_dir = exp_config.get("slim_checkpoint_dir")  # directory (nuovo stile)
+
+                if slim_ckpt is None and ckpt_dir is not None:
+                    # Risolvi percorso relativo rispetto al project_root
+                    if not os.path.isabs(ckpt_dir):
+                        ckpt_dir = os.path.join(project_root, ckpt_dir)
+                    slim_ckpt = find_best_checkpoint(ckpt_dir)
+                    if slim_ckpt is None and exp_config["type"] != "Baseline":
+                        print(
+                            f"[SKIP] {exp_id}: nessun checkpoint trovato in {ckpt_dir}"
+                        )
+                        skipped += 1
+                        continue
+                elif slim_ckpt and not os.path.isabs(slim_ckpt):
                     slim_ckpt = os.path.join(project_root, slim_ckpt)
 
                 run_inference(
@@ -870,7 +909,7 @@ def main():
                     f.write(f"\n{'='*60}\n{exp_id}\n{tb}\n")
                 continue
 
-        print(f"\nCompletati: {completed} | Falliti: {failed}")
+        print(f"\nCompletati: {completed} | Saltati: {skipped} | Falliti: {failed}")
 
     else:
         # ============================
