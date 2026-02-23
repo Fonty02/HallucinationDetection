@@ -94,7 +94,8 @@ def create_paired_beliefbank_subset(
                 "pair_id": pair_id,
             })
             if pair_id == 0:
-                print(f"  [debug] pair 0 constraints: {fact_pos[:80]}")
+                # Mostra entrambe le parti (positive + negative) per il primo esempio
+                print(f"  [debug] pair 0 constraints (pos / neg):\n  POS: {fact_pos[:80]}\n  NEG: {fact_neg[:80]}")
             pair_id += 1
     else:  # facts
         half = total_samples // 2

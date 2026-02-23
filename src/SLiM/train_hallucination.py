@@ -77,7 +77,7 @@ def save_slim_checkpoint(
     """
     Salva un checkpoint SLiM.
 
-    Include solo i pesi dei moduli SLiM (gate, scale, shift, state_proj),
+    Include solo i pesi dei moduli SLiM (scale, shift, state_proj),
     NON l'intero modello base.
     """
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
@@ -100,7 +100,7 @@ def save_slim_checkpoint(
         "num_layers": model.num_layers,
         "n_slim_layers": model.n_slim_layers,
         "apply_SLiM_at_layers": model.apply_SLiM_at_layers,
-        "slim_rank": getattr(model, "slim_rank", 64),
+        "target_layer": model.target_layer,
     }
 
     torch.save(checkpoint, save_path)
@@ -401,7 +401,7 @@ def main():
     parser.add_argument("--num_pairs", type=int, default=2000, help="Numero di coppie")
     parser.add_argument("--epochs", type=int, default=3, help="Numero di epoche")
     parser.add_argument("--batch_size", type=int, default=2, help="Batch size")
-    parser.add_argument("--lr", type=float, default=5e-4, help="Learning rate")
+    parser.add_argument("--lr", type=float, default=1e-5, help="Learning rate")
     parser.add_argument("--accumulation_steps", type=int, default=4, help="Gradient accumulation steps")
     parser.add_argument("--max_length", type=int, default=0, help="Lunghezza massima sequenza (0 = usa lunghezza effettiva dell'input, senza troncamento)")
     parser.add_argument("--warmup_steps", type=int, default=100, help="Passi di warmup")
@@ -412,7 +412,7 @@ def main():
     parser.add_argument("--val_split", type=float, default=0.2, help="Frazione dataset usata per validation (0.0 = nessuna validation)")
     parser.add_argument("--patience", type=int, default=10, help="Epoche senza miglioramento prima di early stopping")
     parser.add_argument("--min_delta", type=float, default=1e-4, help="Miglioramento minimo val_loss per resettare patience")
-    parser.add_argument("--slim_rank", type=int, default=64, help="Rank low-rank per SLiM_scale/SLiM_shift (default 64; aumentare per più capacità)")
+    parser.add_argument("--target_layer", type=int, required=True, help="Indice del layer transformer su cui applicare SLiM")
 
     args = parser.parse_args()
     project_root = os.path.abspath(args.project_root)
@@ -420,14 +420,14 @@ def main():
     print(f"\n{'='*60}")
     print("  SLiM Hallucination Reduction - Training")
     print(f"{'='*60}")
-    print(f"  Modello:    {args.model_name}")
-    print(f"  Dataset:    {args.dataset}")
-    print(f"  Coppie:     {args.num_pairs}")
-    print(f"  Epoche:     {args.epochs}")
-    print(f"  Batch size: {args.batch_size}")
-    print(f"  LR:         {args.lr}")
-    print(f"  Device:     {args.device}")
-    print(f"  Rank SLiM:  {args.slim_rank}")
+    print(f"  Modello:      {args.model_name}")
+    print(f"  Dataset:      {args.dataset}")
+    print(f"  Coppie:       {args.num_pairs}")
+    print(f"  Epoche:       {args.epochs}")
+    print(f"  Batch size:   {args.batch_size}")
+    print(f"  LR:           {args.lr}")
+    print(f"  Device:       {args.device}")
+    print(f"  Target layer: {args.target_layer}")
     print(f"{'='*60}\n")
 
     # 1. Carica tokenizer
@@ -453,13 +453,12 @@ def main():
     slim_model = GeneralSLiMedNet(
         model=base_model,
         state_embed_dim=args.state_dim,
+        target_layer=args.target_layer,
         dtype=torch.bfloat16,  # match base model dtype → risparmio ~2.8GB VRAM
-        slim_rank=args.slim_rank,
     )
 
     # Sposta i moduli SLiM su device (già in bfloat16 dalla __init__)
     slim_model.state_proj = slim_model.state_proj.to(args.device)
-    slim_model.gate = slim_model.gate.to(args.device)
     slim_model.SLiM_scale = slim_model.SLiM_scale.to(args.device)
     slim_model.SLiM_shift = slim_model.SLiM_shift.to(args.device)
 
@@ -538,6 +537,7 @@ def main():
 
     save_filename = (
         f"slim_{args.dataset}_pairs{args.num_pairs}_"
+        f"layer{args.target_layer}_"
         f"lr{args.lr}_bs{args.batch_size}_ep{args.epochs}.pth"
     )
     save_path = os.path.join(save_dir, save_filename)

@@ -9,20 +9,19 @@ set -euo pipefail
 
 COMMON_ARGS=(
   --epochs 1000
-  --batch_size 4
-  --accumulation_steps 16
+  --device cuda:2
 )
 
 # Definisci qui gli esperimenti da lanciare in sequenza.
 
 
 EXPERIMENTS=(
-  #"--model_name google/gemma-2-9b-it --dataset belief_bank_facts --device cuda:2 --num_pairs 6500"
-  #"--model_name google/gemma-2-9b-it --dataset belief_bank_constraints --device cuda:2 --num_pairs 6500"
-  "--model_name google/gemma-2-9b-it --dataset halu_eval --device cuda:2 --num_pairs 2500"
-  "--model_name meta-llama/Llama-3.1-8B-Instruct --dataset belief_bank_facts --device cuda:2 --num_pairs 6500"
-  "--model_name meta-llama/Llama-3.1-8B-Instruct --dataset belief_bank_constraints --device cuda:2 --num_pairs 6500"
-  "--model_name meta-llama/Llama-3.1-8B-Instruct --dataset halu_eval --device cuda:2 --num_pairs 2500"
+  #"--model_name google/gemma-2-9b-it --dataset belief_bank_facts --num_pairs 6500 --batch_size 16 --accumulation_steps 16"
+  "--model_name google/gemma-2-9b-it --dataset belief_bank_constraints --num_pairs 6500 --batch_size 16 --accumulation_steps 16"
+  #"--model_name google/gemma-2-9b-it --dataset halu_eval --num_pairs 2500 --batch_size 4 --accumulation_steps 16"
+  #"--model_name meta-llama/Llama-3.1-8B-Instruct --dataset belief_bank_facts --num_pairs 6500 --batch_size 16 --accumulation_steps 16"
+  #"--model_name meta-llama/Llama-3.1-8B-Instruct --dataset belief_bank_constraints --num_pairs 6500 --batch_size 16 --accumulation_steps 16"
+  #"--model_name meta-llama/Llama-3.1-8B-Instruct --dataset halu_eval --num_pairs 2500 --batch_size 4 --accumulation_steps 16"
 
 
 )
@@ -41,6 +40,7 @@ for index in "${!EXPERIMENTS[@]}"; do
   uv run src/SLiM/train_hallucination.py "${COMMON_ARGS[@]}" ${exp_args} "$@"
   echo "[${run_id}/${#EXPERIMENTS[@]}] Completato"
   echo
+  uv run src/SLiM/inference_hallucination.py --num_samples 500 --device cuda:2
 done
 
 echo "Tutti gli esperimenti sono terminati con successo."

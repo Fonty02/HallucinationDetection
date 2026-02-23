@@ -60,9 +60,8 @@ CSV_COLUMNS = [
     "slim_checkpoint",
     "num_pairs_train",
     "state_value",
-    "top_k_layers",
+    "slim_layer",
     "num_layers_total",
-    "gate_values",
     "slim_training_time_seconds",
     "slim_inference_time_seconds",
     "slim_trainable_params",
@@ -371,9 +370,8 @@ def evaluate_baseline_from_cache(
         "slim_checkpoint": None,
         "num_pairs_train": None,
         "state_value": None,
-        "top_k_layers": None,
+        "slim_layer": None,
         "num_layers_total": None,
-        "gate_values": None,
         "slim_training_time_seconds": None,
         "slim_inference_time_seconds": None,
         "slim_trainable_params": None,
@@ -395,7 +393,6 @@ def run_inference(
     dataset_train: str,
     slim_checkpoint: str,
     state_value: float,
-    top_k: int,
     num_samples: int,
     project_root: str,
     device: str,
@@ -412,7 +409,6 @@ def run_inference(
         dataset_train: Dataset di training (per SLiM/CrossDataset)
         slim_checkpoint: Path al checkpoint SLiM (None per baseline)
         state_value: Valore dello stato (1.0 = truthful steering)
-        top_k: Numero di layer Top-K (-1 = tutti)
         num_samples: Numero di campioni da valutare (-1 = tutti)
         project_root: Root del progetto
         device: Device target
@@ -428,7 +424,6 @@ def run_inference(
     print(f"  Dataset eval: {dataset_name}")
     print(f"  Dataset train: {dataset_train}")
     print(f"  Checkpoint: {slim_checkpoint}")
-    print(f"  Top-K: {top_k}")
     print(f"  State: {state_value}")
     print(f"{'='*60}\n")
 
@@ -456,8 +451,6 @@ def run_inference(
 
     # 2. Setup SLiM (se non baseline)
     slim_model = None
-    active_layers = None
-    gate_values_str = None
     checkpoint_data = {}
     training_time = None
     trainable_params = None
@@ -465,6 +458,7 @@ def run_inference(
     batch_size = None
     num_epochs_train = None
     num_pairs_train = None
+    target_layer = None
 
     use_slim = experiment_type != "Baseline" and slim_checkpoint is not None
 
@@ -483,13 +477,16 @@ def run_inference(
         num_pairs_train = slim_args.get("num_pairs")
 
         state_dim = slim_args.get("state_dim", 1)
-        slim_rank = checkpoint_data.get("slim_rank", slim_args.get("slim_rank", 64))
+        target_layer = checkpoint_data.get(
+            "target_layer",
+            slim_args.get("target_layer", 0)
+        )
 
         # Crea SLiMedNet e carica pesi
         slim_model = GeneralSLiMedNet(
             model=base_model,
             state_embed_dim=state_dim,
-            slim_rank=slim_rank,
+            target_layer=target_layer,
         )
 
         # Carica solo i pesi SLiM
@@ -498,31 +495,11 @@ def run_inference(
 
         # Sposta moduli SLiM su device
         slim_model.state_proj = slim_model.state_proj.to(device)
-        slim_model.gate = slim_model.gate.to(device)
         slim_model.SLiM_scale = slim_model.SLiM_scale.to(device)
         slim_model.SLiM_shift = slim_model.SLiM_shift.to(device)
 
         print(f"  Pesi SLiM caricati. Missing: {len(missing)}, Unexpected: {len(unexpected)}")
-
-        # Calcola gate values e Top-K
-        state_tensor = torch.FloatTensor([state_value]).to(device)
-        gate_dict = slim_model.get_gate_values(state_tensor)
-        gate_values_str = json.dumps(
-            {str(k): round(v, 4) for k, v in gate_dict.items()}
-        )
-
-        ranking = slim_model.get_layer_ranking(state_tensor)
-        print("\n  Gate values (top 5):")
-        for layer_idx, gv in ranking[:5]:
-            print(f"    Layer {layer_idx}: {gv:.4f}")
-
-        # Seleziona Top-K layers
-        if top_k > 0:
-            active_layers = slim_model.get_top_k_layers(state_tensor, top_k)
-            active_physical = [slim_model.apply_SLiM_at_layers[i] for i in active_layers]
-            print(f"\n  Top-{top_k} layers attivi (fisici): {active_physical}")
-        else:
-            print(f"\n  Tutti i {slim_model.n_slim_layers} layers attivi")
+        print(f"  SLiM applicato al layer: {target_layer}")
 
         slim_model.eval()
     else:
@@ -563,6 +540,7 @@ def run_inference(
 
     # Prepara il tensore di stato
     state_tensor_batch = None
+    state_tensor_0_batch = None
     if use_slim:
         state_tensor_batch = torch.FloatTensor([[state_value]]).to(device)
 
@@ -580,10 +558,9 @@ def run_inference(
                     input_ids=inputs["input_ids"],
                     state_tensor=state_tensor_batch,
                     attention_mask=inputs.get("attention_mask"),
-                    active_layers=active_layers,
                     max_new_tokens=max_new_tokens,
                     do_sample=False,
-                )
+                    )
             else:
                 outputs = base_model.generate(
                     **inputs,
@@ -650,9 +627,8 @@ def run_inference(
         "slim_checkpoint": slim_checkpoint,
         "num_pairs_train": num_pairs_train,
         "state_value": state_value,
-        "top_k_layers": top_k,
+        "slim_layer": target_layer,
         "num_layers_total": slim_model.num_layers if slim_model else None,
-        "gate_values": gate_values_str,
         "slim_training_time_seconds": training_time,
         "slim_inference_time_seconds": inference_time,
         "slim_trainable_params": trainable_params,
@@ -680,22 +656,12 @@ def run_inference(
 # =============================================================================
 
 EXPERIMENTS = {
-    "Gemma_Baseline_BBF": {
+    "Gemma_Baseline_BBC": {
         "type": "Baseline",
         "model": "google/gemma-2-9b-it",
-        "dataset_eval": "belief_bank_facts",
+        "dataset_eval": "belief_bank_constraints",
         "dataset_train": None,
         "slim_checkpoint": None,
-        "top_k": 1,
-        "state_value": 1.0,
-    },
-    "Gemma_SLiM_BBF": {
-        "type": "SLiM",
-        "model": "google/gemma-2-9b-it",
-        "dataset_eval": "belief_bank_facts",
-        "dataset_train": "belief_bank_facts",
-        "slim_checkpoint": "SteeringVectors/SLiM/google_gemma-2-9b-it/belief_bank_facts/slim_belief_bank_facts_pairs6500_lr0.0005_bs16_ep1000_best.pth",
-        "top_k": 3,
         "state_value": 1.0,
     },
 }
@@ -709,7 +675,6 @@ def build_experiments(
     models: list,
     datasets: list,
     checkpoint_dir: str,
-    top_k: int = 1,
     state_value: float = 1.0,
 ) -> dict:
     """
@@ -720,11 +685,12 @@ def build_experiments(
     2. SLiM per ogni (model, dataset) — same dataset train/eval
     3. CrossDataset per ogni (model, dataset_train ≠ dataset_eval)
 
+    Il target layer viene letto dal checkpoint.
+
     Args:
         models: Lista nomi modelli
         datasets: Lista nomi dataset
         checkpoint_dir: Directory base dei checkpoint SLiM
-        top_k: Valore Top-K da testare
         state_value: Valore dello stato per il steering
 
     Returns:
@@ -744,7 +710,6 @@ def build_experiments(
                 "dataset_eval": ds,
                 "dataset_train": None,
                 "slim_checkpoint": None,
-                "top_k": -1,
                 "state_value": state_value,
             }
 
@@ -753,15 +718,13 @@ def build_experiments(
             ckpt = find_latest_checkpoint(ckpt_dir)
 
             if ckpt:
-                tk_str = f"top{top_k}" if top_k > 0 else "allLayers"
-                exp_id = f"SLiM_{model_safe}_{ds}_{tk_str}"
+                exp_id = f"SLiM_{model_safe}_{ds}"
                 experiments[exp_id] = {
                     "type": "SLiM",
                     "model": model_name,
                     "dataset_eval": ds,
                     "dataset_train": ds,
                     "slim_checkpoint": ckpt,
-                    "top_k": top_k,
                     "state_value": state_value,
                 }
 
@@ -774,15 +737,13 @@ def build_experiments(
                 ckpt = find_latest_checkpoint(ckpt_dir)
 
                 if ckpt:
-                    tk_str = f"top{top_k}" if top_k > 0 else "allLayers"
-                    exp_id = f"CrossDS_{model_safe}_train{ds_train}_eval{ds}_{tk_str}"
+                    exp_id = f"CrossDS_{model_safe}_train{ds_train}_eval{ds}"
                     experiments[exp_id] = {
                         "type": "CrossDataset",
                         "model": model_name,
                         "dataset_eval": ds,
                         "dataset_train": ds_train,
                         "slim_checkpoint": ckpt,
-                        "top_k": top_k,
                         "state_value": state_value,
                     }
 
@@ -823,7 +784,6 @@ def main():
     parser.add_argument("--dataset", type=str, default=None, help="Dataset di valutazione")
     parser.add_argument("--slim_checkpoint", type=str, default=None, help="Path checkpoint SLiM")
     parser.add_argument("--dataset_train", type=str, default=None, help="Dataset di training (per CrossDataset)")
-    parser.add_argument("--top_k", type=int, default=1, help="Top-K layers (default=1, -1 = tutti)")
     parser.add_argument("--state_value", type=float, default=1.0, help="Valore dello stato")
     parser.add_argument("--experiment_type", type=str, default="SLiM",
                         choices=["Baseline", "SLiM", "CrossDataset","CrossModel"])
@@ -874,7 +834,6 @@ def main():
                 models=models,
                 datasets=datasets,
                 checkpoint_dir=checkpoint_dir,
-                top_k=args.top_k,
                 state_value=args.state_value,
             )
 
@@ -897,7 +856,6 @@ def main():
                     dataset_train=exp_config.get("dataset_train"),
                     slim_checkpoint=slim_ckpt,
                     state_value=exp_config.get("state_value", 1.0),
-                    top_k=exp_config.get("top_k", args.top_k),
                     num_samples=args.num_samples,
                     project_root=project_root,
                     device=args.device,
@@ -923,8 +881,7 @@ def main():
 
         model_safe = args.model_name.replace("/", "_")
         ds_train = args.dataset_train or args.dataset
-        tk_str = f"top{args.top_k}" if args.top_k > 0 else "allLayers"
-        exp_id = f"{args.experiment_type}_{model_safe}_{args.dataset}_{tk_str}"
+        exp_id = f"{args.experiment_type}_{model_safe}_{args.dataset}"
 
         run_inference(
             experiment_id=exp_id,
@@ -934,7 +891,6 @@ def main():
             dataset_train=ds_train,
             slim_checkpoint=args.slim_checkpoint,
             state_value=args.state_value,
-            top_k=args.top_k,
             num_samples=args.num_samples,
             project_root=project_root,
             device=args.device,
