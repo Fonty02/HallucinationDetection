@@ -108,6 +108,9 @@ class GeneralSLiMedNet(nn.Module):
         # Current state (set during forward/generate)
         self.current_state_embed = None
 
+        # Steering strength: 0.0 = no steering, 1.0 = full steering
+        self.alpha = 1.0
+
         # Register hook on the target layer
         self.hooks = self._register_hooks()
 
@@ -147,7 +150,12 @@ class GeneralSLiMedNet(nn.Module):
             projected = StateBlock(state)
             scale = tanh(W_scale · projected)
             shift = tanh(W_shift · projected)
-            output' = LayerNorm((output * scale + shift) + output)
+            delta = hidden * scale + shift - hidden
+            output' = hidden + alpha * delta
+
+        Where alpha controls the steering strength (0.0 = no modulation,
+        1.0 = full modulation). This preserves the hidden state distribution
+        when alpha is small.
 
         In capture mode (contrastive training):
         - Saves the modulated hidden state WITH gradients for loss computation.
@@ -157,6 +165,11 @@ class GeneralSLiMedNet(nn.Module):
           have requires_grad=True.
         - Detaches the output sent to subsequent layers to save memory
           (subsequent layers are frozen and their output is not used)
+
+        In inference mode:
+        - The steered output flows naturally through the model without detach.
+        - No LayerNorm is applied post-modulation, preserving the hidden state
+          distribution expected by subsequent frozen layers.
         """
         def hook(module, input, output):
             if self.current_state_embed is None:
@@ -172,11 +185,19 @@ class GeneralSLiMedNet(nn.Module):
                 projected_state = self.state_proj(state_input)
                 scale = torch.tanh(self.SLiM_scale(projected_state))
                 shift = torch.tanh(self.SLiM_shift(projected_state))
-                steered_output = (hidden.detach() * scale + shift)
-                # Residual connection (Appendix F of paper)
-                steered_output = steered_output + hidden.detach()
-                # Layer normalization for stability (Appendix D of paper)
-                steered_output = F.layer_norm(steered_output, steered_output.shape[-1:])
+
+                if self._capture_mode:
+                    # Training: detach hidden so gradients flow only through
+                    # SLiM params (scale/shift), not through the frozen base model
+                    h = hidden.detach()
+                else:
+                    h = hidden
+
+                # FiLM modulation with residual connection and alpha scaling:
+                # steered = hidden + alpha * (hidden * scale + shift - hidden)
+                #         = hidden * (1 + alpha*(scale - 1)) + alpha*shift
+                delta = h * scale + shift - h
+                steered_output = h + self.alpha * delta
 
             # --- Capture mode for contrastive training ---
             if self._capture_mode:
@@ -185,7 +206,8 @@ class GeneralSLiMedNet(nn.Module):
                 # Detach what propagates to frozen subsequent layers
                 steered_for_model = steered_output.detach()
             else:
-                steered_for_model = steered_output.detach()
+                # Inference: let the steered tensor flow naturally
+                steered_for_model = steered_output
 
             # Record values for analysis
             if self.record_SLiM:

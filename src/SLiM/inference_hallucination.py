@@ -397,6 +397,7 @@ def run_inference(
     project_root: str,
     device: str,
     output_csv: str,
+    **kwargs,
 ):
     """
     Esegue un singolo esperimento di inferenza.
@@ -502,6 +503,11 @@ def run_inference(
         print(f"  SLiM applicato al layer: {target_layer}")
 
         slim_model.eval()
+
+        # Set steering strength if provided via alpha kwarg
+        if hasattr(slim_model, 'alpha'):
+            slim_model.alpha = kwargs.get('alpha', 1.0)
+            print(f"  SLiM alpha (steering strength): {slim_model.alpha}")
     else:
         print("[2/4] Baseline - nessun SLiM")
 
@@ -810,6 +816,7 @@ def main():
     parser.add_argument("--slim_checkpoint", type=str, default=None, help="Path checkpoint SLiM")
     parser.add_argument("--dataset_train", type=str, default=None, help="Dataset di training (per CrossDataset)")
     parser.add_argument("--state_value", type=float, default=1.0, help="Valore dello stato")
+    parser.add_argument("--alpha", type=float, default=1.0, help="SLiM steering strength (0.0=no steering, 1.0=full)")
     parser.add_argument("--experiment_type", type=str, default="SLiM",
                         choices=["Baseline", "SLiM", "CrossDataset","CrossModel"])
 
@@ -899,6 +906,7 @@ def main():
                     project_root=project_root,
                     device=args.device,
                     output_csv=output_csv,
+                    alpha=args.alpha,
                 )
                 completed += 1
             except Exception as e:
@@ -934,6 +942,7 @@ def main():
             project_root=project_root,
             device=args.device,
             output_csv=output_csv,
+            alpha=args.alpha,
         )
 
 
