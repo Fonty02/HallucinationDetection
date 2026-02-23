@@ -52,6 +52,7 @@ from src.model.utils import create_bnb_config, load_llm, load_tokenizer
 from src.SLiM.model_general import GeneralSLiMedNet
 from src.SLiM.dataset_hallucination import (
     collate_fn_paired,
+    collate_fn_hallucination,
     create_slim_dataset,
 )
 
@@ -511,6 +512,288 @@ def train_slim(
     }
 
 
+# =============================================================================
+# GENERATIVE TRAINING (Cross-Entropy Loss)
+# =============================================================================
+
+
+def train_slim_generative(
+    model: GeneralSLiMedNet,
+    dataloader: DataLoader,
+    optimizer: optim.Optimizer,
+    scheduler=None,
+    device: str = "cuda",
+    accumulation_steps: int = 8,
+    epochs: int = 3,
+    save_path: str = None,
+    tokenizer=None,
+    args_dict: dict = None,
+    verbose: bool = True,
+    val_dataloader: DataLoader = None,
+    patience: int = 10,
+    min_delta: float = 1e-4,
+):
+    """
+    Generative training loop for SLiM with cross-entropy loss.
+
+    Unlike contrastive training which only separates representations,
+    this directly optimizes SLiM to produce better next-token predictions.
+
+    For each sample (input_ids, target_ids, attention_mask, state):
+    1. state=1.0 for truthful samples, state=0.0 for hallucinated
+    2. Forward pass through full model (hook applies FiLM at target layer)
+    3. CE loss on output logits vs target tokens
+    4. Gradients flow: logits → frozen layers → steered_output → SLiM params
+
+    At inference with state=1.0, the learned FiLM transform steers toward
+    truthful token predictions.
+    """
+    device_type = "cuda" if "cuda" in device else "cpu"
+
+    model.train()
+    # No capture mode: gradients must flow through subsequent frozen layers
+    # to reach the logits (via steered_output → frozen layers → lm_head)
+    model.set_capture_mode(False)
+
+    step = 0
+    total_loss = 0
+    training_start = time.time()
+
+    # Early stopping state
+    best_val_loss = float("inf")
+    epochs_no_improve = 0
+    best_state_dict = None
+    best_epoch = None
+    stopped_early = False
+
+    epoch_bar = tqdm(range(epochs), desc="Epoche", unit="ep", position=0)
+
+    for epoch in epoch_bar:
+        # ── TRAINING ──────────────────────────────────────────────────────────
+        model.train()
+        model.set_capture_mode(False)
+        running_loss = 0
+        n_batches = 0
+        optimizer.zero_grad()
+
+        batch_bar = tqdm(
+            dataloader,
+            desc=f"Train {epoch + 1}/{epochs}",
+            unit="batch",
+            position=1,
+            leave=False,
+        )
+
+        for i, (input_ids, target_ids, attention_mask, states) in enumerate(batch_bar):
+            input_ids = input_ids.to(device)
+            target_ids = target_ids.to(device)
+            attention_mask = attention_mask.to(device)
+            states = states.to(device)
+
+            with torch.autocast(device_type=device_type, dtype=torch.bfloat16):
+                # Forward: hook applies state-conditioned FiLM modulation
+                logits = model(
+                    input_ids=input_ids,
+                    state_tensor=states,
+                    attention_mask=attention_mask,
+                )
+                # Cross-entropy loss on next-token prediction
+                loss = F.cross_entropy(
+                    logits.reshape(-1, logits.size(-1)),
+                    target_ids.reshape(-1),
+                    ignore_index=-100,
+                )
+                loss = loss / accumulation_steps
+
+            loss.backward()
+
+            if (i + 1) % accumulation_steps == 0:
+                torch.nn.utils.clip_grad_norm_(
+                    filter(lambda p: p.requires_grad, model.parameters()),
+                    max_norm=1.0,
+                )
+                optimizer.step()
+                optimizer.zero_grad()
+
+                if scheduler is not None:
+                    scheduler.step()
+
+                step += 1
+                total_loss += loss.item() * accumulation_steps
+
+            running_loss += loss.item() * accumulation_steps
+            n_batches += 1
+
+            avg_so_far = running_loss / n_batches
+            ppl_so_far = torch.exp(torch.tensor(avg_so_far)).item()
+            batch_bar.set_postfix(
+                loss=f"{loss.item() * accumulation_steps:.4f}",
+                avg=f"{avg_so_far:.4f}",
+                ppl=f"{ppl_so_far:.2f}",
+            )
+
+        batch_bar.close()
+
+        epoch_loss = running_loss / max(n_batches, 1)
+        epoch_ppl = torch.exp(torch.tensor(epoch_loss)).item()
+        training_time = time.time() - training_start
+
+        # ── VALIDATION ────────────────────────────────────────────────────────
+        val_loss = None
+        if val_dataloader is not None:
+            model.eval()
+            model.set_capture_mode(False)
+            val_running_loss = 0
+            val_n_batches = 0
+
+            val_bar = tqdm(
+                val_dataloader,
+                desc=f"Val   {epoch + 1}/{epochs}",
+                unit="batch",
+                position=1,
+                leave=False,
+            )
+
+            with torch.no_grad():
+                for input_ids, target_ids, attention_mask, states in val_bar:
+                    input_ids = input_ids.to(device)
+                    target_ids = target_ids.to(device)
+                    attention_mask = attention_mask.to(device)
+                    states = states.to(device)
+
+                    with torch.autocast(
+                        device_type=device_type, dtype=torch.bfloat16
+                    ):
+                        logits = model(
+                            input_ids=input_ids,
+                            state_tensor=states,
+                            attention_mask=attention_mask,
+                        )
+                        v_loss = F.cross_entropy(
+                            logits.reshape(-1, logits.size(-1)),
+                            target_ids.reshape(-1),
+                            ignore_index=-100,
+                        )
+
+                    val_running_loss += v_loss.item()
+                    val_n_batches += 1
+                    val_bar.set_postfix(val_loss=f"{v_loss.item():.4f}")
+
+            val_bar.close()
+            val_loss = val_running_loss / max(val_n_batches, 1)
+
+            # Early stopping check
+            if val_loss < best_val_loss - min_delta:
+                best_val_loss = val_loss
+                epochs_no_improve = 0
+                best_state_dict = {
+                    k: v.clone()
+                    for k, v in model.state_dict().items()
+                    if any(
+                        p.requires_grad
+                        for n, p in model.named_parameters()
+                        if n == k
+                    )
+                }
+                if save_path:
+                    best_path = save_path.replace(".pth", "_best.pth")
+                    save_slim_checkpoint(
+                        model=model,
+                        tokenizer=tokenizer,
+                        epoch=epoch + 1,
+                        loss=val_loss,
+                        perplexity=torch.exp(torch.tensor(val_loss)).item(),
+                        save_path=best_path,
+                        training_time=training_time,
+                        args_dict=args_dict,
+                        final=False,
+                    )
+                best_epoch = epoch + 1
+            else:
+                epochs_no_improve += 1
+
+        # ── AGGIORNA BARRA EPOCHE ─────────────────────────────────────────────
+        postfix = {
+            "tr_loss": f"{epoch_loss:.4f}",
+            "ppl": f"{epoch_ppl:.2f}",
+            "t": f"{training_time:.0f}s",
+        }
+        if val_loss is not None:
+            postfix["val_loss"] = f"{val_loss:.4f}"
+            postfix["no_imp"] = epochs_no_improve
+        epoch_bar.set_postfix(**postfix)
+
+        if verbose:
+            msg = f"\n  Epoca {epoch+1} | tr_loss: {epoch_loss:.4f} | ppl: {epoch_ppl:.2f}"
+            if val_loss is not None:
+                val_ppl = torch.exp(torch.tensor(val_loss)).item()
+                msg += f" | val_loss: {val_loss:.4f} | val_ppl: {val_ppl:.2f}"
+                if epochs_no_improve == 0:
+                    msg += " ✓ best"
+                else:
+                    msg += f" (no imp {epochs_no_improve}/{patience})"
+            msg += f" | tempo: {training_time:.1f}s"
+            tqdm.write(msg)
+
+        # ── EARLY STOPPING ────────────────────────────────────────────────────
+        if val_dataloader is not None and epochs_no_improve >= patience:
+            tqdm.write(
+                f"\n[SLiM] Early stopping a epoca {epoch+1} "
+                f"(nessun miglioramento per {patience} epoche). "
+                f"Best val_loss: {best_val_loss:.4f} @ epoca {best_epoch}"
+            )
+            stopped_early = True
+            break
+
+    # Ripristina i pesi migliori se disponibili
+    if best_state_dict is not None:
+        slim_state = {k: v for k, v in model.state_dict().items()}
+        slim_state.update(best_state_dict)
+        model.load_state_dict(slim_state, strict=False)
+        tqdm.write(
+            f"[SLiM] Pesi migliori ripristinati "
+            f"(epoca {best_epoch}, val_loss={best_val_loss:.4f})"
+        )
+
+    final_loss = total_loss / max(step, 1)
+    total_time = time.time() - training_start
+
+    # Fallback: se non c'è validation, salva checkpoint finale come best
+    if val_dataloader is None and save_path:
+        best_path = save_path.replace(".pth", "_best.pth")
+        save_slim_checkpoint(
+            model=model,
+            tokenizer=tokenizer,
+            epoch=epochs,
+            loss=final_loss,
+            perplexity=torch.exp(torch.tensor(final_loss)).item(),
+            save_path=best_path,
+            training_time=total_time,
+            args_dict=args_dict,
+            final=True,
+        )
+
+    tqdm.write("\n[SLiM] Training generativo completato!")
+    tqdm.write(f"  CE loss finale (train):  {final_loss:.4f}")
+    tqdm.write(f"  Perplexity finale:       {torch.exp(torch.tensor(final_loss)).item():.2f}")
+    if best_val_loss != float("inf"):
+        tqdm.write(
+            f"  Miglior val_loss:        {best_val_loss:.4f} (epoca {best_epoch})"
+        )
+    tqdm.write(f"  Tempo totale:            {total_time:.1f}s")
+    if stopped_early:
+        tqdm.write(f"  Early stopping dopo {best_epoch} epoche utili.")
+
+    return {
+        "final_loss": final_loss,
+        "best_val_loss": best_val_loss if best_val_loss != float("inf") else None,
+        "best_epoch": best_epoch,
+        "stopped_early": stopped_early,
+        "training_time_seconds": total_time,
+        "total_steps": step,
+    }
+
+
 def get_save_dir(project_root: str, model_name: str, dataset_name: str) -> str:
     """Genera il percorso di salvataggio per i checkpoint SLiM."""
     model_safe = model_name.replace("/", "_")
@@ -548,13 +831,17 @@ def main():
     parser.add_argument("--patience", type=int, default=10, help="Epoche senza miglioramento prima di early stopping")
     parser.add_argument("--min_delta", type=float, default=1e-4, help="Miglioramento minimo val_loss")
     parser.add_argument("--target_layer", type=int, required=True, help="Indice del layer transformer su cui applicare SLiM")
-    parser.add_argument("--temperature", type=float, default=0.1, help="Temperature τ per InfoNCE (default 0.1, come TruthX)")
+    parser.add_argument("--temperature", type=float, default=0.1, help="Temperature τ per InfoNCE (solo contrastive)")
+    parser.add_argument("--loss_type", type=str, default="generative",
+                        choices=["contrastive", "generative"],
+                        help="Tipo di loss: 'generative' (CE, default) o 'contrastive' (InfoNCE)")
 
     args = parser.parse_args()
     project_root = os.path.abspath(args.project_root)
 
+    loss_label = "Cross-Entropy (generative)" if args.loss_type == "generative" else f"InfoNCE τ={args.temperature}"
     print(f"\n{'='*60}")
-    print("  SLiM Hallucination Reduction — Contrastive Training")
+    print(f"  SLiM Hallucination Reduction — {args.loss_type.capitalize()} Training")
     print(f"{'='*60}")
     print(f"  Modello:      {args.model_name}")
     print(f"  Dataset:      {args.dataset}")
@@ -562,10 +849,9 @@ def main():
     print(f"  Epoche:       {args.epochs}")
     print(f"  Batch size:   {args.batch_size}")
     print(f"  LR:           {args.lr}")
-    print(f"  Temperature:  {args.temperature}")
     print(f"  Device:       {args.device}")
     print(f"  Target layer: {args.target_layer}")
-    print(f"  Loss:         InfoNCE (contrastive)")
+    print(f"  Loss:         {loss_label}")
     print(f"{'='*60}\n")
 
     # 1. Carica tokenizer
@@ -602,8 +888,10 @@ def main():
 
     trainable_params = print_trainable_parameters(slim_model)
 
-    # 4. Crea dataset paired per contrastive training
-    print("[4/5] Creazione dataset paired...")
+    # 4. Crea dataset
+    use_paired = (args.loss_type == "contrastive")
+    mode_label = "paired (contrastive)" if use_paired else "flat (generative)"
+    print(f"[4/5] Creazione dataset {mode_label}...")
     dataset = create_slim_dataset(
         dataset_name=args.dataset,
         tokenizer=tokenizer,
@@ -611,7 +899,7 @@ def main():
         num_pairs=args.num_pairs,
         max_length=args.max_length,
         use_local_halueval=args.use_local_halueval,
-        paired=True,  # <-- contrastive mode
+        paired=use_paired,
     )
 
     # Train / Validation split
@@ -633,11 +921,14 @@ def main():
         val_dataset = None
         print("  Nessun validation split (val_split=0.0)")
 
+    # Select collate function based on loss type
+    collate_fn = collate_fn_paired if use_paired else collate_fn_hallucination
+
     dataloader = DataLoader(
         train_dataset,
         batch_size=args.batch_size,
         shuffle=True,
-        collate_fn=collate_fn_paired,
+        collate_fn=collate_fn,
         num_workers=0,
         pin_memory=True,
     )
@@ -648,14 +939,13 @@ def main():
             val_dataset,
             batch_size=args.batch_size,
             shuffle=False,
-            collate_fn=collate_fn_paired,
+            collate_fn=collate_fn,
             num_workers=0,
             pin_memory=True,
         )
 
-    # 5. Setup training contrastivo
-    print("[5/5] Setup training contrastivo...")
-    criterion = SLiMContrastiveLoss(temperature=args.temperature)
+    # 5. Setup training
+    print(f"[5/5] Setup training {args.loss_type}...")
     optimizer = optim.AdamW(
         filter(lambda p: p.requires_grad, slim_model.parameters()),
         lr=args.lr,
@@ -663,7 +953,7 @@ def main():
     )
 
     total_steps = (len(dataloader) // args.accumulation_steps) * args.epochs
-    print(f"  Loss: InfoNCE (τ={args.temperature})")
+    print(f"  Loss: {loss_label}")
     print(f"  Patience early stopping: {args.patience} epoche (min_delta={args.min_delta})")
     scheduler = get_linear_schedule_with_warmup(
         optimizer,
@@ -678,7 +968,7 @@ def main():
     save_filename = (
         f"slim_{args.dataset}_pairs{args.num_pairs}_"
         f"layer{args.target_layer}_"
-        f"tau{args.temperature}_"
+        f"{args.loss_type}_"
         f"lr{args.lr}_bs{args.batch_size}_ep{args.epochs}.pth"
     )
     save_path = os.path.join(save_dir, save_filename)
@@ -689,7 +979,6 @@ def main():
     args_dict["total_training_pairs"] = len(dataset)
     args_dict["num_train_pairs"] = len(train_dataset)
     args_dict["num_val_pairs"] = len(val_dataset) if val_dataset is not None else 0
-    args_dict["loss_type"] = "infonce_contrastive"
 
     # Salva config di training
     config_path = os.path.join(save_dir, save_filename.replace(".pth", "_config.json"))
@@ -698,24 +987,42 @@ def main():
     print(f"Config salvata: {config_path}")
 
     # Training
-    print(f"\nInizio training contrastivo ({total_steps} step stimati)...\n")
+    print(f"\nInizio training {args.loss_type} ({total_steps} step stimati)...\n")
 
-    result = train_slim(
-        model=slim_model,
-        dataloader=dataloader,
-        criterion=criterion,
-        optimizer=optimizer,
-        scheduler=scheduler,
-        device=args.device,
-        accumulation_steps=args.accumulation_steps,
-        epochs=args.epochs,
-        save_path=save_path,
-        tokenizer=tokenizer,
-        args_dict=args_dict,
-        val_dataloader=val_dataloader,
-        patience=args.patience,
-        min_delta=args.min_delta,
-    )
+    if args.loss_type == "contrastive":
+        criterion = SLiMContrastiveLoss(temperature=args.temperature)
+        result = train_slim(
+            model=slim_model,
+            dataloader=dataloader,
+            criterion=criterion,
+            optimizer=optimizer,
+            scheduler=scheduler,
+            device=args.device,
+            accumulation_steps=args.accumulation_steps,
+            epochs=args.epochs,
+            save_path=save_path,
+            tokenizer=tokenizer,
+            args_dict=args_dict,
+            val_dataloader=val_dataloader,
+            patience=args.patience,
+            min_delta=args.min_delta,
+        )
+    else:  # generative
+        result = train_slim_generative(
+            model=slim_model,
+            dataloader=dataloader,
+            optimizer=optimizer,
+            scheduler=scheduler,
+            device=args.device,
+            accumulation_steps=args.accumulation_steps,
+            epochs=args.epochs,
+            save_path=save_path,
+            tokenizer=tokenizer,
+            args_dict=args_dict,
+            val_dataloader=val_dataloader,
+            patience=args.patience,
+            min_delta=args.min_delta,
+        )
 
     # Salva risultato finale
     result["args"] = args_dict

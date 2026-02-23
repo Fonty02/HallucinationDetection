@@ -186,12 +186,10 @@ class GeneralSLiMedNet(nn.Module):
                 scale = torch.tanh(self.SLiM_scale(projected_state))
                 shift = torch.tanh(self.SLiM_shift(projected_state))
 
-                if self._capture_mode:
-                    # Training: detach hidden so gradients flow only through
-                    # SLiM params (scale/shift), not through the frozen base model
-                    h = hidden.detach()
-                else:
-                    h = hidden
+                # Always detach hidden: we never need gradients through
+                # the base model, only through SLiM params (scale/shift).
+                # This saves VRAM by cutting the graph before the target layer.
+                h = hidden.detach()
 
                 # FiLM modulation with residual connection and alpha scaling:
                 # steered = hidden + alpha * (hidden * scale + shift - hidden)

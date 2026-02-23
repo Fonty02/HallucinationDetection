@@ -92,9 +92,9 @@ def create_paired_beliefbank_subset(
             fact_pos, _, _ = dataset[i]
             fact_neg, _, _ = dataset[i + 1]
             pairs.append({
-                "positive": {"question": fact_pos, "answer": "True",
+                "positive": {"question": fact_pos, "answer": "yes",
                              "instance_id": pair_id * 2, "label": 1},
-                "negative": {"question": fact_neg, "answer": "False",
+                "negative": {"question": fact_neg, "answer": "no",
                              "instance_id": pair_id * 2 + 1, "label": 0},
                 "pair_id": pair_id,
             })
@@ -109,14 +109,14 @@ def create_paired_beliefbank_subset(
             fact_neg, _, _ = dataset[i + half]
 
             if label_pos == "yes":
-                positive = {"question": fact_pos, "answer": "True",
+                positive = {"question": fact_pos, "answer": "yes",
                             "instance_id": pair_id * 2, "label": 1}
-                negative = {"question": fact_neg, "answer": "False",
+                negative = {"question": fact_neg, "answer": "no",
                             "instance_id": pair_id * 2 + 1, "label": 0}
             else:
-                positive = {"question": fact_neg, "answer": "True",
+                positive = {"question": fact_neg, "answer": "yes",
                             "instance_id": pair_id * 2, "label": 1}
-                negative = {"question": fact_pos, "answer": "False",
+                negative = {"question": fact_pos, "answer": "no",
                             "instance_id": pair_id * 2 + 1, "label": 0}
 
             pairs.append({"positive": positive, "negative": negative, "pair_id": pair_id})
@@ -428,7 +428,8 @@ def create_slim_dataset(
         pairs = create_paired_halueval_subset(
             num_pairs=num_pairs, use_local=use_local_halueval
         )
-        prompt_template = PROMPT_TRUTHX
+        # Use PROMPT_HALU to match inference prompt template
+        prompt_template = PROMPT_HALU
     elif dataset_name in ("belief_bank_facts", "belief_bank_constraints"):
         data_type = dataset_name.replace("belief_bank_", "")
         pairs = create_paired_beliefbank_subset(
@@ -436,7 +437,8 @@ def create_slim_dataset(
             data_type=data_type,
             num_pairs=num_pairs,
         )
-        prompt_template = PROMPT_TRUTHX
+        # Use PROMPT_QA to match inference prompt template
+        prompt_template = PROMPT_QA
     else:
         raise ValueError(
             f"Dataset sconosciuto: {dataset_name}. "
