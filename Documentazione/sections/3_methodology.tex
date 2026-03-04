@@ -1,10 +1,10 @@
 \chapter{Methodology}
 
 
-This chapter explores the methodology adopted for the project development. For building the universal prober, the datasets Belief Bank Facts \cite{BeliefBank}, Belief Bank Constraints \cite{BeliefBank} and Halu Eval \cite{Halueval} were used. Five different methodological approaches were considered to align the latent space of a tester model to that of a trainer model, where trainer model refers to the model whose activations are used to train the prober model, and tester model refers to the model whose activations are used to test the prober's transferability (after a possible alignment phase).
-The first phase of the work involved dataset preparation and extraction of internal activations from the LLMs across all layers and each type of layer component (attention, MLP, hidden states). Subsequently, preliminary studies were conducted to evaluate the ability of each individual layer component to discriminate between true statements and hallucinations, in order to identify the most relevant layers and components for building the universal prober.
-Some statistics related to hallucinations of the two models were then calculated, and all activations were preprocessed to be used in the various methodological approaches.
-In an initial phase, a completely linear approach was used, then more complex methods were explored including non-linear adaptations via AdapterMLP, Encoder and AutoEncoder. Each methodology was evaluated in terms of performance and transfer capability between different models. 
+This chapter explores the methodology adopted for the project development. For building the universal prober and the general steering technique for hallucination reduction, the datasets Belief Bank Facts \cite{BeliefBank}, Belief Bank Constraints \cite{BeliefBank} and Halu Eval \cite{Halueval} were used.
+The first phase of the work involved dataset preparation and extraction of internal activations from the LLMs across all layers and each type of layer component (attention, MLP, hidden states). Subsequently, preliminary studies were conducted to evaluate the ability of each individual layer component to discriminate between true statements and hallucinations, in order to identify the most relevant layers and components. Regarding the construction of the universal prober the proposed solution \textbf{One-For-All} was compared with four alternative approaches based on linear and non-linear transformations of the activation space, with and without dimensionality reduction via autoencoder. 
+Regarding the general steering technique for hallucination reduction, two different approaches were explored: the first one is based on the \textbf{TruthX} technique while the second one is an adaptation of the \textbf{SLiM} technique for the specific task of hallucination reduction.
+
 
 \section{Dataset}
 
@@ -43,9 +43,28 @@ The dataset is composed of:
 
 The final dataset is composed of 10,000 examples.
 
+\begin{table}[H] 
+\centering
+\vspace{0.2cm}
+\renewcommand{\arraystretch}{1.8}
+\begin{tabular}{|c|l|c|c|} 
+\hline 
+ & & \textbf{Extrinsic} & \textbf{Intrinsic} \\ 
+\hline
+\multirow{3}{*}{\rotatebox{90}{\tiny \textbf{Type of hallucination}}} 
+& \textbf{Factual} & BeliefBankFacts & \\
+\cline{2-4}
+& \textbf{Logical} & & BeliefBankConstraints \\
+\cline{2-2} \cdashline{4-4} 
+& \textbf{Contextual} & & HaluEval \\
+\hline
+\end{tabular}
+\label{tab:dataset-hallucination-types}
+\caption{Hallucination types and corresponding datasets}
+\end{table}
 
 \subsection{Activation Dataset Creation}
-Once the dataset of statements and their truthfulness labels was prepared, the next step was extracting internal activations from the models Qwen2.5-7B \cite{qwen2.5}, Falcon3-7B-Base \cite{Falcon3}, Llama-3.1-8B-Instruct \cite{LLama3} and gemma-2-9b-it \cite{Gemma2}. 
+Once the dataset of statements and their truthfulness labels was prepared, the next step was extracting internal activations from the models Llama-3.1-8B-Instruct \cite{LLama3} and gemma-2-9b-it \cite{Gemma2}. 
 Each example is preceded by a prompt that is provided to the language model to guide its response.
 For the Belief Bank Facts and Belief Bank Constraints datasets, the prompt used is as follows:
 \begin{quote}
@@ -59,17 +78,16 @@ where \{question\} is replaced with the specific statement to evaluate.
 
 \noindent For the Halu Eval dataset, the prompt used is as follows:
 \begin{quote}
-    SYS\_FACT = You are an expert in several domains. You'll be provided with a fact, and your task is to confirm or deny its truthfulness.
-Do not provide any additional information or explanations.
-Just answer only with \"yes\" or \"no\".
- 
-USR\_FACT = Is the fact true? Fact: {question}
-Answer:
+    SYS\_FACT = "You are an expert in several domains. You’ll
+be provided with a question, and your task is to
+provide the correct answer. Do not provide any
+additional information or explanations. Just
+answer the question directly. Question: \{question\}. Answer:"
 
 \end{quote}
 
 
-Therefore, the LLM receives the prompt followed by the question as input and must respond with "yes" or "no".
+Therefore, the LLM receives the prompt followed by the question as input and must respond with "yes" or "no" for the first two datasets, and with the answer to the question for the Halu Eval dataset.
 For each statement in the dataset, the activations corresponding to all layers and components (attention, MLP, hidden states) of the models were recorded. These activations constitute the database on which the various probers for hallucination detection were trained. To verify whether the model responds correctly or hallucinates, a simple matching logic was used between the generated response and the truthfulness label associated with the statement in the dataset:
 if the actual response (yes or no) is a substring (i.e., is contained) in the model's generated response, then the statement is considered true (non-hallucination); otherwise it is considered false (hallucination).
 
@@ -81,35 +99,36 @@ if the actual response (yes or no) is a substring (i.e., is contained) in the mo
 \end{figure}
 
 \section{LLMs Used}
-For the experiments conducted in this work, four open-weights models were selected representing the state of the art for their respective sizes and architectural families.
+For the experiments conducted in this work, two open-weights models were selected representing the state of the art for their respective sizes and architectural families.
 
-\subsection{Qwen2.5-7B}
-Qwen2.5-7B is a model developed by Alibaba Cloud and is part of the Qwen2.5 series. It is a \textit{Decoder-only} Transformer-based model with 7 billion parameters. Compared to its predecessors, Qwen2.5 introduces several architectural optimizations:
-\begin{itemize}
-    \item \textbf{Grouped Query Attention (GQA)}: Uses GQA instead of standard Multi-Head Attention to optimize Key-Value (KV) cache memory usage during inference, allowing longer contexts and faster generation \cite{GQA}.
-    \item \textbf{SwiGLU Activation}: Replaces the classic GeLU activation function with SwiGLU, which has empirically demonstrated improved convergence performance \cite{SWIGLU}.
-    \item \textbf{Rotary Positional Embeddings}: Uses rotary positional embeddings to better handle relative token positions and support very large context windows \cite{RoPE}.
-\end{itemize}
-The model was pre-trained on a massive multilingual corpus, demonstrating excellent capabilities not only in reasoning and language understanding, but also in coding and mathematics.
+%\subsection{Qwen2.5-7B}
+%Qwen2.5-7B is a model developed by Alibaba Cloud and is part of the Qwen2.5 series. It is a \textit{Decoder-only} Transformer-based model with 7 billion parameters. Compared to its predecessors, Qwen2.5 introduces several architectural optimizations:
+%\begin{itemize}
+ %   \item \textbf{Grouped Query Attention (GQA)}: Uses GQA instead of standard Multi-Head Attention to optimize Key-Value (KV) cache memory usage during inference, allowing longer contexts and faster generation \cite{GQA}.
+  %  \item \textbf{SwiGLU Activation}: Replaces the classic GeLU activation function with SwiGLU, which has empirically demonstrated improved convergence performance \cite{SWIGLU}.
+   % \item \textbf{Rotary Positional Embeddings}: Uses rotary positional embeddings to better handle relative token positions and support very large context windows \cite{RoPE}.
+%\end{itemize}
+%The model was pre-trained on a massive multilingual corpus, demonstrating excellent capabilities not only in reasoning and language understanding, but also in coding and mathematics.
 
-\subsection{Falcon3-7B-Base}
-Falcon3-7B-Base belongs to the family of models developed by the Technology Innovation Institute (TII) of Abu Dhabi. Like Qwen, it is an LLM with 7 billion parameters based on GQA.
-Falcon3 continues the tradition of the Falcon series by focusing on pre-training data quality (based on the RefinedWeb dataset \cite{refinedweb}, a rigorously filtered and deduplicated web dataset).
+%\subsection{Falcon3-7B-Base}
+%Falcon3-7B-Base belongs to the family of models developed by the Technology Innovation Institute (TII) of Abu Dhabi. Like Qwen, it is an LLM with 7 billion parameters based on GQA.
+%Falcon3 continues the tradition of the Falcon series by focusing on pre-training data quality (based on the RefinedWeb dataset \cite{refinedweb}, a rigorously filtered and deduplicated web dataset).
 
-\subsection{Llama-3.1-8B-Instruct} Llama-3.1-8B-Instruct represents an iteration of the open-weights model family developed by Meta. It has 8 billion parameters and \textit{Instruct} indicates that the model was specifically optimized for dialogue and instruction following through SFT and DPO. Like previous models, it uses GQA to maintain inferential efficiency by reducing the KV cache memory footprint. 
+\subsection{Llama-3.1-8B-Instruct} Llama-3.1-8B-Instruct represents an iteration of the open-weights model family developed by Meta. It has 8 billion parameters and \textit{Instruct} indicates that the model was specifically optimized for dialogue and instruction following through SFT and DPO. It makes use of the \textbf{Grouped Query Attention}  (GQA) \cite{GQA} to maintain inferential efficiency by reducing the \textbf{Key-Value cache} (KV cache) memory footprint. 
 
 
-\subsection{Gemma-2-9B-IT} Gemma-2-9B-IT is a model developed by Google DeepMind and is part of the second generation of the Gemma series. With 9 billion parameters, it sits in a slightly higher dimensional range than classic 7B models, offering reasoning capabilities competitive with much larger models. Unlike Llama and Qwen, Gemma 2 introduces specific architectural novelties that deviate from standard Transformer design: 
+
+\subsection{Gemma-2-9B-IT} Gemma-2-9B-IT is a model developed by Google DeepMind and is part of the second generation of the Gemma series. With 9 billion parameters, it sits in a slightly higher dimensional range than classic 7B models, offering reasoning capabilities competitive with much larger models. Unlike Llama, Gemma 2 introduces specific architectural novelties that deviate from standard Transformer design: 
 \begin{itemize} 
     \item \textbf{Sliding Window Attention \& Global Attention}: The model alternates standard (global) attention layers with \textit{Sliding Window Attention} based layers. 
-    \item \textbf{Knowledge Distillation}: Instead of classic next-token prediction pre-training from scratch, Gemma-2-9B was trained using Knowledge Distillation techniques from a much larger teacher model, inheriting its reasoning capabilities more efficiently. 
+    \item \textbf{Knowledge Distillation} (KD) \cite{KwowledgeDistillationSurvey}: Instead of classic next-token prediction pre-training from scratch, Gemma-2-9B was trained using Knowledge Distillation techniques from a much larger teacher model, inheriting its reasoning capabilities more efficiently. 
 \end{itemize}
 Like Llama-3.1-8B-Instruct, Gemma-2-9B-IT was also optimized for dialogue and instruction following through SFT and DPO.
 
 
 \section{Preliminary Studies}
 \subsection{Hallucination Statistics}
-Before proceeding with the construction of the universal prober, some statistics were calculated regarding the frequency of hallucinations in the various LLMs for the datasets.
+Before proceeding with the transferability studies, some statistics were calculated regarding the frequency of hallucinations in the various LLMs for the datasets.
 Analyzing the model outputs on the datasets, the statistics visible in tables \ref{tab:hallucination-stats-bbf}, \ref{tab:hallucination-stats-bbc} and \ref{tab:hallucination-stats-he} were calculated.
 \begin{table}[H]
 \centering
@@ -120,9 +139,9 @@ Analyzing the model outputs on the datasets, the statistics visible in tables \r
     \toprule
     \textbf{Model} & \textbf{Total statements} & \textbf{Hallucinations} & \textbf{Hallucination Rate} \\
     \midrule
-    Qwen2.5-7B      & 27\,416 & 3\,565 & 13.0\% \\
-    \rowcolor{red!25}Falcon3-7B-Base & 27\,416 & 7\,531 & 27.47\% \\
-    Llama-3.1-8B-Instruct & 27\,416 & 1\,799 & 6.56\% \\
+    %Qwen2.5-7B      & 27\,416 & 3\,565 & 13.0\% \\
+    %\rowcolor{red!25}Falcon3-7B-Base & 27\,416 & 7\,531 & 27.47\% \\
+    \rowcolor{red!25}Llama-3.1-8B-Instruct & 27\,416 & 1\,799 & 6.56\% \\
     \rowcolor{green!25}Gemma-2-9B-IT   & 27\,416 & 802 & 2.93\% \\
     \bottomrule
 \end{tabular}
@@ -144,8 +163,6 @@ Analyzing the model outputs on the datasets, the statistics visible in tables \r
 \end{tabular}
 \end{table}
 
-\textcolor{blue}{This is not my mistake, for LLama some activations are missing} \textcolor{red}{oh shit, on gandalf? possible?}
-
 
 \begin{table}[H]
 \centering
@@ -164,38 +181,38 @@ Analyzing the model outputs on the datasets, the statistics visible in tables \r
 
 
 
-The results suggest that in general, with the same dataset, models behave similarly, which indicates that hallucinations could be related to intrinsic characteristics in language models as stated by Kalai et al. in \cite{HallOpenAI} (and therefore building a universal prober could be possible).
+The results suggest that in general, with the same dataset, models behave similarly, which indicates that hallucinations could be related to intrinsic characteristics in language models as stated by Kalai et al. in \cite{HallOpenAI}.
 
 If we compare results between the three different datasets, we observe that models tend to produce many more \textit{Logical Inconsistencies}
 
-\subsection{Studio delle singole componenti di layer}
+\subsection{Study of Individual Layer Components}
 
-Per valutare la capacità discriminativa delle diverse componenti di layer (attention, MLP, hidden states) dei vari LLMS nel rilevamento delle allucinazioni, sono stati condotti esperimenti sistematici su ciascun layer e tipologia di attivazione. In particolare, per ogni layer e componente, sono state estratte le attivazioni corrispondenti e utilizzate come input per addestrare un classificatore Logistic Regression, con l’obiettivo di distinguere tra affermazioni vere e allucinazioni.
+To evaluate the discriminative ability of the different layer components (attention, MLP, hidden states) of the various LLMs in detecting hallucinations, systematic experiments were conducted on each layer and activation type. In particular, for each layer and component, the corresponding activations were extracted and used as input to train a Logistic Regression classifier, with the goal of distinguishing between true statements and hallucinations.
 
-La pipeline sperimentale prevede:
+The experimental pipeline includes:
 \begin{enumerate}
-\item Estrazione delle attivazioni per ogni layer e componente (attention, MLP, hidden) dai modelli su tutto il dataset.
-\item Undersampling e suddivisione del dataset in training e test set, mantenendo la stessa suddivisione per tutti gli esperimenti.
-\item Normalizzazione delle attivazioni tramite StandardScaler.
+\item Extraction of activations for each layer and component (attention, MLP, hidden) from the models over the entire dataset.
+\item Undersampling and splitting of the dataset into training and test sets, keeping the same split for all experiments.
+\item Normalization of activations using StandardScaler.
 \item Training of a Logistic Regression classifier for each layer/component combination.
 \item Evaluation of performance through accuracy metrics.
 \end{enumerate}
 
 The results show that some components and layers are particularly effective in discriminating hallucinations, highlighting the presence of specific informative patterns in the internal activations of models
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/Qwen2.5-7B_belief_bank_facts_activations.pdf}
-    \caption{Performance of Qwen2.5-7B components on Belief Bank Facts}
-    \label{fig:qwen-layer-performance-facts}
-\end{figure}
+%\begin{figure}[H]
+    %\centering
+    %\includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/Qwen2.5-7B_belief_bank_facts_activations.pdf}
+    %\caption{Performance of Qwen2.5-7B components on Belief Bank Facts}
+   % \label{fig:qwen-layer-performance-facts}
+%\end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/Falcon3-7B-Base_belief_bank_facts_activations.pdf}
-    \caption{Performance of Falcon3-7B-Base components on Belief Bank Facts}
-    \label{fig:qwen-layer-performance-facts}
-\end{figure}
+%\begin{figure}[H]
+  %  \centering
+  %  \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/Falcon3-7B-Base_belief_bank_facts_activations.pdf}
+  %  \caption{Performance of Falcon3-7B-Base components on Belief Bank Facts}
+  %  \label{fig:qwen-layer-performance-facts}
+%\end{figure}
 
 \begin{figure}[H]
     \centering
@@ -247,19 +264,35 @@ Subsequently, an analysis was performed regarding the distribution of hallucinat
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/SINGLE_Falcon3-7B-Base_attn_L18_PCA.pdf}
-    \label{fig:falcon-pca-attn-18}
-    \caption{PCA of Attention activations of layer 18 of Falcon3-7B-Base}
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/PCA_Gemma-2-9B_attn.pdf}
+    \label{fig:gemma-pca-attn}
+    \caption{PCA of Attention activations of Gemma-2-9B-IT across all datasets}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/SINGLE_Qwen2.5-7B_attn_L14_PCA.pdf}
-    \label{fig:qwen-pca-attn-l14}
-    \caption{PCA of Attention activations of layer 14 of Qwen2.5-7B}
+    \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/PCA_Llama-3.1-8B_attn.pdf}
+    \label{fig:gemma-pca-attn}
+    \caption{PCA of Attention activations of Llama-3.1-8B-Instruct across all datasets}
 \end{figure}
 
-For subsequent experiments, the 3 best layers in terms of performance were chosen for each component \ref{tab:layer-config-belief-bank-facts}, \ref{tab:layer-config-belief-bank-constraints}, \ref{tab:layer-config-halu-eval}.
+%\begin{figure}[H]
+   % \centering
+   % \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/SINGLE_Falcon3-7B-Base_attn_L18_PCA.pdf}
+   % \label{fig:falcon-pca-attn-18}
+   % \caption{PCA of Attention activations of layer 18 of Falcon3-7B-Base}
+%\end{figure}
+
+%\begin{figure}[H]
+    %\centering
+    %\includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/SINGLE_Qwen2.5-7B_attn_L14_PCA.pdf}
+   % \label{fig:qwen-pca-attn-l14}
+   % \caption{PCA of Attention activations of layer 14 of Qwen2.5-7B}
+%\end{figure}
+
+
+
+For subsequent experiments, the 3 best layers in terms of performance were chosen for each component. Tab. \ref{tab:layer-config-belief-bank-facts}, \ref{tab:layer-config-belief-bank-constraints}, \ref{tab:layer-config-halu-eval}.
 \begin{table}[H]
 \centering
 \caption{Layers chosen for Belief Bank Facts}
@@ -268,8 +301,8 @@ For subsequent experiments, the 3 best layers in terms of performance were chose
 \toprule
 Model & Attn & MLP & Hidden \\
 \midrule
-Qwen2.5-7B & 14, 15, 17 & 14, 23, 25 & 15, 16, 17 \\
-Falcon3-7B-Base & 18, 19, 26 & 18, 19, 20 & 17, 18, 21 \\
+%Qwen2.5-7B & 14, 15, 17 & 14, 23, 25 & 15, 16, 17 \\
+%Falcon3-7B-Base & 18, 19, 26 & 18, 19, 20 & 17, 18, 21 \\
 Llama-3.1-8B-Instruct & 8, 13, 14 & 14, 15, 21 & 14, 15, 16 \\
 Gemma-2-9B-IT & 21, 24, 27 & 22, 25, 27 & 23, 26, 34 \\
 
@@ -309,22 +342,22 @@ Gemma-2-9B-IT & 21, 26, 27 & 23, 24, 28 & 19, 24, 28 \\
 \end{tabular}
 \end{table}
 
-We can notice an interesting trend: for LLama, layers between 13 and 16 seem to be the most informative, while for Gemma-2-9B-IT the higher layers (between 23 and 28) are those that offer the best performance. This suggests that the position of the most relevant layers can vary significantly between different models, probably due to architectural differences and specific training processes of each model. However, it can be noted that intermediate layers are the most informative in every model.
+We can notice an interesting trend: for LLama, layers between 13 and 16 seem to be the most informative, while for Gemma-2-9B-IT layers between 23 and 28 are those that offer the best performance. This suggests that the position of the most relevant layers can vary significantly between different models, probably due to architectural differences and specific training processes of each model. However, since LLama consists of 32 layers while Gemma consists of 42 layers, it can be noted that intermediate layers are the most informative in every model.
 
 \section{Methodologies for Building the Universal Prober}
-This section describes the five methodological approaches adopted to build a universal prober capable of detecting hallucinations in language models.
+This section describes the four methodological approaches adopted to "build a baseline" for the universal prober capable of detecting hallucinations in language models and the methodological approach to build the universal prober itself, called \textbf{One-For-All}.
 
 Experiment reproducibility and the use of the same data sets for all methods are guaranteed by setting a common random seed and using deterministic next token sampling in LLMs.
 
 
 Two dataset management modes are distinguished:
 \begin{itemize}
-\item \textbf{Concordant Dataset (for Alignment):} Only examples where Trainer and Tester agree on classification (same label) are selected. Undersampling is applied to these to balance classes. This is essential for learning a coherent mapping between tester and trainer \textcolor{red}{\\ I'm writing here, but it's just for reference: I was thinking, can we plot a before and after alignment of activations? to understand if somehow they get closer?} \textcolor{blue}{Appendix B}
+\item \textbf{Concordant Dataset (for Alignment):} Only examples where Trainer and Tester agree on classification (same label) are selected. Undersampling is applied to these to balance classes. This is essential for learning a coherent mapping between tester and trainer.
 \item \textbf{Independent Dataset (for Probing/Autoencoder/Encoder):} Undersampling is applied to balance classes specifically on the labels of the model in question (Trainer or Tester), independently from the other model. This maximizes the amount of data available for training robust models.
 \end{itemize}
 
 \subsection{FullLinear Approach}
-The first approch for building the universal prober, a linear approach was adopted. In this scenario, the internal activations of the models, extracted from the selected layers and components, were used to train and evaluate a Logistic Regression classifier. The objective is to verify performance using only linear methods.
+The first approch to build a baseline for the universal prober, is a linear approach. In this scenario, the internal activations of the models, extracted from the selected layers and components, were used to train and evaluate a Logistic Regression classifier. The objective is to verify performance using only linear methods.
 
 \subsubsection{Experimental Pipeline}
 \begin{figure}[H]
@@ -504,7 +537,7 @@ In tables \ref{tab:hyperparams-align-loss-clean} and \ref{tab:hyperparams-prober
 
 \subsection{Reduced Non-linear Approach}
 
-This approach reduces activation dimensionality via autoencoder before alignment.
+This approach reduces activation dimensionality via autoencoder before alignment. The idea is to verify wheter a more compact latent space can improve alignment and classification performance, while still using non-linear components.
 
 \subsubsection{Architecture and Main Components}
 
@@ -611,7 +644,7 @@ In tables \ref{tab:hyperparams-autoencoder-clean}, \ref{tab:hyperparams-alignmen
 
 \subsection{One-For-All Approach (Frozen Head)}
 
-In this approach, a two-phase procedure is adopted, designed to evaluate the transferability of a decision function (the classification \emph{head}) between two different models while keeping the same head and adapting only the tester's encoder. Unlike previous approaches, this method does not require concordant data for alignment but uses independent balanced datasets for each model.
+One-For-All represents the proposed \textbf{Universal Prober}: a two-phase procedure is adopted, designed to evaluate the transferability of a decision function (the classification \emph{head}) between two different models while keeping the same head and adapting only the tester's encoder. Unlike previous approaches, this method does not require concordant data for alignment but uses independent balanced datasets for each model.
 
 \subsubsection{Architecture and main components}
 \begin{figure}[H]
@@ -636,7 +669,6 @@ In this approach, a two-phase procedure is adopted, designed to evaluate the tra
 \subsubsection{Experimental pipeline}
 The experimental pipeline in Figure \ref{fig:OfA-pipeline} first involves joint training of the encoder and classification head on the trainer model's activation space (End-to-End). Once training is complete, the head is frozen (\emph{Frozen Head}) to keep the learned decision function unchanged. Subsequently, a new encoder is trained on the tester model's activation space: the output of this new encoder is passed to the trainer's frozen head, and the loss is calculated directly on the classification error (BCEWithLogitsLoss). In this way, the tester learns to produce latent representations compatible with the trainer's "head".
 
-\textcolor{blue}{The classification head is trained only once with the trainer, then frozen and reused for the tester. So yes: if reused on the trainer it maintains the same results} \textcolor{red}{perfect, from the figure I understood it was re-trained, sorry}
 
 \begin{figure}[H]
     \centering
@@ -683,3 +715,430 @@ Tables \ref{tab:hyperparams-OfA-encoder-clean} and \ref{tab:hyperparams-OfA-head
     \bottomrule
 \end{tabular}
 \end{table}
+
+\section{Methodology for hallucination mitigation steering}
+This section describess the methodological approach to build a universal steering mechanism for hallucination mitigation in language models. In particular two different steering techniques are explored: \textbf{TruthX} and \textbf{SLiM}. The first one is a known technique in literature to reduce hallucinations in LLMs, while the second one is an adaptation of the original SLiM implementation, that was originally developed to steer the style of LLM's answers, to the hallucination mitigation task.
+
+In both cases the dataset is dived in two subsets:
+\begin{itemize}
+\item \textbf{Training Dataset:} subset of the original dataset used train the steering mechanism. 80\% of the original dataset is used to train the steering mechanism, while the remaining 20\% is used as validation set to perform early stopping during training.
+\item \textbf{Evaluation Dataset:} subset of the original dataset used to evaluate the performance of the steering mechanism. The evaluation dataset is completely unseen during training and is used to evaluate the generalization ability of the steering mechanism.
+\end{itemize}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}p{3.2cm}p{1.5cm}p{2.5cm}p{3cm}p{3cm}@{}}
+\toprule
+\textbf{Dataset} & \textbf{Num. Pairs} & \textbf{Type} & \textbf{True Example} & \textbf{False Example} \\
+\midrule
+BeliefBankFacts & 6500 & World facts & 
+    \textit{The sky is blue} & 
+    \textit{The sky is not blue} \\[0.5em]
+BeliefBankConstraints & 6500 & Logical constraints & 
+    \textit{If it rains, the ground gets wet} & 
+    \textit{If it rains, the ground doesn't get wt} \\[0.5em]
+HaluEval & 2500 & Context-based QA & 
+    \textit{Paris} (given a context) & 
+    \textit{London} (given a context) \\
+\bottomrule
+\end{tabular}
+\caption{Description of pairs for each dataset used in steering experiments.}
+\label{tab:datasets-pairs}
+\end{table}
+
+
+\subsection{TruthX Steering Technique}
+
+TruthX is a steering technique designed to reduce hallucinations in LLMs by operating directly on the internal representations of the model during inference. The core idea is based on \textbf{Disentangled Representation Learning} \cite{DisentangledRepresentationLearning}: the internal activations of each layer are decomposed into two distinct latent spaces: a \textbf{semantic space} that captures the meaning/content of the statement and a \textbf{truthful space} that encodes its veracity. By manipulating only the truthful component while leaving the semantic content untouched, TruthX can steer the model's output towards more truthful generations without altering the intended meaning.
+
+The TruthX pipeline involves three main phases:
+\begin{enumerate}
+    \item \textbf{Training of the Autoencoder} on paired activations (truthful/hallucinated) to learn the disentangled representation;
+    \item \textbf{Computation of steering vectors} ($\delta$) and probing-based selection of the most informative layers;
+    \item \textbf{Inference-time editing} of the internal representations via forward hooks on the selected modules.
+\end{enumerate}
+
+\subsubsection{Dataset Preparation: Paired Activations}
+
+TruthX requires \textbf{paired samples}: for each statement, a truthful version and a hallucinated version sharing the same semantic content are needed.
+
+For each pair (see tab. \ref{tab:datasets-pairs}), the internal activations of the LLM are extracted at \textbf{all layers} and for \textbf{both module types} (attention and MLP/FFN), storing the activation of the last input token. This produces a set of \textit{virtual layers}: for a model with $L$ physical layers, there are $2L$ virtual layers (one for each attention and one for each MLP module). True instances are assigned even instance IDs while false instances receive odd IDs, enabling deterministic pairing.
+
+\textcolor{red}{\textbf{TODO: Inserire immagine della pipeline di estrazione delle attivazioni paired per TruthX.}}
+
+\subsubsection{Autoencoder Architecture}
+
+The autoencoder is composed of three sub-networks:
+
+\begin{itemize}
+    \item \textbf{Semantic Encoder ($\mathrm{SemEnc}$):} maps the input activation $\mathbf{x} \in \mathbb{R}^{d}$ (where $d$ is the model's hidden size, e.g. 4096 for Llama-3-8B) into a semantic latent representation $\mathbf{h}_{\mathrm{sem}} \in \mathbb{R}^{1024}$. Architecture: $d \to 2048 \to 1024$, with LayerNorm and LeakyReLU after each linear layer.
+    \item \textbf{Truthful Encoder ($\mathrm{TruthEnc}$):} maps the input activation into a truthful latent representation $\mathbf{h}_{\mathrm{truth}} \in \mathbb{R}^{1024}$, L2-normalized. Same architecture as the Semantic Encoder but with L2 normalization on the output.
+    \item \textbf{Decoder ($\mathrm{Dec}$):} reconstructs the original activation from the combined latent representation. Architecture: $1024 \to 2048 \to d$.
+\end{itemize}
+
+The combination of semantic and truthful representations is performed via a \textbf{Cross-Attention} mechanism:
+\[
+\mathbf{z} = \mathbf{h}_{\mathrm{sem}} + \mathrm{Attn}(\mathbf{h}_{\mathrm{sem}},\; \mathbf{h}_{\mathrm{truth}},\; \mathbf{h}_{\mathrm{truth}})
+\]
+where $\mathrm{Attn}$ is a single-head multi-head attention module. The final reconstruction is:
+\[
+\hat{\mathbf{x}} = \mathrm{Dec}(\mathbf{z})
+\]
+
+
+\textcolor{red}{\textbf{TODO: Inserire immagine dell'architettura dell'autoencoder MLPAE con i due encoder e il decoder.}}
+
+\subsubsection{Loss Function}
+
+The total training loss combines four components following the TruthX paper:
+\[
+\mathcal{L} = w_r \cdot \mathcal{L}_{\mathrm{recon}} + w_c \cdot \mathcal{L}_{\mathrm{sem}} + w_t \cdot \mathcal{L}_{\mathrm{truth}} + w_e \cdot \mathcal{L}_{\mathrm{edit}}
+\]
+
+\paragraph{Reconstruction Loss ($\mathcal{L}_{\mathrm{recon}}$, Eq. 3):}
+Ensures the autoencoder can faithfully reconstruct the original activations:
+\[
+\mathcal{L}_{\mathrm{recon}} = \frac{1}{2} \left( \mathrm{MSE}(\hat{\mathbf{x}}_{\mathrm{pos}}, \mathbf{x}_{\mathrm{pos}}) + \mathrm{MSE}(\hat{\mathbf{x}}_{\mathrm{neg}}, \mathbf{x}_{\mathrm{neg}}) \right)
+\]
+
+\paragraph{Semantic Contrastive Loss ($\mathcal{L}_{\mathrm{sem}}$, Eq. 6):}
+Forces the Semantic Encoder to produce similar representations for paired samples (same semantic content, opposite veracity) while separating semantically different samples:
+\[
+\mathcal{L}_{\mathrm{sem}} = \mathrm{CTR}(\mathbf{h}_{\mathrm{sem}}^{\mathrm{pos}}, \{\mathbf{h}_{\mathrm{sem}}^{\mathrm{neg}}\}, H_{\mathrm{sem}}^{\mathrm{pos}} \setminus \{\mathbf{h}_{\mathrm{sem}}^{\mathrm{pos}}\}) + \mathrm{CTR}(\mathbf{h}_{\mathrm{sem}}^{\mathrm{neg}}, \{\mathbf{h}_{\mathrm{sem}}^{\mathrm{pos}}\}, H_{\mathrm{sem}}^{\mathrm{neg}} \setminus \{\mathbf{h}_{\mathrm{sem}}^{\mathrm{neg}}\})
+\]
+where $\mathrm{CTR}(\mathbf{s}, S^+, S^-)$ is the contrastive function:
+\[
+\mathrm{CTR}(\mathbf{s}, S^+, S^-) = -\log \frac{\sum_{\mathbf{s}' \in S^+} \exp\!\big(\mathrm{sim}(\mathbf{s}, \mathbf{s}') / \tau\big)}{\sum_{\mathbf{s}' \in S^+ \cup S^-} \exp\!\big(\mathrm{sim}(\mathbf{s}, \mathbf{s}') / \tau\big)}
+\]
+with temperature $\tau = 0.1$ and cosine similarity $\mathrm{sim}(\cdot, \cdot)$.
+
+\paragraph{Truthful Contrastive Loss ($\mathcal{L}_{\mathrm{truth}}$, Eq. 5):}
+Separates truthful representations of positive samples from those of negative samples in the truthful latent space:
+\[
+\mathcal{L}_{\mathrm{truth}} = \mathrm{CTR}(\mathbf{h}_{\mathrm{truth}}^{\mathrm{pos}}, H_{\mathrm{truth}}^{\mathrm{pos}}, H_{\mathrm{truth}}^{\mathrm{neg}}) + \mathrm{CTR}(\mathbf{h}_{\mathrm{truth}}^{\mathrm{neg}}, H_{\mathrm{truth}}^{\mathrm{neg}}, H_{\mathrm{truth}}^{\mathrm{pos}})
+\]
+
+\paragraph{Editing Loss ($\mathcal{L}_{\mathrm{edit}}$, Eq. 10):}
+Ensures that swapping the truthful component between a positive and a negative sample yields a reconstruction close to the opposite sample:
+\[
+\mathbf{x}^{\mathrm{pos} \to \mathrm{neg}} = \mathrm{Dec}\!\left(\mathbf{h}_{\mathrm{sem}}^{\mathrm{pos}} + \mathrm{Attn}(\mathbf{h}_{\mathrm{sem}}^{\mathrm{pos}}, \mathbf{h}_{\mathrm{truth}}^{\mathrm{neg}}, \mathbf{h}_{\mathrm{truth}}^{\mathrm{neg}})\right)
+\]
+\[
+\mathbf{x}^{\mathrm{neg} \to \mathrm{pos}} = \mathrm{Dec}\!\left(\mathbf{h}_{\mathrm{sem}}^{\mathrm{neg}} + \mathrm{Attn}(\mathbf{h}_{\mathrm{sem}}^{\mathrm{neg}}, \mathbf{h}_{\mathrm{truth}}^{\mathrm{pos}}, \mathbf{h}_{\mathrm{truth}}^{\mathrm{pos}})\right)
+\]
+\[
+\mathcal{L}_{\mathrm{edit}} = \mathrm{MSE}(\mathbf{x}^{\mathrm{pos} \to \mathrm{neg}},\, \mathbf{x}_{\mathrm{neg}}) + \mathrm{MSE}(\mathbf{x}^{\mathrm{neg} \to \mathrm{pos}},\, \mathbf{x}_{\mathrm{pos}})
+\]
+
+\subsubsection{Training Procedure}
+
+The training procedure processes all $2L$ virtual layers per epoch. For each virtual layer, the paired activations (positive and negative) are loaded and organized into structured batches where \texttt{batch\_pos[i]} and \texttt{batch\_neg[i]} always form a semantically aligned pair. The dataset is split into 80\% training and 20\% validation using a global permutation that ensures each pair remains entirely in one set.
+
+The optimizer used is \textbf{AdamW} with a \textbf{Cosine Annealing with Warm Restarts} learning rate scheduler, preceded by a linear warmup phase. Early stopping on validation loss with configurable patience prevents overfitting.
+
+\begin{table}[H]
+\centering
+\caption{TruthX Autoencoder training hyperparameters.}
+\label{tab:hyperparams-truthx-ae}
+\begin{tabular}{|lr|}
+    \toprule
+    \textbf{Parameter} & \textbf{Value} \\
+    \midrule
+    Semantic Latent Dim & 1024 \\
+    Truthful Latent Dim & 1024 \\
+    Semantic Hidden Dims & [2048] \\
+    Truthful Hidden Dims & [2048] \\
+    Decoder Hidden Dims & [2048] \\
+    Batch Size & 512 \\
+    Learning Rate & $1\text{e-}4$ \\
+    Weight Decay & $1\text{e-}5$ \\
+    Warmup Epochs & 5 \\
+    Temperature ($\tau$) & 0.1 \\
+    Optimizer & AdamW \\
+    Scheduler & CosineAnnealingWarmRestarts \\
+    Early Stopping Patience & 10 \\
+    Seed & 42 \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Steering Vector Computation and Layer Selection}
+
+After training, the autoencoder is used to compute the \textbf{steering vectors} for each virtual layer. For all paired activations, the Truthful Encoder produces the truthful representations $\mathbf{h}_{\mathrm{truth}}^{\mathrm{pos}}$ and $\mathbf{h}_{\mathrm{truth}}^{\mathrm{neg}}$. The positive and negative centers are computed as the means:
+\[
+\bar{H}_{\mathrm{truth}}^{\mathrm{pos}} = \frac{1}{N} \sum_{i=1}^{N} \mathbf{h}_{\mathrm{truth},i}^{\mathrm{pos}}, \qquad \bar{H}_{\mathrm{truth}}^{\mathrm{neg}} = \frac{1}{N} \sum_{i=1}^{N} \mathbf{h}_{\mathrm{truth},i}^{\mathrm{neg}}
+\]
+The steering vector $\boldsymbol{\delta}$ for each virtual layer is (Eq. 12):
+\[
+\boldsymbol{\delta} = \bar{H}_{\mathrm{truth}}^{\mathrm{pos}} - \bar{H}_{\mathrm{truth}}^{\mathrm{neg}}
+\]
+
+To select which modules to edit during inference, a \textbf{probing-based layer selection} (Eq. 15) is employed. For each virtual layer, a simple probing classifier is evaluated:
+\[
+\mathrm{Probe}(\mathbf{x}) = \begin{cases} \mathrm{pos} & \text{if } \mathrm{sim}(\mathbf{h}_{\mathrm{truth}}, \bar{H}_{\mathrm{truth}}^{\mathrm{pos}}) \ge \mathrm{sim}(\mathbf{h}_{\mathrm{truth}}, \bar{H}_{\mathrm{truth}}^{\mathrm{neg}}) \\ \mathrm{neg} & \text{otherwise} \end{cases}
+\]
+The virtual layers are ranked by probing accuracy and the \textbf{top-$k$} modules are selected for editing. For instance, for a 32-layer LLM with $k=10$, TruthX selects the 10 modules with the highest probing accuracy out of the total 64 modules (32 attention + 32 MLP).
+
+
+\subsubsection{Inference-Time Editing}
+\label{sec:truthx-inference}
+
+During inference, TruthX modifies the model's internal representations in real-time by registering \textbf{forward hooks} on the selected top-$k$ modules. For each selected module, when a forward pass produces an activation $\mathbf{X}$, the editing procedure is:
+
+\begin{enumerate}
+    \item Extract the truthful representation: $\mathbf{h}_{\mathrm{truth}} = \mathrm{TruthEnc}(\mathbf{X})$
+    \item Compute the positive and negative edited reconstructions by shifting the truthful representation along $\boldsymbol{\delta}$:
+    \[
+    \hat{\mathbf{X}}_{\mathrm{pos}} = \mathrm{Dec}\!\left(\mathbf{h}_{\mathrm{sem}} + \mathrm{Attn}\!\left(\mathbf{h}_{\mathrm{sem}},\; F_{\mathrm{norm}}(\mathbf{h}_{\mathrm{truth}} + \boldsymbol{\delta}),\; F_{\mathrm{norm}}(\mathbf{h}_{\mathrm{truth}} + \boldsymbol{\delta})\right)\right)
+    \]
+    \[
+    \hat{\mathbf{X}}_{\mathrm{neg}} = \mathrm{Dec}\!\left(\mathbf{h}_{\mathrm{sem}} + \mathrm{Attn}\!\left(\mathbf{h}_{\mathrm{sem}},\; F_{\mathrm{norm}}(\mathbf{h}_{\mathrm{truth}} - \boldsymbol{\delta}),\; F_{\mathrm{norm}}(\mathbf{h}_{\mathrm{truth}} - \boldsymbol{\delta})\right)\right)
+    \]
+    where $F_{\mathrm{norm}}$ denotes L2 normalization.
+    \item Compute the final editing direction:
+    \[
+    \boldsymbol{\Delta} = \hat{\mathbf{X}}_{\mathrm{pos}} - \hat{\mathbf{X}}_{\mathrm{neg}}
+    \]
+    \item Apply the steering:
+    \[
+    \mathbf{X}' = \mathbf{X} + \alpha \cdot \boldsymbol{\Delta}
+    \]
+    where $\alpha$ is the \texttt{edit\_strength} parameter controlling the intensity of the intervention.
+\end{enumerate}
+
+The editing is applied in a fully differentiable manner, modifying the activations before they are passed to the next layer. 
+\textcolor{red}{\textbf{TODO: Inserire immagine della pipeline di inferenza con i forward hooks e l'editing delle attivazioni.}}
+
+\subsubsection{Cross-Model TruthX via Alignment}
+
+A key contribution of this work is the generalization of TruthX to a \textbf{cross-model} setting, where the autoencoder and steering vectors are trained on a \textit{trainer model} (e.g., Gemma-2-9B-IT) and applied to a different \textit{target model} (e.g., Llama-3.1-8B-Instruct). This requires solving two problems: (i) identifying \textit{which} layers of the two models are structurally most comparable, and (ii) learning a linear map between their activation spaces.
+
+\paragraph{Layer Selection via Linear CKA.}
+Since the two models may have different numbers of layers and different hidden dimensions, a direct layer-to-layer correspondence cannot be assumed. The Procrustes aligner determines this correspondence automatically using \textbf{Linear CKA} (Centered Kernel Alignment), a similarity index between representation matrices that is invariant to orthogonal transformations and isotropic scaling.
+
+Given two centered activation matrices $\mathbf{X}_c \in \mathbb{R}^{n \times d_x}$ and $\mathbf{Y}_c \in \mathbb{R}^{n \times d_y}$, Linear CKA is defined as:
+\[
+\mathrm{CKA}(\mathbf{X}, \mathbf{Y}) = \frac{\|\mathbf{X}_c^T \mathbf{Y}_c\|_F^2}{\|\mathbf{X}_c^T \mathbf{X}_c\|_F \cdot \|\mathbf{Y}_c^T \mathbf{Y}_c\|_F}
+\]
+CKA takes values in $[0, 1]$, where 1 indicates identical (up to rotation/scaling) representations and 0 indicates orthogonal ones.
+
+The layer selection procedure is as follows:
+\begin{enumerate}
+    \item The \textbf{top-1 target module} is identified via the probing-based layer selection (see Section above): this is the module of the target model whose truthful representations best separate true and false statements.
+    \item For each layer of the \textbf{trainer model} of the same module type (attention or MLP), Linear CKA is computed between the trainer layer's activations and the target's top-1 module activations, on a shared set of instances.
+    \item The \textbf{trainer layer that maximises CKA} with the target top-1 is selected as the alignment anchor. Intuitively, this is the trainer layer whose representation geometry most resembles the target layer.
+\end{enumerate}
+
+\paragraph{Procrustes Aligner.}
+Once the layer pair is identified, the \textbf{Orthogonal Procrustes} method finds the optimal rotation (with scale and translation) that maps one activation space into the other, minimising the Frobenius-norm reconstruction error. Given centered activation matrices $\mathbf{X}_c$ (source) and $\mathbf{Y}_c$ (target), the SVD of their cross-covariance is computed:
+\[
+\mathbf{U}\,\boldsymbol{\Sigma}\,\mathbf{V}^T = \mathrm{SVD}\!\left(\mathbf{X}_c^T\, \mathbf{Y}_c\right)
+\]
+The optimal rotation and scale factor are:
+\[
+\mathbf{R} = \mathbf{U}\mathbf{V}^T, \qquad
+s = \frac{\sum_i \sigma_i}{\|\mathbf{X}_c\|_F^2}
+\]
+so that the full affine transformation is:
+\[
+\hat{\mathbf{Y}} = \mathbf{X}\,\mathbf{A} + \mathbf{b}, \qquad \mathbf{A} = s\cdot\mathbf{R}, \qquad \mathbf{b} = \bar{\mathbf{y}} - \bar{\mathbf{x}}\,\mathbf{A}
+\]
+where $\bar{\mathbf{x}}$ and $\bar{\mathbf{y}}$ are the empirical means of the source and target activations. By constraining the map to be a scaled orthogonal transformation, Procrustes preserves angular relationships between representations, unlike unconstrained linear regression.
+
+Two maps are fitted independently:
+\begin{itemize}
+    \item $\mathbf{A}_{\mathrm{t \to tr}},\, \mathbf{b}_{\mathrm{t \to tr}}$: \textbf{Target $\to$ Trainer} (pre-alignment);
+    \item $\mathbf{A}_{\mathrm{tr \to t}},\, \mathbf{b}_{\mathrm{tr \to t}}$: \textbf{Trainer $\to$ Target} (post-alignment).
+\end{itemize}
+
+\paragraph{Cross-Model Inference Pipeline.}
+During inference on the target model, TruthX editing proceeds as follows for each selected module:
+\begin{enumerate}
+    \item \textbf{Pre-alignment:} the target model's activation $\mathbf{x}_{\mathrm{target}} \in \mathbb{R}^{d_{\mathrm{target}}}$ is mapped into the trainer's space:
+    \[
+    \tilde{\mathbf{x}} = \mathbf{x}_{\mathrm{target}}\,\mathbf{A}_{\mathrm{t \to tr}} + \mathbf{b}_{\mathrm{t \to tr}}
+    \]
+    \item \textbf{TruthX editing:} $\tilde{\mathbf{x}}$ is processed by the trainer's autoencoder to produce the edited activation $\tilde{\mathbf{x}}'$ (as described in Section~\ref{sec:truthx-inference}).
+    \item \textbf{Post-alignment:} the edited activation is mapped back into the target model's space:
+    \[
+    \mathbf{x}'_{\mathrm{target}} = \tilde{\mathbf{x}}'\,\mathbf{A}_{\mathrm{tr \to t}} + \mathbf{b}_{\mathrm{tr \to t}}
+    \]
+\end{enumerate}
+This symmetrical pre/post-alignment strategy ensures that the TruthX intervention operates entirely in the trainer's representation space, while the final output is expressed in the target model's native space.
+
+\textcolor{red}{\textbf{TODO: Inserire immagine della pipeline cross-model con pre-aligner, autoencoder TruthX e post-aligner.}}
+
+
+\subsection{SLiMTruth Steering Technique}
+SLiMTruth is an adaptation of the \textbf{State-wise Linear Modulation (SLiM)} framework, originally designed to steer the stylistic attributes of LLM outputs, to the task of hallucination mitigation. The core idea is to apply a lightweight \textbf{FiLM} (Feature-wise Linear Modulation) transformation to the hidden representations of a single transformer layer, conditioned on an external state vector, so as to push the model's internal representations toward more truthful generations.
+
+Unlike TruthX, which decomposes activations into disentangled semantic/truthful latent spaces via an autoencoder, SLiMTruth operates directly in the model's native hidden space: it learns a \textit{scale} and a \textit{shift} vector that multiplicatively and additively modulate the layer output, respectively. This results in an extremely parameter-efficient intervention (only the SLiM modules are trained; the base LLM remains completely frozen).
+
+The SLiMTruth pipeline involves three main phases:
+\begin{enumerate}
+    \item \textbf{Dataset Preparation}: construction of paired (truthful/hallucinated) samples from the same datasets used for TruthX (see Tab.~\ref{tab:datasets-pairs});
+    \item \textbf{Training} of the SLiM modules with a hybrid loss combining cross-entropy, contrastive, and regularization objectives;
+    \item \textbf{Inference-time modulation} via a forward hook on the target layer.
+\end{enumerate}
+
+\subsubsection{Dataset Preparation: Paired Samples}
+
+SLiMTruth uses the same paired datasets described in Table~\ref{tab:datasets-pairs}.
+
+\noindent Crucially, during training \textbf{both positive and negative samples receive the same state value} $s = 1.0$. The SLiM transformation is therefore identical for both classes: scale and shift act as content-dependent feature selectors, and the model must learn to separate truthful from hallucinated representations based on the \textit{content} of the hidden states, not on label information leaked via the state.
+
+In particular SLiM is trained on a single target layer, which can be provided as an argument. In particular, for these experiments for each pair (model,dataset) the best layer from premilinar analysis was selected as target layer for SLiMTruth training. See figures 
+\ref{fig:llama-layer-performance-facts}, 
+\ref{fig:llama-layer-performance-constraints},
+\ref{fig:llama-layer-performance-halu},
+\ref{fig:gemma-layer-performance-facts},
+\ref{fig:gemma-layer-performance-constraints},
+\ref{fig:gemma-layer-performance-halu} 
+
+\subsubsection{SLiMTruth Architecture}
+
+SLiMTruth wraps a frozen LLM and injects a FiLM-like modulation at the output of a single user-specified transformer layer (the \textit{target layer}). The architecture is composed of three lightweight modules:
+
+\paragraph{State Projector (\texttt{StateBlock}).}
+Maps the scalar state $s \in \mathbb{R}$ into the model's hidden space:
+\[
+\mathbf{p} = \mathrm{LayerNorm}\!\big(\mathrm{ReLU}(\mathbf{W}_s \cdot s + \mathbf{b}_s)\big) \in \mathbb{R}^{d}
+\]
+where $d$ is the hidden size of the LLM (e.g.\ 4096 for Llama-3.1-8B). The projector has architecture $1 \to d$ with ReLU activation and LayerNorm.
+
+\paragraph{Low-Rank Scale (\texttt{LowRankLinear}).}
+Computes the multiplicative modulation vector via a low-rank factorization:
+\[
+\boldsymbol{\gamma} = \tanh\!\big(\mathbf{W}_{\mathrm{up}}^{\gamma}\;(\mathbf{W}_{\mathrm{down}}^{\gamma}\;\mathbf{p}) + \mathbf{b}^{\gamma}\big) \in \mathbb{R}^{d}
+\]
+where $\mathbf{W}_{\mathrm{down}}^{\gamma} \in \mathbb{R}^{r \times d}$ and $\mathbf{W}_{\mathrm{up}}^{\gamma} \in \mathbb{R}^{d \times r}$, with $r$ the rank of the factorization (default $r = 32$). This reduces the parameter count from $d^2$ to $r \cdot (2d)$.
+
+\paragraph{Low-Rank Shift (\texttt{LowRankLinear}).}
+Computes the additive modulation vector with the same architecture:
+\[
+\boldsymbol{\beta} = \tanh\!\big(\mathbf{W}_{\mathrm{up}}^{\beta}\;(\mathbf{W}_{\mathrm{down}}^{\beta}\;\mathbf{p}) + \mathbf{b}^{\beta}\big) \in \mathbb{R}^{d}
+\]
+
+Both scale and shift are initialized to produce \textbf{zero output at initialization} ($\mathbf{W}_{\mathrm{up}}$ initialized to zero), so that the initial modulation is the identity transformation and training starts from the unmodified model behavior.
+
+\paragraph{FiLM Modulation.}
+Given the hidden state $\mathbf{h} \in \mathbb{R}^{B \times S \times d}$ at the output of the target layer, the modulation is:
+\[
+\boldsymbol{\delta} = \mathbf{h} \odot \boldsymbol{\gamma} + \boldsymbol{\beta}
+\]
+\[
+\mathbf{h}' = \mathbf{h} + \alpha \cdot \boldsymbol{\delta}
+\]
+where $\odot$ denotes element-wise multiplication, and $\alpha \in [0, 1]$ is the \texttt{steering strength} parameter that controls the intensity of the intervention. When $\alpha = 0$ the output is unmodified; when $\alpha = 1$ the full modulation is applied. The $\tanh$ activation bounds $\boldsymbol{\gamma}, \boldsymbol{\beta} \in (-1, 1)$, preventing unbounded perturbations.
+
+\textcolor{red}{\textbf{TODO: Inserire immagine dell'architettura SLiMTruth con StateBlock, LowRankLinear scale/shift e FiLM modulation.}}
+
+\subsubsection{Loss Function}
+
+The training loss combines three components in a single hybrid objective:
+\[
+\mathcal{L} = \lambda_{\mathrm{ce}} \cdot \mathcal{L}_{\mathrm{CE}} + \lambda_{\mathrm{nce}} \cdot \mathcal{L}_{\mathrm{InfoNCE}} + \lambda_{\mathrm{reg}} \cdot \mathcal{L}_{\mathrm{Reg}}
+\]
+
+\paragraph{Cross-Entropy Loss ($\mathcal{L}_{\mathrm{CE}}$).}
+Standard causal language modeling loss on the next-token prediction, computed separately on positive and negative samples and averaged:
+\[
+\mathcal{L}_{\mathrm{CE}} = \frac{1}{2}\Big(\mathrm{CE}(\hat{\mathbf{y}}_{\mathrm{pos}},\, \mathbf{y}_{\mathrm{pos}}) + \mathrm{CE}(\hat{\mathbf{y}}_{\mathrm{neg}},\, \mathbf{y}_{\mathrm{neg}})\Big)
+\]
+where $\hat{\mathbf{y}}$ are the logits produced by the modulated model on the steered hidden states. By default, the CE loss is computed \textbf{only on the answer tokens}, so that the model is not penalized for the prompt generation and focuses on steering the answer.
+
+\paragraph{InfoNCE Contrastive Loss ($\mathcal{L}_{\mathrm{InfoNCE}}$).}
+Adapted from TruthX's truthful contrastive loss. Given a batch of $N$ paired samples, the representations $\mathbf{h}_{\mathrm{pos},i}, \mathbf{h}_{\mathrm{neg},i} \in \mathbb{R}^{d}$ are L2-normalized and the bidirectional InfoNCE loss is:
+\[
+\mathcal{L}_{\mathrm{InfoNCE}} = \mathrm{CTR}(\mathbf{h}_{\mathrm{pos}},\, H_{\mathrm{pos}},\, H_{\mathrm{neg}}) + \mathrm{CTR}(\mathbf{h}_{\mathrm{neg}},\, H_{\mathrm{neg}},\, H_{\mathrm{pos}})
+\]
+with the same contrastive function $\mathrm{CTR}$ and temperature $\tau = 0.1$ as in TruthX. This term forces the SLiM-modulated representations to cluster truthful samples together and separate them from hallucinated ones in the hidden space.
+
+\paragraph{Regularization Loss ($\mathcal{L}_{\mathrm{Reg}}$).}
+An L2 penalty on the scale and shift activations to keep the modulation close to identity and avoid degenerate generations:
+\[
+\mathcal{L}_{\mathrm{Reg}} = \|\boldsymbol{\gamma}\|_2^2 + \|\boldsymbol{\beta}\|_2^2
+\]
+
+\subsubsection{Training Procedure}
+
+The training procedure processes paired batches of (positive, negative) samples. For each batch:
+\begin{enumerate}
+    \item A \textbf{forward pass} is performed on positive samples with state $s = 1.0$; the SLiM hook captures the modulated hidden state and the model produces logits for CE loss.
+    \item A second forward pass is performed on negative samples with the same state $s = 1.0$; the hook captures the modulated hidden state.
+    \item The \textbf{last-token representations} are extracted from both passes for the InfoNCE loss.
+    \item The three loss components are combined and back-propagated; gradients flow only through the SLiM parameters (scale, shift, state projector), while the base model remains frozen.
+\end{enumerate}
+
+The dataset is split into 80\% training and 20\% validation with a fixed random seed. The optimizer is \textbf{AdamW} with a \textbf{linear schedule with warmup}. Early stopping on validation loss (hybrid objective) with configurable patience prevents overfitting. Gradient accumulation and gradient clipping (max norm 1.0) are used for stable training with small batch sizes.
+
+\begin{table}[H]
+\centering
+\caption{SLiMTruth training hyperparameters.}
+\label{tab:hyperparams-slim}
+\begin{tabular}{|lr|}
+    \toprule
+    \textbf{Parameter} & \textbf{Value} \\
+    \midrule
+    State Dimension & 1 (scalar) \\
+    Low-Rank factorization rank $r$ & 32 \\
+    Batch Size & 4 \\
+    Gradient Accumulation Steps & 4 \\
+    Learning Rate & $1\text{e-}5$ \\
+    Weight Decay & 0.01 \\
+    Warmup Steps & 100 \\
+    Temperature ($\tau$) InfoNCE & 0.1 \\
+    $\lambda_{\mathrm{ce}}$ & 1.0 \\
+    $\lambda_{\mathrm{nce}}$ & 0.1 \\
+    $\lambda_{\mathrm{reg}}$ & $1\text{e-}3$ \\
+    Training $\alpha$ & 1.0 \\
+    Optimizer & AdamW \\
+    Scheduler & Linear with Warmup \\
+    Early Stopping Patience & 4 \\
+    Validation Split & 20\% \\
+    Seed & 42 \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Inference-Time Modulation}
+\label{sec:slim-inference}
+
+During inference, the trained SLiM modules are loaded from a checkpoint and a \textbf{forward hook} is registered on the target transformer layer. When the forward pass reaches the target layer and produces the hidden state $\mathbf{h}$, the hook applies the FiLM modulation:
+\begin{enumerate}
+    \item The state vector $s = 1.0$ is projected: $\mathbf{p} = \mathrm{StateBlock}(s)$
+    \item Scale and shift are computed: $\boldsymbol{\gamma} = \tanh(\mathrm{Scale}(\mathbf{p}))$, $\boldsymbol{\beta} = \tanh(\mathrm{Shift}(\mathbf{p}))$
+    \item The modulation is applied: $\mathbf{h}' = \mathbf{h} + \alpha \cdot (\mathbf{h} \odot \boldsymbol{\gamma} + \boldsymbol{\beta})$
+    \item The modulated $\mathbf{h}'$ replaces $\mathbf{h}$ and is passed to subsequent layers.
+\end{enumerate}
+
+The steering strength $\alpha$ can be tuned at inference time independently from the training value, allowing to explore the trade-off between hallucination reduction and fluency.
+
+\textcolor{red}{\textbf{TODO: Inserire immagine della pipeline di inferenza con il forward hook e la modulazione FiLM.}}
+
+\subsubsection{Cross-Model SLiMTruth via Procrustes Alignment}
+
+Analogously to TruthX (see Section above), SLiMTruth can be transferred to a different target model via Procrustes alignment. The procedure is identical to the one described for TruthX cross-model transfer, with a single difference in the \textbf{layer selection} step.
+
+\paragraph{Layer Selection.}
+While TruthX selects the target layer based on \textbf{probing accuracy} of the trained autoencoders across all virtual layers, SLiMTruth uses the \textbf{target layer from the SLiM training configuration} directly. Specifically:
+\begin{enumerate}
+    \item The \textbf{target module} (physical layer and type: attention/MLP/hidden) is read from the SLiM training config of the target model. This is the layer at which SLiM was trained and will be applied during inference.
+    \item For each layer of the \textbf{trainer model} of the same module type, Linear CKA is computed against the target layer's activations on a shared set of instances, exactly as in TruthX.
+    \item The trainer layer that \textbf{maximises CKA} is selected as the alignment anchor.
+\end{enumerate}
+
+\noindent Once the layer pair is determined, the Procrustes aligner fitting and the cross-model inference pipeline (pre-alignment $\to$ SLiM modulation $\to$ post-alignment) follow the exact same procedure described for TruthX cross-model transfer.
+
+\paragraph{Cross-Model Inference.}
+During inference on the target model, for each selected module:
+\begin{enumerate}
+    \item \textbf{Pre-alignment:} the target's activation $\mathbf{h}_{\mathrm{target}}$ is mapped into the trainer's space via $\tilde{\mathbf{h}} = \mathbf{h}_{\mathrm{target}}\,\mathbf{A}_{\mathrm{t \to tr}} + \mathbf{b}_{\mathrm{t \to tr}}$;
+    \item \textbf{SLiM modulation:} the FiLM transformation is applied in the trainer's space:
+    \[
+    \tilde{\mathbf{h}}' = \tilde{\mathbf{h}} + \alpha \cdot \big(\tilde{\mathbf{h}} \odot \boldsymbol{\gamma} + \boldsymbol{\beta}\big)
+    \]
+    \item \textbf{Post-alignment:} the modulated activation is mapped back into the target's space: $\mathbf{h}'_{\mathrm{target}} = \tilde{\mathbf{h}}'\,\mathbf{A}_{\mathrm{tr \to t}} + \mathbf{b}_{\mathrm{tr \to t}}$.
+\end{enumerate}
+
+\textcolor{red}{\textbf{TODO: Inserire immagine della pipeline cross-model SLiMTruth con pre-aligner, FiLM modulation e post-aligner.}}

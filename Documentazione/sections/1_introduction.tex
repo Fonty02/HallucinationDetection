@@ -12,19 +12,22 @@ A classic example of hallucination present in the earliest LLMs is:
     \textbf{LLM:} 2
 \end{quote}
 
-Currently, techniques to mitigate this problem are often based on external fact verification (\textit{retrieval-augmented generation}), specific \textit{fine-tuning}, or \textit{Chain of Thought} (CoT), but these techniques are not infallible, and it is therefore crucial to understand when a model is hallucinating and when it is not.
+Currently, techniques to mitigate this problem without making any intervention are often based on external fact verification (\textit{retrieval-augmented generation}), specific \textit{fine-tuning}, or \textit{Chain of Thought} (CoT), but these techniques are not infallible, and it is therefore crucial to understand when a model is hallucinating and when it is not or to manipulate the generation process to reduce the probability of hallucinations. 
 
-\textit{Probing} of internal activations (or \textit{probing classifiers}) represents an innovative solution to this problem. This methodology allows analyzing the internal state of the model during generation, hypothesizing that information about the truthfulness of a statement is encoded in the latent space of neurons, regardless of the final textual output which is generated stochastically as it is influenced by multiple factors (temperature, top-k sampling, etc.). 
-Several recent studies have demonstrated that it is possible to train simple linear classifiers to distinguish true statements from false ones by observing the activations of internal layers, and that generally activations related to hallucinations and those related to correct answers tend to be easily separable \cite{Geometry}
+\textit{Probing} of internal activations (or \textit{probing classifiers}) represents an innovative solution to the first problem. This methodology allows analyzing the internal state of the model during generation, hypothesizing that information about the truthfulness of a statement is encoded in the latent space of neurons, regardless of the final textual output which is generated stochastically as it is influenced by multiple factors (temperature, top-k sampling, etc.). 
+Several recent studies have demonstrated that it is possible to train simple linear classifiers to distinguish true statements from false ones by observing the activations of internal layers, and that generally activations related to hallucinations and those related to correct answers tend to be easily separable. \cite{Geometry}
 
-However, most research has focused on creating probes specific to a single model or a specific architecture, leaving the problem of transferability relatively unexplored.
-This work aims to study whether there exists a universal representation of hallucinations in LLMs, regardless of the underlying architecture. In particular, the goal is to develop a general \textit{prober} capable of detecting hallucinations in different models without the need for specific training for each of them (at most with a preliminary alignment between the latent spaces, as these differ between different models).
+\textit{Steering} of the generation process is a promising approach to mitigate hallucinations. By manipulating the activations of specific neurons or layers during generation, it is possibile to guide the model's output towards desired behaviors \cite{SteeringDef}. Several studies have shown that it is possible to steer the generation process towards more truthful outputs to reduce hallucinations in LLMs.
+
+
+Despite it has been shown that LLMs converge to a shared statistical model of reality, the so called \textit{Platonic Representation Hypothesis} \cite{Platonic}, which suggests that different LLMs may share a common internal representation of the world, including the phenomenon of hallucinations, most research has focused on creating probes and steering vectors specific to a single model or a specific architecture, leaving the problem of transferability relatively unexplored.
+This work aims to study whether there exists a universal representation of hallucinations in LLMs, regardless of the underlying architecture. In particular, the goal is to develop a general \textit{prober} capable of detecting hallucinations in different models without the need for specific training for each of them and a general \textit{steering} technique to mitigate hallucinations in different models (at most with a preliminary alignment between the latent spaces, as these differ between different models).
 
 The main objectives of this project are:
 \begin{itemize}
-    \item Analyze and compare the internal activations of different LLM families (e.g., Qwen, Falcon) to identify common patterns associated with the hallucination phenomenon.
-    \item Develop and evaluate alignment methodologies (linear and non-linear) between the latent spaces of a \textit{trainer} model and a \textit{tester} model.
+    \item Analyze and compare the internal activations of different LLM families (e.g., Gemma, LLama) to identify common patterns associated with the hallucination phenomenon.
     \item Build a universal \textit{prober} capable of transferring hallucination detection capability from one model to another without additional supervision on the target model.
+    \item Develop a general \textit{steering} technique to mitigate hallucinations in different models, with minimal or no need for model-specific adjustments.
 \end{itemize}
 
 
@@ -32,10 +35,9 @@ The main objectives of this project are:
 
 The rest of the document is structured as follows:
 \begin{itemize}
-    \item \textbf{Chapter 2: Background} - Theoretical background and overview of existing techniques for hallucination detection in LLMs.
-    \item \textbf{Chapter 3: Methodology} - Detailed description of the architectures used, alignment techniques, and universal prober design.
+    \item \textbf{Chapter 2: Background} - Theoretical background and overview of existing techniques for hallucination detection and mitigation in LLMs. 
+    \item \textbf{Chapter 3: Methodology} - Detailed description of the pipelines, the datasets, the models and the metodologies used to achieve the objectives of this work.
     \item \textbf{Chapter 4: Results} - Presentation of obtained results
     \item \textbf{Chapter 5: Discussion} - Discussion of obtained results
-    \item \textbf{Chapter 6: Cross-Domain Studies}: Cross-domain use of the One-For-All prober
-    \item \textbf{Chapter 7: Conclusions}: Final conclusions and proposal for future work
+    \item \textbf{Chapter 6: Conclusions}: Final conclusions and proposal for future work
 \end{itemize}

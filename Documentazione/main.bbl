@@ -1,4 +1,4 @@
-\begin{thebibliography}{22}
+\begin{thebibliography}{26}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -27,6 +27,30 @@ Tom Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared~D Kaplan, Prafulla
 \newblock \emph{Advances in neural information processing systems},
   33:\penalty0 1877--1901, 2020.
 
+\bibitem[Cao et~al.(2024)Cao, Zhang, Cao, Yin, Lin, Ma, and Chen]{SteeringDef}
+Yuanpu Cao, Tianrong Zhang, Bochuan Cao, Ziyi Yin, Lu~Lin, Fenglong Ma, and
+  Jinghui Chen.
+\newblock Personalized steering of large language models: Versatile steering
+  vectors through bi-directional preference optimization.
+\newblock In A.~Globerson, L.~Mackey, D.~Belgrave, A.~Fan, U.~Paquet,
+  J.~Tomczak, and C.~Zhang, editors, \emph{Advances in Neural Information
+  Processing Systems}, volume~37, pages 49519--49551. Curran Associates, Inc.,
+  2024.
+\newblock \doi{10.52202/079017-1567}.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper_files/paper/2024/file/58cbe393b4254da8966780a40d023c0b-Paper-Conference.pdf}.
+
+\bibitem[Chen et~al.(2024)Chen, Sun, Jiao, Lian, Kang, Wang, and
+  Xu]{TruthForest}
+Zhongzhi Chen, Xingwu Sun, Xianfeng Jiao, Fengzong Lian, Zhanhui Kang, Di~Wang,
+  and Chengzhong Xu.
+\newblock Truth forest: Toward multi-scale truthfulness in large language
+  models through intervention without tuning.
+\newblock \emph{Proceedings of the AAAI Conference on Artificial Intelligence},
+  38\penalty0 (19):\penalty0 20967--20974, Mar. 2024.
+\newblock \doi{10.1609/aaai.v38i19.30087}.
+\newblock URL \url{https://ojs.aaai.org/index.php/AAAI/article/view/30087}.
+
 \bibitem[Fadeeva et~al.(2024)Fadeeva, Rubashevskii, Shelmanov, Petrakov, Li,
   Mubarak, Tsymbalov, Kuzmin, Panchenko, Baldwin, et~al.]{CCP}
 Ekaterina Fadeeva, Aleksandr Rubashevskii, Artem Shelmanov, Sergey Petrakov,
@@ -44,17 +68,6 @@ Aaron Grattafiori, Abhimanyu Dubey, Abhinav Jauhri, Abhinav Pandey, Abhishek
 \newblock The llama 3 herd of models.
 \newblock \emph{arXiv preprint arXiv:2407.21783}, 2024.
 
-\bibitem[Hewitt and Manning(2019)]{structuralProbe}
-John Hewitt and Christopher~D. Manning.
-\newblock {A} structural probe for finding syntax in word representations.
-\newblock In Jill Burstein, Christy Doran, and Thamar Solorio, editors,
-  \emph{Proceedings of the 2019 Conference of the North {A}merican Chapter of
-  the Association for Computational Linguistics: Human Language Technologies,
-  Volume 1 (Long and Short Papers)}, pages 4129--4138, Minneapolis, Minnesota,
-  June 2019. Association for Computational Linguistics.
-\newblock \doi{10.18653/v1/N19-1419}.
-\newblock URL \url{https://aclanthology.org/N19-1419/}.
-
 \bibitem[Hotelling(1933)]{PCA}
 Harold Hotelling.
 \newblock Analysis of a complex of statistical variables into principal
@@ -70,6 +83,21 @@ Lei Huang, Weijiang Yu, Weitao Ma, Weihong Zhong, Zhangyin Feng, Haotian Wang,
   taxonomy, challenges, and open questions.
 \newblock \emph{ACM Transactions on Information Systems}, 43\penalty0
   (2):\penalty0 1--55, 2025.
+
+\bibitem[Huh et~al.(2024)Huh, Cheung, Wang, and Isola]{Platonic}
+Minyoung Huh, Brian Cheung, Tongzhou Wang, and Phillip Isola.
+\newblock The platonic representation hypothesis.
+\newblock \emph{arXiv preprint arXiv:2405.07987}, 2024.
+
+\bibitem[Ji et~al.(2023)Ji, Lee, Frieske, Yu, Su, Xu, Ishii, Bang, Madotto, and
+  Fung]{surveyHallucination2}
+Ziwei Ji, Nayeon Lee, Rita Frieske, Tiezheng Yu, Dan Su, Yan Xu, Etsuko Ishii,
+  Ye~Jin Bang, Andrea Madotto, and Pascale Fung.
+\newblock Survey of hallucination in natural language generation.
+\newblock \emph{ACM Comput. Surv.}, 55\penalty0 (12), March 2023.
+\newblock ISSN 0360-0300.
+\newblock \doi{10.1145/3571730}.
+\newblock URL \url{https://doi.org/10.1145/3571730}.
 
 \bibitem[Kalai et~al.(2025)Kalai, Nachum, Vempala, and Zhang]{HallOpenAI}
 Adam~Tauman Kalai, Ofir Nachum, Santosh~S Vempala, and Edwin Zhang.
@@ -96,19 +124,23 @@ Nora Kassner, Oyvind Tafjord, Hinrich Sch{\"u}tze, and Peter Clark.
 \newblock \doi{10.18653/v1/2021.emnlp-main.697}.
 \newblock URL \url{https://aclanthology.org/2021.emnlp-main.697/}.
 
-\bibitem[Li et~al.(2023)Li, Cheng, Zhao, Nie, and Wen]{Halueval}
+\bibitem[Li et~al.(2023{\natexlab{a}})Li, Cheng, Zhao, Nie, and Wen]{Halueval}
 Junyi Li, Xiaoxue Cheng, Wayne~Xin Zhao, Jian-Yun Nie, and Ji-Rong Wen.
 \newblock Halueval: A large-scale hallucination evaluation benchmark for large
   language models.
-\newblock \emph{arXiv preprint arXiv:2305.11747}, 2023.
+\newblock \emph{arXiv preprint arXiv:2305.11747}, 2023{\natexlab{a}}.
 
-\bibitem[Manakul et~al.(2023)Manakul, Liusie, and
-  Gales]{manakul2023selfcheckgpt}
-Potsawee Manakul, Adian Liusie, and Mark Gales.
-\newblock Selfcheckgpt: Zero-resource black-box hallucination detection for
-  generative large language models.
-\newblock In \emph{Proceedings of the 2023 conference on empirical methods in
-  natural language processing}, pages 9004--9017, 2023.
+\bibitem[Li et~al.(2023{\natexlab{b}})Li, Patel, Vi\'{e}gas, Pfister, and
+  Wattenberg]{ITI}
+Kenneth Li, Oam Patel, Fernanda Vi\'{e}gas, Hanspeter Pfister, and Martin
+  Wattenberg.
+\newblock Inference-time intervention: Eliciting truthful answers from a
+  language model.
+\newblock In A.~Oh, T.~Naumann, A.~Globerson, K.~Saenko, M.~Hardt, and
+  S.~Levine, editors, \emph{Advances in Neural Information Processing Systems},
+  volume~36, pages 41451--41530. Curran Associates, Inc., 2023{\natexlab{b}}.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper_files/paper/2023/file/81b8390039b7302c909cb769f8b6cd93-Paper-Conference.pdf}.
 
 \bibitem[Marks and Tegmark(2023)]{Geometry}
 Samuel Marks and Max Tegmark.
@@ -116,14 +148,17 @@ Samuel Marks and Max Tegmark.
   model representations of true/false datasets.
 \newblock \emph{arXiv preprint arXiv:2310.06824}, 2023.
 
-\bibitem[Penedo et~al.(2023)Penedo, Malartic, Hesslow, Cojocaru, Cappelli,
-  Alobeidli, Pannier, Almazrouei, and Launay]{refinedweb}
-Guilherme Penedo, Quentin Malartic, Daniel Hesslow, Ruxandra Cojocaru,
-  Alessandro Cappelli, Hamza Alobeidli, Baptiste Pannier, Ebtesam Almazrouei,
-  and Julien Launay.
-\newblock The refinedweb dataset for falcon llm: outperforming curated corpora
-  with web data, and web data only.
-\newblock \emph{arXiv preprint arXiv:2306.01116}, 2023.
+\bibitem[{Sangayya Hiremath} et~al.(2026){Sangayya Hiremath}, Polignano,
+  Levantesi, Semeraro, {De Luca}, and Poznanski]{SLiM}
+Basavaraj {Sangayya Hiremath}, Marco Polignano, Marco Levantesi, Giovanni
+  Semeraro, Ernesto~William {De Luca}, and Amos Poznanski.
+\newblock State-wise linear modulation (slim): A novel approach for steering
+  large language models.
+\newblock \emph{Neural Networks}, 199:\penalty0 108708, 2026.
+\newblock ISSN 0893-6080.
+\newblock \doi{https://doi.org/10.1016/j.neunet.2026.108708}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S089360802600170X}.
 
 \bibitem[Sharma et~al.(2023)Sharma, Tong, Korbak, Duvenaud, Askell, Bowman,
   Cheng, Durmus, Hatfield-Dodds, Johnston, et~al.]{sycophancyLLM}
@@ -133,20 +168,6 @@ Mrinank Sharma, Meg Tong, Tomasz Korbak, David Duvenaud, Amanda Askell,
 \newblock Towards understanding sycophancy in language models.
 \newblock \emph{arXiv preprint arXiv:2310.13548}, 2023.
 
-\bibitem[Shazeer(2020)]{SWIGLU}
-Noam Shazeer.
-\newblock Glu variants improve transformer.
-\newblock \emph{arXiv preprint arXiv:2002.05202}, 2020.
-
-\bibitem[Su et~al.(2024)Su, Ahmed, Lu, Pan, Bo, and Liu]{RoPE}
-Jianlin Su, Murtadha Ahmed, Yu~Lu, Shengfeng Pan, Wen Bo, and Yunfeng Liu.
-\newblock Roformer: Enhanced transformer with rotary position embedding.
-\newblock \emph{Neurocomputing}, 568:\penalty0 127063, 2024.
-\newblock ISSN 0925-2312.
-\newblock \doi{https://doi.org/10.1016/j.neucom.2023.127063}.
-\newblock URL
-  \url{https://www.sciencedirect.com/science/article/pii/S0925231223011864}.
-
 \bibitem[Team et~al.(2024)Team, Riviere, Pathak, Sessa, Hardin, Bhupatiraju,
   Hussenot, Mesnard, Shahriari, Ram{\'e}, et~al.]{Gemma2}
 Gemma Team, Morgane Riviere, Shreya Pathak, Pier~Giuseppe Sessa, Cassidy
@@ -155,21 +176,50 @@ Gemma Team, Morgane Riviere, Shreya Pathak, Pier~Giuseppe Sessa, Cassidy
 \newblock Gemma 2: Improving open language models at a practical size.
 \newblock \emph{arXiv preprint arXiv:2408.00118}, 2024.
 
-\bibitem[Team(2024{\natexlab{a}})]{qwen2.5}
-Qwen Team.
-\newblock Qwen2.5: A party of foundation models, September 2024{\natexlab{a}}.
-\newblock URL \url{https://qwenlm.github.io/blog/qwen2.5/}.
-
-\bibitem[Team(2024{\natexlab{b}})]{Falcon3}
-TII Team.
-\newblock Falcon 3 family of open foundation models, December
-  2024{\natexlab{b}}.
-
 \bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
   Kaiser, and Polosukhin]{AttentionIsAllYouNeed}
 Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
   Aidan~N Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
 \newblock Attention is all you need.
 \newblock \emph{Advances in neural information processing systems}, 30, 2017.
+
+\bibitem[Wang et~al.(2024)Wang, Chen, Tang, Wu, and
+  Zhu]{DisentangledRepresentationLearning}
+Xin Wang, Hong Chen, Si'ao Tang, Zihao Wu, and Wenwu Zhu.
+\newblock Disentangled representation learning.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine
+  Intelligence}, 46\penalty0 (12):\penalty0 9677--9696, 2024.
+
+\bibitem[Xu et~al.(2024)Xu, Li, Tao, Shen, Cheng, Li, Xu, Tao, and
+  Zhou]{KwowledgeDistillationSurvey}
+Xiaohan Xu, Ming Li, Chongyang Tao, Tao Shen, Reynold Cheng, Jinyang Li, Can
+  Xu, Dacheng Tao, and Tianyi Zhou.
+\newblock A survey on knowledge distillation of large language models.
+\newblock \emph{arXiv preprint arXiv:2402.13116}, 2024.
+
+\bibitem[Zhang et~al.(2025{\natexlab{a}})Zhang, Yu, Yi, Zhang, Li, and
+  Liu]{PRISM}
+Fujie Zhang, Peiqi Yu, Biao Yi, Baolei Zhang, Tong Li, and Zheli Liu.
+\newblock {Prompt-guided internal states for hallucination detection of large
+  language models}.
+\newblock In \emph{Proceedings of the 63rd Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, pages 21806--21818,
+  2025{\natexlab{a}}.
+
+\bibitem[Zhang et~al.(2024)Zhang, Yu, and Feng]{TruthX}
+Shaolei Zhang, Tian Yu, and Yang Feng.
+\newblock Truthx: Alleviating hallucinations by editing large language models
+  in truthful space.
+\newblock In \emph{Proceedings of the 62nd Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, pages 8908--8949,
+  2024.
+
+\bibitem[Zhang et~al.(2025{\natexlab{b}})Zhang, Hu, Zhang, Zhang, and Wan]{ICR}
+Zhenliang Zhang, Xinyu Hu, Huixuan Zhang, Junzhe Zhang, and Xiaojun Wan.
+\newblock {ICR probe: Tracking hidden state dynamics for reliable hallucination
+  detection in LLMs}.
+\newblock In \emph{Proceedings of the 63rd Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, pages 17986--18002,
+  2025{\natexlab{b}}.
 
 \end{thebibliography}
