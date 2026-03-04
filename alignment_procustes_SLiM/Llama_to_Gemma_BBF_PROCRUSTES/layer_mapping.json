@@ -1,0 +1,318 @@
+{
+  "trainer_model": "meta-llama_Llama-3.1-8B-Instruct",
+  "target_model": "google_gemma-2-9b-it",
+  "dataset": "belief_bank_facts",
+  "trainer_num_physical_layers": 32,
+  "target_num_physical_layers": 42,
+  "selection_strategy": "manual_target_layer_from_slim_config_then_cka_over_all_trainer_same_type",
+  "target_from_slim_config": {
+    "physical_layer": 24,
+    "module_type": "hidden",
+    "slim_config_path": "SteeringVectors/SLiM/google_gemma-2-9b-it/belief_bank_facts/slim_belief_bank_facts_pairs6500_layer24_hybrid_lr1e-05_bs8_ep100_config.json"
+  },
+  "slim_config": {
+    "num_pairs": 6500,
+    "epochs": 100,
+    "batch_size": 8,
+    "lr": 1e-05,
+    "target_layer": 24
+  },
+  "best_trainer_layer_by_cka": {
+    "physical_layer": 13,
+    "module_type": "hidden",
+    "cka": 0.8965532183647156
+  },
+  "num_common_instances": 13000,
+  "cka_scores": [
+    {
+      "trainer_layer": 0,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.4476310908794403,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 1,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.6246402859687805,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 2,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.6779600381851196,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 3,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.7526702284812927,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 4,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.7712367177009583,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 5,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.7882074117660522,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 6,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.7985612154006958,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 7,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.8166396617889404,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 8,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.8512413501739502,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 9,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.8709639310836792,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 10,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.8747959136962891,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 11,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.8676454424858093,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 12,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.8841649293899536,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 13,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.8965532183647156,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 14,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.8947716355323792,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 15,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.8876785635948181,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 16,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.884619951248169,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 17,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.8701023459434509,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 18,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.8544166684150696,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 19,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.8376314043998718,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 20,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.8316853642463684,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 21,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.8190017342567444,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 22,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.7974782586097717,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 23,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.7819000482559204,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 24,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.7693583369255066,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 25,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.7656217813491821,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 26,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.7561572790145874,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 27,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.740852415561676,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 28,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.7339609861373901,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 29,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.7103146314620972,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 30,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.6878779530525208,
+      "num_common_instances": 13000
+    },
+    {
+      "trainer_layer": 31,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden",
+      "cka": 0.4754214882850647,
+      "num_common_instances": 13000
+    }
+  ],
+  "layer_mapping": [
+    {
+      "trainer_layer": 13,
+      "trainer_type": "hidden",
+      "target_layer": 24,
+      "target_type": "hidden"
+    }
+  ],
+  "trainer_shape": [
+    13000,
+    4096
+  ],
+  "target_shape": [
+    13000,
+    3584
+  ],
+  "procrustes": {
+    "target_to_trainer": {
+      "scale": 0.028086643666028976,
+      "train_mse": 0.0015569949755445123,
+      "input_dim": 3584,
+      "output_dim": 4096,
+      "model_path": "alignment_procustes_SLiM/Llama_to_Gemma_BBF_PROCRUSTES/procrustes_target_to_trainer.pkl"
+    },
+    "trainer_to_target": {
+      "scale": 26.11925506591797,
+      "train_mse": 1.6476237773895264,
+      "input_dim": 4096,
+      "output_dim": 3584,
+      "model_path": "alignment_procustes_SLiM/Llama_to_Gemma_BBF_PROCRUSTES/procrustes_trainer_to_target.pkl"
+    },
+    "legacy_default_model_path": "alignment_procustes_SLiM/Llama_to_Gemma_BBF_PROCRUSTES/procrustes.pkl",
+    "legacy_default_direction": "trainer_to_target"
+  }
+}

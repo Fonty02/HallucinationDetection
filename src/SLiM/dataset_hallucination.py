@@ -190,6 +190,7 @@ class SLiMHallucinationDataset(Dataset):
         prompt_template: str,
         max_length: int = 0,  # 0 = no truncation (use actual input length)
         include_answer_in_input: bool = True,
+        train_on_answer_only: bool = True,
     ):
         """
         Args:
@@ -199,6 +200,8 @@ class SLiMHallucinationDataset(Dataset):
             prompt_template: Template del prompt (es. PROMPT_QA, PROMPT_HALU)
             max_length: Lunghezza massima della sequenza tokenizzata
             include_answer_in_input: Se True, concatena la risposta al prompt per il training
+            train_on_answer_only: Se True, la CE viene calcolata solo sui token
+                                  della risposta (prompt masked con -100 nei target)
         """
         self.tokenizer = tokenizer
         self.prompt_template = prompt_template
@@ -238,11 +241,49 @@ class SLiMHallucinationDataset(Dataset):
                 input_ids = encoded["input_ids"].squeeze(0)
                 attention_mask = encoded["attention_mask"].squeeze(0)
 
-                # Per il language modeling: input = tokens[:-1], target = tokens[1:]
+                # Per LM: input = tokens[:-1], target = tokens[1:].
+                # In modalità answer-only maskiamo i token target del prompt.
                 if input_ids.size(0) > 1:
+                    target_ids = input_ids[1:].clone()
+
+                    if train_on_answer_only and include_answer_in_input and answer:
+                        if self.max_length is None or self.max_length <= 0:
+                            prompt_encoded = tokenizer(
+                                prompt,
+                                truncation=False,
+                                return_tensors="pt",
+                                padding=False,
+                            )
+                        else:
+                            prompt_encoded = tokenizer(
+                                prompt,
+                                truncation=True,
+                                max_length=self.max_length,
+                                return_tensors="pt",
+                                padding=False,
+                            )
+
+                        prompt_ids = prompt_encoded["input_ids"].squeeze(0)
+                        # Prefix length robusta: in caso di tokenizzazione non perfettamente allineata
+                        # tra prompt e prompt+answer, usa il massimo prefisso comune.
+                        prefix_len = 0
+                        limit = min(prompt_ids.size(0), input_ids.size(0))
+                        while prefix_len < limit and prompt_ids[prefix_len] == input_ids[prefix_len]:
+                            prefix_len += 1
+
+                        # target[t] predice input_ids[t+1], quindi per includere il primo token
+                        # della risposta (indice prefix_len) bisogna tenere da t=prefix_len-1.
+                        supervise_from = max(prefix_len - 1, 0)
+                        if supervise_from > 0:
+                            target_ids[:supervise_from] = -100
+
+                    # Se dopo il masking non resta alcun target valido, salta il campione
+                    if torch.all(target_ids == -100):
+                        continue
+
                     self.samples.append({
                         "input_ids": input_ids[:-1],
-                        "target_ids": input_ids[1:],
+                        "target_ids": target_ids,
                         "attention_mask": attention_mask[:-1],
                         "state": torch.FloatTensor([state_value]),
                         "question": question,
@@ -304,11 +345,21 @@ class SLiMPairedDataset(Dataset):
             pos = pair["positive"]
             neg = pair["negative"]
 
-            pos_text = self._build_text(pos)
-            neg_text = self._build_text(neg)
+            pos_prompt = self._build_prompt(pos)
+            neg_prompt = self._build_prompt(neg)
+            pos_text = self._build_text(pos_prompt, pos.get("answer", ""))
+            neg_text = self._build_text(neg_prompt, neg.get("answer", ""))
 
             pos_enc = self._tokenize(pos_text)
             neg_enc = self._tokenize(neg_text)
+            pos_prompt_enc = self._tokenize(pos_prompt)
+            neg_prompt_enc = self._tokenize(neg_prompt)
+            pos_answer_start = self._common_prefix_len(
+                pos_prompt_enc["input_ids"], pos_enc["input_ids"]
+            )
+            neg_answer_start = self._common_prefix_len(
+                neg_prompt_enc["input_ids"], neg_enc["input_ids"]
+            )
 
             # Verifica che i token non siano vuoti
             if pos_enc["input_ids"].size(0) > 0 and neg_enc["input_ids"].size(0) > 0:
@@ -317,18 +368,30 @@ class SLiMPairedDataset(Dataset):
                     "pos_attention_mask": pos_enc["attention_mask"],
                     "neg_input_ids": neg_enc["input_ids"],
                     "neg_attention_mask": neg_enc["attention_mask"],
+                    "pos_answer_start": pos_answer_start,
+                    "neg_answer_start": neg_answer_start,
                 })
 
         print(f"[SLiM Paired] Creati {len(self.samples)} coppie da {len(pairs)} pairs")
 
-    def _build_text(self, sample: Dict) -> str:
+    def _build_prompt(self, sample: Dict) -> str:
+        """Costruisce il prompt con lo stesso template usato in inferenza."""
+        return self.prompt_template.format(question=sample["question"])
+
+    def _build_text(self, prompt: str, answer: str) -> str:
         """Costruisce il testo completo (prompt + answer)."""
-        question = sample["question"]
-        answer = sample.get("answer", "")
-        prompt = self.prompt_template.format(question=question)
         if answer:
             return f"{prompt} {answer}"
         return prompt
+
+    @staticmethod
+    def _common_prefix_len(a: torch.Tensor, b: torch.Tensor) -> int:
+        """Lunghezza del massimo prefisso comune tra due sequenze token."""
+        prefix_len = 0
+        limit = min(a.size(0), b.size(0))
+        while prefix_len < limit and a[prefix_len] == b[prefix_len]:
+            prefix_len += 1
+        return int(prefix_len)
 
     def _tokenize(self, text: str) -> Dict:
         """Tokenizza il testo con troncamento opzionale."""
@@ -354,6 +417,7 @@ class SLiMPairedDataset(Dataset):
         return (
             s["pos_input_ids"], s["pos_attention_mask"],
             s["neg_input_ids"], s["neg_attention_mask"],
+            s["pos_answer_start"], s["neg_answer_start"],
         )
 
 
@@ -365,13 +429,22 @@ def collate_fn_paired(batch):
     restituisce tensori pronti per il training contrastivo.
 
     Args:
-        batch: List of (pos_input_ids, pos_mask, neg_input_ids, neg_mask)
+        batch: List of
+            (pos_input_ids, pos_mask, neg_input_ids, neg_mask, pos_answer_start, neg_answer_start)
 
     Returns:
-        (pos_input_ids, pos_attention_mask, neg_input_ids, neg_attention_mask)
+        (pos_input_ids, pos_attention_mask, neg_input_ids, neg_attention_mask,
+         pos_answer_start, neg_answer_start)
         tutti padded a lunghezza massima nel rispettivo gruppo.
     """
-    pos_ids_list, pos_masks_list, neg_ids_list, neg_masks_list = zip(*batch)
+    (
+        pos_ids_list,
+        pos_masks_list,
+        neg_ids_list,
+        neg_masks_list,
+        pos_answer_starts,
+        neg_answer_starts,
+    ) = zip(*batch)
 
     def _pad_sequences(ids_list, masks_list, pad_value=0):
         max_len = max(x.size(0) for x in ids_list)
@@ -394,7 +467,14 @@ def collate_fn_paired(batch):
     pos_ids, pos_masks = _pad_sequences(pos_ids_list, pos_masks_list)
     neg_ids, neg_masks = _pad_sequences(neg_ids_list, neg_masks_list)
 
-    return pos_ids, pos_masks, neg_ids, neg_masks
+    return (
+        pos_ids,
+        pos_masks,
+        neg_ids,
+        neg_masks,
+        torch.tensor(pos_answer_starts, dtype=torch.long),
+        torch.tensor(neg_answer_starts, dtype=torch.long),
+    )
 
 
 def create_slim_dataset(
@@ -405,6 +485,7 @@ def create_slim_dataset(
     max_length: int = 0,  # 0 = no truncation (use actual input length)
     use_local_halueval: bool = False,
     paired: bool = False,
+    train_on_answer_only: bool = True,
 ):
     """
     Factory function: crea un SLiMHallucinationDataset o SLiMPairedDataset.
@@ -418,6 +499,8 @@ def create_slim_dataset(
         use_local_halueval: Se usare HaluEval locale
         paired: Se True, restituisce SLiMPairedDataset per contrastive training.
                 Se False, restituisce SLiMHallucinationDataset (flat, per CE loss).
+        train_on_answer_only: Se True (solo flat/generative), la loss CE è
+                              calcolata sui token risposta e non sul prompt.
 
     Returns:
         SLiMPairedDataset o SLiMHallucinationDataset
@@ -458,4 +541,5 @@ def create_slim_dataset(
         tokenizer=tokenizer,
         prompt_template=prompt_template,
         max_length=max_length,
+        train_on_answer_only=train_on_answer_only,
     )

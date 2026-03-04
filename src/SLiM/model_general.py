@@ -5,12 +5,12 @@ Reference: "State-wise Linear Modulation (SLiM): A Novel Approach for Steering
 Large Language Models"
 
 Adapted for Hallucination Reduction: applies a single SLiM module on a
-user-specified target layer (no gating, no Top-K, no LowRank).
+user-specified target layer (no gating, no Top-K) with optional Low-Rank
+factorization for scale and shift (default rank=32).
 """
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from typing import Optional
 import sys
 import os
@@ -29,16 +29,36 @@ class StateBlock(nn.Module):
     def __init__(self, state_dim: int, target_dim: int, activation=nn.ReLU):
         super(StateBlock, self).__init__()
         self.projection = nn.Sequential(
-            nn.Linear(state_dim, target_dim // 4),
+            nn.Linear(state_dim, target_dim ),
             activation(),
-            nn.Linear(target_dim // 4, target_dim // 2),
-            activation(),
-            nn.Linear(target_dim // 2, target_dim),
             nn.LayerNorm(target_dim),
         )
 
     def forward(self, state_vector: torch.Tensor) -> torch.Tensor:
         return self.projection(state_vector)
+
+
+class LowRankLinear(nn.Module):
+    """
+    Low-rank factorized linear layer: y = up(down(x)).
+
+    Approximates nn.Linear(in_features, out_features) as W ≈ A @ B where
+    A has shape (out_features, rank) and B has shape (rank, in_features),
+    reducing the parameter count from in*out to rank*(in+out).
+
+    Args:
+        in_features: Input dimension
+        out_features: Output dimension
+        rank: Rank of the factorization (default: 32)
+    """
+
+    def __init__(self, in_features: int, out_features: int, rank: int = 32):
+        super().__init__()
+        self.down = nn.Linear(in_features, rank, bias=False)
+        self.up = nn.Linear(rank, out_features, bias=True)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.up(self.down(x))
 
 
 class GeneralSLiMedNet(nn.Module):
@@ -49,13 +69,14 @@ class GeneralSLiMedNet(nn.Module):
     (scale/shift) to a single target transformer layer's output,
     conditioned on an external state vector.
 
-    Following the original SLiM paper, scale and shift are standard
-    nn.Linear(hidden_size, hidden_size) — no low-rank factorization.
+    Scale and shift use a low-rank factorization (LowRankLinear) to reduce
+    the parameter count from hidden_size² to rank*(2*hidden_size).
 
     Args:
         model: A HuggingFace CausalLM (frozen)
         state_embed_dim: Dimension of the input state vector (1 for scalar)
         target_layer: Index of the single transformer layer to apply SLiM at
+        slim_rank: Rank for the low-rank factorization of scale and shift (default: 32)
         record_SLiM: Whether to record scale/shift values for analysis
         record_hidden_states: Whether to record pre/post modulation hidden states
         dtype: Data type for SLiM modules (default: bfloat16)
@@ -66,6 +87,7 @@ class GeneralSLiMedNet(nn.Module):
         model: nn.Module,
         state_embed_dim: int,
         target_layer: int,
+        slim_rank: int = 32,
         record_SLiM: bool = False,
         record_hidden_states: bool = False,
         dtype: torch.dtype = torch.bfloat16,
@@ -94,19 +116,24 @@ class GeneralSLiMedNet(nn.Module):
 
         print(f"[SLiM] Detected architecture: {self.arch_name}")
         print(f"[SLiM] Hidden size: {self.hidden_size}, Num layers: {self.num_layers}")
-        print(f"[SLiM] Target layer: {target_layer}, dtype: {dtype}")
+        print(f"[SLiM] Target layer: {target_layer}, rank: {slim_rank}, dtype: {dtype}")
+
+        self.slim_rank = slim_rank
 
         # State projector: state_dim → hidden_size
         self.state_proj = StateBlock(state_embed_dim, self.hidden_size).to(dtype)
 
-        # SLiM modulation parameters — single modules (as in original paper)
-        # scale: nn.Linear(H, H) — element-wise multiplicative modulation
-        # shift: nn.Linear(H, H) — element-wise additive modulation
-        self.SLiM_scale = nn.Linear(self.hidden_size, self.hidden_size).to(dtype)
-        self.SLiM_shift = nn.Linear(self.hidden_size, self.hidden_size).to(dtype)
+        # SLiM modulation parameters — low-rank factorized (H → rank → H)
+        # scale: LowRankLinear(H, H, rank) — element-wise multiplicative modulation
+        # shift: LowRankLinear(H, H, rank) — element-wise additive modulation
+        self.SLiM_scale = LowRankLinear(self.hidden_size, self.hidden_size, rank=slim_rank).to(dtype)
+        self.SLiM_shift = LowRankLinear(self.hidden_size, self.hidden_size, rank=slim_rank).to(dtype)
+        self._init_modulation_layers()
 
         # Current state (set during forward/generate)
         self.current_state_embed = None
+        self._last_scale = None
+        self._last_shift = None
 
         # Steering strength: 0.0 = no steering, 1.0 = full steering
         self.alpha = 1.0
@@ -134,6 +161,19 @@ class GeneralSLiMedNet(nn.Module):
         self._capture_mode = False
         self.captured_representations = {}
 
+    def _init_modulation_layers(self):
+        """
+        Identity-preserving initialization for stable training.
+
+        `up` is zero-initialized so scale/shift start from 0, therefore
+        the initial modulation is exactly the identity mapping.
+        """
+        for module in (self.SLiM_scale, self.SLiM_shift):
+            nn.init.normal_(module.down.weight, mean=0.0, std=0.02)
+            nn.init.zeros_(module.up.weight)
+            if module.up.bias is not None:
+                nn.init.zeros_(module.up.bias)
+
     def _register_hooks(self) -> list:
         """Register a forward hook on the target transformer layer."""
         hooks = []
@@ -150,12 +190,12 @@ class GeneralSLiMedNet(nn.Module):
             projected = StateBlock(state)
             scale = tanh(W_scale · projected)
             shift = tanh(W_shift · projected)
-            delta = hidden * scale + shift - hidden
+            delta = hidden * scale + shift
             output' = hidden + alpha * delta
 
         Where alpha controls the steering strength (0.0 = no modulation,
-        1.0 = full modulation). This preserves the hidden state distribution
-        when alpha is small.
+        1.0 = full modulation). With this formulation, scale=0 and shift=0
+        produce identity (output' = hidden), preventing initialization collapse.
 
         In capture mode (contrastive training):
         - Saves the modulated hidden state WITH gradients for loss computation.
@@ -173,6 +213,9 @@ class GeneralSLiMedNet(nn.Module):
         """
         def hook(module, input, output):
             if self.current_state_embed is None:
+                self._last_scale = None
+                self._last_shift = None
+                self.captured_representations = {}
                 return output
 
             hidden = output[0] if isinstance(output, tuple) else output
@@ -183,8 +226,10 @@ class GeneralSLiMedNet(nn.Module):
             with torch.enable_grad():
                 state_input = self.current_state_embed.to(self.slim_dtype)
                 projected_state = self.state_proj(state_input)
-                scale = torch.tanh(self.SLiM_scale(projected_state))
-                shift = torch.tanh(self.SLiM_shift(projected_state))
+                scale = torch.tanh(self.SLiM_scale(projected_state)).to(hidden.dtype)
+                shift = torch.tanh(self.SLiM_shift(projected_state)).to(hidden.dtype)
+                self._last_scale = scale
+                self._last_shift = shift
 
                 # Always detach hidden: we never need gradients through
                 # the base model, only through SLiM params (scale/shift).
@@ -192,15 +237,17 @@ class GeneralSLiMedNet(nn.Module):
                 h = hidden.detach()
 
                 # FiLM modulation with residual connection and alpha scaling:
-                # steered = hidden + alpha * (hidden * scale + shift - hidden)
-                #         = hidden * (1 + alpha*(scale - 1)) + alpha*shift
-                delta = h * scale + shift - h
+                # steered = hidden + alpha * (hidden * scale + shift)
+                #         = hidden * (1 + alpha*scale) + alpha*shift
+                delta = h * scale + shift
                 steered_output = h + self.alpha * delta
 
-            # --- Capture mode for contrastive training ---
+            # Save modulation for downstream losses (e.g. InfoNCE in hybrid training).
+            # This is kept even when _capture_mode is False.
+            self.captured_representations["modulated"] = steered_output
+
+            # --- Capture mode for contrastive-only memory optimization ---
             if self._capture_mode:
-                # Save WITH grad_fn (through scale/shift ← SLiM params)
-                self.captured_representations["modulated"] = steered_output
                 # Detach what propagates to frozen subsequent layers
                 steered_for_model = steered_output.detach()
             else:
@@ -253,8 +300,11 @@ class GeneralSLiMedNet(nn.Module):
             Logits [batch, seq_len, vocab_size]
         """
         # Set state for hooks
+        self.captured_representations = {}
         if state_tensor is None:
             self.current_state_embed = None
+            self._last_scale = None
+            self._last_shift = None
         else:
             self.current_state_embed = state_tensor.unsqueeze(1)
 
@@ -281,8 +331,12 @@ class GeneralSLiMedNet(nn.Module):
             Generated token IDs
         """
         if state_tensor is None:
+            self.captured_representations = {}
             self.current_state_embed = None
+            self._last_scale = None
+            self._last_shift = None
         else:
+            self.captured_representations = {}
             self.current_state_embed = state_tensor.unsqueeze(1)
 
         return self.base_model.generate(
@@ -314,9 +368,21 @@ class GeneralSLiMedNet(nn.Module):
 
         Returns:
             Tensor [batch, seq_len, hidden_size] with gradient connection
-            to SLiM parameters, or None if not in capture mode.
+            to SLiM parameters, or None if no modulation was applied.
         """
         return self.captured_representations.get("modulated", None)
+
+    def get_modulation_penalty(self) -> torch.Tensor:
+        """
+        L2 penalty on current scale/shift activations.
+
+        Useful as a regularizer to keep steering close to identity and avoid
+        degenerate generations.
+        """
+        if self._last_scale is None or self._last_shift is None:
+            device = next(self.state_proj.parameters()).device
+            return torch.zeros((), device=device, dtype=torch.float32)
+        return self._last_scale.float().pow(2).mean() + self._last_shift.float().pow(2).mean()
 
     @staticmethod
     def extract_last_token(hidden_states: torch.Tensor, attention_mask: torch.Tensor) -> torch.Tensor:
