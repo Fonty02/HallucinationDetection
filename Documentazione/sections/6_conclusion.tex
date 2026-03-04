@@ -3,7 +3,10 @@
 This chapter summarizes the main results obtained from this work and future perspectives.
 
 \section{Summary of Results}
-This work explored the feasibility of a "universal prober" for hallucination detection in LLMs, evaluating different techniques for aligning latent spaces between "Trainer" and "Tester" models. The experiments conducted on heterogeneous model pairs (Llama-3, Gemma-2, Falcon-3, and Qwen-2.5) and on datasets of varying complexity (BeliefBank and HaluEval) led to the following key results:
+This work explored the feasibility of transferable mechanisms for both hallucination \textbf{detection} and \textbf{mitigation} in LLMs. The experiments were conducted two models (from Gemma and LLama's family) and on datasets of varying complexity (BeliefBank and HaluEval), evaluating different techniques for aligning latent spaces and steering internal representations. The key results are summarized below.
+
+\subsection{Hallucination Detection}
+For the detection task, different techniques for aligning latent spaces between "Trainer" and "Tester" models were evaluated, leading to the following findings:
 \begin{itemize}
     \item \textbf{Transfer Effectiveness}: The proposed transferability methods proved effective, especially for simple factual verification tasks such as those in BeliefBank, where the performance of the transferred prober was comparable to that of dedicated classifiers.
     
@@ -12,8 +15,22 @@ This work explored the feasibility of a "universal prober" for hallucination det
     \item \textbf{Robustness of the One-For-All Approach}: The One-For-All approach proved to be the most promising method for building a universal prober, showing robustness regardless of the type of layer analyzed (attn, mlp, hidden).
 \end{itemize}
 
+\subsection{Hallucination Mitigation}
+For the mitigation task, two steering techniques --- TruthX and SLiMTruth --- were evaluated across standard, cross-dataset, and cross-model settings:
+\begin{itemize}
+    \item \textbf{SLiMTruth Dominance in Standard Settings}: SLiMTruth achieved the best absolute hallucination rate reductions when trained and applied on the same model and dataset, with reductions up to $-89.9\%$ (Llama on BeliefBankFacts) and consistent improvements across all model--dataset combinations. TruthX was effective on complex tasks (HaluEval, up to $-50.3\%$) but exhibited critical failures on low-error settings (BeliefBankFacts), where the steering intervention disrupted already well-calibrated representations.
+    
+    \item \textbf{Cross-Dataset Transferability}: Both methods confirmed the asymmetry observed in detection: steering vectors trained on simple factual tasks (BeliefBank) transfer well to complex scenarios (HaluEval), while the reverse direction is harmful, particularly for SLiMTruth which showed catastrophic failures (up to $+1029.7\%$) when transferring toward BeliefBankFacts.
+    
+    \item \textbf{Cross-Model Transferability}: TruthX with Procrustes alignment proved significantly more transferable across architectures than SLiMTruth, achieving meaningful reductions on HaluEval ($\sim$$-37\%$) in cross-model settings. SLiMTruth's layer-specific modulation, being tightly coupled to the source model's computational dynamics, failed catastrophically in cross-model transfer (up to $+248.6\%$). This highlights a fundamental trade-off: SLiMTruth's targeted single-layer intervention is more effective in-domain but less transferable, while TruthX's global contrastive decomposition produces more architecture-agnostic representations.
+    
+    \item \textbf{BBF Vulnerability}: A recurring pattern across both mitigation methods was the tendency to increase hallucinations on BeliefBankFacts in non-standard settings. When the baseline hallucination rate is already very low, steering interventions calibrated on noisier datasets apply corrections disproportionately large relative to the actual error signal.
+\end{itemize}
+
 \section{Future Work}
 This work can be continued in several directions:
 \begin{itemize}
-    \item \textbf{Multimodal Experiments}: Extend the approach to multimodal models that integrate text and images.
+    \item \textbf{Adaptive Steering Strength}: Develop mechanisms that dynamically modulate the intensity of the steering intervention based on the model's baseline confidence, to avoid over-correction in low-error settings such as BeliefBankFacts.
+    \item \textbf{Improved Cross-Model SLiMTruth Transfer}: Investigate more robust alignment strategies for SLiMTruth cross-model transfer, potentially learning layer correspondences jointly with the modulation parameters rather than relying on fixed Procrustes mappings.
+    \item \textbf{Multimodal Experiments}: Extend the detection and mitigation approaches to multimodal models that integrate text and images.
 \end{itemize}

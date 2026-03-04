@@ -1,61 +1,14 @@
 \chapter{Results}
 
-In this chapter, the results obtained from experiments conducted to evaluate the effectiveness of the universal prober in detecting hallucinations in LLMs are presented. In particular, a table is reported for each (trainer-tester)-Dataset pair to analyze the best approach for each combination.
-
-\section{Falcon3-7B-Base e Qwen2.5-7B su BeliefBankFacts}
-
-
-
-\begin{table}[H]
-\scriptsize
-\centering
-\caption{Results for pair (Falcon3-7B-Base, Qwen2.5-7B) on BeliefBankFacts}
-\label{tab:results-bbf-falcon-qwen}
-\begin{tabular}{|l l l l| c c c c|}
-\hline
-Trainer & Tester & Approach & Type & AccTr & AccTe & AurocTr & AurocTe \\
-\hline
-Qwen2.5-7B & Falcon3-7B-Base & FullLinear & attn  & 0.987 & 0.962 & 0.999 & 0.992 \\
-Qwen2.5-7B & Falcon3-7B-Base & FullLinear & mlp   & 0.986 & 0.967 & 0.999 & 0.987 \\
-Qwen2.5-7B & Falcon3-7B-Base & FullLinear & hidden& 0.985 & 0.967 & 0.999 & 0.990 \\
-Falcon3-7B-Base & Qwen2.5-7B & FullLinear & attn  & 0.987 & 0.958 & 0.997 & 0.989 \\
-Falcon3-7B-Base & Qwen2.5-7B & FullLinear & mlp   & 0.983 & 0.961 & 0.996 & 0.989 \\
-Falcon3-7B-Base & Qwen2.5-7B & FullLinear & hidden& 0.983 & 0.959 & 0.996 & 0.984 \\
-\hline
-Qwen2.5-7B & Falcon3-7B-Base & AdapterMLP & attn  & 0.987 & 0.968 & 0.999 & 0.984 \\
-Qwen2.5-7B & Falcon3-7B-Base & AdapterMLP & mlp   & 0.986 & 0.969 & 0.999 & 0.986 \\
-Qwen2.5-7B & Falcon3-7B-Base & AdapterMLP & hidden& 0.985 & 0.968 & 0.999 & 0.990 \\
-\rowcolor{red!25}Falcon3-7B-Base & Qwen2.5-7B & AdapterMLP & attn  & 0.987 & 0.848 & 0.997 & 0.912 \\
-Falcon3-7B-Base & Qwen2.5-7B & AdapterMLP & mlp   & 0.983 & 0.913 & 0.996 & 0.967 \\
-Falcon3-7B-Base & Qwen2.5-7B & AdapterMLP & hidden& 0.983 & 0.889 & 0.996 & 0.922 \\
-\hline
-Qwen2.5-7B & Falcon3-7B-Base & FullNonLinear & attn  & 0.993 & 0.981 & 1.000 & 0.994 \\
-Qwen2.5-7B & Falcon3-7B-Base & FullNonLinear & mlp   & 0.994 & 0.977 & 1.000 & 0.994 \\
-Qwen2.5-7B & Falcon3-7B-Base & FullNonLinear & hidden& 0.992 & 0.981 & 1.000 & 0.996 \\
-Falcon3-7B-Base & Qwen2.5-7B & FullNonLinear & attn  & 0.992 & 0.890 & 0.999 & 0.938 \\
-Falcon3-7B-Base & Qwen2.5-7B & FullNonLinear & mlp   & 0.988 & 0.941 & 0.999 & 0.988 \\
-Falcon3-7B-Base & Qwen2.5-7B & FullNonLinear & hidden& 0.991 & 0.931 & 0.999 & 0.985 \\
-\hline
-Qwen2.5-7B & Falcon3-7B-Base & ReducedNonLinear & attn  & 0.9916 & 0.9706 & 0.9994 & 0.9953 \\
-Qwen2.5-7B & Falcon3-7B-Base & ReducedNonLinear & mlp   & 0.9897 & 0.9608 & 0.9997 & 0.9915 \\
-Qwen2.5-7B & Falcon3-7B-Base & ReducedNonLinear & hidden& 0.9935 & 0.9586 & 0.9997 & 0.9892 \\
-Falcon3-7B-Base & Qwen2.5-7B & ReducedNonLinear & attn  & 0.9841 & 0.8537 & 0.9983 & 0.9367 \\
-Falcon3-7B-Base & Qwen2.5-7B & ReducedNonLinear & mlp   & 0.9807 & 0.9411 & 0.9971 & 0.9832 \\
-Falcon3-7B-Base & Qwen2.5-7B & ReducedNonLinear & hidden& 0.9770 & 0.9004 & 0.9952 & 0.9503 \\
-\hline
-Qwen2.5-7B & Falcon3-7B-Base & One-For-All & attn  & 0.9892 & 0.9916 & 0.9995 & 0.9992 \\
-Qwen2.5-7B & Falcon3-7B-Base & One-For-All & mlp   & 0.9860 & 0.9858 & 0.9993 & 0.9980 \\
-Qwen2.5-7B & Falcon3-7B-Base & One-For-All & hidden& 0.9906 & 0.9898 & 0.9998 & 0.9991 \\
-Falcon3-7B-Base & Qwen2.5-7B & One-For-All & attn  & 0.9905 & 0.9921 & 0.9985 & 0.9997 \\
-Falcon3-7B-Base & Qwen2.5-7B & One-For-All & mlp   & 0.9869 & 0.9874 & 0.9985 & 0.9997 \\
-\rowcolor{green!25}Falcon3-7B-Base & Qwen2.5-7B & One-For-All & hidden& 0.9889 & 0.9949 & 0.9988 & 0.9999 \\
-\hline
-\end{tabular}
-\end{table}
+In this chapter, the results obtained from experiments conducted to evaluate the effectiveness of the universal prober in detecting hallucinations in LLMs are presented and to evaluate also the effectiviness of the mitigation techniques
+%\section{Falcon3-7B-Base e Qwen2.5-7B su BeliefBankFacts}
 
 
 
-\section{LLama-3.1-8B-Instruct e Gemma-2-9B-IT su BeliefBankFacts}
+\section{Hallucination Detection}
+
+
+\subsection{LLama-3.1-8B-Instruct e Gemma-2-9B-IT on BeliefBankFacts}
 \begin{table}[H]
 \scriptsize
 \centering
@@ -103,11 +56,11 @@ Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & hidden& 0.9778 & 0.9606 & 
 \end{tabular}
 \end{table}
 
-\section{LLama-3.1-8B-Instruct e Gemma-2-9B-IT su BeliefBankCalibration}
+\subsection{LLama-3.1-8B-Instruct e Gemma-2-9B-IT on BeliefBankConstraints}
 \begin{table}[H]
 \scriptsize
 \centering
-\caption{Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on BeliefBankCalibration}
+\caption{Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on BeliefBankConstraints}
 \label{tab:results-bbc-llama-gemma}
 \begin{tabular}{|l l l l| c c c c|}
 \hline
@@ -151,7 +104,7 @@ Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & hidden & 0.9840 & 0.9838 &
 \end{tabular}
 \end{table}
 
-\section{LLama-3.1-8B-Instruct e Gemma-2-9B-IT su HaluEval}
+\subsection{LLama-3.1-8B-Instruct e Gemma-2-9B-IT on HaluEval}
 \begin{table}[H]
 \scriptsize
 \centering
@@ -199,4 +152,269 @@ Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & hidden & 0.7574 & 0.7052 &
 \end{tabular}
 \end{table}
 
+\subsection{Cross-Domain Results}
+To further evaluate the generalizability of transferred probers, cross-domain experiments were conducted. In this context, the \textit{One-For-All} approach was evaluated by training the encoder on a source dataset ("Train Set") and applying it to project the activations of the \textbf{same source dataset}, but classifying them using the Teacher's Head specific to a different target dataset ("Head Set"). This scenario evaluates the \textbf{universality of the latent space}: it tests whether the representation of truth learned in one domain is compatible with the decision boundary learned in another domain.
 
+The results, summarized in Table \ref{tab:cross-domain-results}, show that the encoding learned via encoder on simple facts datasets (BeliefBank) transfers with exceptional effectiveness even to the classification head learned on a more complex dataset (HaluEval), allowing the Tester to achieve performance nearly identical to the Trainer (often >99\% accuracy).
+Conversely, the encoding learned on HaluEval, while achieving good results, shows a performance drop when transferred to BeliefBank (approximately 87--90\% accuracy), suggesting that the latent space structure learned on complex tasks may be less "universal" or noisier compared to that learned on simple facts.
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lllccccccc}
+\toprule
+\textbf{Align Train} & \textbf{Target/Head} & \textbf{Teacher} & \textbf{Student} & \textbf{Layer} & \textbf{Acc (Tr)} & \textbf{AUROC (Tr)} & \textbf{Acc (Te)} & \textbf{AUROC (Te)} \\
+\midrule
+BBC & BBF & Gemma & Llama & attn & 0.991 & 0.999 & 0.995 & 0.999 \\
+BBC & BBF & Gemma & Llama & mlp & 0.992 & 0.998 & 0.984 & 0.995 \\
+BBC & BBF & Gemma & Llama & hidden & 0.995 & 0.997 & 0.990 & 0.999 \\
+BBC & BBF & Llama & Gemma & attn & 0.991 & 0.996 & 0.994 & 0.999 \\
+BBC & BBF & Llama & Gemma & mlp & 0.980 & 0.995 & 0.994 & 1.000 \\
+BBC & BBF & Llama & Gemma & hidden & 0.993 & 0.999 & 0.993 & 0.999 \\
+\midrule
+BBC & HE & Gemma & Llama & attn & 0.991 & 0.997 & 0.995 & 0.999 \\
+BBC & HE & Gemma & Llama & mlp & 0.993 & 0.997 & 0.984 & 0.993 \\
+BBC & HE & Gemma & Llama & hidden & 0.995 & 0.996 & 0.991 & 0.999 \\
+BBC & HE & Llama & Gemma & attn & 0.993 & 0.998 & 0.994 & 0.999 \\
+BBC & HE & Llama & Gemma & mlp & 0.980 & 0.990 & 0.994 & 1.000 \\
+BBC & HE & Llama & Gemma & hidden & 0.993 & 0.998 & 0.993 & 0.999 \\
+\midrule
+BBF & BBC & Gemma & Llama & attn & 0.986 & 0.997 & 0.994 & 0.997 \\
+BBF & BBC & Gemma & Llama & mlp & 0.983 & 0.992 & 0.994 & 0.998 \\
+BBF & BBC & Gemma & Llama & hidden & 0.972 & 0.995 & 0.993 & 0.998 \\
+BBF & BBC & Llama & Gemma & attn & 0.994 & 0.997 & 0.987 & 0.994 \\
+BBF & BBC & Llama & Gemma & mlp & 0.992 & 0.999 & 0.983 & 0.987 \\
+BBF & BBC & Llama & Gemma & hidden & 0.992 & 0.999 & 0.977 & 0.986 \\
+\midrule
+BBF & HE & Gemma & Llama & attn & 0.985 & 0.993 & 0.995 & 0.997 \\
+BBF & HE & Gemma & Llama & mlp & 0.984 & 0.989 & 0.994 & 0.998 \\
+BBF & HE & Gemma & Llama & hidden & 0.971 & 0.991 & 0.993 & 0.997 \\
+BBF & HE & Llama & Gemma & attn & 0.994 & 0.998 & 0.986 & 0.997 \\
+BBF & HE & Llama & Gemma & mlp & 0.992 & 1.000 & 0.983 & 0.996 \\
+BBF & HE & Llama & Gemma & hidden & 0.991 & 0.996 & 0.979 & 0.996 \\
+\midrule
+HE & BBC & Gemma & Llama & attn & 0.872 & 0.916 & 0.907 & 0.924 \\
+HE & BBC & Gemma & Llama & mlp & 0.873 & 0.928 & 0.905 & 0.950 \\
+HE & BBC & Gemma & Llama & hidden & 0.871 & 0.926 & 0.904 & 0.907 \\
+HE & BBC & Llama & Gemma & attn & 0.909 & 0.941 & 0.884 & 0.894 \\
+HE & BBC & Llama & Gemma & mlp & 0.900 & 0.944 & 0.871 & 0.897 \\
+HE & BBC & Llama & Gemma & hidden & 0.893 & 0.935 & 0.880 & 0.928 \\
+\midrule
+HE & BBF & Gemma & Llama & attn & 0.877 & 0.925 & 0.906 & 0.950 \\
+HE & BBF & Gemma & Llama & mlp & 0.872 & 0.924 & 0.903 & 0.945 \\
+HE & BBF & Gemma & Llama & hidden & 0.872 & 0.928 & 0.905 & 0.940 \\
+HE & BBF & Llama & Gemma & attn & 0.907 & 0.948 & 0.885 & 0.932 \\
+HE & BBF & Llama & Gemma & mlp & 0.901 & 0.950 & 0.871 & 0.928 \\
+HE & BBF & Llama & Gemma & hidden & 0.897 & 0.935 & 0.880 & 0.929 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Cross-Domain Results (One-For-All). Tr=Trainer, Te=Tester, BBC=BeliefBankConstraints, BBF=BeliefBankFacts, HE=HaluEval}
+\label{tab:cross-domain-results}
+\end{table}
+
+\textcolor{red}{INSERIE GRAFICI}
+
+
+\section{Mitigation of Hallucinations}
+
+\subsection{TruthX Results}
+
+The TruthX mitigation approach was evaluated across multiple experimental settings: \textit{Standard} (same model and dataset for training and inference), \textit{Cross-Dataset} (same model, different dataset), and \textit{Cross-Model} (different model, with alignment strategy). All experiments share the following hyperparameters:
+\begin{itemize}
+    \item \textbf{Contrastive weight}: 1.0
+    \item \textbf{Editing weight}: 1.0
+    \item \textbf{Reconstruction weight}: 0.0
+    \item \textbf{Temperature}: 0.1
+    \item \textbf{Edit strength}: 1
+    \item \textbf{Top-k modules}: 1
+\end{itemize}
+
+
+\subsubsection{Baseline vs.\ Standard TruthX}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l l l c c c}
+\toprule
+\textbf{Model} & \textbf{Dataset} & \textbf{Pairs} & \textbf{HR Base} & \textbf{HR TruthX} & \textbf{$\Delta$} \\
+\midrule
+Gemma-2-9b-it & BBC & 6500 & 0.4466 & 0.4170 & $-$6.6\% \\
+Gemma-2-9b-it & BBF & 6500 & 0.0286 & 0.0332 & $+$16.3\% \\
+Gemma-2-9b-it & HE  & 2500 & 0.2417 & 0.1581 & $-$34.6\% \\
+\midrule
+Llama-3.1-8B-Instruct  & BBC & 6500 & 0.5283 & 0.4926 & $-$6.8\% \\
+\rowcolor{red!25}Llama-3.1-8B-Instruct   & BBF & 6500 & 0.0672 & 0.2812 & $+$318.3\% \\
+\rowcolor{green!25}Llama-3.1-8B-Instruct   & HE  & 2500 & 0.2763 & 0.1375 & $-$50.3\% \\
+\bottomrule
+\end{tabular}
+\caption{Baseline vs.\ Standard TruthX — Hallucination Rate}
+\label{tab:truthx-baseline-standard}
+\end{table}
+Table~\ref{tab:truthx-baseline-standard} compares the hallucination rate (HR) of each model at baseline (no intervention) against the standard TruthX setting, where the autoencoder and steering vectors are trained and applied on the same model and dataset.
+
+\subsubsection{Cross-Dataset Transfer}
+
+
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l l l l c c c}
+\toprule
+\textbf{Model} & \textbf{Dataset Train} & \textbf{Dataset Eval} & \textbf{Pairs} & \textbf{HR} & \textbf{HR Base} & \textbf{$\Delta$} \\
+\midrule
+Gemma-2-9b-it & BBF & BBC & 6500 & 0.4180 & 0.4466 & $-$6.4\% \\
+Gemma-2-9b-it & BBC & BBF & 6500 & 0.0337 & 0.0286 & $+$17.8\% \\
+Gemma-2-9b-it & BBF & HE  & 2500 & 0.1603 & 0.2417 & $-$33.7\% \\
+Gemma-2-9b-it & BBC & HE  & 2500 & 0.1580 & 0.2417 & $-$34.6\% \\
+Gemma-2-9b-it & HE  & BBF & 6500 & 0.0339 & 0.0286 & $+$18.5\% \\
+Gemma-2-9b-it & HE  & BBC & 6500 & 0.4265 & 0.4466 & $-$4.5\% \\
+\midrule
+Llama-3.1-8B-Instruct   & BBF & BBC & 6500 & 0.5117 & 0.5283 & $-$3.1\% \\
+\rowcolor{red!25}Llama-3.1-8B-Instruct   & BBC & BBF & 6500 & 0.1629 & 0.0672 & $+$142.4\% \\
+Llama-3.1-8B-Instruct   & BBF & HE  & 2500 & 0.2508 & 0.2763 & $-$9.2\% \\
+\rowcolor{green!25}Llama-3.1-8B-Instruct   & BBC & HE  & 2500 & 0.1591 & 0.2763 & $-$42.4\% \\
+Llama-3.1-8B-Instruct   & HE  & BBF & 6500 & 0.1459 & 0.0672 & $+$117.1\% \\
+Llama-3.1-8B-Instruct   & HE  & BBC & 6500 & 0.5536 & 0.5283 & $+$4.8\% \\
+\bottomrule
+\end{tabular}
+}
+\caption{Cross-Dataset TruthX — Hallucination Rate}
+\label{tab:truthx-cross-dataset}
+\end{table}
+In the cross-dataset setting, the autoencoder and steering vectors are trained on one dataset and applied to a different evaluation dataset, using the \textbf{same model}. Table~\ref{tab:truthx-cross-dataset} reports the results.
+
+
+\subsubsection{Cross-Model Transfer}
+
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l l l c c c}
+\toprule
+\textbf{Train Model} & \textbf{Eval Model} & \textbf{Dataset} & \textbf{HR Baseline} & \textbf{HR Procrustes} & \textbf{$\Delta$} \\
+\midrule
+\rowcolor{red!25}Gemma & Llama & BBF & 0.0672 & 0.1332 & $+$98.2\% \\
+Gemma & Llama & BBC & 0.5283 & 0.5126 & $-$3.0\% \\
+\rowcolor{green!25}Gemma & Llama & HE  & 0.2763 & 0.1712 & $-$38.0\% \\
+\bottomrule
+\end{tabular}
+\caption{Cross-Model TruthX: Gemma $\to$ Llama — Hallucination Rate}
+\label{tab:truthx-cross-model-gemma-to-llama}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l l l c c c}
+\toprule
+\textbf{Train Model} & \textbf{Eval Model} & \textbf{Dataset} & \textbf{HR Baseline} & \textbf{HR Procrustes} & \textbf{$\Delta$} \\
+\midrule
+Llama & Gemma & BBF & 0.0286 & 0.0261 & $-$8.7\% \\
+\rowcolor{red!25}Llama & Gemma & BBC & 0.4466 & 0.4125 & $-$7.6\% \\
+\rowcolor{green!25}Llama & Gemma & HE  & 0.2417 & 0.1531 & $-$36.7\% \\
+\bottomrule
+\end{tabular}
+\caption{Cross-Model TruthX: Llama $\to$ Gemma — Hallucination Rate}
+\label{tab:truthx-cross-model-llama-to-gemma}
+\end{table}
+
+In the cross-model setting, the autoencoder and steering vectors are trained on a \textbf{source model} and applied to a different \textbf{target model}. Several alignment strategies for the representation spaces were tested: \textit{No alignment} (direct transfer), \textit{Linear}, \textit{MLP}, \textit{MLP (2-layer)}, and \textit{Procrustes}.
+
+
+\subsection{SLiMTruth results}
+
+The SLiMTruth mitigation approach was evaluated across the same experimental settings used for TruthX: \textit{Standard} (same model and dataset for training and inference), \textit{Cross-Dataset} (same model, different dataset), and \textit{Cross-Model} (different model, with Procrustes alignment). 
+
+
+\subsubsection{Baseline vs.\ Standard SLiMTruth}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l l l c c c c}
+\toprule
+\textbf{Model} & \textbf{Dataset} & \textbf{Pairs} & \textbf{SLiM Layer} & \textbf{HR Base} & \textbf{HR SLiM} & \textbf{$\Delta$} \\
+\midrule
+Gemma-2-9b-it & BBC & 6500 & 27 & 0.4466 & 0.1827 & $-$59.1\% \\
+\rowcolor{red!25}Gemma-2-9b-it & BBF & 6500 & 24 & 0.0286 & 0.0217 & $-$24.1\% \\
+Gemma-2-9b-it & HE  & 2000 & 21 & 0.2417 & 0.1751 & $-$27.6\% \\
+\midrule
+Llama-3.1-8B-Instruct & BBC & 6500 & 8  & 0.5283 & 0.2576 & $-$51.2\% \\
+\rowcolor{green!25}Llama-3.1-8B-Instruct & BBF & 6500 & 13 & 0.0672 & 0.0068 & $-$89.9\% \\
+Llama-3.1-8B-Instruct & HE  & 2000 & 15 & 0.2763 & 0.1164 & $-$57.9\% \\
+\bottomrule
+\end{tabular}
+\caption{Baseline vs.\ Standard SLiMTruth — Hallucination Rate}
+\label{tab:slim-baseline-standard}
+\end{table}
+Table~\ref{tab:slim-baseline-standard} compares the hallucination rate (HR) of each model at baseline (no intervention) against the standard SLiMTruth setting, where the SLiM module is trained and applied on the same model and dataset.
+
+
+\subsubsection{Cross-Dataset Transfer}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l l l l c c c c}
+\toprule
+\textbf{Model} & \textbf{Dataset Train} & \textbf{Dataset Eval} & \textbf{Pairs} & \textbf{SLiM Layer} & \textbf{HR} & \textbf{HR Base} & \textbf{$\Delta$} \\
+\midrule
+Gemma-2-9b-it & BBF & BBC & 6500 & 24 & 0.3830 & 0.4466 & $-$14.2\% \\
+\rowcolor{red!25}Gemma-2-9b-it & BBC & BBF & 6500 & 27 & 0.3231 & 0.0286 & $+$1029.7\% \\
+Gemma-2-9b-it & BBF & HE  & 6500 & 24 & 0.1612 & 0.2417 & $-$33.3\% \\
+Gemma-2-9b-it & BBC & HE  & 6500 & 27 & 0.1632 & 0.2417 & $-$32.5\% \\
+Gemma-2-9b-it & HE  & BBF & 2000 & 21 & 0.0376 & 0.0286 & $+$31.5\% \\
+Gemma-2-9b-it & HE  & BBC & 2000 & 21 & 0.4722 & 0.4466 & $+$5.7\% \\
+\midrule
+\rowcolor{green!25}Llama-3.1-8B-Instruct & BBF & BBC & 6500 & 13 & 0.2851 & 0.5283 & $-$46.0\% \\
+Llama-3.1-8B-Instruct & BBC & BBF & 6500 & 8  & 0.6598 & 0.0672 & $+$881.8\% \\
+Llama-3.1-8B-Instruct & BBF & HE  & 6500 & 13 & 0.1635 & 0.2763 & $-$40.8\% \\
+Llama-3.1-8B-Instruct & BBC & HE  & 6500 & 8  & 0.1569 & 0.2763 & $-$43.2\% \\
+Llama-3.1-8B-Instruct & HE  & BBF & 2000 & 15 & 0.2367 & 0.0672 & $+$252.2\% \\
+Llama-3.1-8B-Instruct & HE  & BBC & 2000 & 15 & 0.4978 & 0.5283 & $-$5.8\% \\
+\bottomrule
+\end{tabular}
+}
+\caption{Cross-Dataset SLiMTruth — Hallucination Rate}
+\label{tab:slim-cross-dataset}
+\end{table}
+In the cross-dataset setting, the SLiM module is trained on one dataset and applied to a different evaluation dataset, using the \textbf{same model}. Table~\ref{tab:slim-cross-dataset} reports the results.
+
+
+\subsubsection{Cross-Model Transfer}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\begin{tabular}{l l l c c c c}
+\toprule
+\textbf{Train Model} & \textbf{Eval Model} & \textbf{Dataset} & \textbf{SLiM Layer} & \textbf{HR Baseline} & \textbf{HR Procrustes} & \textbf{$\Delta$} \\
+\midrule
+Gemma & Llama & BBF & 24 & 0.0672 & 0.1245 & $+$85.3\% \\
+\rowcolor{green!25}Gemma & Llama & BBC & 27 & 0.5283 & 0.4979 & $-$5.8\% \\
+\rowcolor{red!25}Gemma & Llama & HE  & 21 & 0.2763 & 0.9631 & $+$248.6\% \\
+\bottomrule
+\end{tabular}
+\caption{Cross-Model SLiMTruth: Gemma $\to$ Llama — Hallucination Rate}
+\label{tab:slim-cross-model-gemma-to-llama}
+\end{table}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\begin{tabular}{l l l c c c c}
+\toprule
+\textbf{Train Model} & \textbf{Eval Model} & \textbf{Dataset} & \textbf{SLiM Layer} & \textbf{HR Baseline} & \textbf{HR Procrustes} & \textbf{$\Delta$} \\
+\midrule
+Llama & Gemma & BBF & 13 & 0.0286 & 0.0548 & $+$91.6\% \\
+\rowcolor{green!25}Llama & Gemma & BBC & 8  & 0.4466 & 0.7061 & $+$58.1\% \\
+\rowcolor{red!25}Llama & Gemma & HE  & 15 & 0.2417 & 0.5631 & $+$133.0\% \\
+\bottomrule
+\end{tabular}
+\caption{Cross-Model SLiMTruth: Llama $\to$ Gemma — Hallucination Rate}
+\label{tab:slim-cross-model-llama-to-gemma}
+\end{table}
+
+In the cross-model setting, the SLiM module is trained on a \textbf{source model} and applied to a different \textbf{target model} via \textit{Procrustes alignment}. Tables~\ref{tab:slim-cross-model-gemma-to-llama} and~\ref{tab:slim-cross-model-llama-to-gemma} report the hallucination rates.

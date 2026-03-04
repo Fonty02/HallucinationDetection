@@ -195,35 +195,71 @@
 \@writefile{toc}{\contentsline {chapter}{\numberline {4}Results}{47}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Falcon3-7B-Base e Qwen2.5-7B su BeliefBankFacts}{48}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Results for pair (Falcon3-7B-Base, Qwen2.5-7B) on BeliefBankFacts}}{48}{}\protected@file@percent }
-\newlabel{tab:results-bbf-falcon-qwen}{{4.1}{48}{}{table.4.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}LLama-3.1-8B-Instruct e Gemma-2-9B-IT su BeliefBankFacts}{49}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on BeliefBankFacts}}{49}{}\protected@file@percent }
-\newlabel{tab:results-bbf-llama-gemma}{{4.2}{49}{}{table.4.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}LLama-3.1-8B-Instruct e Gemma-2-9B-IT su BeliefBankCalibration}{50}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on BeliefBankCalibration}}{50}{}\protected@file@percent }
-\newlabel{tab:results-bbc-llama-gemma}{{4.3}{50}{}{table.4.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}LLama-3.1-8B-Instruct e Gemma-2-9B-IT su HaluEval}{51}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on HaluEval}}{51}{}\protected@file@percent }
-\newlabel{tab:results-he-llama-gemma}{{4.4}{51}{}{table.4.4}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Discussion}{53}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Hallucination Detection}{48}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}LLama-3.1-8B-Instruct e Gemma-2-9B-IT on BeliefBankFacts}{48}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on BeliefBankFacts}}{48}{}\protected@file@percent }
+\newlabel{tab:results-bbf-llama-gemma}{{4.1}{48}{}{table.4.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}LLama-3.1-8B-Instruct e Gemma-2-9B-IT on BeliefBankConstraints}{49}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on BeliefBankConstraints}}{49}{}\protected@file@percent }
+\newlabel{tab:results-bbc-llama-gemma}{{4.2}{49}{}{table.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.3}LLama-3.1-8B-Instruct e Gemma-2-9B-IT on HaluEval}{50}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on HaluEval}}{50}{}\protected@file@percent }
+\newlabel{tab:results-he-llama-gemma}{{4.3}{50}{}{table.4.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.4}Cross-Domain Results}{50}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces Cross-Domain Results (One-For-All). Tr=Trainer, Te=Tester, BBC=BeliefBankConstraints, BBF=BeliefBankFacts, HE=HaluEval}}{51}{}\protected@file@percent }
+\newlabel{tab:cross-domain-results}{{4.4}{51}{}{table.4.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Mitigation of Hallucinations}{51}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}TruthX Results}{51}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Baseline vs.\ Standard TruthX}{52}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Baseline vs.\ Standard TruthX — Hallucination Rate}}{52}{}\protected@file@percent }
+\newlabel{tab:truthx-baseline-standard}{{4.5}{52}{}{table.4.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Cross-Dataset Transfer}{52}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.6}{\ignorespaces Cross-Dataset TruthX — Hallucination Rate}}{52}{}\protected@file@percent }
+\newlabel{tab:truthx-cross-dataset}{{4.6}{52}{}{table.4.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Cross-Model Transfer}{53}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.7}{\ignorespaces Cross-Model TruthX: Gemma $\to $ Llama — Hallucination Rate}}{53}{}\protected@file@percent }
+\newlabel{tab:truthx-cross-model-gemma-to-llama}{{4.7}{53}{}{table.4.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.8}{\ignorespaces Cross-Model TruthX: Llama $\to $ Gemma — Hallucination Rate}}{53}{}\protected@file@percent }
+\newlabel{tab:truthx-cross-model-llama-to-gemma}{{4.8}{53}{}{table.4.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}SLiMTruth results}{53}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Baseline vs.\ Standard SLiMTruth}{54}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.9}{\ignorespaces Baseline vs.\ Standard SLiMTruth — Hallucination Rate}}{54}{}\protected@file@percent }
+\newlabel{tab:slim-baseline-standard}{{4.9}{54}{}{table.4.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Cross-Dataset Transfer}{54}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.10}{\ignorespaces Cross-Dataset SLiMTruth — Hallucination Rate}}{54}{}\protected@file@percent }
+\newlabel{tab:slim-cross-dataset}{{4.10}{54}{}{table.4.10}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Cross-Model Transfer}{55}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.11}{\ignorespaces Cross-Model SLiMTruth: Gemma $\to $ Llama — Hallucination Rate}}{55}{}\protected@file@percent }
+\newlabel{tab:slim-cross-model-gemma-to-llama}{{4.11}{55}{}{table.4.11}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.12}{\ignorespaces Cross-Model SLiMTruth: Llama $\to $ Gemma — Hallucination Rate}}{55}{}\protected@file@percent }
+\newlabel{tab:slim-cross-model-llama-to-gemma}{{4.12}{55}{}{table.4.12}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Discussion}{57}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Comparison Between Methods}{53}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Dataset Analysis}{53}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Model Analysis}{54}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Layer Analysis}{54}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Cross-Domain Studies}{55}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Hallucination Detection}{57}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}Comparison Between Methods}{57}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.2}Dataset Analysis}{57}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.3}Layer Analysis}{58}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.4}Cross-Domain Analysis}{58}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Hallucination Mitigation}{58}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}TruthX}{58}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Standard Setting}{58}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Cross-Dataset Transfer}{59}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Cross-Model Transfer}{59}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}SLiMTruth}{59}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Standard Setting}{59}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Cross-Dataset Transfer}{60}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Cross-Model Transfer}{60}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Comparative Analysis: TruthX vs.\ SLiMTruth}{61}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{The BBF Vulnerability}{61}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Transferability Hierarchy}{61}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusions}{63}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Cross-Domain Results (One-For-All). Tr=Trainer, Te=Tester, BBC=BeliefBankConstraints, BBF=BeliefBankFacts, HE=HaluEval}}{56}{}\protected@file@percent }
-\newlabel{tab:cross-domain-results}{{6.1}{56}{}{table.6.1}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusions}{57}{}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {7.1}Summary of Results}{57}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7.2}Future Work}{57}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Summary of Results}{63}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}Hallucination Detection}{63}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Hallucination Mitigation}{64}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Future Work}{64}{}\protected@file@percent }
 \bibstyle{plainnat}
 \bibdata{main}
 \bibcite{GQA}{{1}{2023}{{Ainslie et~al.}}{{Ainslie, Lee-Thorp, De~Jong, Zemlyanskiy, Lebr{\'o}n, and Sanghai}}}
@@ -252,5 +288,5 @@
 \bibcite{PRISM}{{24}{2025{}}{{Zhang et~al.}}{{Zhang, Yu, Yi, Zhang, Li, and Liu}}}
 \bibcite{TruthX}{{25}{2024}{{Zhang et~al.}}{{Zhang, Yu, and Feng}}}
 \bibcite{ICR}{{26}{2025{}}{{Zhang et~al.}}{{Zhang, Hu, Zhang, Zhang, and Wan}}}
-\@writefile{toc}{\contentsline {chapter}{Appendices}{63}{}\protected@file@percent }
-\gdef \@abspage@last{74}
+\@writefile{toc}{\contentsline {chapter}{Appendices}{71}{}\protected@file@percent }
+\gdef \@abspage@last{82}

@@ -1,0 +1,46 @@
+\begin{table}[H]
+\scriptsize
+\centering
+\caption{Results for pair (Falcon3-7B-Base, Qwen2.5-7B) on BeliefBankFacts}
+\label{tab:results-bbf-falcon-qwen}
+\begin{tabular}{|l l l l| c c c c|}
+\hline
+Trainer & Tester & Approach & Type & AccTr & AccTe & AurocTr & AurocTe \\
+\hline
+Qwen2.5-7B & Falcon3-7B-Base & FullLinear & attn  & 0.987 & 0.962 & 0.999 & 0.992 \\
+Qwen2.5-7B & Falcon3-7B-Base & FullLinear & mlp   & 0.986 & 0.967 & 0.999 & 0.987 \\
+Qwen2.5-7B & Falcon3-7B-Base & FullLinear & hidden& 0.985 & 0.967 & 0.999 & 0.990 \\
+Falcon3-7B-Base & Qwen2.5-7B & FullLinear & attn  & 0.987 & 0.958 & 0.997 & 0.989 \\
+Falcon3-7B-Base & Qwen2.5-7B & FullLinear & mlp   & 0.983 & 0.961 & 0.996 & 0.989 \\
+Falcon3-7B-Base & Qwen2.5-7B & FullLinear & hidden& 0.983 & 0.959 & 0.996 & 0.984 \\
+\hline
+Qwen2.5-7B & Falcon3-7B-Base & AdapterMLP & attn  & 0.987 & 0.968 & 0.999 & 0.984 \\
+Qwen2.5-7B & Falcon3-7B-Base & AdapterMLP & mlp   & 0.986 & 0.969 & 0.999 & 0.986 \\
+Qwen2.5-7B & Falcon3-7B-Base & AdapterMLP & hidden& 0.985 & 0.968 & 0.999 & 0.990 \\
+\rowcolor{red!25}Falcon3-7B-Base & Qwen2.5-7B & AdapterMLP & attn  & 0.987 & 0.848 & 0.997 & 0.912 \\
+Falcon3-7B-Base & Qwen2.5-7B & AdapterMLP & mlp   & 0.983 & 0.913 & 0.996 & 0.967 \\
+Falcon3-7B-Base & Qwen2.5-7B & AdapterMLP & hidden& 0.983 & 0.889 & 0.996 & 0.922 \\
+\hline
+Qwen2.5-7B & Falcon3-7B-Base & FullNonLinear & attn  & 0.993 & 0.981 & 1.000 & 0.994 \\
+Qwen2.5-7B & Falcon3-7B-Base & FullNonLinear & mlp   & 0.994 & 0.977 & 1.000 & 0.994 \\
+Qwen2.5-7B & Falcon3-7B-Base & FullNonLinear & hidden& 0.992 & 0.981 & 1.000 & 0.996 \\
+Falcon3-7B-Base & Qwen2.5-7B & FullNonLinear & attn  & 0.992 & 0.890 & 0.999 & 0.938 \\
+Falcon3-7B-Base & Qwen2.5-7B & FullNonLinear & mlp   & 0.988 & 0.941 & 0.999 & 0.988 \\
+Falcon3-7B-Base & Qwen2.5-7B & FullNonLinear & hidden& 0.991 & 0.931 & 0.999 & 0.985 \\
+\hline
+Qwen2.5-7B & Falcon3-7B-Base & ReducedNonLinear & attn  & 0.9916 & 0.9706 & 0.9994 & 0.9953 \\
+Qwen2.5-7B & Falcon3-7B-Base & ReducedNonLinear & mlp   & 0.9897 & 0.9608 & 0.9997 & 0.9915 \\
+Qwen2.5-7B & Falcon3-7B-Base & ReducedNonLinear & hidden& 0.9935 & 0.9586 & 0.9997 & 0.9892 \\
+Falcon3-7B-Base & Qwen2.5-7B & ReducedNonLinear & attn  & 0.9841 & 0.8537 & 0.9983 & 0.9367 \\
+Falcon3-7B-Base & Qwen2.5-7B & ReducedNonLinear & mlp   & 0.9807 & 0.9411 & 0.9971 & 0.9832 \\
+Falcon3-7B-Base & Qwen2.5-7B & ReducedNonLinear & hidden& 0.9770 & 0.9004 & 0.9952 & 0.9503 \\
+\hline
+Qwen2.5-7B & Falcon3-7B-Base & One-For-All & attn  & 0.9892 & 0.9916 & 0.9995 & 0.9992 \\
+Qwen2.5-7B & Falcon3-7B-Base & One-For-All & mlp   & 0.9860 & 0.9858 & 0.9993 & 0.9980 \\
+Qwen2.5-7B & Falcon3-7B-Base & One-For-All & hidden& 0.9906 & 0.9898 & 0.9998 & 0.9991 \\
+Falcon3-7B-Base & Qwen2.5-7B & One-For-All & attn  & 0.9905 & 0.9921 & 0.9985 & 0.9997 \\
+Falcon3-7B-Base & Qwen2.5-7B & One-For-All & mlp   & 0.9869 & 0.9874 & 0.9985 & 0.9997 \\
+\rowcolor{green!25}Falcon3-7B-Base & Qwen2.5-7B & One-For-All & hidden& 0.9889 & 0.9949 & 0.9988 & 0.9999 \\
+\hline
+\end{tabular}
+\end{table}
