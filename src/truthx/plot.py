@@ -31,6 +31,15 @@ CATEGORY_ORDER = [
     "cross_model_procrustes",
 ]
 
+ENABLED_CATEGORIES = {
+    "baseline",
+    "truthx_standard",
+    "cross_dataset_from_BBF",
+    "cross_dataset_from_BBC",
+    "cross_dataset_from_HE",
+    "cross_model_procrustes",
+}
+
 CATEGORY_LABELS = {
     "baseline": "baseline",
     "truthx_standard": "truthx_standard",
@@ -150,6 +159,7 @@ def prepare_data_for_model(df: pd.DataFrame, model_name: str):
 
 def ordered_categories(plot_data: dict) -> list[str]:
     found = {key for ds_data in plot_data.values() for key in ds_data.keys()}
+    found &= ENABLED_CATEGORIES
     ordered = [key for key in CATEGORY_ORDER if key in found]
     remaining = sorted(found - set(CATEGORY_ORDER))
     return ordered + remaining
@@ -260,7 +270,7 @@ def main():
     for model_name, model_label in MODEL_LABELS.items():
         model_plot_data = prepare_data_for_model(df, model_name)
         fig = plot_model_results(model_plot_data, model_label)
-        output_name = f"{model_label.lower()}_results.png"
+        output_name = f"{model_label.lower()}_results.pdf"
         fig.savefig(output_name, dpi=300, bbox_inches="tight")
         print(f"Grafico {model_label} salvato come '{output_name}'")
 

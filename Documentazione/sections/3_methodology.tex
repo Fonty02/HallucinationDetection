@@ -59,8 +59,8 @@ The final dataset is composed of 10,000 examples.
 & \textbf{Contextual} & & HaluEval \\
 \hline
 \end{tabular}
-\label{tab:dataset-hallucination-types}
 \caption{Hallucination types and corresponding datasets}
+\label{tab:dataset-hallucination-types}
 \end{table}
 
 \subsection{Activation Dataset Creation}
@@ -132,9 +132,6 @@ Before proceeding with the transferability studies, some statistics were calcula
 Analyzing the model outputs on the datasets, the statistics visible in tables \ref{tab:hallucination-stats-bbf}, \ref{tab:hallucination-stats-bbc} and \ref{tab:hallucination-stats-he} were calculated.
 \begin{table}[H]
 \centering
-\caption{Hallucination statistics for Belief Bank Facts}
-    \footnotesize
-\label{tab:hallucination-stats-bbf}
 \begin{tabular}{|lrrr|}
     \toprule
     \textbf{Model} & \textbf{Total statements} & \textbf{Hallucinations} & \textbf{Hallucination Rate} \\
@@ -145,14 +142,15 @@ Analyzing the model outputs on the datasets, the statistics visible in tables \r
     \rowcolor{green!25}Gemma-2-9B-IT   & 27\,416 & 802 & 2.93\% \\
     \bottomrule
 \end{tabular}
+\caption{Hallucination statistics for Belief Bank Facts}
+    \footnotesize
+\label{tab:hallucination-stats-bbf}
 \end{table}
 
 
 \begin{table}[H]
 \centering
     \footnotesize
-\caption{Hallucination statistics for Belief Bank Constraints}
-\label{tab:hallucination-stats-bbc}
 \begin{tabular}{|lrrr|}
     \toprule
     \textbf{Model} & \textbf{Total statements} & \textbf{Hallucinations} & \textbf{Hallucination Rate} \\
@@ -161,14 +159,14 @@ Analyzing the model outputs on the datasets, the statistics visible in tables \r
     \rowcolor{green!25}Gemma-2-9B-IT   & 25\,756 & 12\,641 & 49.1\% \\
     \bottomrule
 \end{tabular}
+\caption{Hallucination statistics for Belief Bank Constraints}
+\label{tab:hallucination-stats-bbc}
 \end{table}
 
 
 \begin{table}[H]
 \centering
     \footnotesize
-\caption{Hallucination statistics for Halu Eval}
-\label{tab:hallucination-stats-he}
 \begin{tabular}{|lrrr|}
     \toprule
     \textbf{Model} & \textbf{Total statements} & \textbf{Hallucinations} & \textbf{Hallucination Rate} \\
@@ -177,6 +175,8 @@ Analyzing the model outputs on the datasets, the statistics visible in tables \r
     \rowcolor{red!25}Gemma-2-9B-IT   & 10\,000 & 2\,747 & 27.47\% \\
     \bottomrule
 \end{tabular}
+\caption{Hallucination statistics for Halu Eval}
+\label{tab:hallucination-stats-he}
 \end{table}
 
 
@@ -265,15 +265,15 @@ Subsequently, an analysis was performed regarding the distribution of hallucinat
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/PCA_Gemma-2-9B_attn.pdf}
-    \label{fig:gemma-pca-attn}
     \caption{PCA of Attention activations of Gemma-2-9B-IT across all datasets}
+    \label{fig:gemma-pca-attn}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth, height=0.3\textheight, keepaspectratio]{images/PCA_Plots/PCA_Llama-3.1-8B_attn.pdf}
-    \label{fig:gemma-pca-attn}
     \caption{PCA of Attention activations of Llama-3.1-8B-Instruct across all datasets}
+    \label{fig:gemma-pca-attn}
 \end{figure}
 
 %\begin{figure}[H]
@@ -295,8 +295,6 @@ Subsequently, an analysis was performed regarding the distribution of hallucinat
 For subsequent experiments, the 3 best layers in terms of performance were chosen for each component. Tab. \ref{tab:layer-config-belief-bank-facts}, \ref{tab:layer-config-belief-bank-constraints}, \ref{tab:layer-config-halu-eval}.
 \begin{table}[H]
 \centering
-\caption{Layers chosen for Belief Bank Facts}
-\label{tab:layer-config-belief-bank-facts}
 \begin{tabular}{|lccc|}
 \toprule
 Model & Attn & MLP & Hidden \\
@@ -305,41 +303,40 @@ Model & Attn & MLP & Hidden \\
 %Falcon3-7B-Base & 18, 19, 26 & 18, 19, 20 & 17, 18, 21 \\
 Llama-3.1-8B-Instruct & 8, 13, 14 & 14, 15, 21 & 14, 15, 16 \\
 Gemma-2-9B-IT & 21, 24, 27 & 22, 25, 27 & 23, 26, 34 \\
-
 \bottomrule
 \end{tabular}
+\caption{Layers chosen for Belief Bank Facts}
+\label{tab:layer-config-belief-bank-facts}
 \end{table}
 
 
 \begin{table}[H]
 \centering
-\caption{Layers chosen for Belief Bank Constraints}
-\label{tab:layer-config-belief-bank-constraints}
 \begin{tabular}{|lccc|}
 \toprule
 Model & Attn & MLP & Hidden \\
 \midrule
 Llama-3.1-8B-Instruct & 5, 8, 12 & 12, 14, 15 & 13, 14, 15 \\
 Gemma-2-9B-IT & 23, 27, 33 & 24, 25, 26 & 23, 24, 27 \\
-
 \bottomrule
 \end{tabular}
+\caption{Layers chosen for Belief Bank Constraints}
+\label{tab:layer-config-belief-bank-constraints}
 \end{table}
 
 
 \begin{table}[H]
 \centering
-\caption{Layers chosen for Halu Eval}
-\label{tab:layer-config-halu-eval}
 \begin{tabular}{|lccc|}
 \toprule
 Model & Attn & MLP & Hidden \\
 \midrule
 Llama-3.1-8B-Instruct & 14, 15, 16 & 13, 14, 15 & 14, 15, 16 \\
 Gemma-2-9B-IT & 21, 26, 27 & 23, 24, 28 & 19, 24, 28 \\
-
 \bottomrule
 \end{tabular}
+\caption{Layers chosen for Halu Eval}
+\label{tab:layer-config-halu-eval}
 \end{table}
 
 We can notice an interesting trend: for LLama, layers between 13 and 16 seem to be the most informative, while for Gemma-2-9B-IT layers between 23 and 28 are those that offer the best performance. This suggests that the position of the most relevant layers can vary significantly between different models, probably due to architectural differences and specific training processes of each model. However, since LLama consists of 32 layers while Gemma consists of 42 layers, it can be noted that intermediate layers are the most informative in every model.
@@ -362,7 +359,86 @@ The first approch to build a baseline for the universal prober, is a linear appr
 \subsubsection{Experimental Pipeline}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AppL.png}
+    % \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AppL.png}  % Immagine originale
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    >=Stealth,
+    thick,
+    procbox/.style={draw=black, rounded corners=5pt, fill=white,
+                    minimum height=1.1cm, minimum width=2.5cm,
+                    font=\small\bfseries, align=center, line width=0.8pt},
+    resultcirc/.style={circle, draw=green!60!black, fill=green!15,
+                       minimum size=1.3cm, align=center, font=\small\bfseries},
+    arrow/.style={->, >=Stealth, thick},
+    vecicon/.pic={
+        \foreach \i in {0,...,4}{
+            \fill[cyan!35!blue!25, draw=black!40, line width=0.3pt]
+                (\i*0.18-0.435, -0.275) rectangle ++(0.15, 0.55);
+        }
+    }
+]
+
+% ========================
+%  PHASE 1: Train Classifier
+% ========================
+\draw[fill=blue!3, draw=blue!60, dashed, thick, rounded corners=10pt]
+  (-0.3, -1.6) rectangle (10.3, 1.6);
+\node[font=\bfseries\small, text=blue!70, anchor=north west]
+  at (0.0, 1.35) {\textsc{Phase 1}: Train Classifier};
+
+\pic at (1.2, 0) {vecicon};
+\node[font=\scriptsize, align=center] at (1.2, -0.6) {Trainer\\[-2pt]Activations};
+
+\node[procbox] (scaler) at (4.0, 0) {Standard\\Scaler};
+\node[procbox] (logreg1) at (7.2, 0) {Logistic\\Regression};
+\node[resultcirc] (acc1) at (9.6, 0) {Acc};
+
+\draw[arrow] (1.65, 0) -- (scaler.west);
+\draw[arrow] (scaler.east) -- (logreg1.west);
+\draw[arrow] (logreg1.east) -- (acc1.west);
+
+% ========================
+%  PHASE 2: Fit Alignment
+% ========================
+\draw[fill=violet!3, draw=violet!60, dashed, thick, rounded corners=10pt]
+  (11.0, -1.6) rectangle (20.5, 1.6);
+\node[font=\bfseries\small, text=violet!70, anchor=north west]
+  at (11.3, 1.35) {\textsc{Phase 2}: Fit Alignment};
+
+\pic at (12.5, 0.4) {vecicon};
+\node[font=\scriptsize, align=center] at (12.5, -0.25) {Concordant\\[-2pt]Tester Acts};
+
+\node[procbox, fill=green!8] (ridge1) at (15.5, 0.4) {Ridge\\Regression};
+
+\pic at (18.8, 0.4) {vecicon};
+\node[font=\scriptsize, align=center] at (18.8, -0.25) {Concordant\\[-2pt]Trainer Acts};
+
+\draw[arrow] (12.95, 0.4) -- (ridge1.west);
+\draw[arrow] (ridge1.east) -- node[above, font=\scriptsize, text=black!70]{target} (18.36, 0.4);
+
+% ========================
+%  PHASE 3: Evaluate
+% ========================
+\draw[fill=green!3, draw=green!50!black, dashed, thick, rounded corners=10pt]
+  (21.2, -2.5) rectangle (33.5, 1.6);
+\node[font=\bfseries\small, text=green!50!black, anchor=north west]
+  at (21.5, 1.35) {\textsc{Phase 3}: Evaluate};
+
+\pic at (22.8, 0) {vecicon};
+\node[font=\scriptsize, align=center] at (22.8, -0.6) {Tester Test\\[-2pt]Activations};
+
+\node[procbox, fill=green!8] (ridge2) at (25.8, 0) {Ridge\\Projection};
+\node[procbox] (logreg2) at (29.0, 0) {Logistic\\Regression};
+\node[resultcirc] (acc2) at (32.3, 0) {Test\\Acc};
+
+\draw[arrow] (23.25, 0) -- (ridge2.west);
+\draw[arrow] (ridge2.east) -- node[above, font=\scriptsize, text=black!70]{aligned} (logreg2.west);
+\draw[arrow] (logreg2.east) -- (acc2.west);
+
+
+
+\end{tikzpicture}%
+}
     \caption{FullLinear experimental pipeline}
     \label{fig:linear-pipeline}
 \end{figure}
@@ -383,7 +459,88 @@ In this approach, a non-linear adaptation procedure of the tester model's latent
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AlignApp1.png}
+    % \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AlignApp1.png}  % Immagine originale
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    >=Stealth,
+    thick,
+    node distance=0.5cm,
+    linearbox/.style={
+        rectangle, draw=black, rounded corners=4pt,
+        minimum width=3.5cm, minimum height=0.7cm,
+        fill=white, font=\small, align=center
+    },
+    normbox/.style={
+        rectangle, draw=black, rounded corners=4pt,
+        minimum width=3.5cm, minimum height=0.7cm,
+        fill=yellow!8, font=\small, align=center
+    },
+    dropbox/.style={
+        rectangle, draw=black, rounded corners=4pt,
+        minimum width=3.5cm, minimum height=0.7cm,
+        fill=red!12, font=\small, align=center
+    },
+    groupbox/.style={
+        rectangle, draw=yellow!70!orange, dashed, thick,
+        rounded corners=8pt, fill=yellow!5,
+        inner xsep=12pt, inner ysep=14pt
+    },
+    grouptitle/.style={
+        font=\bfseries\small, text=red!70!black
+    },
+    vecicon/.style={
+        rectangle, draw=black, fill=black!8, minimum width=0.18cm,
+        minimum height=0.55cm, inner sep=0pt
+    }
+]
+
+% ---- Input vector icon ----
+\foreach \i in {0,1,2,3,4}{
+    \node[vecicon] (inv\i) at (-4.8, -0.12*\i - 1.05) {};
+}
+\node[font=\small\bfseries, above=2pt of inv0, anchor=south] {Input $\mathbb{R}^d$};
+
+% ================= GROUP 1: Compression =================
+\node[linearbox] (lin1) at (0, 0) {Linear};
+\node[normbox, below=0.5cm of lin1] (norm1) {LayerNorm + GELU};
+\node[dropbox, below=0.5cm of norm1] (drop1) {Dropout};
+
+\begin{scope}[on background layer]
+\node[groupbox, fit=(lin1)(norm1)(drop1), label={[grouptitle]above:Hidden Layer 1}] (g1) {};
+\end{scope}
+\node[font=\footnotesize\itshape, text=black!60, below=1pt of g1.south] {Compression};
+
+% ================= GROUP 2: Decompression =================
+\node[linearbox] (lin2) at (6, 0) {Linear};
+\node[normbox, below=0.5cm of lin2] (norm2) {LayerNorm + GELU};
+\node[dropbox, below=0.5cm of norm2] (drop2) {Dropout};
+
+\begin{scope}[on background layer]
+\node[groupbox, fit=(lin2)(norm2)(drop2), label={[grouptitle]above:Hidden Layer 2}] (g2) {};
+\end{scope}
+\node[font=\footnotesize\itshape, text=black!60, below=1pt of g2.south] {Decompression};
+
+% ---- Output vector icon ----
+\foreach \i in {0,1,2,3,4}{
+    \node[vecicon, fill=black!15] (outv\i) at (10.8, -0.12*\i - 1.05) {};
+}
+\node[font=\small\bfseries, above=2pt of outv0, anchor=south] {Output $\mathbb{R}^d$};
+
+% ================= ARROWS =================
+\draw[->, thick] (inv2.east) ++(0.15,0) -- (lin1.west);
+\draw[->, thick] (lin1.south) -- (norm1.north);
+\draw[->, thick] (norm1.south) -- (drop1.north);
+\draw[->, thick] (drop1.east) -- ++(0.6,0) |- (lin2.west);
+\draw[->, thick] (lin2.south) -- (norm2.north);
+\draw[->, thick] (norm2.south) -- (drop2.north);
+\draw[->, thick] (drop2.east) -- ++(0.6,0) |- (outv2.west);
+
+% ================= SKIP / RESIDUAL CONNECTION =================
+\draw[->, dashed, thick, gray!70] (drop1.south) .. controls +(0,-1.5) and +(0,-1.5) .. (drop2.south)
+    node[midway, below, font=\scriptsize\itshape, text=gray!70] {residual};
+
+\end{tikzpicture}%
+}
     \caption{AlignmentNetwork architecture of the AdapterMLP approach}
     \label{fig:alignmentnetwork-architecture-hybrid}
 \end{figure}
@@ -411,7 +568,98 @@ The experimental pipeline in figure \ref{fig:hybrid-pipeline} first involves tra
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AppH.png}
+    % \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AppH.png}  % Immagine originale
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  >=Stealth,
+  thick,
+  procbox/.style={
+    draw=black, rounded corners=5pt, fill=white,
+    minimum height=1.1cm, minimum width=2.5cm,
+    font=\small\bfseries, align=center, line width=0.8pt
+  },
+  losscircle/.style={
+    circle, draw=red!40, fill=red!15,
+    minimum size=1.3cm, font=\small\bfseries
+  },
+  arrow/.style={->, >=Stealth, thick},
+  backprop/.style={->, >=Stealth, dashed, red!70, thick},
+  vecicon/.pic={
+    \foreach \i in {0,...,4}{
+      \fill[cyan!35!blue!25, draw=black!40, line width=0.3pt]
+        (\i*0.18-0.435, -0.275) rectangle ++(0.15, 0.55);
+    }
+  }
+]
+
+% ========================
+%  PHASE 1
+% ========================
+\draw[fill=orange!5, draw=orange!70, dashed, thick, rounded corners=10pt]
+  (-0.3, -1.9) rectangle (8.0, 1.9);
+\node[font=\bfseries\small, text=orange!80!black, anchor=north west]
+  at (0.0, 1.65) {\textsc{Phase 1}: Train MLP Prober};
+
+% Trainer Activation
+\pic at (1.5, 0) {vecicon};
+\node[font=\scriptsize, align=center] at (1.5, -0.6)
+  {Trainer\\[-2pt]Activation};
+
+% MLP Prober
+\node[procbox] (mlp) at (4.2, 0) {MLP Prober};
+
+% Loss
+\node[losscircle] (loss1) at (6.8, 0) {Loss};
+
+% Arrows
+\draw[arrow] (1.95, 0) -- (mlp.west);
+\draw[arrow] (mlp.east) -- (loss1.west);
+
+% Backprop
+\draw[backprop] (loss1.south) -- ++(0,-0.8) -| (mlp.south)
+  node[pos=0.25, below, font=\scriptsize\itshape, text=red!70] {Backprop};
+
+% ========================
+%  PHASE 2
+% ========================
+\draw[fill=violet!5, draw=violet!60, thick, rounded corners=10pt]
+  (8.5, -2.7) rectangle (20.3, 1.9);
+\node[font=\bfseries\small, text=violet!70!black, anchor=north west]
+  at (8.8, 1.65) {\textsc{Phase 2}: Alignment};
+
+% Tester Activation
+\pic at (10.2, 0.5) {vecicon};
+\node[font=\scriptsize, align=center] at (10.2, -0.1)
+  {Tester\\[-2pt]Activation};
+
+% Alignment Network
+\node[procbox] (alignnet) at (13.2, 0.5) {Alignment\\[-2pt]Network};
+
+% Aligned Tester Activation
+\pic at (16.2, 0.5) {vecicon};
+\node[font=\scriptsize, align=center] at (16.2, -0.1)
+  {Aligned Tester\\[-2pt]Activation};
+
+% Trainer Activation (Target)
+\pic at (16.2, -1.3) {vecicon};
+\node[font=\scriptsize, align=center] at (16.2, -1.9)
+  {Trainer Activation\\[-2pt](Target)};
+
+% Loss
+\node[losscircle] (loss2) at (18.9, -0.2) {Loss};
+
+% Arrows
+\draw[arrow] (10.65, 0.5) -- (alignnet.west);
+\draw[arrow] (alignnet.east) -- (15.77, 0.5);
+\draw[arrow] (16.65, 0.5)  -- (loss2.north west);
+\draw[arrow] (16.65, -1.3) -- (loss2.south west);
+
+% Backprop
+\draw[backprop] (loss2.south) -- ++(0,-1.5) -| (alignnet.south)
+  node[pos=0.25, below, font=\scriptsize\itshape, text=red!70] {Backprop};
+
+\end{tikzpicture}%
+}
     \caption{AdapterMLP approach experimental pipeline}
     \label{fig:hybrid-pipeline}
 \end{figure}
@@ -427,8 +675,6 @@ In table \ref{tab:hyperparameters-common}, the main hyperparameters used for tra
 
 \begin{table}[H]
 \centering
-\caption{AlignmentNetwork hyperparameter values apply to all combinations of Trainer, Tester and Layer Type.}
-\label{tab:hyperparameters-common}
 \begin{tabular}{|lr|}
     \toprule
     \textbf{Parameter} & \textbf{Value} \\
@@ -446,6 +692,8 @@ In table \ref{tab:hyperparameters-common}, the main hyperparameters used for tra
     $\beta$ (Loss Weight) & 1.0 \\
     \bottomrule
 \end{tabular}
+\caption{AlignmentNetwork hyperparameter values apply to all combinations of Trainer, Tester and Layer Type.}
+\label{tab:hyperparameters-common}
 \end{table}
 
 \subsection{Full Non-linear Approach}
@@ -457,7 +705,78 @@ This approach follows the previous one regarding the alignment part between the 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/MLPApp1.png}
+    % \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/MLPApp1.png}  % Immagine originale
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    >=Stealth,
+    every node/.style={font=\small},
+    box/.style={draw=black, rounded corners=4pt, minimum width=3.5cm, minimum height=0.7cm, align=center},
+    linearbox/.style={box, fill=white},
+    normbox/.style={box, fill=yellow!8},
+    dropbox/.style={box, fill=red!15},
+    sigmoidbox/.style={box, fill=white},
+    hiddengroup/.style={draw=yellow!70!orange, thick, rounded corners=8pt, fill=yellow!5, inner sep=10pt},
+    outputgroup/.style={draw=red!50, thick, rounded corners=8pt, fill=red!5, inner sep=10pt},
+    arr/.style={->, thick},
+]
+
+% ---- Vector icon (left side) ----
+\node[font=\small\bfseries, anchor=south] at (0, 2.8) {Model activation};
+\foreach \i in {0,...,4} {
+    \draw[fill=blue!15, draw=black] ({-0.375 + \i*0.15}, 1.9) rectangle ++(0.15, 0.6);
+}
+
+% ---- GROUP 1: Hidden Layer 1 ----
+\begin{scope}[shift={(4.2, 0)}]
+    \node[font=\small\bfseries, anchor=south] at (0, 3.05) {Hidden Layer 1};
+    \node[hiddengroup, fit={(-2.1,-2.7)(2.1,2.8)}, inner sep=0pt] (g1border) {};
+
+    \node[linearbox] (g1lin) at (0, 2.1) {Linear};
+    \node[normbox]   (g1norm) at (0, 0.5) {LayerNorm + GELU};
+    \node[dropbox]   (g1drop) at (0, -1.1) {Dropout};
+
+    \draw[arr] (g1lin) -- (g1norm);
+    \draw[arr] (g1norm) -- (g1drop);
+\end{scope}
+
+% ---- GROUP 2: Hidden Layer 2 ----
+\begin{scope}[shift={(9.2, 0)}]
+    \node[font=\small\bfseries, anchor=south] at (0, 3.05) {Hidden Layer 2};
+    \node[hiddengroup, fit={(-2.1,-2.7)(2.1,2.8)}, inner sep=0pt] (g2border) {};
+
+    \node[linearbox] (g2lin) at (0, 2.1) {Linear};
+    \node[normbox]   (g2norm) at (0, 0.5) {LayerNorm + GELU};
+    \node[dropbox]   (g2drop) at (0, -1.1) {Dropout};
+
+    \draw[arr] (g2lin) -- (g2norm);
+    \draw[arr] (g2norm) -- (g2drop);
+\end{scope}
+
+% ---- GROUP 3: Output Head ----
+\begin{scope}[shift={(14.2, 0)}]
+    \node[font=\small\bfseries, anchor=south] at (0, 3.05) {Output Head};
+    \node[outputgroup, fit={(-2.1,-1.1)(2.1,2.8)}, inner sep=0pt] (g3border) {};
+
+    \node[linearbox]  (g3lin) at (0, 2.1) {Linear};
+    \node[sigmoidbox] (g3sig) at (0, 0.5) {Sigmoid};
+
+    \draw[arr] (g3lin) -- (g3sig);
+\end{scope}
+
+% ---- Output circle (right side) ----
+\node[circle, draw=yellow!70!orange, fill=yellow!20, minimum size=1.5cm, thick, font=\small, align=center] (outcircle) at (17.8, 0.5) {Prob\\\(\hat{y}\)};
+
+% ---- CONNECTIONS between groups ----
+\draw[arr] (0.45, 2.2) -- (g1lin.west);
+\draw[arr] (g1drop.east) -- ++(0.6,0) |- (g2lin.west);
+\draw[arr] (g2drop.east) -- ++(0.6,0) |- (g3lin.west);
+\draw[arr] (g3sig.east) -- (outcircle.west);
+
+% ---- Skip connection ----
+\draw[->, thick, dashed, gray] ([yshift=-4pt]g1drop.south) -- ++(0,-0.6) -| ([yshift=-4pt]g2drop.south);
+
+\end{tikzpicture}%
+}
     \caption{MLP Prober architecture of the full non-linear approach}
     \label{fig:mlp-prober-architecture-full}
 \end{figure}
@@ -483,7 +802,98 @@ The experimental pipeline in figure \ref{fig:non-linear-complete-pipeline} is th
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/PipeApp1.png}
+    % \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/PipeApp1.png}  % Immagine originale
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  >=Stealth,
+  thick,
+  procbox/.style={
+    draw=black, rounded corners=5pt, fill=white,
+    minimum height=1.1cm, minimum width=2.5cm,
+    font=\small\bfseries, align=center, line width=0.8pt
+  },
+  losscircle/.style={
+    circle, draw=red!40, fill=red!15,
+    minimum size=1.3cm, font=\small\bfseries
+  },
+  arrow/.style={->, >=Stealth, thick},
+  backprop/.style={->, >=Stealth, dashed, red!70, thick},
+  vecicon/.pic={
+    \foreach \i in {0,...,4}{
+      \fill[cyan!35!blue!25, draw=black!40, line width=0.3pt]
+        (\i*0.18-0.435, -0.275) rectangle ++(0.15, 0.55);
+    }
+  }
+]
+
+% ========================
+%  PHASE 1: Train MLP Prober
+% ========================
+\draw[fill=orange!5, draw=orange!70, dashed, thick, rounded corners=10pt]
+  (-0.3, -1.9) rectangle (8.0, 1.9);
+\node[font=\bfseries\small, text=orange!80!black, anchor=north west]
+  at (0.0, 1.65) {\textsc{Phase 1}: Train MLP Prober};
+
+% Trainer Activation
+\pic at (1.5, 0) {vecicon};
+\node[font=\scriptsize, align=center] at (1.5, -0.6)
+  {Trainer\\[-2pt]Activation};
+
+% MLP Prober
+\node[procbox] (mlp) at (4.2, 0) {MLP Prober};
+
+% Loss
+\node[losscircle] (loss1) at (6.8, 0) {Loss};
+
+% Arrows
+\draw[arrow] (1.95, 0) -- (mlp.west);
+\draw[arrow] (mlp.east) -- (loss1.west);
+
+% Backprop
+\draw[backprop] (loss1.south) -- ++(0,-0.8) -| (mlp.south)
+  node[pos=0.25, below, font=\scriptsize\itshape, text=red!70] {Backprop};
+
+% ========================
+%  PHASE 2: Alignment
+% ========================
+\draw[fill=violet!5, draw=violet!60, dashed, thick, rounded corners=10pt]
+  (8.5, -2.7) rectangle (20.3, 1.9);
+\node[font=\bfseries\small, text=violet!70!black, anchor=north west]
+  at (8.8, 1.65) {\textsc{Phase 2}: Alignment};
+
+% Tester Activation
+\pic at (10.2, 0.5) {vecicon};
+\node[font=\scriptsize, align=center] at (10.2, -0.1)
+  {Tester\\[-2pt]Activation};
+
+% Alignment Network
+\node[procbox] (alignnet) at (13.2, 0.5) {Alignment\\[-2pt]Network};
+
+% Aligned Tester Activation
+\pic at (16.2, 0.5) {vecicon};
+\node[font=\scriptsize, align=center] at (16.2, -0.1)
+  {Aligned Tester\\[-2pt]Activation};
+
+% Trainer Activation (Target)
+\pic at (16.2, -1.3) {vecicon};
+\node[font=\scriptsize, align=center] at (16.2, -1.9)
+  {Trainer Activation\\[-2pt](Target)};
+
+% Loss
+\node[losscircle] (loss2) at (18.9, -0.2) {Loss};
+
+% Arrows
+\draw[arrow] (10.65, 0.5) -- (alignnet.west);
+\draw[arrow] (alignnet.east) -- (15.77, 0.5);
+\draw[arrow] (16.65, 0.5)  -- (loss2.north west);
+\draw[arrow] (16.65, -1.3) -- (loss2.south west);
+
+% Backprop
+\draw[backprop] (loss2.south) -- ++(0,-1.5) -| (alignnet.south)
+  node[pos=0.25, below, font=\scriptsize\itshape, text=red!70] {Backprop};
+
+\end{tikzpicture}%
+}
     \caption{Full non-linear approach experimental pipeline}
     \label{fig:non-linear-complete-pipeline}    
 \end{figure}
@@ -493,8 +903,6 @@ In tables \ref{tab:hyperparams-align-loss-clean} and \ref{tab:hyperparams-prober
 
 \begin{table}[H]
 \centering
-\caption{AlignmentNetwork hyperparameters for the full non-linear approach.}
-\label{tab:hyperparams-align-loss-clean}
 \begin{tabular}{|lr|}
     \toprule
     \textbf{Parameter} & \textbf{Value} \\
@@ -512,13 +920,13 @@ In tables \ref{tab:hyperparams-align-loss-clean} and \ref{tab:hyperparams-prober
     $\beta$ (Contrastive) & 1.0 \\
     \bottomrule
 \end{tabular}
+\caption{AlignmentNetwork hyperparameters for the full non-linear approach.}
+\label{tab:hyperparams-align-loss-clean}
 \end{table}
 
 
 \begin{table}[H]
 \centering
-\caption{MLP Prober hyperparameters for the full non-linear approach.}
-\label{tab:hyperparams-prober-clean}
 \begin{tabular}{|lr|}
     \toprule
     \textbf{Parameter} & \textbf{Value} \\
@@ -533,6 +941,8 @@ In tables \ref{tab:hyperparams-align-loss-clean} and \ref{tab:hyperparams-prober
     Scheduler & CosineAnnealingLR \\
     \bottomrule
 \end{tabular}
+\caption{MLP Prober hyperparameters for the full non-linear approach.}
+\label{tab:hyperparams-prober-clean}
 \end{table}
 
 \subsection{Reduced Non-linear Approach}
@@ -543,21 +953,238 @@ This approach reduces activation dimensionality via autoencoder before alignment
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AutoEncApp2.png}
+    % \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AutoEncApp2.png}  % Immagine originale
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    >=Stealth,
+    thick,
+    node distance=0.3cm,
+    linearbox/.style={draw=black, rounded corners=5pt, fill=white, minimum height=0.9cm, minimum width=1.8cm, align=center, font=\small},
+    actbox/.style={draw=black, rounded corners=5pt, fill=yellow!15, minimum height=0.9cm, minimum width=1.8cm, align=center, font=\small},
+    dropbox/.style={draw=black, rounded corners=5pt, fill=pink!25, minimum height=0.9cm, minimum width=1.8cm, align=center, font=\small},
+    normbox/.style={draw=black, rounded corners=5pt, fill=blue!10, minimum height=0.9cm, minimum width=1.8cm, align=center, font=\small},
+]
+
+% === INPUT VECTOR ICON ===
+\foreach \i in {0,...,4} {
+    \fill[gray!50, draw=gray!80] (\i*0.25, -0.3) rectangle ++(0.18, 0.6);
+}
+\node[below=0.15cm, font=\small] at (0.5, -0.35) {Input $\mathbf{x}$};
+
+% === ENCODER GROUP: Linear -> LN+GELU -> Dropout -> Linear -> LN+GELU -> Dropout -> Linear -> LayerNorm ===
+\node[linearbox] (enc1) at (3.0, 0) {Linear};
+\node[actbox, right=0.3cm of enc1] (enc2) {LN+GELU};
+\node[dropbox, right=0.3cm of enc2] (enc3) {Dropout};
+\node[linearbox, right=0.3cm of enc3] (enc4) {Linear};
+\node[actbox, right=0.3cm of enc4] (enc5) {LN+GELU};
+\node[dropbox, right=0.3cm of enc5] (enc6) {Dropout};
+\node[linearbox, right=0.3cm of enc6] (enc7) {Linear};
+\node[normbox, right=0.3cm of enc7] (enc8) {LayerNorm};
+
+\begin{scope}[on background layer]
+\node[draw=green!60, dashed, thick, rounded corners=8pt, fill=green!3,
+      fit=(enc1)(enc2)(enc3)(enc4)(enc5)(enc6)(enc7)(enc8),
+      inner xsep=10pt, inner ysep=14pt] (encgroup) {};
+\end{scope}
+\node[above=2pt of encgroup.north, font=\small\bfseries, text=green!60!black] {Encoder};
+
+% === LATENT VECTOR ICON ===
+\coordinate (latent_center) at ($(enc8.east)+(2.0,0)$);
+\foreach \i in {0,...,2} {
+    \fill[yellow!60, draw=yellow!80!black] ($(latent_center)+(-0.3+\i*0.25, -0.25)$) rectangle ++(0.18, 0.5);
+}
+\node[below=0.1cm, font=\small] at (latent_center |- 0,-0.3) {Latent $\mathbf{z}$};
+
+% === DECODER GROUP: Linear -> LN+GELU -> Dropout -> Linear -> LN+GELU -> Dropout -> Linear ===
+\node[linearbox] (dec1) at ($(latent_center)+(2.5,0)$) {Linear};
+\node[actbox, right=0.3cm of dec1] (dec2) {LN+GELU};
+\node[dropbox, right=0.3cm of dec2] (dec3) {Dropout};
+\node[linearbox, right=0.3cm of dec3] (dec4) {Linear};
+\node[actbox, right=0.3cm of dec4] (dec5) {LN+GELU};
+\node[dropbox, right=0.3cm of dec5] (dec6) {Dropout};
+\node[linearbox, right=0.3cm of dec6] (dec7) {Linear};
+
+\begin{scope}[on background layer]
+\node[draw=red!50, dashed, thick, rounded corners=8pt, fill=red!3,
+      fit=(dec1)(dec2)(dec3)(dec4)(dec5)(dec6)(dec7),
+      inner xsep=10pt, inner ysep=14pt] (decgroup) {};
+\end{scope}
+\node[above=2pt of decgroup.north, font=\small\bfseries, text=red!60!black] {Decoder};
+
+% === OUTPUT VECTOR ICON ===
+\coordinate (out_center) at ($(dec7.east)+(1.5,0)$);
+\foreach \i in {0,...,4} {
+    \fill[gray!50, draw=gray!80] ($(out_center)+(-0.5+\i*0.25, -0.3)$) rectangle ++(0.18, 0.6);
+}
+\node[below=0.15cm, font=\small] at ($(out_center)+(0,-0.35)$) {Output $\hat{\mathbf{x}}$};
+
+
+% === ARROWS ===
+\draw[->] (1.3, 0) -- (enc1.west);
+\draw[->] (enc1.east) -- (enc2.west);
+\draw[->] (enc2.east) -- (enc3.west);
+\draw[->] (enc3.east) -- (enc4.west);
+\draw[->] (enc4.east) -- (enc5.west);
+\draw[->] (enc5.east) -- (enc6.west);
+\draw[->] (enc6.east) -- (enc7.west);
+\draw[->] (enc7.east) -- (enc8.west);
+\draw[->] (enc8.east) -- ($(latent_center)+(-0.35,0)$);
+\draw[->] ($(latent_center)+(0.35,0)$) -- (dec1.west);
+\draw[->] (dec1.east) -- (dec2.west);
+\draw[->] (dec2.east) -- (dec3.west);
+\draw[->] (dec3.east) -- (dec4.west);
+\draw[->] (dec4.east) -- (dec5.west);
+\draw[->] (dec5.east) -- (dec6.west);
+\draw[->] (dec6.east) -- (dec7.west);
+\draw[->] (dec7.east) -- ($(out_center)+(-0.6,0)$);
+
+\end{tikzpicture}%
+}
     \caption{Autoencoder architecture of the reduced non-linear approach}
     \label{fig:autoencoder-architecture}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/MLPApp2.png}
+    % \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/MLPApp2.png}  % Immagine originale
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  >=Stealth,
+  thick,
+  whitebox/.style={
+    draw=black, rounded corners=5pt, fill=white,
+    minimum height=0.9cm, minimum width=2cm, font=\small, align=center
+  },
+  yellowbox/.style={
+    draw=black, rounded corners=5pt, fill=yellow!15,
+    minimum height=0.9cm, minimum width=2cm, font=\small, align=center
+  },
+  pinkbox/.style={
+    draw=black, rounded corners=5pt, fill=pink!25,
+    minimum height=0.9cm, minimum width=2cm, font=\small, align=center
+  },
+  groupHL/.style={
+    draw=yellow!70!orange, dashed, thick, rounded corners=8pt,
+    fill=yellow!3, inner sep=10pt
+  },
+  groupOH/.style={
+    draw=red!50, dashed, thick, rounded corners=8pt,
+    fill=red!3, inner sep=10pt
+  },
+  arrow/.style={->, >=Stealth, thick},
+]
+
+% --- Input icon: 3 small yellow rectangles (latent vector) ---
+\foreach \yy in {0.32, 0, -0.32} {
+  \node[fill=yellow!40, draw=black, minimum width=0.4cm, minimum height=0.22cm,
+        rounded corners=1.5pt, inner sep=0pt] at (0, \yy) {};
+}
+\node[below, font=\footnotesize, align=center] at (0, -0.72)
+  {Latent activation};
+
+% --- Hidden Layer 1 nodes ---
+\node[whitebox]  (lin1)  at (3.2,  0) {Linear};
+\node[yellowbox] (ln1)   at (5.8,  0) {LayerNorm\\[-2pt]+ GELU};
+\node[pinkbox]   (drop1) at (8.4,  0) {Dropout};
+
+% --- Hidden Layer 2 nodes ---
+\node[whitebox]  (lin2)  at (11.6, 0) {Linear};
+\node[yellowbox] (ln2)   at (14.2, 0) {LayerNorm\\[-2pt]+ GELU};
+\node[pinkbox]   (drop2) at (16.8, 0) {Dropout};
+
+% --- Output Head node ---
+\node[whitebox]  (lin3)  at (20.0, 0) {Linear};
+
+% --- Output circle ---
+\node[circle, draw=black, fill=green!15, minimum size=1cm,
+      font=\normalsize, inner sep=0pt] (out) at (22.4, 0) {$p$};
+
+% --- Group boxes (background layer) ---
+\begin{scope}[on background layer]
+  \node[groupHL, fit=(lin1)(ln1)(drop1),
+        label={[font=\small\bfseries, text=yellow!60!orange]above:Hidden Layer 1}] {};
+  \node[groupHL, fit=(lin2)(ln2)(drop2),
+        label={[font=\small\bfseries, text=yellow!60!orange]above:Hidden Layer 2}] {};
+  \node[groupOH, fit=(lin3),
+        label={[font=\small\bfseries, text=red!50]above:Output Head}] {};
+\end{scope}
+
+% --- Arrows ---
+\draw[arrow] (0.3, 0) -- (lin1.west);
+\draw[arrow] (lin1)  -- (ln1);
+\draw[arrow] (ln1)   -- (drop1);
+\draw[arrow] (drop1) -- (lin2);
+\draw[arrow] (lin2)  -- (ln2);
+\draw[arrow] (ln2)   -- (drop2);
+\draw[arrow] (drop2) -- (lin3);
+\draw[arrow] (lin3)  -- (out);
+
+
+
+\end{tikzpicture}%
+}
     \caption{MLP Prober architecture of the reduced non-linear approach}
     \label{fig:mlp-prober-architecture-reduced}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AlignApp2.png}
+    % \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/AlignApp2.png}  % Immagine originale
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    >=Stealth,
+    thick,
+    whitebox/.style={draw=black, rounded corners=5pt, fill=white, minimum height=0.9cm, minimum width=1.8cm, font=\small, align=center},
+    yellowbox/.style={draw=black, rounded corners=5pt, fill=yellow!15, minimum height=0.9cm, minimum width=1.8cm, font=\small, align=center},
+    pinkbox/.style={draw=black, rounded corners=5pt, fill=pink!25, minimum height=0.9cm, minimum width=1.8cm, font=\small, align=center},
+]
+
+% === Input vector icon ===
+\foreach \i in {-0.25, 0, 0.25} {
+    \fill[yellow!60, draw=black, rounded corners=1pt] (-0.3, \i-0.08) rectangle (0.3, \i+0.08);
+}
+\node[below=0.45cm, font=\small, align=center] at (0, -0.25) {Tester Latent};
+
+% Expand layers: Linear → LayerNorm+GELU → Dropout
+\node[whitebox]  (e1) at (2.8, 0) {Linear};
+\node[yellowbox] (e2) at (6.0, 0) {LayerNorm + GELU};
+\node[pinkbox]   (e3) at (9.2, 0) {Dropout};
+
+% Compress layers: Linear → Dropout (zero-init, NO LayerNorm/GELU)
+\node[whitebox]  (c1) at (12.6, 0) {Linear};
+\node[pinkbox]   (c2) at (15.8, 0) {Dropout};
+
+% === Group boxes (background layer) ===
+\begin{scope}[on background layer]
+  \node[draw=green!50, dashed, thick, rounded corners=8pt, fill=green!3,
+        fit=(e1)(e2)(e3), inner sep=12pt,
+        label={[font=\small\bfseries, green!50!black]above:Expand}] {};
+  \node[draw=blue!50, dashed, thick, rounded corners=8pt, fill=blue!3,
+        fit=(c1)(c2), inner sep=12pt,
+        label={[font=\small\bfseries, blue!50!black]above:Compress}] {};
+\end{scope}
+
+% === Output vector icon ===
+\foreach \i in {-0.25, 0, 0.25} {
+    \fill[yellow!60, draw=black, rounded corners=1pt] (18.2, \i-0.08) rectangle (18.8, \i+0.08);
+}
+\node[below=0.45cm, font=\small, align=center] at (18.5, -0.25) {Trainer Latent};
+
+% === Arrows ===
+\draw[->] (0.4, 0) -- (e1.west);
+\draw[->] (e1.east) -- (e2.west);
+\draw[->] (e2.east) -- (e3.west);
+\draw[->] (e3.east) -- (c1.west);
+\draw[->] (c1.east) -- (c2.west);
+\draw[->] (c2.east) -- (18.0, 0);
+
+% === Residual connection: from input x_base (before net) to output of net ===
+\draw[->, dashed, thick, gray!70]
+  (0.4, 0) .. controls +(0,-2.0) and +(0,-2.0) .. (c2.south)
+  node[midway, below, font=\scriptsize\itshape, text=gray!70] {residual};
+
+\end{tikzpicture}%
+}
     \caption{AlignmentNetwork architecture of the reduced non-linear approach}
     \label{fig:alignmentnetwork-architecture-reduced}
 \end{figure}
@@ -574,7 +1201,143 @@ The experimental pipeline in figure \ref{fig:non-linear-reduced-pipeline} first 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/PipeApp2.png}
+    % \includegraphics[width=0.8\textwidth, height=0.4\textheight, keepaspectratio]{images/modelsss/PipeApp2.png}  % Immagine originale
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  >=Stealth, thick,
+  pbox/.style={draw=black, rounded corners=5pt, fill=white,
+    minimum height=1cm, minimum width=2.2cm, align=center, font=\small\bfseries},
+  fbox/.style={draw=black, rounded corners=5pt, fill=gray!10,
+    minimum height=1.2cm, minimum width=2.2cm, align=center, font=\small},
+  lcirc/.style={draw=red!40, fill=red!15, circle,
+    minimum size=1.1cm, align=center, font=\small\bfseries},
+  ocirc/.style={draw=green!60!black, fill=green!15, circle,
+    minimum size=1.1cm, align=center, font=\small\bfseries},
+  bp/.style={->, >=Stealth, dashed, red!70, thick},
+  arrow/.style={->, >=Stealth, thick},
+  vecicon/.pic={
+    \foreach \i in {0,...,3}{
+      \fill[cyan!35!blue!25, draw=black!40, line width=0.3pt]
+        (\i*0.18, -0.25) rectangle ++(0.14, 0.5);}
+  },
+  latvec/.pic={
+    \foreach \i in {0,...,2}{
+      \fill[yellow!70, draw=black!50, line width=0.3pt]
+        (\i*0.18, -0.25) rectangle ++(0.14, 0.5);}
+  },
+]
+
+% ==================== PHASE BACKGROUNDS ====================
+\fill[cyan!5, rounded corners=10pt] (-11.5,0.8) rectangle (-1.5,8.5);
+\draw[cyan!70!black, dashed, line width=1.2pt, rounded corners=10pt]
+  (-11.5,0.8) rectangle (-1.5,8.5);
+\node[font=\bfseries\large, cyan!60!black, anchor=north west]
+  at (-11.2,8.2) {Phase 1: Train Autoencoders};
+
+\fill[orange!5, rounded corners=10pt] (1.5,0.8) rectangle (11.5,8.5);
+\draw[orange!70!black, dashed, line width=1.2pt, rounded corners=10pt]
+  (1.5,0.8) rectangle (11.5,8.5);
+\node[font=\bfseries\large, orange!60!black, anchor=north west]
+  at (1.8,8.2) {Phase 2: Train MLP Prober};
+
+\fill[violet!5, rounded corners=10pt] (-11.5,-8.5) rectangle (-1.5,-0.8);
+\draw[violet!60, dashed, line width=1.2pt, rounded corners=10pt]
+  (-11.5,-8.5) rectangle (-1.5,-0.8);
+\node[font=\bfseries\large, violet!70!black, anchor=north west]
+  at (-11.2,-1.1) {Phase 3: Alignment};
+
+\fill[green!5, rounded corners=10pt] (1.5,-8.5) rectangle (11.5,-0.8);
+\draw[green!50!black, dashed, line width=1.2pt, rounded corners=10pt]
+  (1.5,-8.5) rectangle (11.5,-0.8);
+\node[font=\bfseries\large, green!50!black, anchor=north west]
+  at (1.8,-1.1) {Phase 4: Test};
+
+% ==================== PHASE 1: TRAIN AUTOENCODERS ====================
+% Trainer row
+\pic at (-10.2,6.5) {vecicon};
+\node[font=\scriptsize, align=center, blue!70!black] at (-10.2,5.7)
+  {Trainer\\[-1pt]Activations};
+
+\node[pbox] (AET) at (-6.5,6.5) {AutoEncoder\\[-2pt]Trainer};
+\node[lcirc] (L1T) at (-3,6.5) {Loss};
+
+\draw[arrow] (-9.5,6.5) -- (AET.west);
+\draw[arrow] (AET.east) -- (L1T.west);
+\draw[bp] (L1T.south) -- ++(0,-0.8) -| (AET.south)
+  node[pos=0.25, below, font=\tiny, red!70]{backprop};
+
+% Tester row
+\pic at (-10.2,3.5) {vecicon};
+\node[font=\scriptsize, align=center, green!50!black] at (-10.2,2.7)
+  {Tester\\[-1pt]Activations};
+
+\node[pbox] (AETs) at (-6.5,3.5) {AutoEncoder\\[-2pt]Tester};
+\node[lcirc] (L1Ts) at (-3,3.5) {Loss};
+
+\draw[arrow] (-9.5,3.5) -- (AETs.west);
+\draw[arrow] (AETs.east) -- (L1Ts.west);
+\draw[bp] (L1Ts.south) -- ++(0,-0.8) -| (AETs.south)
+  node[pos=0.25, below, font=\tiny, red!70]{backprop};
+
+% ==================== PHASE 2: TRAIN MLP PROBER ====================
+\pic (tlat) at (3.0,5.5) {latvec};
+\node[font=\scriptsize, align=center, orange!70!black] at (3.0,4.7)
+  {Trainer\\[-1pt]Latent};
+
+\node[pbox] (MLP) at (6.5,5.5) {MLP\\[-2pt]Prober};
+\node[lcirc] (L2) at (9.5,5.5) {Loss};
+
+\draw[arrow] (3.6,5.5) -- (MLP.west);
+\draw[arrow] (MLP.east) -- (L2.west);
+\draw[bp] (L2.south) -- ++(0,-0.8) -| (MLP.south)
+  node[pos=0.25, below, font=\tiny, red!70]{backprop};
+
+% ==================== PHASE 3: ALIGNMENT ====================
+% Horizontal layout: ConcTester → AN → Aligned → Loss ← Target
+\pic at (-10.2,-3.0) {latvec};
+\node[font=\scriptsize, align=center, orange!60!black] at (-10.2,-3.8)
+  {Concordant\\[-1pt]Tester Latent};
+
+\node[pbox] (AN) at (-7.0,-3.0) {Alignment\\[-2pt]Network};
+
+\pic at (-4.0,-3.0) {latvec};
+\node[font=\scriptsize, align=center, orange!60!black] at (-4.0,-2.2)
+  {Aligned\\[-1pt]Tester Latent};
+
+\pic at (-4.0,-6.0) {latvec};
+\node[font=\scriptsize, align=center, orange!60!black] at (-4.0,-6.8)
+  {Concordant Trainer\\[-1pt]Latent (Target)};
+
+\node[lcirc] (L3) at (-2.5,-4.5) {Loss};
+
+\draw[arrow] (-9.5,-3.0) -- (AN.west);
+\draw[arrow] (AN.east) -- (-4.55,-3.0);
+\draw[arrow] (-3.5,-3.3) -- (L3.north);
+\draw[arrow] (-3.5,-5.7) -- (L3.south);
+
+\draw[bp] (L3.west) -- (-7.0,-4.5) |- (AN.south)
+  node[pos=0.01, below, font=\tiny, red!70]{backprop};
+
+% ==================== PHASE 4: TEST ====================
+\pic at (2.5,-2.9) {vecicon};
+\node[font=\scriptsize, align=center, green!50!black] at (2.5,-3.7)
+  {Tester\\[-1pt]Test Acts};
+
+\node[fbox] (EF) at (5.5,-2.9)
+  {Encoder\\[-2pt]Tester\\[-2pt]{\tiny\color{blue!60}(frozen from Tester)}};
+\node[fbox] (AF) at (5.5,-5.8)
+  {Alignment\\[-2pt]Network\\[-2pt]{\tiny\color{blue!60}(frozen Tester-->Trainer)}};
+\node[fbox] (MF) at (8.5,-5.8)
+  {MLP\\[-2pt]Prober\\[-2pt]{\tiny\color{blue!60}(frozen from Trainer)}};
+\node[ocirc] (OUT) at (10.5,-5.8) {Out};
+
+\draw[arrow] (3.3,-2.9) -- (EF.west);
+\draw[arrow] (EF.south) -- (AF.north);
+\draw[arrow] (AF.east) -- (MF.west);
+\draw[arrow] (MF.east) -- (OUT.west);
+
+\end{tikzpicture}%
+}
     \caption{Reduced non-linear approach experimental pipeline}
     \label{fig:non-linear-reduced-pipeline}
 \end{figure}
@@ -584,8 +1347,6 @@ In tables \ref{tab:hyperparams-autoencoder-clean}, \ref{tab:hyperparams-alignmen
 
 \begin{table}[H]
 \centering
-\caption{AutoEncoder hyperparameters (Trainer and Tester).}
-\label{tab:hyperparams-autoencoder-clean}
 \begin{tabular}{|lr|}
     \toprule
     \textbf{Parameter} & \textbf{Value} \\
@@ -599,13 +1360,13 @@ In tables \ref{tab:hyperparams-autoencoder-clean}, \ref{tab:hyperparams-alignmen
     Loss & MSELoss \\
     \bottomrule
 \end{tabular}
+\caption{AutoEncoder hyperparameters (Trainer and Tester).}
+\label{tab:hyperparams-autoencoder-clean}
 \end{table}
 
 
 \begin{table}[H]
 \centering
-\caption{AlignmentNetwork hyperparameters for the reduced approach.}
-\label{tab:hyperparams-alignment-clean-reduced}
 \begin{tabular}{|lr|}
     \toprule
     \textbf{Parameter} & \textbf{Value} \\
@@ -622,13 +1383,13 @@ In tables \ref{tab:hyperparams-autoencoder-clean}, \ref{tab:hyperparams-alignmen
     $\beta$ (Contrastive) & 0.5 \\
     \bottomrule
 \end{tabular}
+\caption{AlignmentNetwork hyperparameters for the reduced approach.}
+\label{tab:hyperparams-alignment-clean-reduced}
 \end{table}
 
 
 \begin{table}[H]
 \centering
-\caption{MLP Prober hyperparameters (on latent space).}
-\label{tab:hyperparams-prober-clean-reduced}
 \begin{tabular}{|lr|}
     \toprule
     \textbf{Parameter} & \textbf{Value} \\
@@ -640,6 +1401,8 @@ In tables \ref{tab:hyperparams-autoencoder-clean}, \ref{tab:hyperparams-alignmen
     Loss & BCEWithLogitsLoss \\
     \bottomrule
 \end{tabular}
+\caption{MLP Prober hyperparameters (on latent space).}
+\label{tab:hyperparams-prober-clean-reduced}
 \end{table}
 
 \subsection{One-For-All Approach (Frozen Head)}
@@ -649,14 +1412,131 @@ One-For-All represents the proposed \textbf{Universal Prober}: a two-phase proce
 \subsubsection{Architecture and main components}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/modelsss/EncoderApp3.png}
+    % \includegraphics[width=0.7\textwidth]{images/modelsss/EncoderApp3.png}  % Immagine originale
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    >=Stealth,
+    thick,
+    box/.style={draw=black, rounded corners=5pt, fill=white, minimum height=0.9cm, minimum width=1.8cm, font=\small, align=center},
+    normbox/.style={box, fill=yellow!15},
+    gelubox/.style={box, fill=green!10},
+    dropbox/.style={box, fill=pink!25},
+    blockstyle/.style={draw=green!50, dashed, thick, rounded corners=8pt, fill=green!3, inner sep=10pt},
+    projstyle/.style={draw=blue!50, dashed, thick, rounded corners=8pt, fill=blue!3, inner sep=10pt},
+    arrow/.style={->, >=Stealth, thick},
+]
+
+% === Input vector icon ===
+\foreach \i in {0,...,4} {
+    \fill[gray!60, draw=gray!80] (\i*0.25, -0.3) rectangle ++(0.18, 0.6);
+}
+\node[below=0.45cm, font=\small] at (0.5, -0.3) {Input};
+
+% === Block 1: Linear(input→hidden) → LN → GELU → Dropout ===
+\node[box]     (lin1)  at (3.2, 0) {Linear};
+\node[normbox] (ln1)   at (5.4, 0) {LayerNorm};
+\node[gelubox] (gelu1) at (7.6, 0) {GELU};
+\node[dropbox] (drop1) at (9.6, 0) {Dropout};
+
+\begin{scope}[on background layer]
+    \node[blockstyle, fit=(lin1)(ln1)(gelu1)(drop1),
+          label={[green!50!black, font=\small\bfseries]above:Block 1}] (b1) {};
+\end{scope}
+
+% === Block 2: Linear(hidden→hidden/2) → LN → GELU → Dropout ===
+\node[box]     (lin2)  at (12.6, 0) {Linear};
+\node[normbox] (ln2)   at (14.8, 0) {LayerNorm};
+\node[gelubox] (gelu2) at (17.0, 0) {GELU};
+\node[dropbox] (drop2) at (19.0, 0) {Dropout};
+
+\begin{scope}[on background layer]
+    \node[blockstyle, fit=(lin2)(ln2)(gelu2)(drop2),
+          label={[green!50!black, font=\small\bfseries]above:Block 2}] (b2) {};
+\end{scope}
+
+% === Output Projection: Linear(hidden/2→latent) → LN ===
+\node[box]     (lin3) at (22.0, 0) {Linear};
+\node[normbox] (ln3)  at (24.2, 0) {LayerNorm};
+
+\begin{scope}[on background layer]
+    \node[projstyle, fit=(lin3)(ln3),
+          label={[blue!50!black, font=\small\bfseries]above:Output Projection}] (b3) {};
+\end{scope}
+
+% === Output vector icon ===
+\foreach \i in {0,...,2} {
+    \fill[yellow!60, draw=yellow!80!black] (26.4+\i*0.25, -0.3) rectangle ++(0.18, 0.6);
+}
+\node[below=0.45cm, font=\small] at (26.65, -0.3) {Latent};
+
+% === Arrows ===
+\draw[arrow] (1.35, 0) -- (lin1.west);
+\draw[arrow] (lin1.east) -- (ln1.west);
+\draw[arrow] (ln1.east) -- (gelu1.west);
+\draw[arrow] (gelu1.east) -- (drop1.west);
+\draw[arrow] (drop1.east) -- (lin2.west);
+\draw[arrow] (lin2.east) -- (ln2.west);
+\draw[arrow] (ln2.east) -- (gelu2.west);
+\draw[arrow] (gelu2.east) -- (drop2.west);
+\draw[arrow] (drop2.east) -- (lin3.west);
+\draw[arrow] (lin3.east) -- (ln3.west);
+\draw[arrow] (ln3.east) -- (26.35, 0);
+
+\end{tikzpicture}%
+}
     \caption{One-For-All encoder architecture}
     \label{fig:OfA-architecture}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/modelsss/MLPApp3.png}
+    % \includegraphics[width=0.5\textwidth]{images/modelsss/MLPApp3.png}  % Immagine originale
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    >=Stealth,
+    every node/.style={font=\small},
+    block/.style={draw=black, rounded corners=5pt, fill=white, minimum height=0.9cm, minimum width=1.8cm, align=center, font=\small},
+    arrow/.style={->, thick, >=Stealth},
+]
+
+% --- Input: latent vector icon ---
+\foreach \i in {-0.25, 0, 0.25} {
+    \fill[yellow!50, draw=black, rounded corners=1pt] (-0.2, \i-0.08) rectangle (0.2, \i+0.08);
+}
+\node[below=0.35cm, font=\small, align=center] at (0,-0.35) {Latent};
+
+% --- Hidden Layer blocks ---
+\node[block] (linear1) at (3, 0) {Linear};
+\node[block, fill=yellow!15] (ln) at (5.5, 0) {LayerNorm};
+\node[block, fill=green!10] (gelu) at (8, 0) {GELU};
+\node[block, fill=pink!25] (drop) at (10.5, 0) {Dropout};
+
+% --- Output Head block ---
+\node[block] (linear2) at (13.5, 0) {Linear};
+
+% --- Output: probability circle ---
+\node[circle, draw=black, thick, fill=green!15, minimum size=1cm, font=\normalsize\bfseries] (prob) at (16, 0) {$p$};
+
+% --- Arrows ---
+\draw[arrow] (0.4, 0) -- (linear1.west);
+\draw[arrow] (linear1.east) -- (ln.west);
+\draw[arrow] (ln.east) -- (gelu.west);
+\draw[arrow] (gelu.east) -- (drop.west);
+\draw[arrow] (drop.east) -- (linear2.west);
+\draw[arrow] (linear2.east) -- (prob.west);
+
+% --- Background groups ---
+\begin{scope}[on background layer]
+  \node[draw=yellow!70!orange, dashed, thick, rounded corners=8pt, fill=yellow!3,
+        fit=(linear1)(ln)(gelu)(drop),
+        inner sep=12pt, label={[font=\small\bfseries, text=yellow!70!orange]above:Hidden Layer}] {};
+  \node[draw=red!50, dashed, thick, rounded corners=8pt, fill=red!3,
+        fit=(linear2),
+        inner sep=12pt, label={[font=\small\bfseries, text=red!50]above:Output Head}] {};
+\end{scope}
+
+\end{tikzpicture}%
+}
     \caption{One-For-All Classification Head architecture}
     \label{fig:OfA-head-architecture}
 \end{figure}
@@ -672,7 +1552,108 @@ The experimental pipeline in Figure \ref{fig:OfA-pipeline} first involves joint 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{images/modelsss/PipeApp3.png}
+    % \includegraphics[width=0.6\textwidth]{images/modelsss/PipeApp3.png}  % Immagine originale
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  >=Stealth, thick,
+  pbox/.style={draw=black, rounded corners=5pt, fill=white,
+    minimum height=1cm, minimum width=2.2cm, align=center, font=\small\bfseries},
+  fbox/.style={draw=black, rounded corners=5pt, fill=gray!10,
+    minimum height=1cm, minimum width=2.2cm, align=center, font=\small},
+  lcirc/.style={draw=red!40, fill=red!15, circle,
+    minimum size=1.1cm, align=center, font=\small\bfseries},
+  bp/.style={->, >=Stealth, dashed, red!70, thick},
+  arrow/.style={->, >=Stealth, thick},
+  vecicon/.pic={
+    \foreach \i in {0,...,3}{
+      \fill[cyan!35!blue!25, draw=black!40, line width=0.3pt]
+        (\i*0.18, -0.25) rectangle ++(0.14, 0.5);}
+  },
+]
+
+% ==================== PHASE BACKGROUNDS ====================
+\fill[orange!5, rounded corners=10pt] (-0.5,-4.0) rectangle (12.5,3.5);
+\draw[orange!70!black, dashed, line width=1.2pt, rounded corners=10pt]
+  (-0.5,-4.0) rectangle (12.5,3.5);
+\node[font=\bfseries\large, orange!80!black, anchor=north west]
+  at (-0.2,3.2) {Phase 1: Train on Trainer};
+
+\fill[violet!5, rounded corners=10pt] (14.0,-4.0) rectangle (27.0,3.5);
+\draw[violet!60, dashed, line width=1.2pt, rounded corners=10pt]
+  (14.0,-4.0) rectangle (27.0,3.5);
+\node[font=\bfseries\large, violet!70!black, anchor=north west]
+  at (14.3,3.2) {Phase 2: Adapt Tester};
+
+% ==================== PHASE 1: TRAIN ON TRAINER ====================
+\pic at (1.0,0.8) {vecicon};
+\node[font=\scriptsize, align=center, blue!70!black] at (1.0,0.0)
+  {Trainer\\[-1pt]Activations};
+
+\node[pbox] (enc1) at (4.0,0.8) {Encoder\\[-2pt]Trainer};
+\node[font=\scriptsize, orange!80!black] at (4.0,1.7) {trainable};
+
+\node[pbox] (head1) at (7.5,0.8) {Classification\\[-2pt]Head};
+\node[font=\scriptsize, orange!80!black] at (7.5,1.7) {trainable};
+
+\node[lcirc] (loss1) at (10.5,0.8) {Loss};
+
+\draw[arrow] (1.7,0.8) -- (enc1.west);
+\draw[arrow] (enc1.east) -- (head1.west);
+\draw[arrow] (head1.east) -- (loss1.west);
+
+% Brace under Encoder + Head
+
+
+% Backprop Phase 1
+\draw[bp] (loss1.south) -- ++(0,-1.8) -| (enc1.south)
+  node[pos=0.25, below, font=\tiny, red!70]{backprop};
+
+% ==================== PHASE 2: ADAPT TESTER ====================
+\pic at (15.5,0.8) {vecicon};
+\node[font=\scriptsize, align=center, green!50!black] at (15.5,0.0)
+  {Tester\\[-1pt]Activations};
+
+\node[pbox] (enc2) at (18.5,0.8) {Encoder\\[-2pt]Tester};
+\node[font=\scriptsize, orange!80!black] at (18.5,1.7) {trainable};
+
+\node[fbox] (head2) at (22.0,0.8) {Frozen\\[-2pt]Head\\[-2pt]{\tiny\color{blue!60}(from Trainer)}};
+\node[font=\scriptsize, blue!60!black] at (22.0,1.7) {frozen};
+
+\node[lcirc] (loss2) at (25.0,0.8) {Loss};
+
+\draw[arrow] (16.2,0.8) -- (enc2.west);
+\draw[arrow] (enc2.east) -- (head2.west);
+\draw[arrow] (head2.east) -- (loss2.west);
+
+% Backprop Phase 2 (only to Encoder)
+\draw[bp] (loss2.south) -- ++(0,-1.8) -| (enc2.south)
+  node[pos=0.25, below, font=\tiny, red!70]{backprop};
+
+% ==================== PHASE 3: TEST ====================
+\fill[teal!5, rounded corners=10pt] (28.5,-4.0) rectangle (42.0,3.5);
+\draw[teal!60!black, dashed, line width=1.2pt, rounded corners=10pt]
+  (28.5,-4.0) rectangle (42.0,3.5);
+\node[font=\bfseries\large, teal!70!black, anchor=north west]
+  at (28.8,3.2) {Phase 3: Test};
+
+\pic at (30.0,0.8) {vecicon};
+\node[font=\scriptsize, align=center, green!50!black] at (30.0,0.0)
+  {Tester\\[-1pt]Test Acts};
+
+\node[fbox] (enc3) at (33.0,0.8) {Encoder\\[-2pt]Tester\\[-2pt]{\tiny\color{blue!60}(frozen)}};
+\node[font=\scriptsize, blue!60!black] at (33.0,1.7) {frozen};
+
+\node[fbox] (head3) at (37.0,0.8) {Frozen\\[-2pt]Head\\[-2pt]{\tiny\color{blue!60}(from Trainer)}};
+\node[font=\scriptsize, blue!60!black] at (37.0,1.7) {frozen};
+
+\node[lcirc, draw=green!50, fill=green!15] (out3) at (40.5,0.8) {Out};
+
+\draw[arrow] (30.7,0.8) -- (enc3.west);
+\draw[arrow] (enc3.east) -- (head3.west);
+\draw[arrow] (head3.east) -- (out3.west);
+
+\end{tikzpicture}%
+}
     \caption{One-For-All experimental pipeline}
     \label{fig:OfA-pipeline}
 \end{figure}
@@ -681,8 +1662,6 @@ Tables \ref{tab:hyperparams-OfA-encoder-clean} and \ref{tab:hyperparams-OfA-head
 
 \begin{table}[H]
 \centering
-\caption{Encoder hyperparameters (Trainer and Tester Adapter).}
-\label{tab:hyperparams-OfA-encoder-clean}
 \begin{tabular}{|lr|}
     \toprule
     \textbf{Parameter} & \textbf{Value} \\
@@ -697,12 +1676,12 @@ Tables \ref{tab:hyperparams-OfA-encoder-clean} and \ref{tab:hyperparams-OfA-head
     Optimizer & AdamW \\
     \bottomrule
 \end{tabular}
+\caption{Encoder hyperparameters (Trainer and Tester Adapter).}
+\label{tab:hyperparams-OfA-encoder-clean}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{Classification Head hyperparameters (Shared/Frozen).}
-\label{tab:hyperparams-OfA-head-clean}
 \begin{tabular}{|lr|}
     \toprule
     \textbf{Parameter} & \textbf{Value} \\
@@ -714,6 +1693,8 @@ Tables \ref{tab:hyperparams-OfA-encoder-clean} and \ref{tab:hyperparams-OfA-head
     Batch Size & 64 \\
     \bottomrule
 \end{tabular}
+\caption{Classification Head hyperparameters (Shared/Frozen).}
+\label{tab:hyperparams-OfA-head-clean}
 \end{table}
 
 \section{Methodology for hallucination mitigation steering}
@@ -764,8 +1745,64 @@ TruthX requires \textbf{paired samples}: for each statement, a truthful version 
 
 For each pair (see tab. \ref{tab:datasets-pairs}), the internal activations of the LLM are extracted at \textbf{all layers} and for \textbf{both module types} (attention and MLP/FFN), storing the activation of the last input token. This produces a set of \textit{virtual layers}: for a model with $L$ physical layers, there are $2L$ virtual layers (one for each attention and one for each MLP module). True instances are assigned even instance IDs while false instances receive odd IDs, enabling deterministic pairing.
 
-\textcolor{red}{\textbf{TODO: Inserire immagine della pipeline di estrazione delle attivazioni paired per TruthX.}}
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.8\textwidth, height=0.2\textheight]{images/modelsss/truthXExtr.pdf}  % Immagine originale
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    node distance=1.8cm and 2.2cm,
+    >={Stealth},
+    thick,
+    inputbox/.style={draw=black, rounded corners=5pt, fill=white, minimum height=1.1cm, minimum width=2.5cm, align=center, font=\small},
+    llmbox/.style={draw=black, rounded corners=3pt, fill=blue!15, minimum height=1.3cm, minimum width=3cm, align=center, font=\small\bfseries},
+    processbox/.style={draw=black, rounded corners=3pt, fill=orange!12, minimum height=1.1cm, minimum width=2.8cm, align=center, font=\small},
+    storagebox/.style={draw=black, rounded corners=8pt, fill=green!12, minimum height=1.3cm, minimum width=3cm, align=center, font=\small},
+    pairbox/.style={draw=black, rounded corners=8pt, fill=cyan!12, minimum height=1.3cm, minimum width=3.2cm, align=center, font=\small},
+    arrlabel/.style={font=\scriptsize, midway, above},
+]
 
+% define explicit row coordinates for perfect alignment
+\coordinate (row1) at (0,0);
+\coordinate (row2) at (0,-3.0cm); % increased distance to avoid overlap with merge arrows
+
+% === Row 1 (True) ===
+\node[inputbox] (true_stmt) at (row1) {True Statement\\\textit{\footnotesize``The sky is blue''}};
+\fill[green!60!black] ([xshift=-0.5pt]true_stmt.north west) rectangle ([xshift=3pt]true_stmt.south west);
+
+\node[llmbox] (llm1) at ($(row1)+(4,0)$) {LLM};
+\node[processbox] (extract1) at ($(row1)+(8,0)$) {Extract Acts\\(Attn + MLP)};
+
+% === Row 2 (False) ===
+\node[inputbox] (false_stmt) at (row2) {False Statement\\\textit{\footnotesize``The sky is not blue''}};
+\fill[red!70!black] ([xshift=-0.5pt]false_stmt.north west) rectangle ([xshift=3pt]false_stmt.south west);
+
+\node[llmbox] (llm2) at ($(row2)+(4,0)$) {LLM};
+\node[processbox] (extract2) at ($(row2)+(8,0)$) {Extract Acts\\(Attn + MLP)};
+
+% === Merge point ===
+\coordinate (merge) at ($(extract1.east)!0.5!(extract2.east) + (3cm,0)$);
+
+\node[storagebox] (virtual) at (merge) {2$L$ Virtual Layers\\(last token)};
+\node[pairbox, right=1.5cm of virtual] (paired) {Paired Activations\\$(\mathbf{x}^+,\, \mathbf{x}^-)$};
+
+% === Arrows ===
+\draw[->] (true_stmt) -- (llm1);
+\draw[->] (llm1) -- (extract1);
+\draw[->] (false_stmt) -- (llm2);
+\draw[->] (llm2) -- (extract2);
+
+% merge arrows to virtual box
+\draw[->] (extract1.east) -- ++(0.8cm,0) |- (virtual.west);
+\draw[->] (extract2.east) -- ++(0.8cm,0) |- (virtual.west);
+
+\draw[->] (virtual.east) -- (paired.west);
+
+
+\end{tikzpicture}%
+}
+    \caption{TruthX extraction overview}
+    \label{fig:truthx-ext-pipeline}
+\end{figure}
 \subsubsection{Autoencoder Architecture}
 
 The autoencoder is composed of three sub-networks:
@@ -785,8 +1822,84 @@ where $\mathrm{Attn}$ is a single-head multi-head attention module. The final re
 \hat{\mathbf{x}} = \mathrm{Dec}(\mathbf{z})
 \]
 
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.8\textwidth, height=0.25\textheight]{images/modelsss/truthxModel.pdf}  % Immagine originale
+\resizebox{!}{0.45\textheight}{%
+\begin{tikzpicture}[
+    >=Stealth,
+    thick,
+    node distance=1.4cm and 2.5cm,
+    encbox/.style={draw=black, rounded corners=5pt, minimum height=1.2cm, minimum width=3cm, align=center, font=\small},
+    latentbox/.style={draw=black, rounded corners=4pt, minimum height=0.8cm, minimum width=2.2cm, align=center, font=\small},
+    iobox/.style={draw=black, rounded corners=3pt, fill=gray!15, minimum height=0.8cm, minimum width=2.8cm, align=center, font=\small\bfseries},
+    addcirc/.style={draw=black, circle, fill=orange!20, minimum size=0.8cm, font=\large\bfseries, inner sep=0pt},
+]
 
-\textcolor{red}{\textbf{TODO: Inserire immagine dell'architettura dell'autoencoder MLPAE con i due encoder e il decoder.}}
+% 1. Input
+\node[iobox] (input) {$\mathbf{x}$};
+
+% 2. Encoders
+\node[encbox, fill=green!18, below left=1.6cm and 1.8cm of input] (semenc)
+    {SemEnc\\Lin + Norm + LeakyReLU};
+\node[encbox, fill=blue!15, below right=1.6cm and 1.8cm of input] (truthenc)
+    {TruthEnc\\Lin + Norm + LeakyReLU};
+
+% 3. Latent representations
+\node[latentbox, fill=yellow!15, below=1.2cm of semenc] (hsem) {$\mathbf{h}_{\mathrm{sem}}$};
+\node[latentbox, fill=blue!10, below=1.2cm of truthenc] (htruth) {$\mathbf{h}_{\mathrm{truth}}$};
+
+% 4. Cross-Attention
+\node[encbox, fill=cyan!15, minimum width=4cm, below=2.0cm of input, yshift=-4.8cm] (crossattn)
+    {Cross-Attention\\$Q\!=\!\mathbf{h}_{\mathrm{sem}},\; K\!=\!V\!=\!\mathbf{h}_{\mathrm{truth}}$};
+
+% 5. Residual add
+\node[addcirc, below=1.2cm of crossattn] (add) {$+$};
+
+% 6. Latent z
+\node[latentbox, fill=yellow!15, below=1.0cm of add] (z) {$\mathbf{z}$};
+
+% 7. Decoder
+\node[encbox, fill=red!12, below=1.2cm of z] (decoder)
+    {Decoder\\Lin + Norm + LeakyReLU};
+
+% 8. Output
+\node[iobox, below=1.2cm of decoder] (output) {$\hat{\mathbf{x}}$};
+
+
+% Arrows: input to encoders
+\draw[->] (input.south) -- ++(0,-0.4) -| (semenc.north);
+\draw[->] (input.south) -- ++(0,-0.4) -| (truthenc.north);
+
+% Arrows: encoders to latents
+\draw[->] (semenc.south) -- (hsem.north);
+\draw[->] (truthenc.south) -- (htruth.north);
+
+% Arrows: latents to cross-attention
+\draw[->] (hsem.south) -- ++(0,-0.5) -| ([xshift=-0.8cm]crossattn.north);
+\draw[->] (htruth.south) -- ++(0,-0.5) -| ([xshift=0.8cm]crossattn.north);
+
+% Arrow: cross-attention to add
+\draw[->] (crossattn.south) -- (add.north);
+
+% Residual connection: h_sem to add
+\draw[->] (hsem.west) -- ++(-0.8,0) |- (add.west);
+\node[font=\scriptsize, text=gray] at (-4.5,-6.5) {residual};
+
+% Arrow: add to z
+\draw[->] (add.south) -- (z.north);
+
+% Arrow: z to decoder
+\draw[->] (z.south) -- (decoder.north);
+
+% Arrow: decoder to output
+\draw[->] (decoder.south) -- (output.north);
+
+\end{tikzpicture}%
+}
+    \caption{TruthX model architecture overview}
+    \label{fig:truthx-model-architecture}
+\end{figure}
 
 \subsubsection{Loss Function}
 
@@ -838,8 +1951,6 @@ The optimizer used is \textbf{AdamW} with a \textbf{Cosine Annealing with Warm R
 
 \begin{table}[H]
 \centering
-\caption{TruthX Autoencoder training hyperparameters.}
-\label{tab:hyperparams-truthx-ae}
 \begin{tabular}{|lr|}
     \toprule
     \textbf{Parameter} & \textbf{Value} \\
@@ -860,6 +1971,8 @@ The optimizer used is \textbf{AdamW} with a \textbf{Cosine Annealing with Warm R
     Seed & 42 \\
     \bottomrule
 \end{tabular}
+\caption{TruthX Autoencoder training hyperparameters.}
+\label{tab:hyperparams-truthx-ae}
 \end{table}
 
 \subsubsection{Steering Vector Computation and Layer Selection}
@@ -907,7 +2020,6 @@ During inference, TruthX modifies the model's internal representations in real-t
 \end{enumerate}
 
 The editing is applied in a fully differentiable manner, modifying the activations before they are passed to the next layer. 
-\textcolor{red}{\textbf{TODO: Inserire immagine della pipeline di inferenza con i forward hooks e l'editing delle attivazioni.}}
 
 \subsubsection{Cross-Model TruthX via Alignment}
 
@@ -965,8 +2077,6 @@ During inference on the target model, TruthX editing proceeds as follows for eac
     \]
 \end{enumerate}
 This symmetrical pre/post-alignment strategy ensures that the TruthX intervention operates entirely in the trainer's representation space, while the final output is expressed in the target model's native space.
-
-\textcolor{red}{\textbf{TODO: Inserire immagine della pipeline cross-model con pre-aligner, autoencoder TruthX e post-aligner.}}
 
 
 \subsection{SLiMTruth Steering Technique}
@@ -1031,7 +2141,96 @@ Given the hidden state $\mathbf{h} \in \mathbb{R}^{B \times S \times d}$ at the 
 \]
 where $\odot$ denotes element-wise multiplication, and $\alpha \in [0, 1]$ is the \texttt{steering strength} parameter that controls the intensity of the intervention. When $\alpha = 0$ the output is unmodified; when $\alpha = 1$ the full modulation is applied. The $\tanh$ activation bounds $\boldsymbol{\gamma}, \boldsymbol{\beta} \in (-1, 1)$, preventing unbounded perturbations.
 
-\textcolor{red}{\textbf{TODO: Inserire immagine dell'architettura SLiMTruth con StateBlock, LowRankLinear scale/shift e FiLM modulation.}}
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    box/.style     = {draw, rounded corners=5pt, fill=blue!12,
+                      minimum width=3.0cm, minimum height=1.1cm,
+                      align=center, font=\small},
+    greenbox/.style= {draw, rounded corners=5pt, fill=green!15,
+                      minimum width=3.0cm, minimum height=1.1cm,
+                      align=center, font=\small},
+    redbox/.style  = {draw, rounded corners=5pt, fill=red!12,
+                      minimum width=3.0cm, minimum height=1.1cm,
+                      align=center, font=\small},
+    opcirc/.style  = {draw, circle, fill=orange!25,
+                      minimum size=0.95cm, align=center,
+                      font=\large\bfseries},
+    iobox/.style   = {draw, rounded corners=3pt, fill=gray!15,
+                      minimum width=1.5cm, minimum height=0.7cm,
+                      align=center, font=\small\bfseries},
+    arr/.style = {->, >=Stealth, thick},
+    skip/.style= {->, >=Stealth, thick, dashed},
+    lbl/.style = {font=\small}
+]
+
+%% --- Scalar state input ---
+\node[iobox] (s_in) at (5.5, 9.2) {$s = 1.0$};
+
+%% --- StateBlock ---
+\node[box] (sb) at (5.5, 7.6) {
+    \textbf{\texttt{StateBlock}}\\[2pt]
+    \scriptsize $\mathbb{R} \to \mathbb{R}^d$\\[-1pt]
+    \scriptsize Linear $\to$ ReLU $\to$ LN
+};
+\draw[arr] (s_in) -- (sb);
+
+%% --- Fork from StateBlock ---
+\coordinate (fork) at (5.5, 6.65);
+\draw[thick] (sb.south) -- (fork);
+
+%% --- Scale module (left branch) ---
+\node[greenbox] (sc) at (2.2, 5.2) {
+    \textbf{\texttt{Scale}}\\[2pt]
+    \scriptsize \texttt{LowRankLinear}\\[-1pt]
+    \scriptsize rank $r{=}32$,\ $\tanh$
+};
+
+%% --- Shift module (right branch) ---
+\node[redbox] (sh) at (8.8, 5.2) {
+    \textbf{\texttt{Shift}}\\[2pt]
+    \scriptsize \texttt{LowRankLinear}\\[-1pt]
+    \scriptsize rank $r{=}32$,\ $\tanh$
+};
+
+%% p arrows from fork to Scale and Shift
+\draw[arr] (fork) -| node[pos=0.6, above, lbl]{$\mathbf{p}$} (sc.north);
+\draw[arr] (fork) -| node[pos=0.6, above, lbl]{$\mathbf{p}$} (sh.north);
+
+%% --- FiLM operations (hidden state path) ---
+\node[iobox]  (h_in)  at (0,    2.5) {$\mathbf{h}$};
+\node[opcirc] (mul)   at (2.2,  2.5) {$\odot$};
+\node[opcirc] (addb)  at (8.8,  2.5) {$+$};
+\node[opcirc] (addr)  at (11.5, 2.5) {$+$};
+\node[iobox]  (h_out) at (13.0, 2.5) {$\mathbf{h}'$};
+
+%% Main forward path
+\draw[arr] (h_in)  -- (mul);
+\draw[arr] (mul)   -- node[above, lbl]{$\mathbf{h}\odot\boldsymbol{\gamma}$} (addb);
+\draw[arr] (addb)  -- node[above, lbl]{$\alpha\cdot\boldsymbol{\delta}$} (addr);
+\draw[arr] (addr)  -- (h_out);
+
+%% delta label below addb
+\node[font=\scriptsize, text=gray, below=3pt of addb]
+    {$\boldsymbol{\delta}=\mathbf{h}\odot\boldsymbol{\gamma}+\boldsymbol{\beta}$};
+
+%% gamma: Scale -> odot (straight vertical)
+\draw[arr] (sc.south)  -- node[right, lbl]{$\boldsymbol{\gamma}$} (mul.north);
+
+%% beta: Shift -> + (straight vertical)
+\draw[arr] (sh.south)  -- node[right, lbl]{$\boldsymbol{\beta}$}  (addb.north);
+
+%% --- Residual (skip) connection ---
+\draw[skip] (h_in.south) -- ++(0,-1.1)
+    -- node[below, lbl]{$\mathbf{h}$} ++(11.5,0)
+    -- (addr.south);
+
+\end{tikzpicture}%
+}
+\caption{SLiMTruth architecture}
+\label{fig:slimtruth-architecture}
+\end{figure}
 
 \subsubsection{Loss Function}
 
@@ -1074,8 +2273,6 @@ The dataset is split into 80\% training and 20\% validation with a fixed random 
 
 \begin{table}[H]
 \centering
-\caption{SLiMTruth training hyperparameters.}
-\label{tab:hyperparams-slim}
 \begin{tabular}{|lr|}
     \toprule
     \textbf{Parameter} & \textbf{Value} \\
@@ -1099,6 +2296,8 @@ The dataset is split into 80\% training and 20\% validation with a fixed random 
     Seed & 42 \\
     \bottomrule
 \end{tabular}
+\caption{SLiMTruth training hyperparameters.}
+\label{tab:hyperparams-slim}
 \end{table}
 
 \subsubsection{Inference-Time Modulation}
@@ -1114,7 +2313,6 @@ During inference, the trained SLiM modules are loaded from a checkpoint and a \t
 
 The steering strength $\alpha$ can be tuned at inference time independently from the training value, allowing to explore the trade-off between hallucination reduction and fluency.
 
-\textcolor{red}{\textbf{TODO: Inserire immagine della pipeline di inferenza con il forward hook e la modulazione FiLM.}}
 
 \subsubsection{Cross-Model SLiMTruth via Procrustes Alignment}
 
@@ -1141,4 +2339,3 @@ During inference on the target model, for each selected module:
     \item \textbf{Post-alignment:} the modulated activation is mapped back into the target's space: $\mathbf{h}'_{\mathrm{target}} = \tilde{\mathbf{h}}'\,\mathbf{A}_{\mathrm{tr \to t}} + \mathbf{b}_{\mathrm{tr \to t}}$.
 \end{enumerate}
 
-\textcolor{red}{\textbf{TODO: Inserire immagine della pipeline cross-model SLiMTruth con pre-aligner, FiLM modulation e post-aligner.}}

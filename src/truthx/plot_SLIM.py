@@ -264,7 +264,7 @@ def main():
     for model_name, model_label in MODEL_LABELS.items():
         model_plot_data = prepare_data_for_model(df, model_name)
         fig = plot_model_results(model_plot_data, model_label)
-        output_name = f"{model_label.lower()}_slim_results.png"
+        output_name = f"{model_label.lower()}_slim_results.pdf"
         fig.savefig(output_name, dpi=300, bbox_inches="tight")
         print(f"Grafico {model_label} salvato come '{output_name}'")
 

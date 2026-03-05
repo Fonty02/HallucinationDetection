@@ -27,86 +27,85 @@
 \contentsline {section}{\numberline {3.4}Methodologies for Building the Universal Prober}{22}{}%
 \contentsline {subsection}{\numberline {3.4.1}FullLinear Approach}{23}{}%
 \contentsline {subsubsection}{Experimental Pipeline}{23}{}%
-\contentsline {subsection}{\numberline {3.4.2}AdapterMLP Approach}{24}{}%
+\contentsline {subsection}{\numberline {3.4.2}AdapterMLP Approach}{23}{}%
 \contentsline {subsubsection}{Architecture and Loss}{24}{}%
-\contentsline {subsubsection}{Experimental Pipeline}{25}{}%
-\contentsline {subsection}{\numberline {3.4.3}Full Non-linear Approach}{26}{}%
+\contentsline {subsubsection}{Experimental Pipeline}{24}{}%
+\contentsline {subsection}{\numberline {3.4.3}Full Non-linear Approach}{25}{}%
 \contentsline {subsubsection}{Architecture, Components and Loss}{26}{}%
-\contentsline {subsubsection}{Experimental Pipeline}{27}{}%
+\contentsline {subsubsection}{Experimental Pipeline}{26}{}%
 \contentsline {subsection}{\numberline {3.4.4}Reduced Non-linear Approach}{28}{}%
 \contentsline {subsubsection}{Architecture and Main Components}{28}{}%
 \contentsline {subsubsection}{Experimental Pipeline}{29}{}%
-\contentsline {subsection}{\numberline {3.4.5}One-For-All Approach (Frozen Head)}{31}{}%
-\contentsline {subsubsection}{Architecture and main components}{32}{}%
-\contentsline {subsubsection}{Experimental pipeline}{32}{}%
-\contentsline {section}{\numberline {3.5}Methodology for hallucination mitigation steering}{34}{}%
-\contentsline {subsection}{\numberline {3.5.1}TruthX Steering Technique}{34}{}%
-\contentsline {subsubsection}{Dataset Preparation: Paired Activations}{35}{}%
-\contentsline {subsubsection}{Autoencoder Architecture}{35}{}%
-\contentsline {subsubsection}{Loss Function}{36}{}%
-\contentsline {paragraph}{Reconstruction Loss ($\mathcal {L}_{\mathrm {recon}}$, Eq. 3):}{36}{}%
-\contentsline {paragraph}{Semantic Contrastive Loss ($\mathcal {L}_{\mathrm {sem}}$, Eq. 6):}{36}{}%
+\contentsline {subsection}{\numberline {3.4.5}One-For-All Approach (Frozen Head)}{30}{}%
+\contentsline {subsubsection}{Architecture and main components}{31}{}%
+\contentsline {subsubsection}{Experimental pipeline}{31}{}%
+\contentsline {section}{\numberline {3.5}Methodology for hallucination mitigation steering}{32}{}%
+\contentsline {subsection}{\numberline {3.5.1}TruthX Steering Technique}{33}{}%
+\contentsline {subsubsection}{Dataset Preparation: Paired Activations}{33}{}%
+\contentsline {subsubsection}{Autoencoder Architecture}{34}{}%
+\contentsline {subsubsection}{Loss Function}{35}{}%
+\contentsline {paragraph}{Reconstruction Loss ($\mathcal {L}_{\mathrm {recon}}$, Eq. 3):}{35}{}%
+\contentsline {paragraph}{Semantic Contrastive Loss ($\mathcal {L}_{\mathrm {sem}}$, Eq. 6):}{35}{}%
 \contentsline {paragraph}{Truthful Contrastive Loss ($\mathcal {L}_{\mathrm {truth}}$, Eq. 5):}{36}{}%
 \contentsline {paragraph}{Editing Loss ($\mathcal {L}_{\mathrm {edit}}$, Eq. 10):}{36}{}%
-\contentsline {subsubsection}{Training Procedure}{37}{}%
+\contentsline {subsubsection}{Training Procedure}{36}{}%
 \contentsline {subsubsection}{Steering Vector Computation and Layer Selection}{37}{}%
-\contentsline {subsubsection}{Inference-Time Editing}{38}{}%
+\contentsline {subsubsection}{Inference-Time Editing}{37}{}%
 \contentsline {subsubsection}{Cross-Model TruthX via Alignment}{38}{}%
-\contentsline {paragraph}{Layer Selection via Linear CKA.}{39}{}%
+\contentsline {paragraph}{Layer Selection via Linear CKA.}{38}{}%
 \contentsline {paragraph}{Procrustes Aligner.}{39}{}%
-\contentsline {paragraph}{Cross-Model Inference Pipeline.}{40}{}%
+\contentsline {paragraph}{Cross-Model Inference Pipeline.}{39}{}%
 \contentsline {subsection}{\numberline {3.5.2}SLiMTruth Steering Technique}{40}{}%
-\contentsline {subsubsection}{Dataset Preparation: Paired Samples}{41}{}%
-\contentsline {subsubsection}{SLiMTruth Architecture}{41}{}%
+\contentsline {subsubsection}{Dataset Preparation: Paired Samples}{40}{}%
+\contentsline {subsubsection}{SLiMTruth Architecture}{40}{}%
 \contentsline {paragraph}{State Projector (\texttt {StateBlock}).}{41}{}%
 \contentsline {paragraph}{Low-Rank Scale (\texttt {LowRankLinear}).}{41}{}%
 \contentsline {paragraph}{Low-Rank Shift (\texttt {LowRankLinear}).}{41}{}%
-\contentsline {paragraph}{FiLM Modulation.}{42}{}%
+\contentsline {paragraph}{FiLM Modulation.}{41}{}%
 \contentsline {subsubsection}{Loss Function}{42}{}%
 \contentsline {paragraph}{Cross-Entropy Loss ($\mathcal {L}_{\mathrm {CE}}$).}{42}{}%
 \contentsline {paragraph}{InfoNCE Contrastive Loss ($\mathcal {L}_{\mathrm {InfoNCE}}$).}{42}{}%
-\contentsline {paragraph}{Regularization Loss ($\mathcal {L}_{\mathrm {Reg}}$).}{42}{}%
+\contentsline {paragraph}{Regularization Loss ($\mathcal {L}_{\mathrm {Reg}}$).}{43}{}%
 \contentsline {subsubsection}{Training Procedure}{43}{}%
 \contentsline {subsubsection}{Inference-Time Modulation}{44}{}%
 \contentsline {subsubsection}{Cross-Model SLiMTruth via Procrustes Alignment}{44}{}%
-\contentsline {paragraph}{Layer Selection.}{44}{}%
+\contentsline {paragraph}{Layer Selection.}{45}{}%
 \contentsline {paragraph}{Cross-Model Inference.}{45}{}%
 \contentsline {chapter}{\numberline {4}Results}{47}{}%
 \contentsline {section}{\numberline {4.1}Hallucination Detection}{48}{}%
 \contentsline {subsection}{\numberline {4.1.1}LLama-3.1-8B-Instruct e Gemma-2-9B-IT on BeliefBankFacts}{48}{}%
 \contentsline {subsection}{\numberline {4.1.2}LLama-3.1-8B-Instruct e Gemma-2-9B-IT on BeliefBankConstraints}{49}{}%
 \contentsline {subsection}{\numberline {4.1.3}LLama-3.1-8B-Instruct e Gemma-2-9B-IT on HaluEval}{50}{}%
-\contentsline {subsection}{\numberline {4.1.4}Cross-Domain Results}{50}{}%
-\contentsline {section}{\numberline {4.2}Mitigation of Hallucinations}{51}{}%
-\contentsline {subsection}{\numberline {4.2.1}TruthX Results}{51}{}%
-\contentsline {subsubsection}{Baseline vs.\ Standard TruthX}{52}{}%
-\contentsline {subsubsection}{Cross-Dataset Transfer}{52}{}%
-\contentsline {subsubsection}{Cross-Model Transfer}{53}{}%
-\contentsline {subsection}{\numberline {4.2.2}SLiMTruth results}{53}{}%
-\contentsline {subsubsection}{Baseline vs.\ Standard SLiMTruth}{54}{}%
+\contentsline {subsection}{\numberline {4.1.4}Cross-Domain Results}{51}{}%
+\contentsline {section}{\numberline {4.2}Mitigation of Hallucinations}{53}{}%
+\contentsline {subsection}{\numberline {4.2.1}TruthX Results}{53}{}%
+\contentsline {subsubsection}{Baseline vs.\ Standard TruthX}{54}{}%
 \contentsline {subsubsection}{Cross-Dataset Transfer}{54}{}%
 \contentsline {subsubsection}{Cross-Model Transfer}{55}{}%
-\contentsline {chapter}{\numberline {5}Discussion}{57}{}%
-\contentsline {section}{\numberline {5.1}Hallucination Detection}{57}{}%
-\contentsline {subsection}{\numberline {5.1.1}Comparison Between Methods}{57}{}%
-\contentsline {subsection}{\numberline {5.1.2}Dataset Analysis}{57}{}%
-\contentsline {subsection}{\numberline {5.1.3}Layer Analysis}{58}{}%
-\contentsline {subsection}{\numberline {5.1.4}Cross-Domain Analysis}{58}{}%
-\contentsline {section}{\numberline {5.2}Hallucination Mitigation}{58}{}%
-\contentsline {subsection}{\numberline {5.2.1}TruthX}{58}{}%
-\contentsline {subsubsection}{Standard Setting}{58}{}%
-\contentsline {subsubsection}{Cross-Dataset Transfer}{59}{}%
+\contentsline {subsection}{\numberline {4.2.2}SLiMTruth results}{57}{}%
+\contentsline {subsubsection}{Baseline vs.\ Standard SLiMTruth}{58}{}%
+\contentsline {subsubsection}{Cross-Dataset Transfer}{58}{}%
 \contentsline {subsubsection}{Cross-Model Transfer}{59}{}%
-\contentsline {subsection}{\numberline {5.2.2}SLiMTruth}{59}{}%
-\contentsline {subsubsection}{Standard Setting}{59}{}%
-\contentsline {subsubsection}{Cross-Dataset Transfer}{60}{}%
-\contentsline {subsubsection}{Cross-Model Transfer}{60}{}%
-\contentsline {subsection}{\numberline {5.2.3}Comparative Analysis: TruthX vs.\ SLiMTruth}{61}{}%
-\contentsline {subsubsection}{The BBF Vulnerability}{61}{}%
-\contentsline {subsubsection}{Transferability Hierarchy}{61}{}%
-\contentsline {chapter}{\numberline {6}Conclusions}{63}{}%
-\contentsline {section}{\numberline {6.1}Summary of Results}{63}{}%
-\contentsline {subsection}{\numberline {6.1.1}Hallucination Detection}{63}{}%
-\contentsline {subsection}{\numberline {6.1.2}Hallucination Mitigation}{64}{}%
-\contentsline {section}{\numberline {6.2}Future Work}{64}{}%
-\contentsline {chapter}{Appendices}{71}{}%
+\contentsline {chapter}{\numberline {5}Discussion}{61}{}%
+\contentsline {section}{\numberline {5.1}Hallucination Detection}{61}{}%
+\contentsline {subsection}{\numberline {5.1.1}Comparison Between Methods}{61}{}%
+\contentsline {subsection}{\numberline {5.1.2}Dataset Analysis}{61}{}%
+\contentsline {subsection}{\numberline {5.1.3}Layer Analysis}{62}{}%
+\contentsline {subsection}{\numberline {5.1.4}Cross-Domain Analysis}{62}{}%
+\contentsline {section}{\numberline {5.2}Hallucination Mitigation}{62}{}%
+\contentsline {subsection}{\numberline {5.2.1}TruthX}{62}{}%
+\contentsline {subsubsection}{Standard Setting}{62}{}%
+\contentsline {subsubsection}{Cross-Dataset Transfer}{63}{}%
+\contentsline {subsubsection}{Cross-Model Transfer}{63}{}%
+\contentsline {subsection}{\numberline {5.2.2}SLiMTruth}{63}{}%
+\contentsline {subsubsection}{Standard Setting}{63}{}%
+\contentsline {subsubsection}{Cross-Dataset Transfer}{64}{}%
+\contentsline {subsubsection}{Cross-Model Transfer}{64}{}%
+\contentsline {subsection}{\numberline {5.2.3}Comparative Analysis: TruthX vs.\ SLiMTruth}{65}{}%
+\contentsline {subsubsection}{The BBF Vulnerability}{65}{}%
+\contentsline {subsubsection}{Transferability Hierarchy}{65}{}%
+\contentsline {chapter}{\numberline {6}Conclusions}{67}{}%
+\contentsline {section}{\numberline {6.1}Summary of Results}{67}{}%
+\contentsline {subsection}{\numberline {6.1.1}Hallucination Detection}{67}{}%
+\contentsline {subsection}{\numberline {6.1.2}Hallucination Mitigation}{68}{}%
+\contentsline {section}{\numberline {6.2}Future Work}{68}{}%

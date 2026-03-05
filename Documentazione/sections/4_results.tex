@@ -8,12 +8,10 @@ In this chapter, the results obtained from experiments conducted to evaluate the
 \section{Hallucination Detection}
 
 
-\subsection{LLama-3.1-8B-Instruct e Gemma-2-9B-IT on BeliefBankFacts}
+\subsection{LLama-3.1-8B-Instruct and Gemma-2-9B-IT on BeliefBankFacts}
 \begin{table}[H]
 \scriptsize
 \centering
-\caption{Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on BeliefBankFacts}
-\label{tab:results-bbf-llama-gemma}
 \begin{tabular}{|l l l l| c c c c|}
 \hline
 Trainer & Tester & Approach & Type & AccTr & AccTe & AurocTr & AurocTe \\
@@ -54,14 +52,14 @@ Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & mlp   & 0.9852 & 0.9523 & 
 Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & hidden& 0.9778 & 0.9606 & 0.9950 & 0.9891 \\
 \hline
 \end{tabular}
+\caption{Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on BeliefBankFacts}
+\label{tab:results-bbf-llama-gemma}
 \end{table}
 
-\subsection{LLama-3.1-8B-Instruct e Gemma-2-9B-IT on BeliefBankConstraints}
+\subsection{LLama-3.1-8B-Instruct and Gemma-2-9B-IT on BeliefBankConstraints}
 \begin{table}[H]
 \scriptsize
 \centering
-\caption{Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on BeliefBankConstraints}
-\label{tab:results-bbc-llama-gemma}
 \begin{tabular}{|l l l l| c c c c|}
 \hline
 Trainer & Tester & Approach & Type & AccTr & AccTe & AurocTr & AurocTe \\
@@ -102,14 +100,14 @@ gemma-2-9b-it & Llama-3.1-8B-Instruct & One-For-All & hidden & 0.9873 & 0.9828 &
 Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & hidden & 0.9840 & 0.9838 & 0.9985 & 0.9983 \\
 \hline
 \end{tabular}
+\caption{Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on BeliefBankConstraints}
+\label{tab:results-bbc-llama-gemma}
 \end{table}
 
-\subsection{LLama-3.1-8B-Instruct e Gemma-2-9B-IT on HaluEval}
+\subsection{LLama-3.1-8B-Instruct and Gemma-2-9B-IT on HaluEval}
 \begin{table}[H]
 \scriptsize
 \centering
-\caption{Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on HaluEval}
-\label{tab:results-he-llama-gemma}
 \begin{tabular}{|l l l l| c c c c|}
 \hline
 Trainer & Tester & Approach & Type & AccTr & AccTe & AurocTr & AurocTe \\
@@ -150,7 +148,25 @@ gemma-2-9b-it & Llama-3.1-8B-Instruct & One-For-All & hidden & 0.7129 & 0.7768 &
 Llama-3.1-8B-Instruct & gemma-2-9b-it & One-For-All & hidden & 0.7574 & 0.7052 & 0.8371 & 0.7714 \\
 \hline
 \end{tabular}
+\caption{Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on HaluEval}
+\label{tab:results-he-llama-gemma}
 \end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/grafici/accuracy_bars_unified_gemma_to_llama.pdf}
+    \caption{Gemma-2-9B-IT as Trainer, Llama-3.1-8B-Instruct as Tester}
+    \label{fig:gemma-to-llama-accuracy-bars}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/grafici/accuracy_bars_unified_llama_to_gemma.pdf}
+    \caption{Llama-3.1-8B-Instruct as Trainer, Gemma-2-9B-IT as Tester}
+    \label{fig:llama-to-gemma-accuracy-bars}
+\end{figure}
+
+
 
 \subsection{Cross-Domain Results}
 To further evaluate the generalizability of transferred probers, cross-domain experiments were conducted. In this context, the \textit{One-For-All} approach was evaluated by training the encoder on a source dataset ("Train Set") and applying it to project the activations of the \textbf{same source dataset}, but classifying them using the Teacher's Head specific to a different target dataset ("Head Set"). This scenario evaluates the \textbf{universality of the latent space}: it tests whether the representation of truth learned in one domain is compatible with the decision boundary learned in another domain.
@@ -213,8 +229,17 @@ HE & BBF & Llama & Gemma & hidden & 0.897 & 0.935 & 0.880 & 0.929 \\
 \label{tab:cross-domain-results}
 \end{table}
 
-\textcolor{red}{INSERIE GRAFICI}
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{images/grafici/fig_cross_domain_gemma-2-9b-it_to_Llama-3.1-8B-Instruct.pdf}
+    \caption{Cross-Domain Transfer: Gemma-2-9B-IT as Trainer, Llama-3.1-8B-Instruct as Tester}
+    \label{fig:cross-domain-gemma-to-llama}
+\end{figure}
 
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{images/grafici/fig_cross_domain_Llama-3.1-8B-Instruct_to_gemma-2-9b-it.pdf}
+    \caption{Cross-Domain Transfer: Llama-3.1-8B-Instruct as Trainer, Gemma-2-9B-IT as Tester}
+    \label{fig:cross-domain-llama-to-gemma}
+\end{figure}
 
 \section{Mitigation of Hallucinations}
 
@@ -323,6 +348,19 @@ Llama & Gemma & BBF & 0.0286 & 0.0261 & $-$8.7\% \\
 
 In the cross-model setting, the autoencoder and steering vectors are trained on a \textbf{source model} and applied to a different \textbf{target model}. Several alignment strategies for the representation spaces were tested: \textit{No alignment} (direct transfer), \textit{Linear}, \textit{MLP}, \textit{MLP (2-layer)}, and \textit{Procrustes}.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/grafici/gemma_results.pdf}
+    \caption{Cross-Model TruthX: Gemma}
+    \label{fig:TruthX-Gemma}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/grafici/llama_results.pdf}
+    \caption{Cross-Model TruthX: Llama}
+    \label{fig:TruthX-Llama}
+\end{figure}
 
 \subsection{SLiMTruth results}
 
@@ -418,3 +456,19 @@ Llama & Gemma & BBF & 13 & 0.0286 & 0.0548 & $+$91.6\% \\
 \end{table}
 
 In the cross-model setting, the SLiM module is trained on a \textbf{source model} and applied to a different \textbf{target model} via \textit{Procrustes alignment}. Tables~\ref{tab:slim-cross-model-gemma-to-llama} and~\ref{tab:slim-cross-model-llama-to-gemma} report the hallucination rates.
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/grafici/gemma_slim_results.pdf}
+    \caption{Cross-Model SLiMTruth: Gemma}
+    \label{fig:SLiMTruth-Gemma}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/grafici/llama_slim_results.pdf}
+    \caption{Cross-Model SLiMTruth: Llama}
+    \label{fig:SLiMTruth-Llama}
+\end{figure}
