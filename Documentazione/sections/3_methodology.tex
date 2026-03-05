@@ -43,25 +43,52 @@ The dataset is composed of:
 
 The final dataset is composed of 10,000 examples.
 
-\begin{table}[H] 
+\begin{figure}[H]
 \centering
 \vspace{0.2cm}
-\renewcommand{\arraystretch}{1.8}
-\begin{tabular}{|c|l|c|c|} 
-\hline 
- & & \textbf{Extrinsic} & \textbf{Intrinsic} \\ 
-\hline
-\multirow{3}{*}{\rotatebox{90}{\tiny \textbf{Type of hallucination}}} 
-& \textbf{Factual} & BeliefBankFacts & \\
-\cline{2-4}
-& \textbf{Logical} & & BeliefBankConstraints \\
-\cline{2-2} \cdashline{4-4} 
-& \textbf{Contextual} & & HaluEval \\
-\hline
-\end{tabular}
+\begin{tikzpicture}[font=\small]
+
+  % Universe rectangle
+  \draw[rounded corners=8pt, gray!40, thick] (-5.8,-2.4) rectangle (5.8,2.4);
+
+  % --- Extrinsic ellipse ---
+  \draw[fill=blue!8, draw=blue!55, thick]
+      (-3.0, 0) ellipse (2.3cm and 1.95cm);
+  \node[font=\bfseries, text=blue!75] at (-3.0, 1.62) {Extrinsic};
+
+  % BeliefBankFacts (Factual) node inside Extrinsic
+  \draw[fill=blue!20, draw=blue!55, rounded corners=4pt, thick]
+       (-4.35,-0.6) rectangle (-1.65, 0.6);
+  \node[font=\bfseries\scriptsize, align=center] at (-3.0, 0.22)
+      {BeliefBank Facts};
+  \node[font=\scriptsize\itshape, text=gray!95] at (-3.0,-0.25)
+      {Factual};
+
+  % --- Intrinsic ellipse ---
+  \draw[fill=orange!8, draw=orange!55, thick]
+      (3.0, 0) ellipse (2.3cm and 1.95cm);
+  \node[font=\bfseries, text=orange!75] at (3.0, 1.62) {Intrinsic};
+
+  % BeliefBankConstraints (Logical) node inside Intrinsic
+  \draw[fill=orange!20, draw=orange!55, rounded corners=4pt, thick]
+       (1.65, 0.12) rectangle (4.35, 1.22);
+  \node[font=\bfseries\scriptsize, align=center] at (3.0, 0.87)
+      {BeliefBank\\[-2pt]Constraints};
+  \node[font=\scriptsize\itshape, text=gray!95] at (3.0, 0.28)
+      {Logical};
+
+  % HaluEval (Contextual) node inside Intrinsic
+  \draw[fill=red!10, draw=red!45, rounded corners=4pt, thick]
+       (1.65,-1.22) rectangle (4.35,-0.12);
+  \node[font=\bfseries\scriptsize, align=center] at (3.0,-0.48)
+      {HaluEval};
+  \node[font=\scriptsize\itshape, text=gray!95] at (3.0,-0.90)
+      {Contextual};
+
+\end{tikzpicture}
 \caption{Hallucination types and corresponding datasets}
 \label{tab:dataset-hallucination-types}
-\end{table}
+\end{figure}
 
 \subsection{Activation Dataset Creation}
 Once the dataset of statements and their truthfulness labels was prepared, the next step was extracting internal activations from the models Llama-3.1-8B-Instruct \cite{LLama3} and gemma-2-9b-it \cite{Gemma2}. 
