@@ -20,7 +20,7 @@ Uso:
         --lr 5e-4 \\
         --target_layer 15 \\
         --lambda_nce 0.1 \\
-        --device cuda:0
+        --device cuda:2
 """
 
 import argparse
@@ -1268,7 +1268,7 @@ def main():
     parser.add_argument("--accumulation_steps", type=int, default=4, help="Gradient accumulation steps")
     parser.add_argument("--max_length", type=int, default=0, help="Lunghezza massima sequenza (0 = no troncamento)")
     parser.add_argument("--warmup_steps", type=int, default=100, help="Passi di warmup")
-    parser.add_argument("--device", type=str, default="cuda:0", help="Device")
+    parser.add_argument("--device", type=str, default="cuda:2", help="Device")
     parser.add_argument("--project_root", type=str, default=".", help="Root del progetto")
     parser.add_argument("--use_local_halueval", action="store_true", help="Usa HaluEval locale")
     parser.add_argument("--state_dim", type=int, default=1, help="Dimensione stato (1 = scalare)")
@@ -1312,6 +1312,8 @@ def main():
     )
 
     args = parser.parse_args()
+    if isinstance(args.device, str) and args.device.startswith("cuda") and torch.cuda.is_available():
+        torch.cuda.set_device(torch.device(args.device))
     project_root = os.path.abspath(args.project_root)
 
     loss_label = "Hybrid = λ_ce*CE + λ_nce*InfoNCE + λ_reg*Reg"

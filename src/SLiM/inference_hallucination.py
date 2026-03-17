@@ -16,7 +16,7 @@ Uso:
         --slim_checkpoint SteeringVectors/SLiM/.../slim_xxx.pth \
         --top_k 10 \
         --state_value 1.0 \
-        --device cuda:0
+        --device cuda:2
 """
 
 import argparse
@@ -1372,7 +1372,7 @@ def main():
 
     # Opzioni comuni
     parser.add_argument("--num_samples", type=int, default=-1, help="Campioni da valutare (-1 = tutti)")
-    parser.add_argument("--device", type=str, default="cuda:0", help="Device")
+    parser.add_argument("--device", type=str, default="cuda:2", help="Device")
     parser.add_argument("--project_root", type=str, default=".", help="Root progetto")
     parser.add_argument("--output_csv", type=str, default="SLiMExperiments.csv", help="File CSV output")
     parser.add_argument("--checkpoint_dir", type=str, default=None,
@@ -1385,6 +1385,8 @@ def main():
     )
 
     args = parser.parse_args()
+    if isinstance(args.device, str) and args.device.startswith("cuda") and torch.cuda.is_available():
+        torch.cuda.set_device(torch.device(args.device))
     project_root = os.path.abspath(args.project_root)
     output_csv = os.path.join(project_root, args.output_csv) if not os.path.isabs(args.output_csv) else args.output_csv
     failure_log = os.path.join(project_root, args.failure_log) if not os.path.isabs(args.failure_log) else args.failure_log

@@ -62,12 +62,24 @@ def create_bnb_config():
     return bnb_config
 
 
-def load_llm(model_name, bnb_config, local=False, dtype=torch.bfloat16, use_device_map=True, use_flash_attention=False, device="cuda"):
-    n_gpus = torch.cuda.device_count()
-    max_memory = {i: "10000MB" for i in range(n_gpus)}
+def load_llm(
+    model_name,
+    bnb_config,
+    local=False,
+    dtype=torch.bfloat16,
+    use_device_map=True,
+    use_flash_attention=False,
+    device="cuda:2",
+):
     attention = "flash_attention_2" if use_flash_attention else "eager"
     device_string = device if device.startswith("cuda") else PartialState().process_index
-    max_memory_config = max_memory if use_device_map else None
+    max_memory_config = None
+    if use_device_map and torch.cuda.is_available() and device.startswith("cuda"):
+        if ":" in device:
+            device_index = int(device.split(":")[1])
+        else:
+            device_index = torch.cuda.current_device()
+        max_memory_config = {device_index: "10000MB"}
 
     if not local:
         model = AutoModelForCausalLM.from_pretrained(
@@ -182,4 +194,3 @@ def load_activations(
     instance_ids = json.load(open(ids_path, "r"))
 
     return torch.load(act_dir, map_location="cuda"), instance_ids
-
