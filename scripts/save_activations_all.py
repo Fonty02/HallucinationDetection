@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+import argparse
 
 import torch
 
@@ -191,6 +192,22 @@ EXPERIMENT_LLAMA_HALU = {
 }
 
 
+EXPERIMENTS = {
+    "qwen_bb_facts": EXPERIMENT_QWEN_BB_FACTS,
+    "qwen_bb_constraints": EXPERIMENT_QWEN_BB_CONSTRAINTS,
+    "qwen_halu": EXPERIMENT_QWEN_HALU,
+    "falcon_bb_facts": EXPERIMENT_FALCON_BB_FACTS,
+    "falcon_bb_constraints": EXPERIMENT_FALCON_BB_CONSTRAINTS,
+    "falcon_halu": EXPERIMENT_FALCON_HALU,
+    "gemma_bb_facts": EXPERIMENT_GEMMA_BB_FACTS,
+    "gemma_bb_constraints": EXPERIMENT_GEMMA_BB_CONSTRAINTS,
+    "gemma_halu": EXPERIMENT_GEMMA_HALU,
+    "llama_bb_facts": EXPERIMENT_LLAMA_BB_FACTS,
+    "llama_bb_constraints": EXPERIMENT_LLAMA_BB_CONSTRAINTS,
+    "llama_halu": EXPERIMENT_LLAMA_HALU,
+}
+
+
 def run_experiment(cfg: dict) -> None:
     dtype = resolve_dtype(cfg["dtype"])
     device = cfg["device"]
@@ -216,19 +233,66 @@ def run_experiment(cfg: dict) -> None:
     )
 
 
+def get_experiment_cfg(experiment_id: str, max_samples: int = None, device: str = None) -> dict:
+    if experiment_id not in EXPERIMENTS:
+        available = ", ".join(EXPERIMENTS.keys())
+        raise ValueError(f"Unknown experiment '{experiment_id}'. Available: {available}")
+
+    cfg = dict(EXPERIMENTS[experiment_id])
+    if max_samples is not None:
+        cfg["max_samples"] = max_samples
+    if device is not None:
+        cfg["device"] = device
+    return cfg
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Run activation-saving experiments sequentially or one-by-one (HTC-friendly)."
+    )
+    parser.add_argument(
+        "--experiment",
+        type=str,
+        default="all",
+        help="Experiment id to run, or 'all' (default). Use --list to show ids.",
+    )
+    parser.add_argument(
+        "--list",
+        action="store_true",
+        help="List available experiment ids and exit.",
+    )
+    parser.add_argument(
+        "--max-samples",
+        type=int,
+        default=None,
+        help="Optional cap on number of samples per experiment.",
+    )
+    parser.add_argument(
+        "--device",
+        type=str,
+        default=None,
+        help="Optional device override (example: cuda:0, cuda:1, cpu).",
+    )
+    return parser.parse_args()
+
+
 def main():
-    run_experiment(EXPERIMENT_QWEN_BB_FACTS)
-    run_experiment(EXPERIMENT_QWEN_BB_CONSTRAINTS)
-    run_experiment(EXPERIMENT_QWEN_HALU)
-    run_experiment(EXPERIMENT_FALCON_BB_FACTS)
-    run_experiment(EXPERIMENT_FALCON_BB_CONSTRAINTS)
-    run_experiment(EXPERIMENT_FALCON_HALU)
-    run_experiment(EXPERIMENT_GEMMA_BB_FACTS)
-    run_experiment(EXPERIMENT_GEMMA_BB_CONSTRAINTS)
-    run_experiment(EXPERIMENT_GEMMA_HALU)
-    run_experiment(EXPERIMENT_LLAMA_BB_FACTS)
-    run_experiment(EXPERIMENT_LLAMA_BB_CONSTRAINTS)
-    run_experiment(EXPERIMENT_LLAMA_HALU)
+    args = parse_args()
+
+    if args.list:
+        print("Available experiments:")
+        for exp_id, cfg in EXPERIMENTS.items():
+            print(f"- {exp_id}: {cfg['name']}")
+        return
+
+    if args.experiment == "all":
+        for exp_id in EXPERIMENTS:
+            cfg = get_experiment_cfg(exp_id, max_samples=args.max_samples, device=args.device)
+            run_experiment(cfg)
+        return
+
+    cfg = get_experiment_cfg(args.experiment, max_samples=args.max_samples, device=args.device)
+    run_experiment(cfg)
 
 
 

@@ -1,0 +1,24 @@
+common:
+  experiments:
+    - qwen_bb_facts
+    - qwen_bb_constraints
+    - qwen_halu
+    - falcon_bb_facts
+    - falcon_bb_constraints
+    - falcon_halu
+    - gemma_bb_facts
+    - gemma_bb_constraints
+    - gemma_halu
+    - llama_bb_facts
+    - llama_bb_constraints
+    - llama_halu
+  max_samples: [null]
+  device: [cuda:0]
+
+htc:
+  executable: scripts/O4A/run_save_activations.sh
+  output_dir: scripts/O4A/generated_save_activations
+  logs_dir: logs/save_activations_htc
+  request_cpus: 8
+  request_gpus: 1
+  max_jobs_per_file: 500
