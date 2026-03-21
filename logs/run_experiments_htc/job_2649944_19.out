@@ -1,0 +1,28 @@
+========================================
+Starting experiment: QwenToFalcon_BBF
+Seed: 511
+Device: cuda:0
+Workers: 8
+AMP: true
+Output: results/experiments/QwenToFalcon_BBF/seed_511
+========================================
+
+======================================================================
+[1/3] QwenToFalcon_BBF  |  layer_type=attn  |  seed=511
+======================================================================
+  -> Running ridge_regressor ... done (31.8s)
+  -> Running procrustes ... done (121.9s)
+  -> Running cka ... done (148.8s)
+  -> Running cca ... done (4716.5s)
+  -> Running hybrid ... FAILED (16.3s)
+  -> Running full_nonlinear ... FAILED (0.2s)
+  -> Running reduced_nonlinear ... FAILED (0.2s)
+  -> Running one_for_all ... FAILED (0.2s)
+
+======================================================================
+[2/3] QwenToFalcon_BBF  |  layer_type=mlp  |  seed=511
+======================================================================
+  -> Running ridge_regressor ... done (27.7s)
+  -> Running procrustes ... done (117.1s)
+  -> Running cka ... done (123.3s)
+  -> Running cca ... 

@@ -1,0 +1,16 @@
+========================================
+Starting experiment: QwenToGemma_BBC
+Seed: 24
+Device: cuda:0
+Workers: 8
+AMP: true
+Output: results/experiments/QwenToGemma_BBC/seed_24
+========================================
+
+======================================================================
+[1/3] QwenToGemma_BBC  |  layer_type=attn  |  seed=24
+======================================================================
+  -> Running ridge_regressor ... done (153.4s)
+  -> Running procrustes ... done (453.5s)
+  -> Running cka ... done (505.3s)
+  -> Running cca ... 

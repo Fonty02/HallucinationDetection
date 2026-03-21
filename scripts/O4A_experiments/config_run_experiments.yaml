@@ -36,10 +36,10 @@ htc:
   output_dir: scripts/O4A_experiments/generated_run_experiments
   logs_dir: logs/run_experiments_htc
   max_jobs_per_file: 500
-
   # Resource allocation - optimized for high RAM/VRAM/CPU usage
-  request_cpus: 16
+  request_cpus: 8
   request_gpus: 1
+  request_memory: 32768
 
   # GPU requirements (uncomment if your cluster supports these)
   # requirements: (CUDAGlobalMemoryMb >= 24000)
@@ -48,7 +48,7 @@ htc:
 # Performance optimization flags passed to the script
 optimization:
   # DataLoader settings for high-throughput data loading
-  num_workers: 16              # Match request_cpus for parallel data loading
+  num_workers: 8              # Match request_cpus for parallel data loading
   pin_memory: true            # Pin memory for faster GPU transfers
   prefetch_factor: 4          # Prefetch batches per worker
 

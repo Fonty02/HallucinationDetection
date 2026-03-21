@@ -1,0 +1,239 @@
+[W321 13:49:01.915591402 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())
+[W321 13:49:42.036679088 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())
+[W321 13:55:32.784209644 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())
+Traceback (most recent call last):
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/run_experiments.py", line 184, in run_all
+    result = fn(shared_data, cfg, save_dir=method_save_dir)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/hybrid.py", line 36, in run_hybrid
+    align_model, align_info = train_alignment_network(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/training.py", line 62, in train_alignment_network
+    ).to(DEVICE)
+      ^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1371, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 957, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1357, in convert
+    return t.to(
+           ^^^^^
+torch.AcceleratorError: CUDA error: invalid device ordinal
+GPU device may be out of range, do you have enough GPUs?
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/run_experiments.py", line 184, in run_all
+    result = fn(shared_data, cfg, save_dir=method_save_dir)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/full_nonlinear.py", line 24, in run_full_nonlinear
+    prober, prober_info = train_mlp_prober(
+                          ^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/training.py", line 141, in train_mlp_prober
+    ).to(DEVICE)
+      ^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1371, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 957, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1357, in convert
+    return t.to(
+           ^^^^^
+torch.AcceleratorError: CUDA error: invalid device ordinal
+GPU device may be out of range, do you have enough GPUs?
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/run_experiments.py", line 184, in run_all
+    result = fn(shared_data, cfg, save_dir=method_save_dir)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/reduced_nonlinear.py", line 36, in run_reduced_nonlinear
+    ae_trainer, ae_trainer_info = train_autoencoder(
+                                  ^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/training.py", line 228, in train_autoencoder
+    ).to(DEVICE)
+      ^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1371, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 957, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1357, in convert
+    return t.to(
+           ^^^^^
+torch.AcceleratorError: CUDA error: invalid device ordinal
+GPU device may be out of range, do you have enough GPUs?
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/run_experiments.py", line 184, in run_all
+    result = fn(shared_data, cfg, save_dir=method_save_dir)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/one_for_all.py", line 178, in run_one_for_all
+    enc_trainer, head, teacher_info = _train_teacher_pipeline(
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/one_for_all.py", line 28, in _train_teacher_pipeline
+    encoder = Encoder(input_dim, cfg["encoder_latent_dim"], cfg["encoder_hidden_dim"], cfg["encoder_dropout"]).to(DEVICE)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1371, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 957, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1357, in convert
+    return t.to(
+           ^^^^^
+torch.AcceleratorError: CUDA error: invalid device ordinal
+GPU device may be out of range, do you have enough GPUs?
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+[W321 14:31:13.953915456 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())
+[W321 14:31:46.047549483 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())
+[W321 14:32:21.572374481 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())
+[W321 14:38:04.356578626 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())
+Traceback (most recent call last):
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/run_experiments.py", line 184, in run_all
+    result = fn(shared_data, cfg, save_dir=method_save_dir)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/hybrid.py", line 36, in run_hybrid
+    align_model, align_info = train_alignment_network(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/training.py", line 62, in train_alignment_network
+    ).to(DEVICE)
+      ^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1371, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 957, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1357, in convert
+    return t.to(
+           ^^^^^
+torch.AcceleratorError: CUDA error: invalid device ordinal
+GPU device may be out of range, do you have enough GPUs?
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/run_experiments.py", line 184, in run_all
+    result = fn(shared_data, cfg, save_dir=method_save_dir)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/full_nonlinear.py", line 24, in run_full_nonlinear
+    prober, prober_info = train_mlp_prober(
+                          ^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/training.py", line 141, in train_mlp_prober
+    ).to(DEVICE)
+      ^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1371, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 957, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1357, in convert
+    return t.to(
+           ^^^^^
+torch.AcceleratorError: CUDA error: invalid device ordinal
+GPU device may be out of range, do you have enough GPUs?
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/run_experiments.py", line 184, in run_all
+    result = fn(shared_data, cfg, save_dir=method_save_dir)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/reduced_nonlinear.py", line 36, in run_reduced_nonlinear
+    ae_trainer, ae_trainer_info = train_autoencoder(
+                                  ^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/training.py", line 228, in train_autoencoder
+    ).to(DEVICE)
+      ^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1371, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 957, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1357, in convert
+    return t.to(
+           ^^^^^
+torch.AcceleratorError: CUDA error: invalid device ordinal
+GPU device may be out of range, do you have enough GPUs?
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+Traceback (most recent call last):
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/run_experiments.py", line 184, in run_all
+    result = fn(shared_data, cfg, save_dir=method_save_dir)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/one_for_all.py", line 178, in run_one_for_all
+    enc_trainer, head, teacher_info = _train_teacher_pipeline(
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/src/o4a/methods/one_for_all.py", line 28, in _train_teacher_pipeline
+    encoder = Encoder(input_dim, cfg["encoder_latent_dim"], cfg["encoder_hidden_dim"], cfg["encoder_dropout"]).to(DEVICE)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1371, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 930, in _apply
+    module._apply(fn)
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 957, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1357, in convert
+    return t.to(
+           ^^^^^
+torch.AcceleratorError: CUDA error: invalid device ordinal
+GPU device may be out of range, do you have enough GPUs?
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+[W321 15:10:00.526662271 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())
+[W321 15:10:25.697492041 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())
+[W321 15:10:48.339579877 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())
+[W321 15:16:40.910585050 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())
