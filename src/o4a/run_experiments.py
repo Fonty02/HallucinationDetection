@@ -2,70 +2,40 @@
 
 import argparse
 import csv
-import json
 import os
 import sys
 import time
 import traceback
 
-if __package__ in (None, ""):
-    # Allow running as a script: python src/o4a/run_experiments.py
-    _SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    if _SRC_DIR not in sys.path:
-        sys.path.insert(0, _SRC_DIR)
-    from o4a.config import (
-        EXPERIMENTS,
-        LAYER_TYPES,
-        METHODS,
-        METRICS,
-        SEED,
-        ROOT_DIR,
-        RIDGE_REGRESSOR_CONFIG,
-        PROCRUSTES_CONFIG,
-        CKA_CONFIG,
-        CCA_CONFIG,
-        HYBRID_CONFIG,
-        FULL_NONLINEAR_CONFIG,
-        REDUCED_NONLINEAR_CONFIG,
-        ONE_FOR_ALL_CONFIG,
-    )
-    from o4a.data import prepare_shared_data, set_seed
+_SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _SRC_DIR not in sys.path:
+    sys.path.insert(0, _SRC_DIR)
 
-    from o4a.methods.ridge_regressor import run_ridge_regressor
-    from o4a.methods.procrustes import run_procrustes
-    from o4a.methods.cka import run_cka
-    from o4a.methods.cca import run_cca
-    from o4a.methods.hybrid import run_hybrid
-    from o4a.methods.full_nonlinear import run_full_nonlinear
-    from o4a.methods.reduced_nonlinear import run_reduced_nonlinear
-    from o4a.methods.one_for_all import run_one_for_all
-else:
-    from .config import (
-        EXPERIMENTS,
-        LAYER_TYPES,
-        METHODS,
-        METRICS,
-        SEED,
-        ROOT_DIR,
-        RIDGE_REGRESSOR_CONFIG,
-        PROCRUSTES_CONFIG,
-        CKA_CONFIG,
-        CCA_CONFIG,
-        HYBRID_CONFIG,
-        FULL_NONLINEAR_CONFIG,
-        REDUCED_NONLINEAR_CONFIG,
-        ONE_FOR_ALL_CONFIG,
-    )
-    from .data import prepare_shared_data, set_seed
-
-    from .methods.ridge_regressor import run_ridge_regressor
-    from .methods.procrustes import run_procrustes
-    from .methods.cka import run_cka
-    from .methods.cca import run_cca
-    from .methods.hybrid import run_hybrid
-    from .methods.full_nonlinear import run_full_nonlinear
-    from .methods.reduced_nonlinear import run_reduced_nonlinear
-    from .methods.one_for_all import run_one_for_all
+from o4a.config import (
+    EXPERIMENTS,
+    LAYER_TYPES,
+    METHODS,
+    METRICS,
+    SEED,
+    ROOT_DIR,
+    RIDGE_REGRESSOR_CONFIG,
+    PROCRUSTES_CONFIG,
+    CKA_CONFIG,
+    CCA_CONFIG,
+    HYBRID_CONFIG,
+    FULL_NONLINEAR_CONFIG,
+    REDUCED_NONLINEAR_CONFIG,
+    ONE_FOR_ALL_CONFIG,
+)
+from o4a.data import prepare_shared_data, set_seed
+from o4a.methods.ridge_regressor import run_ridge_regressor
+from o4a.methods.procrustes import run_procrustes
+from o4a.methods.cka import run_cka
+from o4a.methods.cca import run_cca
+from o4a.methods.hybrid import run_hybrid
+from o4a.methods.full_nonlinear import run_full_nonlinear
+from o4a.methods.reduced_nonlinear import run_reduced_nonlinear
+from o4a.methods.one_for_all import run_one_for_all
 
 # Mapping from method name → (function, config)
 METHOD_REGISTRY = {
@@ -219,21 +189,9 @@ def main():
                         help="Output CSV path (REQUIRED - passed by HTC)")
     args = parser.parse_args()
 
-    # Debug: Show which mode was used and parameters from HTC
-    print(f"[DEBUG] Execution mode: {'script' if __package__ in (None, '') else 'module'}")
     print(f"[DEBUG] SEED (from O4A_SEED): {SEED}")
-    print(f"[DEBUG] DEVICE (from O4A_DEVICE): {DEVICE}")
     print(f"[DEBUG] Experiments: {args.experiments}")
     print(f"[DEBUG] Output: {args.output}")
-
-    # Apply performance optimizations if available
-    try:
-        from .data import apply_performance_optimizations
-        opt_settings = apply_performance_optimizations()
-        if any(opt_settings.values()):
-            print(f"Performance optimizations: {opt_settings}")
-    except ImportError:
-        pass
 
     # Filter experiments - MUST be provided
     exps = {k: v for k, v in EXPERIMENTS.items() if k in args.experiments}
