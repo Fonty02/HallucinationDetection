@@ -208,24 +208,11 @@ def run_all(
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Run hallucination detection experiments")
-    parser.add_argument("--experiments", nargs="+", default=None,
-                        help="Subset of experiment names to run (default: all)")
-    parser.add_argument("--layer-types", nargs="+", default=None,
-                        choices=LAYER_TYPES, help="Subset of layer types (default: all)")
-    parser.add_argument("--methods", nargs="+", default=None,
-                        choices=list(METHOD_REGISTRY.keys()), help="Subset of methods (default: all)")
-    parser.add_argument("--output", default="experiments_results.csv",
-                        help="Output CSV path (default: experiments_results.csv)")
-    parser.add_argument("--save-dir", default=DEFAULT_SAVE_DIR,
-                        help="Directory for model checkpoints (default: saved_models/). Use 'none' to disable.")
-    parser.add_argument("--seed", type=int, default=None,
-                        help="Single seed to run (default: all seeds from config). "
-                             "Can also be set via O4A_SEED environment variable.")
-    parser.add_argument("--task", choices=["layer_study"], default=None,
-                        help="Run a notebook analysis task and exit.")
-    parser.add_argument("--task-config", default=None,
-                        help="Optional JSON config path for the task.")
+    parser = argparse.ArgumentParser(description="Run hallucination detection experiments via HTC")
+    parser.add_argument("--experiments", nargs="+", required=True,
+                        help="Experiment name(s) to run (REQUIRED - passed by HTC)")
+    parser.add_argument("--output", required=True,
+                        help="Output CSV path (REQUIRED - passed by HTC)")
     args = parser.parse_args()
 
     # Apply performance optimizations if available
@@ -237,38 +224,22 @@ def main():
     except ImportError:
         pass
 
-    if args.task:
-        task_cfg = None
-        if args.task_config:
-            with open(args.task_config, "r", encoding="utf-8") as f:
-                task_cfg = json.load(f)
-        print(f"Unknown task: {args.task}")
-        return
+    # Filter experiments - MUST be provided
+    exps = {k: v for k, v in EXPERIMENTS.items() if k in args.experiments}
+    if not exps:
+        print(f"ERROR: No matching experiments found.\nRequested: {args.experiments}\nAvailable: {list(EXPERIMENTS.keys())}")
+        sys.exit(1)
 
-    # Filter experiments if specified
-    exps = EXPERIMENTS
-    if args.experiments:
-        exps = {k: v for k, v in EXPERIMENTS.items() if k in args.experiments}
-        if not exps:
-            print(f"No matching experiments found. Available: {list(EXPERIMENTS.keys())}")
-            sys.exit(1)
-
-    sd = None if args.save_dir.lower() == "none" else args.save_dir
-
-    # Handle seed: CLI arg > env var > all seeds
-    seed_override = args.seed
-    if seed_override is None:
-        env_seed = os.environ.get("O4A_SEED")
-        if env_seed is not None:
-            seed_override = int(env_seed)
-
+    # All parameters come from HTC via environment variables set in config.py
+    # SEED and DEVICE are mandatory and enforced in config.py
+    # LAYER_TYPES and METHODS use defaults from config.py
     run_all(
         experiments=exps,
-        layer_types=args.layer_types,
-        methods=args.methods,
+        layer_types=LAYER_TYPES,
+        methods=METHODS,
         output_csv=args.output,
-        save_dir=sd,
-        seeds=[seed_override] if seed_override is not None else None,
+        save_dir=DEFAULT_SAVE_DIR,
+        seeds=[SEED],  # Single seed from O4A_SEED env var (mandatory)
     )
 
 

@@ -1,6 +1,7 @@
 #!/bin/bash
 # HTCondor wrapper script for run_experiments.py
-# Optimized for high RAM, VRAM, and CPU utilization
+# MUST be launched via HTC with all arguments provided
+# No defaults - all parameters come from HTCondor
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -13,16 +14,30 @@ if [ -f ".venv/bin/activate" ]; then
     source .venv/bin/activate
 fi
 
-# Parse arguments
+# Arguments MUST be provided by HTC (9 arguments expected)
+if [ $# -lt 9 ]; then
+    echo "ERROR: Insufficient arguments. HTC must provide exactly 9 arguments:"
+    echo "  1. EXPERIMENT_NAME (e.g., QwenToFalcon_BBC)"
+    echo "  2. SEED (e.g., 2)"
+    echo "  3. DEVICE (e.g., cuda:0)"
+    echo "  4. NUM_WORKERS (e.g., 4)"
+    echo "  5. PIN_MEMORY (e.g., true)"
+    echo "  6. PREFETCH_FACTOR (e.g., 4)"
+    echo "  7. CUDNN_BENCHMARK (e.g., true)"
+    echo "  8. USE_AMP (e.g., true)"
+    echo "  9. COMPILE_MODEL (e.g., false)"
+    exit 1
+fi
+
 EXPERIMENT_NAME="$1"
 SEED="$2"
-DEVICE="${3:-cuda:0}"
-NUM_WORKERS="${4:-8}"
-PIN_MEMORY="${5:-true}"
-PREFETCH_FACTOR="${6:-4}"
-CUDNN_BENCHMARK="${7:-true}"
-USE_AMP="${8:-true}"
-COMPILE_MODEL="${9:-false}"
+DEVICE="$3"
+NUM_WORKERS="$4"
+PIN_MEMORY="$5"
+PREFETCH_FACTOR="$6"
+CUDNN_BENCHMARK="$7"
+USE_AMP="$8"
+COMPILE_MODEL="$9"
 
 # ==================================================================
 # PERFORMANCE OPTIMIZATIONS

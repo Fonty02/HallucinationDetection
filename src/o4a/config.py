@@ -9,9 +9,17 @@ import torch
 
 SEED = 42
 SEEDS = [2, 4, 24, 42, 64, 67, 104, 123, 420, 511]
-# Default to the first visible CUDA device to mirror notebook behavior.
-# Override with O4A_DEVICE (e.g., "cuda:1") if needed.
-DEVICE = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
+# REQUIRED: Must be set via O4A_SEED environment variable (set by HTC job)
+_seed_str = os.environ.get("O4A_SEED")
+if not _seed_str:
+    raise RuntimeError("O4A_SEED environment variable not set. Must be launched via HTC.")
+SEED = int(_seed_str)
+
+# REQUIRED: Must be set via O4A_DEVICE environment variable (set by HTC job)
+_device_str = os.environ.get("O4A_DEVICE")
+if not _device_str:
+    raise RuntimeError("O4A_DEVICE environment variable not set. Must be launched via HTC.")
+DEVICE = torch.device(_device_str)
 
 # Match notebook training behavior (shallow best-state snapshots, etc.).
 NOTEBOOK_COMPAT = False
