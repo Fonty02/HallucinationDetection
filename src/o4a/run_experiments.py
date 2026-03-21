@@ -219,6 +219,13 @@ def main():
                         help="Output CSV path (REQUIRED - passed by HTC)")
     args = parser.parse_args()
 
+    # Debug: Show which mode was used and parameters from HTC
+    print(f"[DEBUG] Execution mode: {'script' if __package__ in (None, '') else 'module'}")
+    print(f"[DEBUG] SEED (from O4A_SEED): {SEED}")
+    print(f"[DEBUG] DEVICE (from O4A_DEVICE): {DEVICE}")
+    print(f"[DEBUG] Experiments: {args.experiments}")
+    print(f"[DEBUG] Output: {args.output}")
+
     # Apply performance optimizations if available
     try:
         from .data import apply_performance_optimizations
