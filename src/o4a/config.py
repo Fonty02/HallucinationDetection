@@ -4,24 +4,25 @@ import os
 import torch
 
 # ==================================================================
-# GLOBAL CONSTANTS
+# PARAMETERS FROM HTC (via environment variables - MANDATORY)
 # ==================================================================
+# These MUST be set by the HTC job via bash script
+# No hardcoded defaults, no fallbacks
 
-SEED = 42
-SEEDS = [2, 4, 24, 42, 64, 67, 104, 123, 420, 511]
-# REQUIRED: Must be set via O4A_SEED environment variable (set by HTC job)
 _seed_str = os.environ.get("O4A_SEED")
 if not _seed_str:
     raise RuntimeError("O4A_SEED environment variable not set. Must be launched via HTC.")
 SEED = int(_seed_str)
 
-# REQUIRED: Must be set via O4A_DEVICE environment variable (set by HTC job)
 _device_str = os.environ.get("O4A_DEVICE")
 if not _device_str:
     raise RuntimeError("O4A_DEVICE environment variable not set. Must be launched via HTC.")
 DEVICE = torch.device(_device_str)
 
-# Match notebook training behavior (shallow best-state snapshots, etc.).
+# ==================================================================
+# STATIC CONSTANTS (not configurable, same for all jobs)
+# ==================================================================
+
 NOTEBOOK_COMPAT = False
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 CACHE_DIR_NAME = "activation_cache"

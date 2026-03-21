@@ -18,7 +18,6 @@ if __package__ in (None, ""):
         LAYER_TYPES,
         METHODS,
         METRICS,
-        SEEDS,
         ROOT_DIR,
         RIDGE_REGRESSOR_CONFIG,
         PROCRUSTES_CONFIG,
@@ -46,7 +45,6 @@ else:
         METHODS,
         METRICS,
         SEED,
-        SEEDS,
         ROOT_DIR,
         RIDGE_REGRESSOR_CONFIG,
         PROCRUSTES_CONFIG,
@@ -114,14 +112,19 @@ def run_all(
 
     Parameters
     ----------
-    seeds : list[int] | None
-        List of seeds to run. If None, uses SEEDS from config.
+    seeds : list[int]
+        Seeds to run. REQUIRED - must be passed as [SEED] from main().
+        SEED comes from O4A_SEED environment variable (set by HTC).
     """
     experiments = experiments or EXPERIMENTS
     layer_types = layer_types or LAYER_TYPES
     methods_override = methods is not None
     methods = methods or METHODS
-    seeds_to_run = seeds if seeds is not None else SEEDS
+
+    # Seeds MUST be provided (from O4A_SEED via HTC)
+    if seeds is None:
+        raise RuntimeError("seeds parameter is required. Must be passed from O4A_SEED environment variable via HTC.")
+    seeds_to_run = seeds
 
     header = _build_csv_header()
     rows = []
