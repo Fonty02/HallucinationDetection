@@ -18,6 +18,7 @@ if __package__ in (None, ""):
         LAYER_TYPES,
         METHODS,
         METRICS,
+        SEED,
         ROOT_DIR,
         RIDGE_REGRESSOR_CONFIG,
         PROCRUSTES_CONFIG,
