@@ -105,16 +105,23 @@ def run_all(
     methods: list[str] | None = None,
     output_csv: str = "experiments_results.csv",
     save_dir: str | None = DEFAULT_SAVE_DIR,
+    seeds: list[int] | None = None,
 ):
     """
-    Main entry point. For each (experiment, layer_type) pair, prepare shared
+    Main entry point. For each (experiment, layer_type, seed) tuple, prepare shared
     data once and run all requested methods. Results are accumulated and
     written to a CSV file.
+
+    Parameters
+    ----------
+    seeds : list[int] | None
+        List of seeds to run. If None, uses SEEDS from config.
     """
     experiments = experiments or EXPERIMENTS
     layer_types = layer_types or LAYER_TYPES
     methods_override = methods is not None
     methods = methods or METHODS
+    seeds_to_run = seeds if seeds is not None else SEEDS
 
     header = _build_csv_header()
     rows = []
@@ -128,12 +135,12 @@ def run_all(
     writer.writeheader()
     out_f.flush()
 
-    total = len(experiments) * len(layer_types) * len(SEEDS)
+    total = len(experiments) * len(layer_types) * len(seeds_to_run)
     done = 0
 
     for exp_name, exp_cfg in experiments.items():
         for lt in layer_types:
-            for seed in SEEDS:
+            for seed in seeds_to_run:
                 done += 1
                 print(f"\n{'='*70}")
                 print(f"[{done}/{total}] {exp_name}  |  layer_type={lt}  |  seed={seed}")
@@ -212,11 +219,23 @@ def main():
                         help="Output CSV path (default: experiments_results.csv)")
     parser.add_argument("--save-dir", default=DEFAULT_SAVE_DIR,
                         help="Directory for model checkpoints (default: saved_models/). Use 'none' to disable.")
+    parser.add_argument("--seed", type=int, default=None,
+                        help="Single seed to run (default: all seeds from config). "
+                             "Can also be set via O4A_SEED environment variable.")
     parser.add_argument("--task", choices=["layer_study"], default=None,
                         help="Run a notebook analysis task and exit.")
     parser.add_argument("--task-config", default=None,
                         help="Optional JSON config path for the task.")
     args = parser.parse_args()
+
+    # Apply performance optimizations if available
+    try:
+        from .data import apply_performance_optimizations
+        opt_settings = apply_performance_optimizations()
+        if any(opt_settings.values()):
+            print(f"Performance optimizations: {opt_settings}")
+    except ImportError:
+        pass
 
     if args.task:
         task_cfg = None
@@ -236,12 +255,20 @@ def main():
 
     sd = None if args.save_dir.lower() == "none" else args.save_dir
 
+    # Handle seed: CLI arg > env var > all seeds
+    seed_override = args.seed
+    if seed_override is None:
+        env_seed = os.environ.get("O4A_SEED")
+        if env_seed is not None:
+            seed_override = int(env_seed)
+
     run_all(
         experiments=exps,
         layer_types=args.layer_types,
         methods=args.methods,
         output_csv=args.output,
         save_dir=sd,
+        seeds=[seed_override] if seed_override is not None else None,
     )
 
 

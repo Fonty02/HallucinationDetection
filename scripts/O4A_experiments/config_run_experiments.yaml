@@ -1,0 +1,54 @@
+# Configuration for run_experiments HTC job generation
+# Each job is a combination of (trainer, tester, dataset, seed)
+
+common:
+  # LLM models available for trainer/tester roles
+  llms:
+    - Qwen2.5-7B
+    - Falcon3-7B-Base
+    - gemma-2-9b-it
+    - Llama-3.1-8B-Instruct
+
+  # Datasets for hallucination detection
+  datasets:
+    - belief_bank_constraints
+    - belief_bank_facts
+    - halu_eval
+
+  # Seeds for reproducibility (from config.py SEEDS)
+  seeds:
+    - 2
+    - 4
+    - 24
+    - 42
+    - 64
+    - 67
+    - 104
+    - 123
+    - 420
+    - 511
+
+  # Device configuration
+  device: cuda:0
+
+htc:
+  executable: scripts/O4A_experiments/run_experiments.sh
+  output_dir: scripts/O4A_experiments/generated_run_experiments
+  logs_dir: logs/run_experiments_htc
+  max_jobs_per_file: 500
+
+  # Resource allocation - optimized for high RAM/VRAM/CPU usage
+  request_cpus: 16
+  request_gpus: 1
+
+  # GPU requirements (uncomment if your cluster supports these)
+  # requirements: (CUDAGlobalMemoryMb >= 24000)
+  # +GPUJobLength: "long"
+
+# Performance optimization flags passed to the script
+optimization:
+  # DataLoader settings for high-throughput data loading
+  num_workers: 16              # Match request_cpus for parallel data loading
+  pin_memory: true            # Pin memory for faster GPU transfers
+  prefetch_factor: 4          # Prefetch batches per worker
+

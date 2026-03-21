@@ -16,17 +16,79 @@ from .config import (
 
 
 # ==================================================================
+# PERFORMANCE OPTIMIZATION HELPERS
+# ==================================================================
+
+def apply_performance_optimizations() -> dict:
+    """
+    Apply PyTorch performance optimizations based on environment variables.
+    Returns a dict of applied settings for logging.
+    """
+    settings = {}
+
+    # cuDNN benchmark mode - faster but non-deterministic
+    cudnn_benchmark = os.environ.get("O4A_CUDNN_BENCHMARK", "false").lower() == "true"
+    if cudnn_benchmark and torch.cuda.is_available():
+        torch.backends.cudnn.benchmark = True
+        torch.backends.cudnn.deterministic = False
+        settings["cudnn_benchmark"] = True
+    else:
+        settings["cudnn_benchmark"] = False
+
+    # TF32 for Ampere+ GPUs (faster matrix ops)
+    if torch.cuda.is_available():
+        torch.backends.cuda.matmul.allow_tf32 = True
+        torch.backends.cudnn.allow_tf32 = True
+        settings["tf32"] = True
+
+    # torch.compile settings (PyTorch 2.0+)
+    compile_model = os.environ.get("O4A_COMPILE_MODEL", "false").lower() == "true"
+    settings["compile_model"] = compile_model
+
+    # Mixed precision settings
+    use_amp = os.environ.get("O4A_USE_AMP", "false").lower() == "true"
+    settings["use_amp"] = use_amp
+
+    return settings
+
+
+def get_dataloader_kwargs() -> dict:
+    """
+    Get optimized DataLoader kwargs based on environment variables.
+    For high RAM/CPU utilization with parallel data loading.
+    """
+    num_workers = int(os.environ.get("O4A_NUM_WORKERS", "0"))
+    pin_memory = os.environ.get("O4A_PIN_MEMORY", "false").lower() == "true"
+    prefetch_factor = int(os.environ.get("O4A_PREFETCH_FACTOR", "2"))
+
+    kwargs = {
+        "num_workers": num_workers,
+        "pin_memory": pin_memory and torch.cuda.is_available(),
+    }
+
+    # prefetch_factor only valid when num_workers > 0
+    if num_workers > 0:
+        kwargs["prefetch_factor"] = prefetch_factor
+        kwargs["persistent_workers"] = True  # Keep workers alive between batches
+
+    return kwargs
+
+
+# ==================================================================
 # REPRODUCIBILITY
 # ==================================================================
 
-def set_seed(seed: int = SEED) -> None:
+def set_seed(seed: int = SEED, deterministic: bool = True) -> None:
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
+    # Only set deterministic mode if not using cudnn_benchmark optimization
+    cudnn_benchmark = os.environ.get("O4A_CUDNN_BENCHMARK", "false").lower() == "true"
+    if deterministic and not cudnn_benchmark:
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
     os.environ["PYTHONHASHSEED"] = str(seed)
 
 
