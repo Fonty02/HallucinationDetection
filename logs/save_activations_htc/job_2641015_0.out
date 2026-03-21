@@ -1,6 +1,6 @@
 
 ================================================================================
-Qwen2.5-7B / belief_bank facts
+gemma-2-9b-it / belief_bank facts
 ================================================================================
 
 ----------------------------------------------------------------------------------------------------
@@ -8,7 +8,7 @@ Loading dataset belief_bank
 ----------------------------------------------------------------------------------------------------
 BeliefBank loaded with data_type='facts'
 ----------------------------------------------------------------------------------------------------
-Loading LLM Qwen/Qwen2.5-7B
+Loading LLM google/gemma-2-9b-it
 Using 4-bit quantization
 ----------------------------------------------------------------------------------------------------
 
@@ -16,23 +16,23 @@ Using 4-bit quantization
 QUANTIZATION
 
 : True
-Detected 28 layers in model
+Detected 42 layers in model
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 Hallucination Detection - Saving LLM's activations
 ----------------------------------------------------------------------------------------------------
 
 0. Prepare folders
-Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/Qwen2.5-7B/belief_bank_facts/activation_hidden
-Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/Qwen2.5-7B/belief_bank_facts/activation_mlp
-Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/Qwen2.5-7B/belief_bank_facts/activation_attn
-Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/Qwen2.5-7B/belief_bank_facts/generations
-Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/Qwen2.5-7B/belief_bank_facts/logits
+Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/gemma-2-9b-it/belief_bank_facts/activation_hidden
+Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/gemma-2-9b-it/belief_bank_facts/activation_mlp
+Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/gemma-2-9b-it/belief_bank_facts/activation_attn
+Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/gemma-2-9b-it/belief_bank_facts/generations
+Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/gemma-2-9b-it/belief_bank_facts/logits
 
 
 
 
-1. Saving Qwen/Qwen2.5-7B activations for layers [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
+1. Saving google/gemma-2-9b-it activations for layers [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41]
 Processing 27416 samples out of 27416 total
 Processing in 27416 batches of 1 samples
 
@@ -82284,5 +82284,5 @@ Saved intermediate labels after batch 27415
 Processing batch 27416/27416: samples 27415 to 27415
 Saved intermediate labels after batch 27416
 
-Saved hallucination labels to: /lustrehome/fonty/HallucinationDetection/activation_cache/Qwen2.5-7B/belief_bank_facts/generations/hallucination_labels.json
+Saved hallucination labels to: /lustrehome/fonty/HallucinationDetection/activation_cache/gemma-2-9b-it/belief_bank_facts/generations/hallucination_labels.json
 ----------------------------------------------------------------------------------------------------

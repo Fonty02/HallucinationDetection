@@ -1,13 +1,13 @@
 
 ================================================================================
-Falcon3-7B / halu_eval
+Llama-3.1-8B-Instruct / halu_eval
 ================================================================================
 
 ----------------------------------------------------------------------------------------------------
 Loading dataset halu_eval
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
-Loading LLM tiiuae/Falcon3-7B-Base
+Loading LLM meta-llama/Llama-3.1-8B-Instruct
 Using 4-bit quantization
 ----------------------------------------------------------------------------------------------------
 
@@ -15,23 +15,23 @@ Using 4-bit quantization
 QUANTIZATION
 
 : True
-Detected 28 layers in model
+Detected 32 layers in model
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 Hallucination Detection - Saving LLM's activations
 ----------------------------------------------------------------------------------------------------
 
 0. Prepare folders
-Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/Falcon3-7B-Base/halu_eval/activation_hidden
-Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/Falcon3-7B-Base/halu_eval/activation_mlp
-Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/Falcon3-7B-Base/halu_eval/activation_attn
-Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/Falcon3-7B-Base/halu_eval/generations
-Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/Falcon3-7B-Base/halu_eval/logits
+Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/Llama-3.1-8B-Instruct/halu_eval/activation_hidden
+Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/Llama-3.1-8B-Instruct/halu_eval/activation_mlp
+Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/Llama-3.1-8B-Instruct/halu_eval/activation_attn
+Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/Llama-3.1-8B-Instruct/halu_eval/generations
+Creating directory: /lustrehome/fonty/HallucinationDetection/activation_cache/Llama-3.1-8B-Instruct/halu_eval/logits
 
 
 
 
-1. Saving tiiuae/Falcon3-7B-Base activations for layers [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
+1. Saving meta-llama/Llama-3.1-8B-Instruct activations for layers [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
 Processing 10000 samples out of 10000 total
 Processing in 10000 batches of 1 samples
 
@@ -30035,5 +30035,5 @@ Saved intermediate labels after batch 9999
 Processing batch 10000/10000: samples 9999 to 9999
 Saved intermediate labels after batch 10000
 
-Saved hallucination labels to: /lustrehome/fonty/HallucinationDetection/activation_cache/Falcon3-7B-Base/halu_eval/generations/hallucination_labels.json
+Saved hallucination labels to: /lustrehome/fonty/HallucinationDetection/activation_cache/Llama-3.1-8B-Instruct/halu_eval/generations/hallucination_labels.json
 ----------------------------------------------------------------------------------------------------
