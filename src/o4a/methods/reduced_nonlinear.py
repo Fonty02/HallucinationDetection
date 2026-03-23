@@ -1,7 +1,5 @@
 """ReducedNonLinear: Autoencoder → alignment in latent space → MLPProber."""
 
-import os
-
 import torch
 
 from ..config import DEVICE, SEED, REDUCED_NONLINEAR_CONFIG
@@ -86,57 +84,5 @@ def run_reduced_nonlinear(shared_data: dict, config: dict = None, save_dir: str 
         pred_s = prober.predict(zs).cpu().numpy()
         proba_s = torch.sigmoid(prober(zs)).cpu().numpy()
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
-
-    # Save checkpoint
-    if save_dir is not None:
-        os.makedirs(save_dir, exist_ok=True)
-        checkpoint = {
-            "method": "reduced_nonlinear",
-            "autoencoder_trainer": {
-                "model_class": "Autoencoder",
-                "state_dict": ae_trainer.state_dict(),
-                "architecture": {
-                    "input_dim": trainer["X_train"].shape[1],
-                    "latent_dim": cfg["autoencoder_latent_dim"],
-                    "hidden_dim": cfg["autoencoder_hidden_dim"],
-                    "dropout": cfg["autoencoder_dropout"],
-                },
-                "training_info": ae_trainer_info,
-            },
-            "autoencoder_tester": {
-                "model_class": "Autoencoder",
-                "state_dict": ae_tester.state_dict(),
-                "architecture": {
-                    "input_dim": tester["X_train"].shape[1],
-                    "latent_dim": cfg["autoencoder_latent_dim"],
-                    "hidden_dim": cfg["autoencoder_hidden_dim"],
-                    "dropout": cfg["autoencoder_dropout"],
-                },
-                "training_info": ae_tester_info,
-            },
-            "alignment_network": {
-                "model_class": "AlignmentNetwork",
-                "state_dict": align_model.state_dict(),
-                "architecture": {
-                    "input_dim": cfg["autoencoder_latent_dim"],
-                    "output_dim": cfg["autoencoder_latent_dim"],
-                    "hidden_dim": cfg["alignment_hidden_dim"],
-                    "dropout": cfg["alignment_dropout"],
-                },
-                "training_info": align_info,
-            },
-            "prober": {
-                "model_class": "MLPProber",
-                "state_dict": prober.state_dict(),
-                "architecture": {
-                    "input_dim": cfg["autoencoder_latent_dim"],
-                    "hidden_dim": cfg["prober_hidden_dim"],
-                    "dropout": cfg["prober_dropout"],
-                },
-                "training_info": prober_info,
-            },
-            "config": cfg,
-        }
-        torch.save(checkpoint, os.path.join(save_dir, "checkpoint.pt"))
 
     return {"trainer": metrics_trainer, "tester": metrics_tester}

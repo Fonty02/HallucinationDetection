@@ -1,7 +1,5 @@
 """Hybrid method: AlignmentNetwork (neural) + LogisticRegression prober."""
 
-import os
-
 import torch
 from sklearn.linear_model import LogisticRegression
 
@@ -48,32 +46,5 @@ def run_hybrid(shared_data: dict, config: dict = None, save_dir: str = None) -> 
     pred_s = clf.predict(projected)
     proba_s = clf.predict_proba(projected)[:, 1]
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
-
-    # Save checkpoint
-    if save_dir is not None:
-        os.makedirs(save_dir, exist_ok=True)
-        checkpoint = {
-            "method": "hybrid",
-            "prober": {
-                "model_class": "LogisticRegression",
-                "model": clf,
-                "params": clf.get_params(),
-                "n_features": trainer["X_train"].shape[1],
-                "n_iter": int(clf.n_iter_[0]),
-            },
-            "alignment_network": {
-                "model_class": "AlignmentNetwork",
-                "state_dict": align_model.state_dict(),
-                "architecture": {
-                    "input_dim": alignment["X_tester_train"].shape[1],
-                    "output_dim": alignment["X_trainer_train"].shape[1],
-                    "hidden_dim": cfg["alignment_hidden_dim"],
-                    "dropout": cfg["alignment_dropout"],
-                },
-                "training_info": align_info,
-            },
-            "config": cfg,
-        }
-        torch.save(checkpoint, os.path.join(save_dir, "checkpoint.pt"))
 
     return {"trainer": metrics_trainer, "tester": metrics_tester}

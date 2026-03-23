@@ -1,7 +1,5 @@
 """OneForAll: shared ClassificationHead, separate Encoders. No alignment needed."""
 
-import os
-
 import numpy as np
 import torch
 import torch.nn as nn
@@ -203,45 +201,5 @@ def run_one_for_all(shared_data: dict, config: dict = None, save_dir: str = None
         pred_s = head.predict(enc_tester(X_s)).cpu().numpy()
         proba_s = torch.sigmoid(head(enc_tester(X_s))).cpu().numpy()
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
-
-    # Save checkpoint
-    if save_dir is not None:
-        os.makedirs(save_dir, exist_ok=True)
-        checkpoint = {
-            "method": "one_for_all",
-            "encoder_trainer": {
-                "model_class": "Encoder",
-                "state_dict": enc_trainer.state_dict(),
-                "architecture": {
-                    "input_dim": trainer["X_train"].shape[1],
-                    "latent_dim": cfg["encoder_latent_dim"],
-                    "hidden_dim": cfg["encoder_hidden_dim"],
-                    "dropout": cfg["encoder_dropout"],
-                },
-                "training_info": teacher_info,
-            },
-            "encoder_tester": {
-                "model_class": "Encoder",
-                "state_dict": enc_tester.state_dict(),
-                "architecture": {
-                    "input_dim": tester["X_train"].shape[1],
-                    "latent_dim": cfg["encoder_latent_dim"],
-                    "hidden_dim": cfg["encoder_hidden_dim"],
-                    "dropout": cfg["encoder_dropout"],
-                },
-                "training_info": student_info,
-            },
-            "classification_head": {
-                "model_class": "ClassificationHead",
-                "state_dict": head.state_dict(),
-                "architecture": {
-                    "input_dim": cfg["encoder_latent_dim"],
-                    "hidden_dim": cfg["head_hidden_dim"],
-                    "dropout": cfg["head_dropout"],
-                },
-            },
-            "config": cfg,
-        }
-        torch.save(checkpoint, os.path.join(save_dir, "checkpoint.pt"))
 
     return {"trainer": metrics_trainer, "tester": metrics_tester}

@@ -1,7 +1,5 @@
 """FullNonLinear method: AlignmentNetwork + MLPProber (both non-linear, full dim)."""
 
-import os
-
 import torch
 
 from ..config import DEVICE, FULL_NONLINEAR_CONFIG
@@ -50,35 +48,5 @@ def run_full_nonlinear(shared_data: dict, config: dict = None, save_dir: str = N
         pred_s = prober.predict(X_proj_t).cpu().numpy()
         proba_s = torch.sigmoid(prober(X_proj_t)).cpu().numpy()
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
-
-    # Save checkpoint
-    if save_dir is not None:
-        os.makedirs(save_dir, exist_ok=True)
-        checkpoint = {
-            "method": "full_nonlinear",
-            "prober": {
-                "model_class": "MLPProber",
-                "state_dict": prober.state_dict(),
-                "architecture": {
-                    "input_dim": trainer["X_train"].shape[1],
-                    "hidden_dim": cfg["prober_hidden_dim"],
-                    "dropout": cfg["prober_dropout"],
-                },
-                "training_info": prober_info,
-            },
-            "alignment_network": {
-                "model_class": "AlignmentNetwork",
-                "state_dict": align_model.state_dict(),
-                "architecture": {
-                    "input_dim": alignment["X_tester_train"].shape[1],
-                    "output_dim": alignment["X_trainer_train"].shape[1],
-                    "hidden_dim": cfg["alignment_hidden_dim"],
-                    "dropout": cfg["alignment_dropout"],
-                },
-                "training_info": align_info,
-            },
-            "config": cfg,
-        }
-        torch.save(checkpoint, os.path.join(save_dir, "checkpoint.pt"))
 
     return {"trainer": metrics_trainer, "tester": metrics_tester}

@@ -1,8 +1,4 @@
 """RidgeRegressor method: LogisticRegression prober + Ridge alignment."""
-
-import os
-
-import torch
 from sklearn.linear_model import LogisticRegression, Ridge
 
 from ..config import SEED, RIDGE_REGRESSOR_CONFIG
@@ -49,28 +45,5 @@ def run_ridge_regressor(shared_data: dict, config: dict = None, save_dir: str = 
     pred_s = clf.predict(X_tester_proj)
     proba_s = clf.predict_proba(X_tester_proj)[:, 1]
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
-
-    # Save checkpoint
-    if save_dir is not None:
-        os.makedirs(save_dir, exist_ok=True)
-        checkpoint = {
-            "method": "ridge_regressor",
-            "prober": {
-                "model_class": "LogisticRegression",
-                "model": clf,
-                "params": clf.get_params(),
-                "n_features": trainer["X_train"].shape[1],
-                "n_iter": int(clf.n_iter_[0]),
-            },
-            "aligner": {
-                "model_class": "Ridge",
-                "model": aligner,
-                "params": aligner.get_params(),
-                "input_dim": alignment["X_tester_train"].shape[1],
-                "output_dim": alignment["X_trainer_train"].shape[1],
-            },
-            "config": cfg,
-        }
-        torch.save(checkpoint, os.path.join(save_dir, "checkpoint.pt"))
 
     return {"trainer": metrics_trainer, "tester": metrics_tester}
