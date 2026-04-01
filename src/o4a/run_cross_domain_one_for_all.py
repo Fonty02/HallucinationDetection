@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import gc
 import json
 import os
@@ -266,6 +267,68 @@ def run_cross_domain_one_for_all(
     return results
 
 
+def _build_csv_header() -> list[str]:
+    info_cols = [
+        "encoder_experiment",
+        "head_experiment",
+        "dataset_train",
+        "dataset_head",
+        "dataset_activation",
+        "layer_type",
+        "teacher_model",
+        "student_model",
+        "seed",
+        "device",
+        "head_source_mode",
+        "status",
+        "runtime_seconds",
+        "teacher_eval_samples",
+        "student_eval_samples",
+    ]
+    metric_cols = []
+    for role in ("teacher_on_eval", "student_adapter_on_eval"):
+        for metric in ("accuracy", "precision", "recall", "f1", "auroc", "confusion_matrix"):
+            metric_cols.append(f"{role}_{metric}")
+    return info_cols + metric_cols
+
+
+def _result_to_csv_row(result: dict[str, Any]) -> dict[str, Any]:
+    row = {
+        "encoder_experiment": result.get("encoder_experiment", ""),
+        "head_experiment": result.get("head_experiment", ""),
+        "dataset_train": result.get("dataset_train", ""),
+        "dataset_head": result.get("dataset_head", ""),
+        "dataset_activation": result.get("dataset_activation", ""),
+        "layer_type": result.get("layer_type", ""),
+        "teacher_model": result.get("teacher_model", ""),
+        "student_model": result.get("student_model", ""),
+        "seed": result.get("seed", ""),
+        "device": result.get("device", ""),
+        "head_source_mode": result.get("head_source_mode", ""),
+        "status": result.get("status", ""),
+        "runtime_seconds": result.get("runtime_seconds", ""),
+        "teacher_eval_samples": result.get("n_samples", {}).get("teacher_eval", ""),
+        "student_eval_samples": result.get("n_samples", {}).get("student_eval", ""),
+    }
+
+    eval_metrics = result.get("eval", {})
+    for role in ("teacher_on_eval", "student_adapter_on_eval"):
+        role_metrics = eval_metrics.get(role, {})
+        for metric in ("accuracy", "precision", "recall", "f1", "auroc"):
+            row[f"{role}_{metric}"] = role_metrics.get(metric, "")
+        confusion = role_metrics.get("confusion_matrix", "")
+        row[f"{role}_confusion_matrix"] = (
+            json.dumps(confusion, separators=(",", ":")) if confusion != "" else ""
+        )
+
+    if result.get("status") == "error":
+        for role in ("teacher_on_eval", "student_adapter_on_eval"):
+            for metric in ("accuracy", "precision", "recall", "f1", "auroc", "confusion_matrix"):
+                row[f"{role}_{metric}"] = "ERROR"
+
+    return row
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
@@ -289,7 +352,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         required=True,
-        help="Output JSON path.",
+        help="Output CSV path.",
     )
     parser.add_argument(
         "--activation-dataset",
@@ -325,11 +388,15 @@ def main() -> None:
     out_dir = os.path.dirname(args.output)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
-    with open(args.output, "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=2)
+    header = _build_csv_header()
+    with open(args.output, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=header)
+        writer.writeheader()
+        for result in results:
+            writer.writerow(_result_to_csv_row(result))
 
     ok_count = sum(1 for r in results if r.get("status") == "ok")
-    print(f"\n[INFO] Saved {len(results)} layer result(s) to: {args.output}")
+    print(f"\n[INFO] Saved {len(results)} layer result row(s) to CSV: {args.output}")
     print(f"[INFO] Successful layers: {ok_count}/{len(results)}")
 
 

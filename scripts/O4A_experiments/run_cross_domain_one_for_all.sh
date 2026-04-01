@@ -67,7 +67,7 @@ ulimit -n 65536 2>/dev/null || true
 
 RUN_ID="${ENCODER_EXPERIMENT}__activation__${ACTIVATION_DATASET}"
 OUTPUT_DIR="results/cross_domain_one_for_all/${RUN_ID}/seed_${SEED}"
-OUTPUT_JSON="${OUTPUT_DIR}/results.json"
+OUTPUT_CSV="${OUTPUT_DIR}/results.csv"
 mkdir -p "$OUTPUT_DIR"
 
 CMD=(
@@ -75,7 +75,7 @@ CMD=(
     src/o4a/run_cross_domain_one_for_all.py
     --encoder-experiment "$ENCODER_EXPERIMENT"
     --activation-dataset "$ACTIVATION_DATASET"
-    --output "$OUTPUT_JSON"
+    --output "$OUTPUT_CSV"
 )
 if [ ${#LAYER_TYPES_ARGS[@]} -gt 0 ]; then
     CMD+=(--layer-types "${LAYER_TYPES_ARGS[@]}")
@@ -106,7 +106,7 @@ if [ ${#LAYER_TYPES_ARGS[@]} -gt 0 ]; then
 else
     echo "Layer types: all (default)"
 fi
-echo "Output: $OUTPUT_JSON"
+echo "Output: $OUTPUT_CSV"
 echo "========================================"
 
 time "${CMD[@]}"
