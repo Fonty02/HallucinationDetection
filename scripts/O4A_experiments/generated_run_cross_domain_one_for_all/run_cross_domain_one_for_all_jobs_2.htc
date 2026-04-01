@@ -2,447 +2,447 @@ universe = vanilla
 executable = scripts/O4A_experiments/run_cross_domain_one_for_all.sh
 request_cpus = 8
 request_gpus = 1
-request_memory = 32768
+request_memory = 16000
 log = logs/run_cross_domain_one_for_all_htc/job_$(Cluster)_$(Process).log
 output = logs/run_cross_domain_one_for_all_htc/job_$(Cluster)_$(Process).out
 error = logs/run_cross_domain_one_for_all_htc/job_$(Cluster)_$(Process).err
-arguments = "GemmaToLlama_BBF GemmaToLlama_BBC 2 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF belief_bank_constraints 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_BBC 4 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF belief_bank_constraints 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_BBC 24 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF belief_bank_constraints 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_BBC 42 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF belief_bank_constraints 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_BBC 64 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF belief_bank_constraints 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_BBC 67 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF belief_bank_constraints 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_BBC 104 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF belief_bank_constraints 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_BBC 123 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF belief_bank_constraints 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_BBC 420 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF belief_bank_constraints 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_BBC 511 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF belief_bank_constraints 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_HE 2 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF halu_eval 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_HE 4 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF halu_eval 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_HE 24 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF halu_eval 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_HE 42 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF halu_eval 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_HE 64 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF halu_eval 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_HE 67 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF halu_eval 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_HE 104 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF halu_eval 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_HE 123 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF halu_eval 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_HE 420 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF halu_eval 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_BBF GemmaToLlama_HE 511 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF halu_eval 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBC 2 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_constraints 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBC 4 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_constraints 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBC 24 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_constraints 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBC 42 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_constraints 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBC 64 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_constraints 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBC 67 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_constraints 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBC 104 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_constraints 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBC 123 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_constraints 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBC 420 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_constraints 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBC 511 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_constraints 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBF 2 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_facts 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBF 4 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_facts 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBF 24 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_facts 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBF 42 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_facts 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBF 64 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_facts 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBF 67 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_facts 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBF 104 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_facts 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBF 123 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_facts 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBF 420 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_facts 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "GemmaToLlama_HE GemmaToLlama_BBF 511 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_HE belief_bank_facts 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_BBF 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC belief_bank_facts 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_BBF 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC belief_bank_facts 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_BBF 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC belief_bank_facts 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_BBF 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC belief_bank_facts 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_BBF 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC belief_bank_facts 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_BBF 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC belief_bank_facts 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_BBF 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC belief_bank_facts 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_BBF 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC belief_bank_facts 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_BBF 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC belief_bank_facts 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_BBF 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC belief_bank_facts 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_HE 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC halu_eval 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_HE 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC halu_eval 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_HE 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC halu_eval 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_HE 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC halu_eval 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_HE 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC halu_eval 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_HE 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC halu_eval 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_HE 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC halu_eval 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_HE 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC halu_eval 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_HE 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC halu_eval 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBC LlamaToQwen_HE 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBC halu_eval 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_BBC 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF belief_bank_constraints 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_BBC 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF belief_bank_constraints 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_BBC 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF belief_bank_constraints 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_BBC 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF belief_bank_constraints 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_BBC 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF belief_bank_constraints 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_BBC 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF belief_bank_constraints 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_BBC 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF belief_bank_constraints 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_BBC 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF belief_bank_constraints 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_BBC 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF belief_bank_constraints 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_BBC 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF belief_bank_constraints 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_HE 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF halu_eval 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_HE 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF halu_eval 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_HE 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF halu_eval 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_HE 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF halu_eval 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_HE 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF halu_eval 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_HE 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF halu_eval 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_HE 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF halu_eval 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_HE 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF halu_eval 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_HE 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF halu_eval 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_BBF LlamaToQwen_HE 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF halu_eval 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBC 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_constraints 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBC 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_constraints 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBC 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_constraints 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBC 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_constraints 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBC 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_constraints 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBC 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_constraints 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBC 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_constraints 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBC 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_constraints 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBC 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_constraints 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBC 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_constraints 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBF 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_facts 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBF 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_facts 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBF 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_facts 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBF 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_facts 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBF 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_facts 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBF 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_facts 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBF 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_facts 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBF 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_facts 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBF 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_facts 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToQwen_HE LlamaToQwen_BBF 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_HE belief_bank_facts 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_BBF 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC belief_bank_facts 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_BBF 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC belief_bank_facts 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_BBF 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC belief_bank_facts 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_BBF 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC belief_bank_facts 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_BBF 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC belief_bank_facts 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_BBF 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC belief_bank_facts 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_BBF 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC belief_bank_facts 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_BBF 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC belief_bank_facts 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_BBF 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC belief_bank_facts 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_BBF 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC belief_bank_facts 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_HE 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC halu_eval 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_HE 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC halu_eval 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_HE 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC halu_eval 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_HE 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC halu_eval 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_HE 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC halu_eval 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_HE 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC halu_eval 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_HE 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC halu_eval 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_HE 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC halu_eval 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_HE 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC halu_eval 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBC LlamaToFalcon_HE 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBC halu_eval 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_BBC 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF belief_bank_constraints 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_BBC 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF belief_bank_constraints 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_BBC 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF belief_bank_constraints 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_BBC 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF belief_bank_constraints 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_BBC 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF belief_bank_constraints 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_BBC 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF belief_bank_constraints 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_BBC 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF belief_bank_constraints 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_BBC 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF belief_bank_constraints 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_BBC 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF belief_bank_constraints 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_BBC 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF belief_bank_constraints 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_HE 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF halu_eval 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_HE 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF halu_eval 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_HE 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF halu_eval 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_HE 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF halu_eval 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_HE 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF halu_eval 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_HE 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF halu_eval 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_HE 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF halu_eval 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_HE 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF halu_eval 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_HE 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF halu_eval 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_BBF LlamaToFalcon_HE 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF halu_eval 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBC 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_constraints 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBC 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_constraints 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBC 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_constraints 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBC 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_constraints 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBC 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_constraints 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBC 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_constraints 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBC 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_constraints 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBC 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_constraints 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBC 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_constraints 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBC 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_constraints 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBF 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_facts 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBF 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_facts 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBF 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_facts 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBF 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_facts 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBF 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_facts 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBF 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_facts 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBF 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_facts 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBF 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_facts 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBF 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_facts 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToFalcon_HE LlamaToFalcon_BBF 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_HE belief_bank_facts 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_BBF 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC belief_bank_facts 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_BBF 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC belief_bank_facts 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_BBF 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC belief_bank_facts 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_BBF 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC belief_bank_facts 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_BBF 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC belief_bank_facts 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_BBF 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC belief_bank_facts 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_BBF 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC belief_bank_facts 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_BBF 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC belief_bank_facts 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_BBF 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC belief_bank_facts 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_BBF 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC belief_bank_facts 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_HE 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC halu_eval 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_HE 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC halu_eval 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_HE 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC halu_eval 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_HE 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC halu_eval 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_HE 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC halu_eval 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_HE 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC halu_eval 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_HE 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC halu_eval 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_HE 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC halu_eval 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_HE 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC halu_eval 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBC LlamaToGemma_HE 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBC halu_eval 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_BBC 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF belief_bank_constraints 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_BBC 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF belief_bank_constraints 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_BBC 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF belief_bank_constraints 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_BBC 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF belief_bank_constraints 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_BBC 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF belief_bank_constraints 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_BBC 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF belief_bank_constraints 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_BBC 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF belief_bank_constraints 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_BBC 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF belief_bank_constraints 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_BBC 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF belief_bank_constraints 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_BBC 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF belief_bank_constraints 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_HE 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF halu_eval 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_HE 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF halu_eval 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_HE 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF halu_eval 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_HE 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF halu_eval 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_HE 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF halu_eval 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_HE 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF halu_eval 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_HE 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF halu_eval 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_HE 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF halu_eval 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_HE 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF halu_eval 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_BBF LlamaToGemma_HE 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF halu_eval 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBC 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_constraints 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBC 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_constraints 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBC 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_constraints 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBC 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_constraints 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBC 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_constraints 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBC 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_constraints 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBC 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_constraints 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBC 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_constraints 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBC 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_constraints 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBC 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_constraints 511 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBF 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_facts 2 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBF 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_facts 4 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBF 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_facts 24 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBF 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_facts 42 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBF 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_facts 64 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBF 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_facts 67 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBF 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_facts 104 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBF 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_facts 123 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBF 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_facts 420 cuda:0 8 true 4 true true false"
 queue
-arguments = "LlamaToGemma_HE LlamaToGemma_BBF 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_HE belief_bank_facts 511 cuda:0 8 true 4 true true false"
 queue
