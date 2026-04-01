@@ -14,9 +14,9 @@ if [ -f ".venv/bin/activate" ]; then
     source .venv/bin/activate
 fi
 
-# Arguments MUST be provided by HTC (9 arguments expected)
+# Arguments MUST be provided by HTC (9 required + optional layer types)
 if [ $# -lt 9 ]; then
-    echo "ERROR: Insufficient arguments. HTC must provide exactly 9 arguments:"
+    echo "ERROR: Insufficient arguments. HTC must provide at least 9 arguments:"
     echo "  1. EXPERIMENT_NAME (e.g., QwenToFalcon_BBC)"
     echo "  2. SEED (e.g., 2)"
     echo "  3. DEVICE (e.g., cuda:0)"
@@ -26,6 +26,7 @@ if [ $# -lt 9 ]; then
     echo "  7. CUDNN_BENCHMARK (e.g., true)"
     echo "  8. USE_AMP (e.g., true)"
     echo "  9. COMPILE_MODEL (e.g., false)"
+    echo " 10+. Optional LAYER_TYPES (e.g., hidden or attn mlp hidden)"
     exit 1
 fi
 
@@ -38,6 +39,10 @@ PREFETCH_FACTOR="$6"
 CUDNN_BENCHMARK="$7"
 USE_AMP="$8"
 COMPILE_MODEL="$9"
+LAYER_TYPES_ARGS=()
+if [ "$#" -gt 9 ]; then
+    LAYER_TYPES_ARGS=("${@:10}")
+fi
 
 # ==================================================================
 # PERFORMANCE OPTIMIZATIONS
@@ -81,6 +86,9 @@ CMD=(
     --experiments "$EXPERIMENT_NAME"
     --output "${OUTPUT_DIR}/results.csv"
 )
+if [ ${#LAYER_TYPES_ARGS[@]} -gt 0 ]; then
+    CMD+=(--layer-types "${LAYER_TYPES_ARGS[@]}")
+fi
 
 # Add seed handling via environment (run_experiments.py should pick this up)
 export O4A_SEED="$SEED"
@@ -100,6 +108,11 @@ echo "Seed: $SEED"
 echo "Device: $DEVICE"
 echo "Workers: $NUM_WORKERS"
 echo "AMP: $USE_AMP"
+if [ ${#LAYER_TYPES_ARGS[@]} -gt 0 ]; then
+    echo "Layer types: ${LAYER_TYPES_ARGS[*]}"
+else
+    echo "Layer types: all (default)"
+fi
 echo "Output: $OUTPUT_DIR"
 echo "========================================"
 

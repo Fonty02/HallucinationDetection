@@ -187,10 +187,20 @@ def main():
                         help="Experiment name(s) to run (REQUIRED - passed by HTC)")
     parser.add_argument("--output", required=True,
                         help="Output CSV path (REQUIRED - passed by HTC)")
+    parser.add_argument(
+        "--layer-types",
+        nargs="+",
+        choices=LAYER_TYPES,
+        default=None,
+        help="Optional subset of layer types to run (default: all configured layer types).",
+    )
     args = parser.parse_args()
+
+    selected_layer_types = args.layer_types if args.layer_types else LAYER_TYPES
 
     print(f"[DEBUG] SEED (from O4A_SEED): {SEED}")
     print(f"[DEBUG] Experiments: {args.experiments}")
+    print(f"[DEBUG] Layer types: {selected_layer_types}")
     print(f"[DEBUG] Output: {args.output}")
 
     # Filter experiments - MUST be provided
@@ -204,7 +214,7 @@ def main():
     # LAYER_TYPES and METHODS use defaults from config.py
     run_all(
         experiments=exps,
-        layer_types=LAYER_TYPES,
+        layer_types=selected_layer_types,
         methods=METHODS,
         output_csv=args.output,
         save_dir=DEFAULT_SAVE_DIR,

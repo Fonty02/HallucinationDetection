@@ -1,4 +1,4 @@
-universe = vanilla
+﻿universe = vanilla
 executable = /lustrehome/fonty/HallucinationDetection/scripts/O4A_experiments/run_experiments.sh
 request_cpus = 8
 request_gpus = 1
@@ -7,723 +7,124 @@ log = logs/run_experiments_htc/job_$(Cluster)_$(Process).log
 output = logs/run_experiments_htc/job_$(Cluster)_$(Process).out
 error = logs/run_experiments_htc/job_$(Cluster)_$(Process).err
 initialdir = /lustrehome/fonty/HallucinationDetection
-arguments = "QwenToFalcon_BBC 2 cuda:0 8 true 4 true true false"
+
+arguments = "FalconToLlama_BBF 2 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBC 4 cuda:0 8 true 4 true true false"
+arguments = "FalconToLlama_BBF 4 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBC 24 cuda:0 8 true 4 true true false"
+arguments = "FalconToLlama_BBF 24 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBC 42 cuda:0 8 true 4 true true false"
+arguments = "FalconToLlama_BBF 42 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBC 64 cuda:0 8 true 4 true true false"
+arguments = "FalconToLlama_BBF 64 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBC 67 cuda:0 8 true 4 true true false"
+arguments = "FalconToLlama_BBF 67 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBC 104 cuda:0 8 true 4 true true false"
+arguments = "FalconToLlama_BBF 104 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBC 123 cuda:0 8 true 4 true true false"
+arguments = "FalconToLlama_BBF 123 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBC 420 cuda:0 8 true 4 true true false"
+arguments = "FalconToLlama_BBF 420 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBC 511 cuda:0 8 true 4 true true false"
+arguments = "FalconToLlama_BBF 511 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBF 2 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF 2 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBF 4 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF 4 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBF 24 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF 24 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBF 42 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF 42 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBF 64 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF 64 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBF 67 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF 67 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBF 104 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF 104 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBF 123 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF 123 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBF 420 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF 420 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_BBF 511 cuda:0 8 true 4 true true false"
+arguments = "GemmaToLlama_BBF 511 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_HE 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF 2 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_HE 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF 4 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_HE 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF 24 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_HE 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF 42 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_HE 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF 64 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_HE 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF 67 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_HE 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF 104 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_HE 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF 123 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_HE 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF 420 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToFalcon_HE 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToFalcon_BBF 511 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBC 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF 2 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBC 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF 4 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBC 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF 24 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBC 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF 42 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBC 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF 64 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBC 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF 67 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBC 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF 104 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBC 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF 123 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBC 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF 420 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBC 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToGemma_BBF 511 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBF 2 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF 2 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBF 4 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF 4 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBF 24 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF 24 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBF 42 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF 42 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBF 64 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF 64 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBF 67 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF 67 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBF 104 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF 104 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBF 123 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF 123 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBF 420 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF 420 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_BBF 511 cuda:0 8 true 4 true true false"
+arguments = "LlamaToQwen_BBF 511 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_HE 2 cuda:0 8 true 4 true true false"
+arguments = "QwenToLlama_BBF 2 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_HE 4 cuda:0 8 true 4 true true false"
+arguments = "QwenToLlama_BBF 4 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_HE 24 cuda:0 8 true 4 true true false"
+arguments = "QwenToLlama_BBF 24 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_HE 42 cuda:0 8 true 4 true true false"
+arguments = "QwenToLlama_BBF 42 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_HE 64 cuda:0 8 true 4 true true false"
+arguments = "QwenToLlama_BBF 64 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_HE 67 cuda:0 8 true 4 true true false"
+arguments = "QwenToLlama_BBF 67 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_HE 104 cuda:0 8 true 4 true true false"
+arguments = "QwenToLlama_BBF 104 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_HE 123 cuda:0 8 true 4 true true false"
+arguments = "QwenToLlama_BBF 123 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_HE 420 cuda:0 8 true 4 true true false"
+arguments = "QwenToLlama_BBF 420 cuda:0 8 true 4 true true false hidden"
 queue
-arguments = "QwenToGemma_HE 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBC 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBC 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBC 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBC 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBC 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBC 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBC 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBC 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBC 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBC 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBF 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBF 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBF 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBF 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBF 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBF 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBF 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBF 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBF 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_BBF 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_HE 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_HE 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_HE 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_HE 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_HE 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_HE 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_HE 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_HE 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_HE 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "QwenToLlama_HE 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBC 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBC 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBC 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBC 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBC 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBC 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBC 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBC 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBC 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBC 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBF 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBF 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBF 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBF 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBF 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBF 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBF 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBF 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBF 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_BBF 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_HE 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_HE 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_HE 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_HE 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_HE 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_HE 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_HE 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_HE 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_HE 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToQwen_HE 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBC 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBC 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBC 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBC 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBC 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBC 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBC 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBC 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBC 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBC 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBF 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBF 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBF 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBF 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBF 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBF 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBF 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBF 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBF 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_BBF 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_HE 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_HE 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_HE 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_HE 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_HE 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_HE 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_HE 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_HE 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_HE 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToGemma_HE 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBC 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBC 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBC 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBC 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBC 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBC 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBC 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBC 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBC 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBC 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBF 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBF 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBF 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBF 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBF 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBF 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBF 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBF 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBF 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_BBF 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_HE 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_HE 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_HE 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_HE 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_HE 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_HE 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_HE 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_HE 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_HE 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "FalconToLlama_HE 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBC 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBC 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBC 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBC 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBC 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBC 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBC 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBC 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBC 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBC 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBF 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBF 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBF 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBF 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBF 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBF 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBF 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBF 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBF 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_BBF 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_HE 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_HE 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_HE 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_HE 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_HE 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_HE 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_HE 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_HE 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_HE 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToQwen_HE 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBC 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBC 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBC 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBC 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBC 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBC 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBC 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBC 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBC 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBC 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBF 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBF 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBF 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBF 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBF 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBF 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBF 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBF 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBF 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_BBF 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_HE 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_HE 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_HE 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_HE 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_HE 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_HE 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_HE 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_HE 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_HE 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToFalcon_HE 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBC 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBC 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBC 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBC 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBC 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBC 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBC 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBC 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBC 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBC 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBF 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBF 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBF 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBF 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBF 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBF 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBF 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBF 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBF 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_BBF 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_HE 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_HE 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_HE 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_HE 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_HE 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_HE 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_HE 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_HE 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_HE 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "GemmaToLlama_HE 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBC 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBC 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBC 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBC 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBC 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBC 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBC 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBC 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBC 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBC 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBF 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBF 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBF 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBF 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBF 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBF 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBF 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBF 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBF 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_BBF 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_HE 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_HE 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_HE 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_HE 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_HE 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_HE 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_HE 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_HE 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_HE 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToQwen_HE 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBC 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBC 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBC 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBC 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBC 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBC 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBC 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBC 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBC 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBC 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBF 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBF 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBF 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBF 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBF 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBF 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBF 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBF 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBF 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_BBF 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_HE 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_HE 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_HE 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_HE 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_HE 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_HE 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_HE 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_HE 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_HE 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToFalcon_HE 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBC 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBC 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBC 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBC 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBC 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBC 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBC 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBC 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBC 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBC 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBF 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBF 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBF 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBF 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBF 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBF 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBF 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBF 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBF 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_BBF 511 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_HE 2 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_HE 4 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_HE 24 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_HE 42 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_HE 64 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_HE 67 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_HE 104 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_HE 123 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_HE 420 cuda:0 8 true 4 true true false"
-queue
-arguments = "LlamaToGemma_HE 511 cuda:0 8 true 4 true true false"
+arguments = "QwenToLlama_BBF 511 cuda:0 8 true 4 true true false hidden"
 queue
