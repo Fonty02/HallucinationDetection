@@ -1,0 +1,1008 @@
+universe = vanilla
+executable = scripts/O4A_experiments/run_cross_domain_one_for_all.sh
+request_cpus = 8
+request_gpus = 1
+request_memory = 32768
+log = logs/run_cross_domain_one_for_all_htc/job_$(Cluster)_$(Process).log
+output = logs/run_cross_domain_one_for_all_htc/job_$(Cluster)_$(Process).out
+error = logs/run_cross_domain_one_for_all_htc/job_$(Cluster)_$(Process).err
+arguments = "QwenToFalcon_BBC QwenToFalcon_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBC QwenToFalcon_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_BBF QwenToFalcon_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToFalcon_HE QwenToFalcon_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBC QwenToGemma_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_BBF QwenToGemma_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToGemma_HE QwenToGemma_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBC QwenToLlama_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_BBF QwenToLlama_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "QwenToLlama_HE QwenToLlama_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBC FalconToQwen_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_BBF FalconToQwen_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToQwen_HE FalconToQwen_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBC FalconToGemma_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_BBF FalconToGemma_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToGemma_HE FalconToGemma_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBC FalconToLlama_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_BBF FalconToLlama_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "FalconToLlama_HE FalconToLlama_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBC GemmaToQwen_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_BBF GemmaToQwen_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToQwen_HE GemmaToQwen_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBC GemmaToFalcon_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_BBF GemmaToFalcon_HE 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBC 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBC 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBC 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBC 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBC 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBC 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBC 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBC 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBC 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBC 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToFalcon_HE GemmaToFalcon_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_BBF 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_BBF 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_BBF 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_BBF 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_BBF 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_BBF 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_BBF 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_BBF 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_BBF 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_BBF 511 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_HE 2 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_HE 4 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_HE 24 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_HE 42 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_HE 64 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_HE 67 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_HE 104 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_HE 123 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_HE 420 cuda:0 8 true 4 true true false"
+queue
+arguments = "GemmaToLlama_BBC GemmaToLlama_HE 511 cuda:0 8 true 4 true true false"
+queue

@@ -1,0 +1,64 @@
+# Configuration for cross-domain OneForAll (retraining) HTC job generation.
+# Each job retrains OneForAll on the encoder domain (teacher + shared head + student adapter),
+# then evaluates on a different activation dataset.
+
+common:
+  # LLM models for trainer/tester roles
+  llms:
+    - Qwen2.5-7B
+    - Falcon3-7B-Base
+    - gemma-2-9b-it
+    - Llama-3.1-8B-Instruct
+
+  # Domains/datasets
+  datasets:
+    - belief_bank_constraints
+    - belief_bank_facts
+    - halu_eval
+
+  # Seeds (one job per seed)
+  seeds:
+    - 2
+    - 4
+    - 24
+    - 42
+    - 64
+    - 67
+    - 104
+    - 123
+    - 420
+    - 511
+
+  # Device
+  device: cuda:0
+
+  # Optional fixed subset of layer types.
+  # Set to [] or omit to run all default layer types from o4a.config (attn/mlp/hidden).
+  layer_types: []
+
+htc:
+  executable: scripts/O4A_experiments/run_cross_domain_one_for_all.sh
+  output_dir: scripts/O4A_experiments/generated_run_cross_domain_one_for_all
+  logs_dir: logs/run_cross_domain_one_for_all_htc
+  max_jobs_per_file: 500
+
+  # Resource allocation
+  request_cpus: 8
+  request_gpus: 1
+  request_memory: 16000
+
+  # Optional cluster-specific fields:
+  # initialdir: /lustrehome/fonty/HallucinationDetection
+  # getenv: True
+  # requirements: (CUDAGlobalMemoryMb >= 24000)
+
+optimization:
+  # DataLoader settings
+  num_workers: 8
+  pin_memory: true
+  prefetch_factor: 4
+
+  # Training/runtime flags
+  cudnn_benchmark: true
+  use_amp: true
+  compile_model: false
