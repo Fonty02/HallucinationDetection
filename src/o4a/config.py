@@ -64,7 +64,7 @@ EXPERIMENTS = {
             "hidden": [18, 19, 20],
         },
         "tester_layers": {
-            "attn": [12, 13, 14],
+            "attn": [12, 13, 17],
             "mlp": [0, 2, 12],
             "hidden": [0, 1, 2],
         },
@@ -74,7 +74,7 @@ EXPERIMENTS = {
         "trainer": "Falcon3-7B-Base",
         "tester": "Qwen2.5-7B",
         "trainer_layers": {
-            "attn": [12, 13, 14],
+            "attn": [12, 13, 17],
             "mlp": [0, 2, 12],
             "hidden": [0, 1, 2],
         },
@@ -149,7 +149,7 @@ EXPERIMENTS = {
         "trainer": "Falcon3-7B-Base",
         "tester": "gemma-2-9b-it",
         "trainer_layers": {
-            "attn": [12, 13, 14],
+            "attn": [12, 13, 17],
             "mlp": [0, 2, 12],
             "hidden": [0, 1, 2],
         },
@@ -169,7 +169,7 @@ EXPERIMENTS = {
             "hidden": [23, 24, 27],
         },
         "tester_layers": {
-            "attn": [12, 13, 14],
+            "attn": [12, 13, 17],
             "mlp": [0, 2, 12],
             "hidden": [0, 1, 2],
         },
@@ -179,7 +179,7 @@ EXPERIMENTS = {
         "trainer": "Falcon3-7B-Base",
         "tester": "Llama-3.1-8B-Instruct",
         "trainer_layers": {
-            "attn": [12, 13, 14],
+            "attn": [12, 13, 17],
             "mlp": [0, 2, 12],
             "hidden": [0, 1, 2],
         },
@@ -199,7 +199,7 @@ EXPERIMENTS = {
             "hidden": [13, 14, 15],
         },
         "tester_layers": {
-            "attn": [12, 13, 14],
+            "attn": [12, 13, 17],
             "mlp": [0, 2, 12],
             "hidden": [0, 1, 2],
         },
@@ -277,9 +277,9 @@ EXPERIMENTS = {
             "hidden": [22, 24, 25],
         },
         "tester_layers": {
-            "attn": [8, 13, 14],
-            "mlp": [14, 15, 21],
-            "hidden": [14, 15, 16],
+            "attn": [21, 24, 27],
+            "mlp": [22, 25, 27],
+            "hidden": [23, 26, 34],
         },
     },
     "GemmaToQwen_BBF": {
@@ -287,9 +287,9 @@ EXPERIMENTS = {
         "trainer": "gemma-2-9b-it",
         "tester": "Qwen2.5-7B",
         "trainer_layers": {
-            "attn": [8, 13, 14],
-            "mlp": [14, 15, 21],
-            "hidden": [14, 15, 16],
+            "attn": [21, 24, 27],
+            "mlp": [22, 25, 27],
+            "hidden": [23, 26, 34],
         },
         "tester_layers": {
             "attn": [15, 19, 20],
@@ -307,9 +307,9 @@ EXPERIMENTS = {
             "hidden": [22, 24, 25],
         },
         "tester_layers": {
-            "attn": [21, 24, 27],
-            "mlp": [22, 25, 27],
-            "hidden": [23, 26, 34],
+            "attn": [8, 13, 14],
+            "mlp": [14, 15, 21],
+            "hidden": [14, 15, 16],
         },
     },
     "LlamaToQwen_BBF": {
@@ -317,9 +317,9 @@ EXPERIMENTS = {
         "trainer": "Llama-3.1-8B-Instruct",
         "tester": "Qwen2.5-7B",
         "trainer_layers": {
-            "attn": [21, 24, 27],
-            "mlp": [22, 25, 27],
-            "hidden": [23, 26, 34],
+            "attn": [8, 13, 14],
+            "mlp": [14, 15, 21],
+            "hidden": [14, 15, 16],
         },
         "tester_layers": {
             "attn": [15, 19, 20],
@@ -337,9 +337,9 @@ EXPERIMENTS = {
             "hidden": [2, 3, 11],
         },
         "tester_layers": {
-            "attn": [8, 13, 14],
-            "mlp": [14, 15, 21],
-            "hidden": [14, 15, 16],
+            "attn": [21, 24, 27],
+            "mlp": [22, 25, 27],
+            "hidden": [23, 26, 34],
         },
     },
     "GemmaToFalcon_BBF": {
@@ -347,9 +347,9 @@ EXPERIMENTS = {
         "trainer": "gemma-2-9b-it",
         "tester": "Falcon3-7B-Base",
         "trainer_layers": {
-            "attn": [8, 13, 14],
-            "mlp": [14, 15, 21],
-            "hidden": [14, 15, 16],
+            "attn": [21, 24, 27],
+            "mlp": [22, 25, 27],
+            "hidden": [23, 26, 34],
         },
         "tester_layers": {
             "attn": [0, 1, 2],
@@ -367,9 +367,9 @@ EXPERIMENTS = {
             "hidden": [2, 3, 11],
         },
         "tester_layers": {
-            "attn": [21, 24, 27],
-            "mlp": [22, 25, 27],
-            "hidden": [23, 26, 34],
+            "attn": [8, 13, 14],
+            "mlp": [14, 15, 21],
+            "hidden": [14, 15, 16],
         },
     },
     "LlamaToFalcon_BBF": {
@@ -377,9 +377,9 @@ EXPERIMENTS = {
         "trainer": "Llama-3.1-8B-Instruct",
         "tester": "Falcon3-7B-Base",
         "trainer_layers": {
-            "attn": [21, 24, 27],
-            "mlp": [22, 25, 27],
-            "hidden": [23, 26, 34],
+            "attn": [8, 13, 14],
+            "mlp": [14, 15, 21],
+            "hidden": [14, 15, 16],
         },
         "tester_layers": {
             "attn": [0, 1, 2],
@@ -392,14 +392,14 @@ EXPERIMENTS = {
         "trainer": "gemma-2-9b-it",
         "tester": "Llama-3.1-8B-Instruct",
         "trainer_layers": {
-            "attn": [8, 13, 14],
-            "mlp": [14, 15, 21],
-            "hidden": [14, 15, 16],
-        },
-        "tester_layers": {
             "attn": [21, 24, 27],
             "mlp": [22, 25, 27],
             "hidden": [23, 26, 34],
+        },
+        "tester_layers": {
+            "attn": [8, 13, 14],
+            "mlp": [14, 15, 21],
+            "hidden": [14, 15, 16],
         },
     },
     "LlamaToGemma_BBF": {
@@ -407,14 +407,14 @@ EXPERIMENTS = {
         "trainer": "Llama-3.1-8B-Instruct",
         "tester": "gemma-2-9b-it",
         "trainer_layers": {
-            "attn": [21, 24, 27],
-            "mlp": [22, 25, 27],
-            "hidden": [23, 26, 34],
-        },
-        "tester_layers": {
             "attn": [8, 13, 14],
             "mlp": [14, 15, 21],
             "hidden": [14, 15, 16],
+        },
+        "tester_layers": {
+            "attn": [21, 24, 27],
+            "mlp": [22, 25, 27],
+            "hidden": [23, 26, 34],
         },
     },
     # ==========================================================
@@ -461,7 +461,7 @@ EXPERIMENTS = {
         },
         "tester_layers": {
             "attn": [21, 26, 27],
-            "mlp": [23, 25, 28],
+            "mlp": [23, 24, 28],
             "hidden": [19, 24, 28],
         },
     },
@@ -471,7 +471,7 @@ EXPERIMENTS = {
         "tester": "Qwen2.5-7B",
         "trainer_layers": {
             "attn": [21, 26, 27],
-            "mlp": [23, 25, 28],
+            "mlp": [23, 24, 28],
             "hidden": [19, 24, 28],
         },
         "tester_layers": {
@@ -521,7 +521,7 @@ EXPERIMENTS = {
         },
         "tester_layers": {
             "attn": [21, 26, 27],
-            "mlp": [23, 25, 28],
+            "mlp": [23, 24, 28],
             "hidden": [19, 24, 28],
         },
     },
@@ -531,7 +531,7 @@ EXPERIMENTS = {
         "tester": "Falcon3-7B-Base",
         "trainer_layers": {
             "attn": [21, 26, 27],
-            "mlp": [23, 25, 28],
+            "mlp": [23, 24, 28],
             "hidden": [19, 24, 28],
         },
         "tester_layers": {
@@ -576,7 +576,7 @@ EXPERIMENTS = {
         "tester": "Llama-3.1-8B-Instruct",
         "trainer_layers": {
             "attn": [21, 26, 27],
-            "mlp": [23, 25, 28],
+            "mlp": [23, 24, 28],
             "hidden": [19, 24, 28],
         },
         "tester_layers": {
@@ -596,7 +596,7 @@ EXPERIMENTS = {
         },
         "tester_layers": {
             "attn": [21, 26, 27],
-            "mlp": [23, 25, 28],
+            "mlp": [23, 24, 28],
             "hidden": [19, 24, 28],
         },
     },
