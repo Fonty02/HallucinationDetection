@@ -31,6 +31,12 @@ common:
   # Device configuration
   device: cuda:0
 
+  # Generate one HTC job per layer type (36 experiments * 10 seeds * 3 layers = 1080 jobs)
+  layer_types:
+    - attn
+    - mlp
+    - hidden
+
 htc:
   executable: scripts/O4A_experiments/run_experiments.sh
   output_dir: scripts/O4A_experiments/generated_run_experiments

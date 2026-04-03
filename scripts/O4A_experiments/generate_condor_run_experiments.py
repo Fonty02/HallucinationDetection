@@ -1,7 +1,7 @@
 """
 Generate HTCondor submit files for run_experiments.py jobs.
 
-Each job is defined by: (trainer, tester, dataset, seed)
+Each job is defined by: (trainer, tester, dataset, seed, layer_type)
 Generates all valid combinations (trainer != tester).
 """
 
@@ -65,6 +65,9 @@ def main() -> None:
     llms = common["llms"]
     datasets = common["datasets"]
     seeds = common["seeds"]
+    layer_types = common.get("layer_types", ["attn", "mlp", "hidden"])
+    if not layer_types:
+        layer_types = ["attn", "mlp", "hidden"]
     device = common.get("device", "cuda:0")
 
     # Generate all combinations where trainer != tester
@@ -74,28 +77,31 @@ def main() -> None:
     for trainer, tester in itertools.permutations(llms, 2):
         for dataset in datasets:
             for seed in seeds:
-                exp_name = generate_experiment_name(trainer, tester, dataset)
+                for layer_type in layer_types:
+                    exp_name = generate_experiment_name(trainer, tester, dataset)
 
-                # Arguments: experiment_name seed [optimization flags]
-                args = [
-                    exp_name,
-                    str(seed),
-                    _to_cli_value(device),
-                    # Optimization flags
-                    str(opt.get("num_workers", 4)),
-                    _to_cli_value(opt.get("pin_memory", True)),
-                    str(opt.get("prefetch_factor", 2)),
-                    _to_cli_value(opt.get("cudnn_benchmark", True)),
-                    _to_cli_value(opt.get("use_amp", True)),
-                    _to_cli_value(opt.get("compile_model", False)),
-                ]
-                submit_lines.append(f'arguments = "{" ".join(args)}"\nqueue\n')
-                job_count += 1
+                    # Arguments: experiment_name seed [optimization flags] layer_type
+                    args = [
+                        exp_name,
+                        str(seed),
+                        _to_cli_value(device),
+                        # Optimization flags
+                        str(opt.get("num_workers", 4)),
+                        _to_cli_value(opt.get("pin_memory", True)),
+                        str(opt.get("prefetch_factor", 2)),
+                        _to_cli_value(opt.get("cudnn_benchmark", True)),
+                        _to_cli_value(opt.get("use_amp", True)),
+                        _to_cli_value(opt.get("compile_model", False)),
+                        layer_type,
+                    ]
+                    submit_lines.append(f'arguments = "{" ".join(args)}"\nqueue\n')
+                    job_count += 1
 
     print(f"Total jobs to generate: {job_count}")
     print(f"  - LLMs: {len(llms)} -> {len(llms) * (len(llms) - 1)} trainer/tester pairs")
     print(f"  - Datasets: {len(datasets)}")
     print(f"  - Seeds: {len(seeds)}")
+    print(f"  - Layer types: {len(layer_types)} ({', '.join(layer_types)})")
 
     max_jobs_per_file = int(htc.get("max_jobs_per_file", 100))
     executable = htc["executable"]
@@ -112,6 +118,10 @@ def main() -> None:
         htc_header_lines.append(f"request_memory = {htc['request_memory']}")
     if "request_disk" in htc:
         htc_header_lines.append(f"request_disk = {htc['request_disk']}")
+    if "initialdir" in htc:
+        htc_header_lines.append(f"initialdir = {htc['initialdir']}")
+    if "getenv" in htc:
+        htc_header_lines.append(f"getenv = {htc['getenv']}")
     if "requirements" in htc:
         htc_header_lines.append(f"requirements = {htc['requirements']}")
 
@@ -121,6 +131,10 @@ def main() -> None:
         f"error = {htc['logs_dir']}/job_$(Cluster)_$(Process).err",
         "",
     ])
+
+    # Remove stale files from previous generations.
+    for old_file in output_dir.glob("run_experiments_jobs_*.htc"):
+        old_file.unlink()
 
     # Split into multiple files if needed
     for idx in range(0, len(submit_lines), max_jobs_per_file):

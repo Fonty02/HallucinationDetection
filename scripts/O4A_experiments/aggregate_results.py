@@ -13,12 +13,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--input-dir",
-        default="results/experiments",
+        default="results/cross_domain_one_for_all",
         help="Directory that contains experiment subfolders (default: results/experiments).",
     )
     parser.add_argument(
         "--output",
-        default="results/experiments/merged_results.csv",
+        default="results/experiments/cross_domain.csv",
         help="Output CSV path (default: results/experiments/merged_results.csv).",
     )
     parser.add_argument(
