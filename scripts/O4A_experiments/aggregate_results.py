@@ -23,8 +23,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--filename",
-        default="results.csv",
-        help="Result filename to search recursively (default: results.csv).",
+        default="results*.csv",
+        help="Result filename pattern to search recursively (default: results*.csv).",
     )
     return parser.parse_args()
 

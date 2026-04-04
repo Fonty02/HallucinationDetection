@@ -80,11 +80,16 @@ ulimit -n 65536 2>/dev/null || true
 OUTPUT_DIR="results/experiments/${EXPERIMENT_NAME}/seed_${SEED}"
 mkdir -p "$OUTPUT_DIR"
 
+LAYER_SUFFIX=$( IFS=_ ; echo "${LAYER_TYPES_ARGS[*]}" )
+if [ -z "$LAYER_SUFFIX" ]; then
+    LAYER_SUFFIX="all"
+fi
+
 CMD=(
     python -u -W ignore
     src/o4a/run_experiments.py
     --experiments "$EXPERIMENT_NAME"
-    --output "${OUTPUT_DIR}/results.csv"
+    --output "${OUTPUT_DIR}/results_${LAYER_SUFFIX}.csv"
 )
 if [ ${#LAYER_TYPES_ARGS[@]} -gt 0 ]; then
     CMD+=(--layer-types "${LAYER_TYPES_ARGS[@]}")
