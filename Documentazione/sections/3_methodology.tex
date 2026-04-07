@@ -2,7 +2,7 @@
 
 
 This chapter explores the methodology adopted for the project development. For building the universal prober and the general steering technique for hallucination reduction, the datasets Belief Bank Facts \cite{BeliefBank}, Belief Bank Constraints \cite{BeliefBank} and Halu Eval \cite{Halueval} were used.
-The first phase of the work involved dataset preparation and extraction of internal activations from the LLMs across all layers and each type of layer component (attention, MLP, hidden states). Subsequently, preliminary studies were conducted to evaluate the ability of each individual layer component to discriminate between true statements and hallucinations, in order to identify the most relevant layers and components. Regarding the construction of the universal prober the proposed solution \textbf{One-For-All} was compared with four alternative approaches based on linear and non-linear transformations of the activation space, with and without dimensionality reduction via autoencoder. 
+The first phase of the work involved dataset preparation and extraction of internal activations from the LLMs across all layers and each type of layer component (attention, MLP, hidden states). Subsequently, preliminary studies were conducted to evaluate the ability of each individual layer component to discriminate between true statements and hallucinations, in order to identify the most relevant layers and components. Regarding the construction of the universal prober the proposed solution \textbf{One-For-All} was compared with seven alternative approaches based on linear and non-linear transformations of the activation space, with and without dimensionality reduction via autoencoder. 
 Regarding the general steering technique for hallucination reduction, two different approaches were explored: the first one is based on the \textbf{TruthX} technique while the second one is an adaptation of the \textbf{SLiM} technique for the specific task of hallucination reduction.
 
 
@@ -342,10 +342,9 @@ Gemma-2-9B-IT & 21, 26, 27 & 23, 24, 28 & 19, 24, 28 \\
 We can notice an interesting trend: for LLama, layers between 13 and 16 seem to be the most informative, while for Gemma-2-9B-IT layers between 23 and 28 are those that offer the best performance. This suggests that the position of the most relevant layers can vary significantly between different models, probably due to architectural differences and specific training processes of each model. However, since LLama consists of 32 layers while Gemma consists of 42 layers, it can be noted that intermediate layers are the most informative in every model.
 
 \section{Methodologies for Building the Universal Prober}
-This section describes the four methodological approaches adopted to "build a baseline" for the universal prober capable of detecting hallucinations in language models and the methodological approach to build the universal prober itself, called \textbf{One-For-All}.
+This section describes the seven methodological approaches adopted to build baselines for a universal prober capable of detecting hallucinations in language models, and the methodological approach used to build the universal prober itself, called \textbf{One-For-All}.
 
-Experiment reproducibility and the use of the same data sets for all methods are guaranteed by setting a common random seed and using deterministic next token sampling in LLMs.
-
+Experiment reproducibility and the use of the same data sets for all methods are guaranteed by fixing the random seed to 42 and using deterministic next token sampling in LLMs.
 
 Two dataset management modes are distinguished:
 \begin{itemize}
@@ -353,8 +352,33 @@ Two dataset management modes are distinguished:
 \item \textbf{Independent Dataset (for Probing/Autoencoder/Encoder):} Undersampling is applied to balance classes specifically on the labels of the model in question (Trainer or Tester), independently from the other model. This maximizes the amount of data available for training robust models.
 \end{itemize}
 
-\subsection{FullLinear Approach}
-The first approch to build a baseline for the universal prober, is a linear approach. In this scenario, the internal activations of the models, extracted from the selected layers and components, were used to train and evaluate a Logistic Regression classifier. The objective is to verify performance using only linear methods.
+\begin{table}[H]
+\centering
+\begingroup
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\small
+\begin{tabular}{|>{\raggedright\arraybackslash}p{3.3cm}|>{\raggedright\arraybackslash}p{3.0cm}|>{\raggedright\arraybackslash}p{6.1cm}|}
+    \toprule
+    \textbf{Method ID}\\[-2pt]{\footnotesize\texttt{run\_experiments.py}} & \textbf{Name in}\\[-2pt]\textbf{this chapter} & \textbf{Core mechanism} \\
+    \midrule
+    \texttt{ridge\_regressor} & RidgeRegressor & Linear Ridge map (tester $\rightarrow$ trainer) + Logistic Regression prober on trainer activations. \\
+    \texttt{procrustes} & Procrustes & Scaled orthogonal map estimated via SVD + Logistic Regression prober. \\
+    \texttt{cka} & CKA & Procrustes-like rotation with scale given by Linear CKA similarity + Logistic Regression prober. \\
+    \texttt{cca} & CCA & Canonical Correlation Analysis projection followed by linear reconstruction to trainer space + Logistic Regression prober. \\
+    \texttt{hybrid} & AdapterMLP & Non-linear AlignmentNetwork + Logistic Regression prober. \\
+    \texttt{full\_nonlinear} & Full Non-linear & Non-linear AlignmentNetwork + non-linear MLP prober (full activation dimension). \\
+    \texttt{reduced\_nonlinear} & Reduced Non-linear & Autoencoders for both models, latent-space alignment, MLP prober in latent space. \\
+    \texttt{one\_for\_all} & One-For-All & Shared frozen head, separate encoders, no concordant alignment required. \\
+    \bottomrule
+\end{tabular}
+\endgroup
+\caption{Methods executed in the experiment runner and corresponding methodological names used in this chapter.}
+\label{tab:method-mapping-runner}
+\end{table}
+
+\subsection{RidgeRegressor Approach}
+The first approch to build a baseline for the universal prober, is a linear approach. In this scenario, the internal activations of the models, extracted from the selected layers and components, were used to train and evaluate a Logistic Regression classifier. The objective is to verify performance using simple linear method.
 
 \subsubsection{Experimental Pipeline}
 \begin{figure}[H]
@@ -405,16 +429,16 @@ The first approch to build a baseline for the universal prober, is a linear appr
 \node[font=\bfseries\small, text=violet!70, anchor=north west]
   at (11.3, 1.35) {\textsc{Phase 2}: Fit Alignment};
 
-\pic at (12.5, 0.4) {vecicon};
-\node[font=\scriptsize, align=center] at (12.5, -0.25) {Concordant\\[-2pt]Tester Acts};
+\pic at (12.5, 0.01) {vecicon};
+\node[font=\scriptsize, align=center] at (12.5, -0.6) {Concordant\\[-2pt]Tester Acts};
 
-\node[procbox, fill=green!8] (ridge1) at (15.5, 0.4) {Ridge\\Regression};
+\node[procbox, fill=green!8] (ridge1) at (15.5, 0.1) {Ridge\\Regression};
 
-\pic at (18.8, 0.4) {vecicon};
-\node[font=\scriptsize, align=center] at (18.8, -0.25) {Concordant\\[-2pt]Trainer Acts};
+\pic at (18.8, 0.01) {vecicon};
+\node[font=\scriptsize, align=center] at (18.8, -0.6) {Concordant\\[-2pt]Trainer Acts};
 
-\draw[arrow] (12.95, 0.4) -- (ridge1.west);
-\draw[arrow] (ridge1.east) -- node[above, font=\scriptsize, text=black!70]{target} (18.36, 0.4);
+\draw[arrow] (12.95, 0.1) -- (ridge1.west);
+\draw[arrow] (ridge1.east) -- node[above, font=\scriptsize, text=black!70]{target} (18.36, 0.1);
 
 % ========================
 %  PHASE 3: Evaluate
@@ -427,8 +451,8 @@ The first approch to build a baseline for the universal prober, is a linear appr
 \pic at (22.8, 0) {vecicon};
 \node[font=\scriptsize, align=center] at (22.8, -0.6) {Tester Test\\[-2pt]Activations};
 
-\node[procbox, fill=green!8] (ridge2) at (25.8, 0) {Ridge\\Projection};
-\node[procbox] (logreg2) at (29.0, 0) {Logistic\\Regression};
+\node[procbox, fill=green!8] (ridge2) at (25.3, 0) {Ridge\\Projection};
+\node[procbox] (logreg2) at (29.5, 0) {Logistic\\Regression};
 \node[resultcirc] (acc2) at (32.3, 0) {Test\\Acc};
 
 \draw[arrow] (23.25, 0) -- (ridge2.west);
@@ -439,7 +463,7 @@ The first approch to build a baseline for the universal prober, is a linear appr
 
 \end{tikzpicture}%
 }
-    \caption{FullLinear experimental pipeline}
+    \caption{RidgeRegressor experimental pipeline}
     \label{fig:linear-pipeline}
 \end{figure}
 The experimental pipeline in figure \ref{fig:linear-pipeline} consists of training a Logistic Regression classifier on the activation space of the trainer model to detect hallucinations, followed by evaluating its performance through accuracy metrics. Subsequently, a linear alignment is performed between the latent space of the tester model and that of the trainer model via a linear projection (Ridge Regression) trained on a subset of concordant data. Finally, the classifier's ability to discriminate hallucinations on tester model data after alignment is evaluated.
@@ -450,6 +474,308 @@ For the Logistic Regressor, the following hyperparameters were used:
 \item \textbf{max\_iterations}: 10000
 \item \textbf{class\_weight:} \texttt{balanced}
 \end{itemize}
+
+\subsection{Procrustes Approach}
+This linear baseline follows the same train/evaluate structure of RidgeRegressor, but replaces Ridge alignment with an explicit \textbf{scaled orthogonal map} estimated through Procrustes analysis. The objective is to preserve geometric structure (angles) when mapping tester activations into trainer space.
+
+Given concordant aligned matrices $\mathbf{X} \in \mathbb{R}^{n \times d_x}$ (tester) and $\mathbf{Y} \in \mathbb{R}^{n \times d_y}$ (trainer), centered as $\mathbf{X}_c,\mathbf{Y}_c$, we compute:
+\[
+\mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^{T} = \mathrm{SVD}\!\left(\mathbf{X}_c^{T}\mathbf{Y}_c\right), \quad
+\mathbf{R} = \mathbf{U}\mathbf{V}^{T}, \quad
+s = \frac{\sum_i \sigma_i}{\|\mathbf{X}_c\|_F^2}
+\]
+and define:
+\[
+\mathbf{A} = s\mathbf{R}, \qquad \mathbf{b} = \bar{\mathbf{y}} - \bar{\mathbf{x}}\mathbf{A}, \qquad
+\hat{\mathbf{Y}} = \mathbf{X}\mathbf{A} + \mathbf{b}
+\]
+The projected tester test activations $\hat{\mathbf{Y}}$ are then classified by the Logistic Regression prober trained on trainer data.
+
+\begin{figure}[H]
+    \centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    >=Stealth,
+    thick,
+    procbox/.style={draw=black, rounded corners=5pt, fill=white,
+                    minimum height=1.1cm, minimum width=2.5cm,
+                    font=\small\bfseries, align=center, line width=0.8pt},
+    resultcirc/.style={circle, draw=green!60!black, fill=green!15,
+                       minimum size=1.3cm, align=center, font=\small\bfseries},
+    arrow/.style={->, >=Stealth, thick},
+    vecicon/.pic={
+        \foreach \i in {0,...,4}{
+            \fill[cyan!35!blue!25, draw=black!40, line width=0.3pt]
+                (\i*0.18-0.435, -0.275) rectangle ++(0.15, 0.55);
+        }
+    }
+]
+
+% ========================
+%  PHASE 1: Train Classifier
+% ========================
+\draw[fill=blue!3, draw=blue!60, dashed, thick, rounded corners=10pt]
+  (-0.3, -1.6) rectangle (10.3, 1.6);
+\node[font=\bfseries\small, text=blue!70, anchor=north west]
+  at (0.0, 1.35) {\textsc{Phase 1}: Train Classifier};
+
+\pic at (1.2, 0) {vecicon};
+\node[font=\scriptsize, align=center] at (1.2, -0.6) {Trainer\\[-2pt]Activations};
+
+\node[procbox] (scaler) at (4.0, 0) {Standard\\Scaler};
+\node[procbox] (logreg1) at (7.2, 0) {Logistic\\Regression};
+\node[resultcirc] (acc1) at (9.6, 0) {Acc};
+
+\draw[arrow] (1.65, 0) -- (scaler.west);
+\draw[arrow] (scaler.east) -- (logreg1.west);
+\draw[arrow] (logreg1.east) -- (acc1.west);
+
+% ========================
+%  PHASE 2: Fit Alignment
+% ========================
+\draw[fill=violet!3, draw=violet!60, dashed, thick, rounded corners=10pt]
+  (11.0, -1.6) rectangle (20.5, 1.6);
+\node[font=\bfseries\small, text=violet!70, anchor=north west]
+  at (11.3, 1.35) {\textsc{Phase 2}: Fit Alignment};
+
+\pic at (12.5, 0.01) {vecicon};
+\node[font=\scriptsize, align=center] at (12.5, -0.6) {Concordant\\[-2pt]Tester Acts};
+
+\node[procbox, fill=green!8] (proc1) at (15.5, 0.1) {Procrustes\\Alignment};
+
+\pic at (18.8, 0.01) {vecicon};
+\node[font=\scriptsize, align=center] at (18.8, -0.6) {Concordant\\[-2pt]Trainer Acts};
+
+\draw[arrow] (12.95, 0.1) -- (proc1.west);
+\draw[arrow] (proc1.east) -- node[above, font=\scriptsize, text=black!70]{target} (18.36, 0.1);
+
+% ========================
+%  PHASE 3: Evaluate
+% ========================
+\draw[fill=green!3, draw=green!50!black, dashed, thick, rounded corners=10pt]
+  (21.2, -2.5) rectangle (33.5, 1.6);
+\node[font=\bfseries\small, text=green!50!black, anchor=north west]
+  at (21.5, 1.35) {\textsc{Phase 3}: Evaluate};
+
+\pic at (22.8, 0) {vecicon};
+\node[font=\scriptsize, align=center] at (22.8, -0.6) {Tester Test\\[-2pt]Activations};
+
+\node[procbox, fill=green!8] (proc2) at (25.3, 0) {Procrustes\\Projection};
+\node[procbox] (logreg2) at (29.5, 0) {Logistic\\Regression};
+\node[resultcirc] (acc2) at (32.3, 0) {Test\\Acc};
+
+\draw[arrow] (23.25, 0) -- (proc2.west);
+\draw[arrow] (proc2.east) -- node[above, font=\scriptsize, text=black!70]{aligned} (logreg2.west);
+\draw[arrow] (logreg2.east) -- (acc2.west);
+
+\end{tikzpicture}%
+}
+    \caption{Procrustes approach experimental pipeline}
+    \label{fig:procrustes-pipeline}
+\end{figure}
+
+\subsection{CKA Approach}
+This baseline uses the same prober setup as RidgeRegressor and Procrustes, but the alignment scale is modulated by \textbf{Linear CKA} similarity between concordant tester and trainer activations.
+
+After centering, we compute the orthogonal rotation $\mathbf{R}$ from the SVD of $\mathbf{X}_c^T\mathbf{Y}_c$ and the Linear CKA score:
+\[
+\mathrm{CKA}(\mathbf{X},\mathbf{Y}) =
+\frac{\|\mathbf{X}_c^T\mathbf{Y}_c\|_F^2}
+{\|\mathbf{X}_c^T\mathbf{X}_c\|_F\cdot\|\mathbf{Y}_c^T\mathbf{Y}_c\|_F}
+\]
+The final linear map is:
+\[
+\mathbf{A} = \mathrm{CKA}(\mathbf{X},\mathbf{Y})\cdot\mathbf{R}, \qquad
+\mathbf{b} = \bar{\mathbf{y}} - \bar{\mathbf{x}}\mathbf{A}
+\]
+Hence, CKA controls the global scale of the projection according to representation similarity, while keeping an orthogonal geometric transformation.
+
+\begin{figure}[H]
+    \centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    >=Stealth,
+    thick,
+    procbox/.style={draw=black, rounded corners=5pt, fill=white,
+                    minimum height=1.1cm, minimum width=2.5cm,
+                    font=\small\bfseries, align=center, line width=0.8pt},
+    resultcirc/.style={circle, draw=green!60!black, fill=green!15,
+                       minimum size=1.3cm, align=center, font=\small\bfseries},
+    arrow/.style={->, >=Stealth, thick},
+    vecicon/.pic={
+        \foreach \i in {0,...,4}{
+            \fill[cyan!35!blue!25, draw=black!40, line width=0.3pt]
+                (\i*0.18-0.435, -0.275) rectangle ++(0.15, 0.55);
+        }
+    }
+]
+
+% ========================
+%  PHASE 1: Train Classifier
+% ========================
+\draw[fill=blue!3, draw=blue!60, dashed, thick, rounded corners=10pt]
+  (-0.3, -1.6) rectangle (10.3, 1.6);
+\node[font=\bfseries\small, text=blue!70, anchor=north west]
+  at (0.0, 1.35) {\textsc{Phase 1}: Train Classifier};
+
+\pic at (1.2, 0) {vecicon};
+\node[font=\scriptsize, align=center] at (1.2, -0.6) {Trainer\\[-2pt]Activations};
+
+\node[procbox] (scaler) at (4.0, 0) {Standard\\Scaler};
+\node[procbox] (logreg1) at (7.2, 0) {Logistic\\Regression};
+\node[resultcirc] (acc1) at (9.6, 0) {Acc};
+
+\draw[arrow] (1.65, 0) -- (scaler.west);
+\draw[arrow] (scaler.east) -- (logreg1.west);
+\draw[arrow] (logreg1.east) -- (acc1.west);
+
+% ========================
+%  PHASE 2: Fit Alignment
+% ========================
+\draw[fill=violet!3, draw=violet!60, dashed, thick, rounded corners=10pt]
+  (11.0, -1.6) rectangle (20.5, 1.6);
+\node[font=\bfseries\small, text=violet!70, anchor=north west]
+  at (11.3, 1.35) {\textsc{Phase 2}: Fit Alignment};
+
+\pic at (12.5, 0.01) {vecicon};
+\node[font=\scriptsize, align=center] at (12.5, -0.6) {Concordant\\[-2pt]Tester Acts};
+
+\node[procbox, fill=green!8] (cka1) at (15.5, 0.1) {CKA\\Alignment};
+
+\pic at (18.8, 0.01) {vecicon};
+\node[font=\scriptsize, align=center] at (18.8, -0.6) {Concordant\\[-2pt]Trainer Acts};
+
+\draw[arrow] (12.95, 0.1) -- (cka1.west);
+\draw[arrow] (cka1.east) -- node[above, font=\scriptsize, text=black!70]{target} (18.36, 0.1);
+
+% ========================
+%  PHASE 3: Evaluate
+% ========================
+\draw[fill=green!3, draw=green!50!black, dashed, thick, rounded corners=10pt]
+  (21.2, -2.5) rectangle (33.5, 1.6);
+\node[font=\bfseries\small, text=green!50!black, anchor=north west]
+  at (21.5, 1.35) {\textsc{Phase 3}: Evaluate};
+
+\pic at (22.8, 0) {vecicon};
+\node[font=\scriptsize, align=center] at (22.8, -0.6) {Tester Test\\[-2pt]Activations};
+
+\node[procbox, fill=green!8] (cka2) at (25.3, 0) {CKA\\Projection};
+\node[procbox] (logreg2) at (29.5, 0) {Logistic\\Regression};
+\node[resultcirc] (acc2) at (32.3, 0) {Test\\Acc};
+
+\draw[arrow] (23.25, 0) -- (cka2.west);
+\draw[arrow] (cka2.east) -- node[above, font=\scriptsize, text=black!70]{aligned} (logreg2.west);
+\draw[arrow] (logreg2.east) -- (acc2.west);
+
+\end{tikzpicture}%
+}
+    \caption{CKA approach experimental pipeline}
+    \label{fig:cka-pipeline}
+\end{figure}
+
+\subsection{CCA Approach}
+This baseline aligns spaces through \textbf{Canonical Correlation Analysis (CCA)}. CCA finds paired low-dimensional directions where tester and trainer activations are maximally correlated, then a linear regressor reconstructs trainer-space activations from tester canonical scores.
+
+Given $\mathbf{X}$ (tester) and $\mathbf{Y}$ (trainer), CCA computes:
+\[
+(\mathbf{u}_i,\mathbf{v}_i)=\arg\max_{\mathbf{u},\mathbf{v}}
+\mathrm{corr}(\mathbf{X}\mathbf{u},\mathbf{Y}\mathbf{v}), \quad i=1,\dots,k
+\]
+with
+\[
+k=\min\left(
+\texttt{cca\_components},
+n-1,
+d_x,
+d_y
+\right)
+\]
+where in this work \texttt{cca\_components}$=64$, \texttt{cca\_max\_iter}$=500$, \texttt{cca\_tol}$=10^{-6}$, \texttt{cca\_scale}$=\texttt{False}$.
+
+After fitting CCA on concordant data, tester activations are transformed into canonical scores and mapped back to trainer space via linear regression. The mapped tester test activations are classified by the frozen trainer Logistic Regression prober.
+
+\begin{figure}[H]
+    \centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+    >=Stealth,
+    thick,
+    procbox/.style={draw=black, rounded corners=5pt, fill=white,
+                    minimum height=1.1cm, minimum width=2.5cm,
+                    font=\small\bfseries, align=center, line width=0.8pt},
+    resultcirc/.style={circle, draw=green!60!black, fill=green!15,
+                       minimum size=1.3cm, align=center, font=\small\bfseries},
+    arrow/.style={->, >=Stealth, thick},
+    vecicon/.pic={
+        \foreach \i in {0,...,4}{
+            \fill[cyan!35!blue!25, draw=black!40, line width=0.3pt]
+                (\i*0.18-0.435, -0.275) rectangle ++(0.15, 0.55);
+        }
+    }
+]
+
+% ========================
+%  PHASE 1: Train Classifier
+% ========================
+\draw[fill=blue!3, draw=blue!60, dashed, thick, rounded corners=10pt]
+  (-0.3, -1.6) rectangle (10.3, 1.6);
+\node[font=\bfseries\small, text=blue!70, anchor=north west]
+  at (0.0, 1.35) {\textsc{Phase 1}: Train Classifier};
+
+\pic at (1.2, 0) {vecicon};
+\node[font=\scriptsize, align=center] at (1.2, -0.6) {Trainer\\[-2pt]Activations};
+
+\node[procbox] (scaler) at (4.0, 0) {Standard\\Scaler};
+\node[procbox] (logreg1) at (7.2, 0) {Logistic\\Regression};
+\node[resultcirc] (acc1) at (9.6, 0) {Acc};
+
+\draw[arrow] (1.65, 0) -- (scaler.west);
+\draw[arrow] (scaler.east) -- (logreg1.west);
+\draw[arrow] (logreg1.east) -- (acc1.west);
+
+% ========================
+%  PHASE 2: Fit Alignment
+% ========================
+\draw[fill=violet!3, draw=violet!60, dashed, thick, rounded corners=10pt]
+  (11.0, -1.6) rectangle (20.5, 1.6);
+\node[font=\bfseries\small, text=violet!70, anchor=north west]
+  at (11.3, 1.35) {\textsc{Phase 2}: Fit Alignment};
+
+\pic at (12.5, 0.01) {vecicon};
+\node[font=\scriptsize, align=center] at (12.5, -0.6) {Concordant\\[-2pt]Tester Acts};
+
+\node[procbox, fill=green!8] (cca1) at (15.5, 0.1) {CCA\\Alignment};
+
+\pic at (18.8, 0.01) {vecicon};
+\node[font=\scriptsize, align=center] at (18.8, -0.6) {Concordant\\[-2pt]Trainer Acts};
+
+\draw[arrow] (12.95, 0.1) -- (cca1.west);
+\draw[arrow] (cca1.east) -- node[above, font=\scriptsize, text=black!70]{target} (18.36, 0.1);
+
+% ========================
+%  PHASE 3: Evaluate
+% ========================
+\draw[fill=green!3, draw=green!50!black, dashed, thick, rounded corners=10pt]
+  (21.2, -2.5) rectangle (33.5, 1.6);
+\node[font=\bfseries\small, text=green!50!black, anchor=north west]
+  at (21.5, 1.35) {\textsc{Phase 3}: Evaluate};
+
+\pic at (22.8, 0) {vecicon};
+\node[font=\scriptsize, align=center] at (22.8, -0.6) {Tester Test\\[-2pt]Activations};
+
+\node[procbox, fill=green!8] (cca2) at (25.3, 0) {CCA\\Projection};
+\node[procbox] (logreg2) at (29.5, 0) {Logistic\\Regression};
+\node[resultcirc] (acc2) at (32.3, 0) {Test\\Acc};
+
+\draw[arrow] (23.25, 0) -- (cca2.west);
+\draw[arrow] (cca2.east) -- node[above, font=\scriptsize, text=black!70]{aligned} (logreg2.west);
+\draw[arrow] (logreg2.east) -- (acc2.west);
+
+\end{tikzpicture}%
+}
+    \caption{CCA approach experimental pipeline}
+    \label{fig:cca-pipeline}
+\end{figure}
 
 \subsection{AdapterMLP Approach}
 

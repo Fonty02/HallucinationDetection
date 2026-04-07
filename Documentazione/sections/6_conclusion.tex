@@ -1,36 +1,33 @@
 \chapter{Conclusions}
 
-This chapter summarizes the main results obtained from this work and future perspectives.
+This chapter summarizes the main outcomes of the updated experimental campaign and outlines future directions.
 
 \section{Summary of Results}
-This work explored the feasibility of transferable mechanisms for both hallucination \textbf{detection} and \textbf{mitigation} in LLMs. The experiments were conducted two models (from Gemma and LLama's family) and on datasets of varying complexity (BeliefBank and HaluEval), evaluating different techniques for aligning latent spaces and steering internal representations. The key results are summarized below.
+This work investigated transferable mechanisms for both hallucination \textbf{detection} and \textbf{mitigation} across Gemma and Llama models, using BeliefBankFacts (BBF), BeliefBankConstraints (BBC), and HaluEval (HE).
 
 \subsection{Hallucination Detection}
-For the detection task, different techniques for aligning latent spaces between "Trainer" and "Tester" models were evaluated, leading to the following findings:
 \begin{itemize}
-    \item \textbf{Transfer Effectiveness}: The proposed transferability methods proved effective, especially for simple factual verification tasks such as those in BeliefBank, where the performance of the transferred prober was comparable to that of dedicated classifiers.
-    
-    \item \textbf{Asymmetry in Generalization}: Cross-domain experiments revealed an interesting asymmetry: the encoding learned on "simple" datasets (BeliefBank) transfers effectively to complex contexts (HaluEval), while the reverse is less performant. This suggests that latent structures of truthfulness are more clearly defined and "universal" in basic factual tasks.
-    
-    \item \textbf{Robustness of the One-For-All Approach}: The One-For-All approach proved to be the most promising method for building a universal prober, showing robustness regardless of the type of layer analyzed (attn, mlp, hidden).
+    \item \textbf{One-For-All is the strongest in-domain transfer method on BeliefBank}: it achieves near-perfect tester performance on BBC (up to 0.9947 AccTe, 0.9998 AUROC) and very high results on BBF (up to 0.9628 AccTe, 0.9905 AUROC).
+    \item \textbf{No method is universally best on HaluEval}: performance is substantially lower and strongly direction-dependent. In Gemma$\rightarrow$Llama, simpler methods such as RidgeRegressor remain competitive, while in Llama$\rightarrow$Gemma, One-For-All is the best.
+    \item \textbf{Directional asymmetry is a core factor}: transfer quality depends heavily on source/target model assignment, not only on method choice.
+    \item \textbf{Cross-domain universality is limited}: One-For-All cross-domain transfer is generally weak toward HaluEval (near-chance average), while the strongest cross-domain results are mostly between BBF and BBC.
+    \item \textbf{Layer choice matters}: no global winner exists among attn/mlp/hidden, and layer sensitivity increases under domain shift.
 \end{itemize}
 
 \subsection{Hallucination Mitigation}
-For the mitigation task, two steering techniques --- TruthX and SLiMTruth --- were evaluated across standard, cross-dataset, and cross-model settings:
 \begin{itemize}
-    \item \textbf{SLiMTruth Dominance in Standard Settings}: SLiMTruth achieved the best absolute hallucination rate reductions when trained and applied on the same model and dataset, with reductions up to $-89.9\%$ (Llama on BeliefBankFacts) and consistent improvements across all model--dataset combinations. TruthX was effective on complex tasks (HaluEval, up to $-50.3\%$) but exhibited critical failures on low-error settings (BeliefBankFacts), where the steering intervention disrupted already well-calibrated representations.
-    
-    \item \textbf{Cross-Dataset Transferability}: Both methods confirmed the asymmetry observed in detection: steering vectors trained on simple factual tasks (BeliefBank) transfer well to complex scenarios (HaluEval), while the reverse direction is harmful, particularly for SLiMTruth which showed catastrophic failures (up to $+1029.7\%$) when transferring toward BeliefBankFacts.
-    
-    \item \textbf{Cross-Model Transferability}: TruthX with Procrustes alignment proved significantly more transferable across architectures than SLiMTruth, achieving meaningful reductions on HaluEval ($\sim$$-37\%$) in cross-model settings. SLiMTruth's layer-specific modulation, being tightly coupled to the source model's computational dynamics, failed catastrophically in cross-model transfer (up to $+248.6\%$). This highlights a fundamental trade-off: SLiMTruth's targeted single-layer intervention is more effective in-domain but less transferable, while TruthX's global contrastive decomposition produces more architecture-agnostic representations.
-    
-    \item \textbf{BBF Vulnerability}: A recurring pattern across both mitigation methods was the tendency to increase hallucinations on BeliefBankFacts in non-standard settings. When the baseline hallucination rate is already very low, steering interventions calibrated on noisier datasets apply corrections disproportionately large relative to the actual error signal.
+    \item \textbf{SLiMTruth is best in standard settings}: when trained and evaluated on the same model/dataset, it gives the largest and most consistent reductions (up to $-89.9\%$).
+    \item \textbf{TruthX is more transferable}: it is less dominant in-domain but more robust across models, with clear cross-model gains on HaluEval (around $-37\%$ in both directions with Procrustes).
+    \item \textbf{Cross-dataset transfer is highly asymmetric for both methods}: transfers toward BBF are risky and can become catastrophic, especially for SLiMTruth.
+    \item \textbf{BBF vulnerability is recurrent}: low baseline hallucination rates make aggressive steering prone to over-correction.
 \end{itemize}
 
 \section{Future Work}
-This work can be continued in several directions:
+The updated results suggest the following priorities:
 \begin{itemize}
-    \item \textbf{Adaptive Steering Strength}: Develop mechanisms that dynamically modulate the intensity of the steering intervention based on the model's baseline confidence, to avoid over-correction in low-error settings such as BeliefBankFacts.
-    \item \textbf{Improved Cross-Model SLiMTruth Transfer}: Investigate more robust alignment strategies for SLiMTruth cross-model transfer, potentially learning layer correspondences jointly with the modulation parameters rather than relying on fixed Procrustes mappings.
-    \item \textbf{Multimodal Experiments}: Extend the detection and mitigation approaches to multimodal models that integrate text and images.
+    \item \textbf{Direction-aware transfer strategies}: explicitly model source$\rightarrow$target asymmetry instead of assuming bidirectional equivalence.
+    \item \textbf{Post-transfer calibration}: optimize thresholds and score calibration after alignment, especially where AUROC is acceptable but AccTe is low.
+    \item \textbf{Adaptive steering strength}: scale mitigation intensity based on estimated baseline risk to avoid over-correction in low-error settings such as BBF.
+    \item \textbf{Architecture-aware SLiM transfer}: learn cross-model layer correspondences jointly with modulation parameters, instead of relying on fixed mappings.
+    \item \textbf{Richer evaluation protocols}: include additional domains and robustness checks to validate whether discovered truthfulness features remain stable beyond current datasets.
 \end{itemize}
