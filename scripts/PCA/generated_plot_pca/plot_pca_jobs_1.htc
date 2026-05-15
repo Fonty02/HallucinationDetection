@@ -6,27 +6,27 @@ request_memory = 16 GB
 log = logs/plot_pca_htc/job_$(Cluster)_$(Process).log
 output = logs/plot_pca_htc/job_$(Cluster)_$(Process).out
 error = logs/plot_pca_htc/job_$(Cluster)_$(Process).err
-arguments = "Qwen2.5-7B belief_bank_constraints:16,belief_bank_facts:15,halu_eval:8 attn 1500 true false results/pca_multidataset pca_Qwen2.5-7B_attn_belief_bank_constraints-16_belief_bank_facts-15_halu_eval-8_seed42.png 42 activation_cache"
+arguments = "Qwen2.5-7B belief_bank_constraints:16,belief_bank_facts:15,halu_eval:8 attn 1500 true true results/pca_multidataset pca_Qwen2.5-7B_attn_belief_bank_constraints-16_belief_bank_facts-15_halu_eval-8_seed42.png 42 activation_cache"
 queue
-arguments = "Qwen2.5-7B belief_bank_constraints:16,belief_bank_facts:15,halu_eval:5 mlp 1500 true false results/pca_multidataset pca_Qwen2.5-7B_mlp_belief_bank_constraints-16_belief_bank_facts-15_halu_eval-5_seed42.png 42 activation_cache"
+arguments = "Qwen2.5-7B belief_bank_constraints:16,belief_bank_facts:15,halu_eval:5 mlp 1500 true true results/pca_multidataset pca_Qwen2.5-7B_mlp_belief_bank_constraints-16_belief_bank_facts-15_halu_eval-5_seed42.png 42 activation_cache"
 queue
-arguments = "Qwen2.5-7B belief_bank_constraints:18,belief_bank_facts:22,halu_eval:7 hidden 1500 true false results/pca_multidataset pca_Qwen2.5-7B_hidden_belief_bank_constraints-18_belief_bank_facts-22_halu_eval-7_seed42.png 42 activation_cache"
+arguments = "Qwen2.5-7B belief_bank_constraints:18,belief_bank_facts:22,halu_eval:7 hidden 1500 true true results/pca_multidataset pca_Qwen2.5-7B_hidden_belief_bank_constraints-18_belief_bank_facts-22_halu_eval-7_seed42.png 42 activation_cache"
 queue
-arguments = "Falcon3-7B-Base belief_bank_constraints:12,belief_bank_facts:0,halu_eval:16 attn 1500 true false results/pca_multidataset pca_Falcon3-7B-Base_attn_belief_bank_constraints-12_belief_bank_facts-0_halu_eval-16_seed42.png 42 activation_cache"
+arguments = "Falcon3-7B-Base belief_bank_constraints:12,belief_bank_facts:0,halu_eval:16 attn 1500 true true results/pca_multidataset pca_Falcon3-7B-Base_attn_belief_bank_constraints-12_belief_bank_facts-0_halu_eval-16_seed42.png 42 activation_cache"
 queue
-arguments = "Falcon3-7B-Base belief_bank_constraints:0,belief_bank_facts:10,halu_eval:1 mlp 1500 true false results/pca_multidataset pca_Falcon3-7B-Base_mlp_belief_bank_constraints-0_belief_bank_facts-10_halu_eval-1_seed42.png 42 activation_cache"
+arguments = "Falcon3-7B-Base belief_bank_constraints:0,belief_bank_facts:10,halu_eval:1 mlp 1500 true true results/pca_multidataset pca_Falcon3-7B-Base_mlp_belief_bank_constraints-0_belief_bank_facts-10_halu_eval-1_seed42.png 42 activation_cache"
 queue
-arguments = "Falcon3-7B-Base belief_bank_constraints:0,belief_bank_facts:2,halu_eval:1 hidden 1500 true false results/pca_multidataset pca_Falcon3-7B-Base_hidden_belief_bank_constraints-0_belief_bank_facts-2_halu_eval-1_seed42.png 42 activation_cache"
+arguments = "Falcon3-7B-Base belief_bank_constraints:0,belief_bank_facts:2,halu_eval:1 hidden 1500 true true results/pca_multidataset pca_Falcon3-7B-Base_hidden_belief_bank_constraints-0_belief_bank_facts-2_halu_eval-1_seed42.png 42 activation_cache"
 queue
-arguments = "gemma-2-9b-it belief_bank_constraints:23,belief_bank_facts:21,halu_eval:21 attn 1500 true false results/pca_multidataset pca_gemma-2-9b-it_attn_belief_bank_constraints-23_belief_bank_facts-21_halu_eval-21_seed42.png 42 activation_cache"
+arguments = "gemma-2-9b-it belief_bank_constraints:23,belief_bank_facts:21,halu_eval:21 attn 1500 true true results/pca_multidataset pca_gemma-2-9b-it_attn_belief_bank_constraints-23_belief_bank_facts-21_halu_eval-21_seed42.png 42 activation_cache"
 queue
-arguments = "gemma-2-9b-it belief_bank_constraints:24,belief_bank_facts:22,halu_eval:23 mlp 1500 true false results/pca_multidataset pca_gemma-2-9b-it_mlp_belief_bank_constraints-24_belief_bank_facts-22_halu_eval-23_seed42.png 42 activation_cache"
+arguments = "gemma-2-9b-it belief_bank_constraints:24,belief_bank_facts:22,halu_eval:23 mlp 1500 true true results/pca_multidataset pca_gemma-2-9b-it_mlp_belief_bank_constraints-24_belief_bank_facts-22_halu_eval-23_seed42.png 42 activation_cache"
 queue
-arguments = "gemma-2-9b-it belief_bank_constraints:23,belief_bank_facts:23,halu_eval:19 hidden 1500 true false results/pca_multidataset pca_gemma-2-9b-it_hidden_belief_bank_constraints-23_belief_bank_facts-23_halu_eval-19_seed42.png 42 activation_cache"
+arguments = "gemma-2-9b-it belief_bank_constraints:23,belief_bank_facts:23,halu_eval:19 hidden 1500 true true results/pca_multidataset pca_gemma-2-9b-it_hidden_belief_bank_constraints-23_belief_bank_facts-23_halu_eval-19_seed42.png 42 activation_cache"
 queue
-arguments = "Llama-3.1-8B-Instruct belief_bank_constraints:5,belief_bank_facts:8,halu_eval:14 attn 1500 true false results/pca_multidataset pca_Llama-3.1-8B-Instruct_attn_belief_bank_constraints-5_belief_bank_facts-8_halu_eval-14_seed42.png 42 activation_cache"
+arguments = "Llama-3.1-8B-Instruct belief_bank_constraints:5,belief_bank_facts:8,halu_eval:14 attn 1500 true true results/pca_multidataset pca_Llama-3.1-8B-Instruct_attn_belief_bank_constraints-5_belief_bank_facts-8_halu_eval-14_seed42.png 42 activation_cache"
 queue
-arguments = "Llama-3.1-8B-Instruct belief_bank_constraints:13,belief_bank_facts:14,halu_eval:13 mlp 1500 true false results/pca_multidataset pca_Llama-3.1-8B-Instruct_mlp_belief_bank_constraints-13_belief_bank_facts-14_halu_eval-13_seed42.png 42 activation_cache"
+arguments = "Llama-3.1-8B-Instruct belief_bank_constraints:13,belief_bank_facts:14,halu_eval:13 mlp 1500 true true results/pca_multidataset pca_Llama-3.1-8B-Instruct_mlp_belief_bank_constraints-13_belief_bank_facts-14_halu_eval-13_seed42.png 42 activation_cache"
 queue
-arguments = "Llama-3.1-8B-Instruct belief_bank_constraints:13,belief_bank_facts:14,halu_eval:14 hidden 1500 true false results/pca_multidataset pca_Llama-3.1-8B-Instruct_hidden_belief_bank_constraints-13_belief_bank_facts-14_halu_eval-14_seed42.png 42 activation_cache"
+arguments = "Llama-3.1-8B-Instruct belief_bank_constraints:13,belief_bank_facts:14,halu_eval:14 hidden 1500 true true results/pca_multidataset pca_Llama-3.1-8B-Instruct_hidden_belief_bank_constraints-13_belief_bank_facts-14_halu_eval-14_seed42.png 42 activation_cache"
 queue

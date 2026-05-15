@@ -67,8 +67,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--title", type=str, default="")
     parser.add_argument("--max-points-per-class", type=int, default=1500)
     parser.add_argument("--balance", action="store_true")
-    parser.add_argument("--standardize", action="store_true")
+    parser.add_argument("--standardize", dest="standardize", action="store_true")
+    parser.add_argument("--no-standardize", dest="standardize", action="store_false")
+    parser.add_argument(
+        "--axis-quantile",
+        type=float,
+        default=0.995,
+        help=(
+            "Robust axis range quantile in (0.5, 1.0]. "
+            "Example: 0.995 keeps the central 99.5%% of projected points per axis."
+        ),
+    )
     parser.add_argument("--seed", type=int, default=42)
+    parser.set_defaults(standardize=True)
     return parser.parse_args()
 
 
@@ -294,6 +305,7 @@ def plot_multidataset(
     layer_type: str,
     output_path: Path,
     title_override: str,
+    axis_quantile: float,
 ) -> None:
     n_plots = len(results)
     n_cols = min(3, n_plots)
@@ -315,21 +327,31 @@ def plot_multidataset(
         ax.scatter(
             proj[mask_not, 0],
             proj[mask_not, 1],
-            s=7,
+            s=8,
             c="#1F4EFF",
-            alpha=0.55,
+            alpha=0.6,
             linewidths=0,
             rasterized=True,
         )
         ax.scatter(
             proj[mask_hall, 0],
             proj[mask_hall, 1],
-            s=7,
+            s=8,
             c="#E52323",
-            alpha=0.55,
+            alpha=0.6,
             linewidths=0,
             rasterized=True,
         )
+
+        # Robust axis limits improve readability when a few points are extreme outliers.
+        if 0.5 < axis_quantile < 1.0:
+            q_lo = 1.0 - axis_quantile
+            x_lo, x_hi = np.quantile(proj[:, 0], [q_lo, axis_quantile])
+            y_lo, y_hi = np.quantile(proj[:, 1], [q_lo, axis_quantile])
+            x_pad = max(1e-6, (x_hi - x_lo) * 0.05)
+            y_pad = max(1e-6, (y_hi - y_lo) * 0.05)
+            ax.set_xlim(x_lo - x_pad, x_hi + x_pad)
+            ax.set_ylim(y_lo - y_pad, y_hi + y_pad)
 
         ax.set_title(f"{pretty_dataset_name(dataset)}\n(Layer {layer})", fontsize=12, fontweight="bold")
         ax.set_xlabel("PCA 1")
@@ -385,6 +407,7 @@ def main() -> None:
     print(f"Dataset/layer pairs: {dataset_layer_pairs}")
     print(f"Balance classes: {args.balance}")
     print(f"Standardize: {args.standardize}")
+    print(f"Axis quantile: {args.axis_quantile}")
     print(f"Max points per class: {max_points_per_class}")
 
     results: list[dict] = []
@@ -427,6 +450,7 @@ def main() -> None:
         layer_type=args.layer_type,
         output_path=output_path,
         title_override=args.title,
+        axis_quantile=args.axis_quantile,
     )
     print(f"\nSaved plot: {output_path}")
 

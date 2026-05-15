@@ -1,0 +1,12 @@
+universe = vanilla
+executable = scripts/O4A_experiments/run_export_sampling_stats.sh
+request_cpus = 2
+request_gpus = 0
+request_memory = 8 GB
+
+log = logs/export_sampling_stats_htc/job_$(Cluster)_$(Process).log
+output = logs/export_sampling_stats_htc/job_$(Cluster)_$(Process).out
+error = logs/export_sampling_stats_htc/job_$(Cluster)_$(Process).err
+
+arguments = "results/o4a_experiments/sampling_hallucination_stats.json activation_cache src/o4a/config.py attn"
+queue
