@@ -1,0 +1,2963 @@
+{
+  "generated_at_utc": "2026-05-16T19:29:39.657689+00:00",
+  "project_root": "/lustrehome/fonty/HallucinationDetection",
+  "config_path": "/lustrehome/fonty/HallucinationDetection/src/o4a/config.py",
+  "cache_root": "/lustrehome/fonty/HallucinationDetection/activation_cache",
+  "stats_layer_type": "attn",
+  "num_experiments": 36,
+  "num_model_dataset_pairs_found": 12,
+  "num_model_dataset_pairs_missing": 0,
+  "missing_model_dataset_pairs": [],
+  "hallucination_rate_by_model": {
+    "Falcon3-7B-Base": {
+      "datasets": {
+        "belief_bank_constraints": {
+          "total_instances": 24980,
+          "hallucinated_count": 11800,
+          "not_hallucinated_count": 13180,
+          "hallucination_rate": 0.4723779023218575,
+          "structure": "old",
+          "resolved_model_dir": "Falcon3-7B-Base"
+        },
+        "belief_bank_facts": {
+          "total_instances": 27416,
+          "hallucinated_count": 7677,
+          "not_hallucinated_count": 19739,
+          "hallucination_rate": 0.2800189670265538,
+          "structure": "old",
+          "resolved_model_dir": "Falcon3-7B-Base"
+        },
+        "halu_eval": {
+          "total_instances": 10000,
+          "hallucinated_count": 3253,
+          "not_hallucinated_count": 6747,
+          "hallucination_rate": 0.3253,
+          "structure": "old",
+          "resolved_model_dir": "Falcon3-7B-Base"
+        }
+      },
+      "aggregate": {
+        "total_instances": 62396,
+        "hallucinated_count": 22730,
+        "hallucination_rate_weighted": 0.36428617219052506,
+        "not_hallucinated_count": 39666,
+        "num_datasets": 3
+      }
+    },
+    "Llama-3.1-8B-Instruct": {
+      "datasets": {
+        "belief_bank_constraints": {
+          "total_instances": 25476,
+          "hallucinated_count": 3027,
+          "not_hallucinated_count": 22449,
+          "hallucination_rate": 0.1188177107866227,
+          "structure": "old",
+          "resolved_model_dir": "Llama-3.1-8B-Instruct"
+        },
+        "belief_bank_facts": {
+          "total_instances": 27416,
+          "hallucinated_count": 1946,
+          "not_hallucinated_count": 25470,
+          "hallucination_rate": 0.07098044937262912,
+          "structure": "old",
+          "resolved_model_dir": "Llama-3.1-8B-Instruct"
+        },
+        "halu_eval": {
+          "total_instances": 10000,
+          "hallucinated_count": 1922,
+          "not_hallucinated_count": 8078,
+          "hallucination_rate": 0.1922,
+          "structure": "old",
+          "resolved_model_dir": "Llama-3.1-8B-Instruct"
+        }
+      },
+      "aggregate": {
+        "total_instances": 62892,
+        "hallucinated_count": 6895,
+        "hallucination_rate_weighted": 0.10963238567703365,
+        "not_hallucinated_count": 55997,
+        "num_datasets": 3
+      }
+    },
+    "Qwen2.5-7B": {
+      "datasets": {
+        "belief_bank_constraints": {
+          "total_instances": 25156,
+          "hallucinated_count": 9803,
+          "not_hallucinated_count": 15353,
+          "hallucination_rate": 0.3896883447288917,
+          "structure": "old",
+          "resolved_model_dir": "Qwen2.5-7B"
+        },
+        "belief_bank_facts": {
+          "total_instances": 27416,
+          "hallucinated_count": 3741,
+          "not_hallucinated_count": 23675,
+          "hallucination_rate": 0.13645316603443244,
+          "structure": "old",
+          "resolved_model_dir": "Qwen2.5-7B"
+        },
+        "halu_eval": {
+          "total_instances": 10000,
+          "hallucinated_count": 2832,
+          "not_hallucinated_count": 7168,
+          "hallucination_rate": 0.2832,
+          "structure": "old",
+          "resolved_model_dir": "Qwen2.5-7B"
+        }
+      },
+      "aggregate": {
+        "total_instances": 62572,
+        "hallucinated_count": 16376,
+        "hallucination_rate_weighted": 0.2617145048903663,
+        "not_hallucinated_count": 46196,
+        "num_datasets": 3
+      }
+    },
+    "gemma-2-9b-it": {
+      "datasets": {
+        "belief_bank_constraints": {
+          "total_instances": 25266,
+          "hallucinated_count": 11527,
+          "not_hallucinated_count": 13739,
+          "hallucination_rate": 0.4562257579355656,
+          "structure": "old",
+          "resolved_model_dir": "gemma-2-9b-it"
+        },
+        "belief_bank_facts": {
+          "total_instances": 27416,
+          "hallucinated_count": 896,
+          "not_hallucinated_count": 26520,
+          "hallucination_rate": 0.03268164575430406,
+          "structure": "old",
+          "resolved_model_dir": "gemma-2-9b-it"
+        },
+        "halu_eval": {
+          "total_instances": 10000,
+          "hallucinated_count": 2479,
+          "not_hallucinated_count": 7521,
+          "hallucination_rate": 0.2479,
+          "structure": "old",
+          "resolved_model_dir": "gemma-2-9b-it"
+        }
+      },
+      "aggregate": {
+        "total_instances": 62682,
+        "hallucinated_count": 14902,
+        "hallucination_rate_weighted": 0.2377397019878115,
+        "not_hallucinated_count": 47780,
+        "num_datasets": 3
+      }
+    }
+  },
+  "experiments": {
+    "FalconToGemma_BBC": {
+      "dataset": "belief_bank_constraints",
+      "trainer": "Falcon3-7B-Base",
+      "tester": "gemma-2-9b-it",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 24980,
+            "hallucinated_count": 11800,
+            "not_hallucinated_count": 13180,
+            "hallucination_rate": 0.4723779023218575
+          },
+          "sampling_counts": {
+            "raw_total_instances": 24980,
+            "raw_hallucinated": 11800,
+            "raw_not_hallucinated": 13180,
+            "balanced_per_class": 11800,
+            "balanced_total_for_probing": 23600,
+            "train_count_after_split": 16520,
+            "test_count_after_split": 7080
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25266,
+            "hallucinated_count": 11527,
+            "not_hallucinated_count": 13739,
+            "hallucination_rate": 0.4562257579355656
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25266,
+            "raw_hallucinated": 11527,
+            "raw_not_hallucinated": 13739,
+            "balanced_per_class": 11527,
+            "balanced_total_for_probing": 23054,
+            "train_count_after_split": 16137,
+            "test_count_after_split": 6917
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 24980,
+        "concordant_total_count": 13406,
+        "concordant_hallucinated_count": 5850,
+        "concordant_not_hallucinated_count": 7556,
+        "discordant_count": 11574,
+        "balanced_concordant_per_class": 5850,
+        "balanced_concordant_total_for_alignment": 11700,
+        "alignment_train_count_after_split": 8189,
+        "alignment_val_count_after_split": 3511
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 14042,
+        "val_after_prober_split": 2478,
+        "source_train_count": 16520
+      }
+    },
+    "FalconToGemma_BBF": {
+      "dataset": "belief_bank_facts",
+      "trainer": "Falcon3-7B-Base",
+      "tester": "gemma-2-9b-it",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 7677,
+            "not_hallucinated_count": 19739,
+            "hallucination_rate": 0.2800189670265538
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 7677,
+            "raw_not_hallucinated": 19739,
+            "balanced_per_class": 7677,
+            "balanced_total_for_probing": 15354,
+            "train_count_after_split": 10747,
+            "test_count_after_split": 4607
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 896,
+            "not_hallucinated_count": 26520,
+            "hallucination_rate": 0.03268164575430406
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 896,
+            "raw_not_hallucinated": 26520,
+            "balanced_per_class": 896,
+            "balanced_total_for_probing": 1792,
+            "train_count_after_split": 1254,
+            "test_count_after_split": 538
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 27416,
+        "concordant_total_count": 19573,
+        "concordant_hallucinated_count": 365,
+        "concordant_not_hallucinated_count": 19208,
+        "discordant_count": 7843,
+        "balanced_concordant_per_class": 365,
+        "balanced_concordant_total_for_alignment": 730,
+        "alignment_train_count_after_split": 510,
+        "alignment_val_count_after_split": 220
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 9135,
+        "val_after_prober_split": 1612,
+        "source_train_count": 10747
+      }
+    },
+    "FalconToGemma_HE": {
+      "dataset": "halu_eval",
+      "trainer": "Falcon3-7B-Base",
+      "tester": "gemma-2-9b-it",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 3253,
+            "not_hallucinated_count": 6747,
+            "hallucination_rate": 0.3253
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 3253,
+            "raw_not_hallucinated": 6747,
+            "balanced_per_class": 3253,
+            "balanced_total_for_probing": 6506,
+            "train_count_after_split": 4554,
+            "test_count_after_split": 1952
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 2479,
+            "not_hallucinated_count": 7521,
+            "hallucination_rate": 0.2479
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 2479,
+            "raw_not_hallucinated": 7521,
+            "balanced_per_class": 2479,
+            "balanced_total_for_probing": 4958,
+            "train_count_after_split": 3470,
+            "test_count_after_split": 1488
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 10000,
+        "concordant_total_count": 7852,
+        "concordant_hallucinated_count": 1792,
+        "concordant_not_hallucinated_count": 6060,
+        "discordant_count": 2148,
+        "balanced_concordant_per_class": 1792,
+        "balanced_concordant_total_for_alignment": 3584,
+        "alignment_train_count_after_split": 2508,
+        "alignment_val_count_after_split": 1076
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 3871,
+        "val_after_prober_split": 683,
+        "source_train_count": 4554
+      }
+    },
+    "FalconToLlama_BBC": {
+      "dataset": "belief_bank_constraints",
+      "trainer": "Falcon3-7B-Base",
+      "tester": "Llama-3.1-8B-Instruct",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 24980,
+            "hallucinated_count": 11800,
+            "not_hallucinated_count": 13180,
+            "hallucination_rate": 0.4723779023218575
+          },
+          "sampling_counts": {
+            "raw_total_instances": 24980,
+            "raw_hallucinated": 11800,
+            "raw_not_hallucinated": 13180,
+            "balanced_per_class": 11800,
+            "balanced_total_for_probing": 23600,
+            "train_count_after_split": 16520,
+            "test_count_after_split": 7080
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25476,
+            "hallucinated_count": 3027,
+            "not_hallucinated_count": 22449,
+            "hallucination_rate": 0.1188177107866227
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25476,
+            "raw_hallucinated": 3027,
+            "raw_not_hallucinated": 22449,
+            "balanced_per_class": 3027,
+            "balanced_total_for_probing": 6054,
+            "train_count_after_split": 4237,
+            "test_count_after_split": 1817
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 24980,
+        "concordant_total_count": 11516,
+        "concordant_hallucinated_count": 670,
+        "concordant_not_hallucinated_count": 10846,
+        "discordant_count": 13464,
+        "balanced_concordant_per_class": 670,
+        "balanced_concordant_total_for_alignment": 1340,
+        "alignment_train_count_after_split": 937,
+        "alignment_val_count_after_split": 403
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 14042,
+        "val_after_prober_split": 2478,
+        "source_train_count": 16520
+      }
+    },
+    "FalconToLlama_BBF": {
+      "dataset": "belief_bank_facts",
+      "trainer": "Falcon3-7B-Base",
+      "tester": "Llama-3.1-8B-Instruct",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 7677,
+            "not_hallucinated_count": 19739,
+            "hallucination_rate": 0.2800189670265538
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 7677,
+            "raw_not_hallucinated": 19739,
+            "balanced_per_class": 7677,
+            "balanced_total_for_probing": 15354,
+            "train_count_after_split": 10747,
+            "test_count_after_split": 4607
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 1946,
+            "not_hallucinated_count": 25470,
+            "hallucination_rate": 0.07098044937262912
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 1946,
+            "raw_not_hallucinated": 25470,
+            "balanced_per_class": 1946,
+            "balanced_total_for_probing": 3892,
+            "train_count_after_split": 2724,
+            "test_count_after_split": 1168
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 27416,
+        "concordant_total_count": 17889,
+        "concordant_hallucinated_count": 48,
+        "concordant_not_hallucinated_count": 17841,
+        "discordant_count": 9527,
+        "balanced_concordant_per_class": 48,
+        "balanced_concordant_total_for_alignment": 96,
+        "alignment_train_count_after_split": 67,
+        "alignment_val_count_after_split": 29
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 9135,
+        "val_after_prober_split": 1612,
+        "source_train_count": 10747
+      }
+    },
+    "FalconToLlama_HE": {
+      "dataset": "halu_eval",
+      "trainer": "Falcon3-7B-Base",
+      "tester": "Llama-3.1-8B-Instruct",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 3253,
+            "not_hallucinated_count": 6747,
+            "hallucination_rate": 0.3253
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 3253,
+            "raw_not_hallucinated": 6747,
+            "balanced_per_class": 3253,
+            "balanced_total_for_probing": 6506,
+            "train_count_after_split": 4554,
+            "test_count_after_split": 1952
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 1922,
+            "not_hallucinated_count": 8078,
+            "hallucination_rate": 0.1922
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 1922,
+            "raw_not_hallucinated": 8078,
+            "balanced_per_class": 1922,
+            "balanced_total_for_probing": 3844,
+            "train_count_after_split": 2690,
+            "test_count_after_split": 1154
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 10000,
+        "concordant_total_count": 7599,
+        "concordant_hallucinated_count": 1387,
+        "concordant_not_hallucinated_count": 6212,
+        "discordant_count": 2401,
+        "balanced_concordant_per_class": 1387,
+        "balanced_concordant_total_for_alignment": 2774,
+        "alignment_train_count_after_split": 1941,
+        "alignment_val_count_after_split": 833
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 3871,
+        "val_after_prober_split": 683,
+        "source_train_count": 4554
+      }
+    },
+    "FalconToQwen_BBC": {
+      "dataset": "belief_bank_constraints",
+      "trainer": "Falcon3-7B-Base",
+      "tester": "Qwen2.5-7B",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 24980,
+            "hallucinated_count": 11800,
+            "not_hallucinated_count": 13180,
+            "hallucination_rate": 0.4723779023218575
+          },
+          "sampling_counts": {
+            "raw_total_instances": 24980,
+            "raw_hallucinated": 11800,
+            "raw_not_hallucinated": 13180,
+            "balanced_per_class": 11800,
+            "balanced_total_for_probing": 23600,
+            "train_count_after_split": 16520,
+            "test_count_after_split": 7080
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25156,
+            "hallucinated_count": 9803,
+            "not_hallucinated_count": 15353,
+            "hallucination_rate": 0.3896883447288917
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25156,
+            "raw_hallucinated": 9803,
+            "raw_not_hallucinated": 15353,
+            "balanced_per_class": 9803,
+            "balanced_total_for_probing": 19606,
+            "train_count_after_split": 13724,
+            "test_count_after_split": 5882
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 24980,
+        "concordant_total_count": 17274,
+        "concordant_hallucinated_count": 6924,
+        "concordant_not_hallucinated_count": 10350,
+        "discordant_count": 7706,
+        "balanced_concordant_per_class": 6924,
+        "balanced_concordant_total_for_alignment": 13848,
+        "alignment_train_count_after_split": 9693,
+        "alignment_val_count_after_split": 4155
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 14042,
+        "val_after_prober_split": 2478,
+        "source_train_count": 16520
+      }
+    },
+    "FalconToQwen_BBF": {
+      "dataset": "belief_bank_facts",
+      "trainer": "Falcon3-7B-Base",
+      "tester": "Qwen2.5-7B",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 7677,
+            "not_hallucinated_count": 19739,
+            "hallucination_rate": 0.2800189670265538
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 7677,
+            "raw_not_hallucinated": 19739,
+            "balanced_per_class": 7677,
+            "balanced_total_for_probing": 15354,
+            "train_count_after_split": 10747,
+            "test_count_after_split": 4607
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 3741,
+            "not_hallucinated_count": 23675,
+            "hallucination_rate": 0.13645316603443244
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 3741,
+            "raw_not_hallucinated": 23675,
+            "balanced_per_class": 3741,
+            "balanced_total_for_probing": 7482,
+            "train_count_after_split": 5237,
+            "test_count_after_split": 2245
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 27416,
+        "concordant_total_count": 22046,
+        "concordant_hallucinated_count": 3024,
+        "concordant_not_hallucinated_count": 19022,
+        "discordant_count": 5370,
+        "balanced_concordant_per_class": 3024,
+        "balanced_concordant_total_for_alignment": 6048,
+        "alignment_train_count_after_split": 4233,
+        "alignment_val_count_after_split": 1815
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 9135,
+        "val_after_prober_split": 1612,
+        "source_train_count": 10747
+      }
+    },
+    "FalconToQwen_HE": {
+      "dataset": "halu_eval",
+      "trainer": "Falcon3-7B-Base",
+      "tester": "Qwen2.5-7B",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 3253,
+            "not_hallucinated_count": 6747,
+            "hallucination_rate": 0.3253
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 3253,
+            "raw_not_hallucinated": 6747,
+            "balanced_per_class": 3253,
+            "balanced_total_for_probing": 6506,
+            "train_count_after_split": 4554,
+            "test_count_after_split": 1952
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 2832,
+            "not_hallucinated_count": 7168,
+            "hallucination_rate": 0.2832
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 2832,
+            "raw_not_hallucinated": 7168,
+            "balanced_per_class": 2832,
+            "balanced_total_for_probing": 5664,
+            "train_count_after_split": 3964,
+            "test_count_after_split": 1700
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 10000,
+        "concordant_total_count": 7751,
+        "concordant_hallucinated_count": 1918,
+        "concordant_not_hallucinated_count": 5833,
+        "discordant_count": 2249,
+        "balanced_concordant_per_class": 1918,
+        "balanced_concordant_total_for_alignment": 3836,
+        "alignment_train_count_after_split": 2685,
+        "alignment_val_count_after_split": 1151
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 3871,
+        "val_after_prober_split": 683,
+        "source_train_count": 4554
+      }
+    },
+    "GemmaToFalcon_BBC": {
+      "dataset": "belief_bank_constraints",
+      "trainer": "gemma-2-9b-it",
+      "tester": "Falcon3-7B-Base",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25266,
+            "hallucinated_count": 11527,
+            "not_hallucinated_count": 13739,
+            "hallucination_rate": 0.4562257579355656
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25266,
+            "raw_hallucinated": 11527,
+            "raw_not_hallucinated": 13739,
+            "balanced_per_class": 11527,
+            "balanced_total_for_probing": 23054,
+            "train_count_after_split": 16137,
+            "test_count_after_split": 6917
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 24980,
+            "hallucinated_count": 11800,
+            "not_hallucinated_count": 13180,
+            "hallucination_rate": 0.4723779023218575
+          },
+          "sampling_counts": {
+            "raw_total_instances": 24980,
+            "raw_hallucinated": 11800,
+            "raw_not_hallucinated": 13180,
+            "balanced_per_class": 11800,
+            "balanced_total_for_probing": 23600,
+            "train_count_after_split": 16520,
+            "test_count_after_split": 7080
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 24980,
+        "concordant_total_count": 13406,
+        "concordant_hallucinated_count": 5850,
+        "concordant_not_hallucinated_count": 7556,
+        "discordant_count": 11574,
+        "balanced_concordant_per_class": 5850,
+        "balanced_concordant_total_for_alignment": 11700,
+        "alignment_train_count_after_split": 8189,
+        "alignment_val_count_after_split": 3511
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 13717,
+        "val_after_prober_split": 2420,
+        "source_train_count": 16137
+      }
+    },
+    "GemmaToFalcon_BBF": {
+      "dataset": "belief_bank_facts",
+      "trainer": "gemma-2-9b-it",
+      "tester": "Falcon3-7B-Base",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 896,
+            "not_hallucinated_count": 26520,
+            "hallucination_rate": 0.03268164575430406
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 896,
+            "raw_not_hallucinated": 26520,
+            "balanced_per_class": 896,
+            "balanced_total_for_probing": 1792,
+            "train_count_after_split": 1254,
+            "test_count_after_split": 538
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 7677,
+            "not_hallucinated_count": 19739,
+            "hallucination_rate": 0.2800189670265538
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 7677,
+            "raw_not_hallucinated": 19739,
+            "balanced_per_class": 7677,
+            "balanced_total_for_probing": 15354,
+            "train_count_after_split": 10747,
+            "test_count_after_split": 4607
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 27416,
+        "concordant_total_count": 19573,
+        "concordant_hallucinated_count": 365,
+        "concordant_not_hallucinated_count": 19208,
+        "discordant_count": 7843,
+        "balanced_concordant_per_class": 365,
+        "balanced_concordant_total_for_alignment": 730,
+        "alignment_train_count_after_split": 510,
+        "alignment_val_count_after_split": 220
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 1066,
+        "val_after_prober_split": 188,
+        "source_train_count": 1254
+      }
+    },
+    "GemmaToFalcon_HE": {
+      "dataset": "halu_eval",
+      "trainer": "gemma-2-9b-it",
+      "tester": "Falcon3-7B-Base",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 2479,
+            "not_hallucinated_count": 7521,
+            "hallucination_rate": 0.2479
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 2479,
+            "raw_not_hallucinated": 7521,
+            "balanced_per_class": 2479,
+            "balanced_total_for_probing": 4958,
+            "train_count_after_split": 3470,
+            "test_count_after_split": 1488
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 3253,
+            "not_hallucinated_count": 6747,
+            "hallucination_rate": 0.3253
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 3253,
+            "raw_not_hallucinated": 6747,
+            "balanced_per_class": 3253,
+            "balanced_total_for_probing": 6506,
+            "train_count_after_split": 4554,
+            "test_count_after_split": 1952
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 10000,
+        "concordant_total_count": 7852,
+        "concordant_hallucinated_count": 1792,
+        "concordant_not_hallucinated_count": 6060,
+        "discordant_count": 2148,
+        "balanced_concordant_per_class": 1792,
+        "balanced_concordant_total_for_alignment": 3584,
+        "alignment_train_count_after_split": 2508,
+        "alignment_val_count_after_split": 1076
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 2950,
+        "val_after_prober_split": 520,
+        "source_train_count": 3470
+      }
+    },
+    "GemmaToLlama_BBC": {
+      "dataset": "belief_bank_constraints",
+      "trainer": "gemma-2-9b-it",
+      "tester": "Llama-3.1-8B-Instruct",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25266,
+            "hallucinated_count": 11527,
+            "not_hallucinated_count": 13739,
+            "hallucination_rate": 0.4562257579355656
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25266,
+            "raw_hallucinated": 11527,
+            "raw_not_hallucinated": 13739,
+            "balanced_per_class": 11527,
+            "balanced_total_for_probing": 23054,
+            "train_count_after_split": 16137,
+            "test_count_after_split": 6917
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25476,
+            "hallucinated_count": 3027,
+            "not_hallucinated_count": 22449,
+            "hallucination_rate": 0.1188177107866227
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25476,
+            "raw_hallucinated": 3027,
+            "raw_not_hallucinated": 22449,
+            "balanced_per_class": 3027,
+            "balanced_total_for_probing": 6054,
+            "train_count_after_split": 4237,
+            "test_count_after_split": 1817
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 25266,
+        "concordant_total_count": 13277,
+        "concordant_hallucinated_count": 1278,
+        "concordant_not_hallucinated_count": 11999,
+        "discordant_count": 11989,
+        "balanced_concordant_per_class": 1278,
+        "balanced_concordant_total_for_alignment": 2556,
+        "alignment_train_count_after_split": 1789,
+        "alignment_val_count_after_split": 767
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 13717,
+        "val_after_prober_split": 2420,
+        "source_train_count": 16137
+      }
+    },
+    "GemmaToLlama_BBF": {
+      "dataset": "belief_bank_facts",
+      "trainer": "gemma-2-9b-it",
+      "tester": "Llama-3.1-8B-Instruct",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 896,
+            "not_hallucinated_count": 26520,
+            "hallucination_rate": 0.03268164575430406
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 896,
+            "raw_not_hallucinated": 26520,
+            "balanced_per_class": 896,
+            "balanced_total_for_probing": 1792,
+            "train_count_after_split": 1254,
+            "test_count_after_split": 538
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 1946,
+            "not_hallucinated_count": 25470,
+            "hallucination_rate": 0.07098044937262912
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 1946,
+            "raw_not_hallucinated": 25470,
+            "balanced_per_class": 1946,
+            "balanced_total_for_probing": 3892,
+            "train_count_after_split": 2724,
+            "test_count_after_split": 1168
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 27416,
+        "concordant_total_count": 25080,
+        "concordant_hallucinated_count": 253,
+        "concordant_not_hallucinated_count": 24827,
+        "discordant_count": 2336,
+        "balanced_concordant_per_class": 253,
+        "balanced_concordant_total_for_alignment": 506,
+        "alignment_train_count_after_split": 354,
+        "alignment_val_count_after_split": 152
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 1066,
+        "val_after_prober_split": 188,
+        "source_train_count": 1254
+      }
+    },
+    "GemmaToLlama_HE": {
+      "dataset": "halu_eval",
+      "trainer": "gemma-2-9b-it",
+      "tester": "Llama-3.1-8B-Instruct",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 2479,
+            "not_hallucinated_count": 7521,
+            "hallucination_rate": 0.2479
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 2479,
+            "raw_not_hallucinated": 7521,
+            "balanced_per_class": 2479,
+            "balanced_total_for_probing": 4958,
+            "train_count_after_split": 3470,
+            "test_count_after_split": 1488
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 1922,
+            "not_hallucinated_count": 8078,
+            "hallucination_rate": 0.1922
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 1922,
+            "raw_not_hallucinated": 8078,
+            "balanced_per_class": 1922,
+            "balanced_total_for_probing": 3844,
+            "train_count_after_split": 2690,
+            "test_count_after_split": 1154
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 10000,
+        "concordant_total_count": 8345,
+        "concordant_hallucinated_count": 1373,
+        "concordant_not_hallucinated_count": 6972,
+        "discordant_count": 1655,
+        "balanced_concordant_per_class": 1373,
+        "balanced_concordant_total_for_alignment": 2746,
+        "alignment_train_count_after_split": 1922,
+        "alignment_val_count_after_split": 824
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 2950,
+        "val_after_prober_split": 520,
+        "source_train_count": 3470
+      }
+    },
+    "GemmaToQwen_BBC": {
+      "dataset": "belief_bank_constraints",
+      "trainer": "gemma-2-9b-it",
+      "tester": "Qwen2.5-7B",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25266,
+            "hallucinated_count": 11527,
+            "not_hallucinated_count": 13739,
+            "hallucination_rate": 0.4562257579355656
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25266,
+            "raw_hallucinated": 11527,
+            "raw_not_hallucinated": 13739,
+            "balanced_per_class": 11527,
+            "balanced_total_for_probing": 23054,
+            "train_count_after_split": 16137,
+            "test_count_after_split": 6917
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25156,
+            "hallucinated_count": 9803,
+            "not_hallucinated_count": 15353,
+            "hallucination_rate": 0.3896883447288917
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25156,
+            "raw_hallucinated": 9803,
+            "raw_not_hallucinated": 15353,
+            "balanced_per_class": 9803,
+            "balanced_total_for_probing": 19606,
+            "train_count_after_split": 13724,
+            "test_count_after_split": 5882
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 25156,
+        "concordant_total_count": 13633,
+        "concordant_hallucinated_count": 4896,
+        "concordant_not_hallucinated_count": 8737,
+        "discordant_count": 11523,
+        "balanced_concordant_per_class": 4896,
+        "balanced_concordant_total_for_alignment": 9792,
+        "alignment_train_count_after_split": 6854,
+        "alignment_val_count_after_split": 2938
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 13717,
+        "val_after_prober_split": 2420,
+        "source_train_count": 16137
+      }
+    },
+    "GemmaToQwen_BBF": {
+      "dataset": "belief_bank_facts",
+      "trainer": "gemma-2-9b-it",
+      "tester": "Qwen2.5-7B",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 896,
+            "not_hallucinated_count": 26520,
+            "hallucination_rate": 0.03268164575430406
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 896,
+            "raw_not_hallucinated": 26520,
+            "balanced_per_class": 896,
+            "balanced_total_for_probing": 1792,
+            "train_count_after_split": 1254,
+            "test_count_after_split": 538
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 3741,
+            "not_hallucinated_count": 23675,
+            "hallucination_rate": 0.13645316603443244
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 3741,
+            "raw_not_hallucinated": 23675,
+            "balanced_per_class": 3741,
+            "balanced_total_for_probing": 7482,
+            "train_count_after_split": 5237,
+            "test_count_after_split": 2245
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 27416,
+        "concordant_total_count": 23397,
+        "concordant_hallucinated_count": 309,
+        "concordant_not_hallucinated_count": 23088,
+        "discordant_count": 4019,
+        "balanced_concordant_per_class": 309,
+        "balanced_concordant_total_for_alignment": 618,
+        "alignment_train_count_after_split": 432,
+        "alignment_val_count_after_split": 186
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 1066,
+        "val_after_prober_split": 188,
+        "source_train_count": 1254
+      }
+    },
+    "GemmaToQwen_HE": {
+      "dataset": "halu_eval",
+      "trainer": "gemma-2-9b-it",
+      "tester": "Qwen2.5-7B",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 2479,
+            "not_hallucinated_count": 7521,
+            "hallucination_rate": 0.2479
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 2479,
+            "raw_not_hallucinated": 7521,
+            "balanced_per_class": 2479,
+            "balanced_total_for_probing": 4958,
+            "train_count_after_split": 3470,
+            "test_count_after_split": 1488
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 2832,
+            "not_hallucinated_count": 7168,
+            "hallucination_rate": 0.2832
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 2832,
+            "raw_not_hallucinated": 7168,
+            "balanced_per_class": 2832,
+            "balanced_total_for_probing": 5664,
+            "train_count_after_split": 3964,
+            "test_count_after_split": 1700
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 10000,
+        "concordant_total_count": 8077,
+        "concordant_hallucinated_count": 1694,
+        "concordant_not_hallucinated_count": 6383,
+        "discordant_count": 1923,
+        "balanced_concordant_per_class": 1694,
+        "balanced_concordant_total_for_alignment": 3388,
+        "alignment_train_count_after_split": 2371,
+        "alignment_val_count_after_split": 1017
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 2950,
+        "val_after_prober_split": 520,
+        "source_train_count": 3470
+      }
+    },
+    "LlamaToFalcon_BBC": {
+      "dataset": "belief_bank_constraints",
+      "trainer": "Llama-3.1-8B-Instruct",
+      "tester": "Falcon3-7B-Base",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25476,
+            "hallucinated_count": 3027,
+            "not_hallucinated_count": 22449,
+            "hallucination_rate": 0.1188177107866227
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25476,
+            "raw_hallucinated": 3027,
+            "raw_not_hallucinated": 22449,
+            "balanced_per_class": 3027,
+            "balanced_total_for_probing": 6054,
+            "train_count_after_split": 4237,
+            "test_count_after_split": 1817
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 24980,
+            "hallucinated_count": 11800,
+            "not_hallucinated_count": 13180,
+            "hallucination_rate": 0.4723779023218575
+          },
+          "sampling_counts": {
+            "raw_total_instances": 24980,
+            "raw_hallucinated": 11800,
+            "raw_not_hallucinated": 13180,
+            "balanced_per_class": 11800,
+            "balanced_total_for_probing": 23600,
+            "train_count_after_split": 16520,
+            "test_count_after_split": 7080
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 24980,
+        "concordant_total_count": 11516,
+        "concordant_hallucinated_count": 670,
+        "concordant_not_hallucinated_count": 10846,
+        "discordant_count": 13464,
+        "balanced_concordant_per_class": 670,
+        "balanced_concordant_total_for_alignment": 1340,
+        "alignment_train_count_after_split": 937,
+        "alignment_val_count_after_split": 403
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 3602,
+        "val_after_prober_split": 635,
+        "source_train_count": 4237
+      }
+    },
+    "LlamaToFalcon_BBF": {
+      "dataset": "belief_bank_facts",
+      "trainer": "Llama-3.1-8B-Instruct",
+      "tester": "Falcon3-7B-Base",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 1946,
+            "not_hallucinated_count": 25470,
+            "hallucination_rate": 0.07098044937262912
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 1946,
+            "raw_not_hallucinated": 25470,
+            "balanced_per_class": 1946,
+            "balanced_total_for_probing": 3892,
+            "train_count_after_split": 2724,
+            "test_count_after_split": 1168
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 7677,
+            "not_hallucinated_count": 19739,
+            "hallucination_rate": 0.2800189670265538
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 7677,
+            "raw_not_hallucinated": 19739,
+            "balanced_per_class": 7677,
+            "balanced_total_for_probing": 15354,
+            "train_count_after_split": 10747,
+            "test_count_after_split": 4607
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 27416,
+        "concordant_total_count": 17889,
+        "concordant_hallucinated_count": 48,
+        "concordant_not_hallucinated_count": 17841,
+        "discordant_count": 9527,
+        "balanced_concordant_per_class": 48,
+        "balanced_concordant_total_for_alignment": 96,
+        "alignment_train_count_after_split": 67,
+        "alignment_val_count_after_split": 29
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 2316,
+        "val_after_prober_split": 408,
+        "source_train_count": 2724
+      }
+    },
+    "LlamaToFalcon_HE": {
+      "dataset": "halu_eval",
+      "trainer": "Llama-3.1-8B-Instruct",
+      "tester": "Falcon3-7B-Base",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 1922,
+            "not_hallucinated_count": 8078,
+            "hallucination_rate": 0.1922
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 1922,
+            "raw_not_hallucinated": 8078,
+            "balanced_per_class": 1922,
+            "balanced_total_for_probing": 3844,
+            "train_count_after_split": 2690,
+            "test_count_after_split": 1154
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 3253,
+            "not_hallucinated_count": 6747,
+            "hallucination_rate": 0.3253
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 3253,
+            "raw_not_hallucinated": 6747,
+            "balanced_per_class": 3253,
+            "balanced_total_for_probing": 6506,
+            "train_count_after_split": 4554,
+            "test_count_after_split": 1952
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 10000,
+        "concordant_total_count": 7599,
+        "concordant_hallucinated_count": 1387,
+        "concordant_not_hallucinated_count": 6212,
+        "discordant_count": 2401,
+        "balanced_concordant_per_class": 1387,
+        "balanced_concordant_total_for_alignment": 2774,
+        "alignment_train_count_after_split": 1941,
+        "alignment_val_count_after_split": 833
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 2287,
+        "val_after_prober_split": 403,
+        "source_train_count": 2690
+      }
+    },
+    "LlamaToGemma_BBC": {
+      "dataset": "belief_bank_constraints",
+      "trainer": "Llama-3.1-8B-Instruct",
+      "tester": "gemma-2-9b-it",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25476,
+            "hallucinated_count": 3027,
+            "not_hallucinated_count": 22449,
+            "hallucination_rate": 0.1188177107866227
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25476,
+            "raw_hallucinated": 3027,
+            "raw_not_hallucinated": 22449,
+            "balanced_per_class": 3027,
+            "balanced_total_for_probing": 6054,
+            "train_count_after_split": 4237,
+            "test_count_after_split": 1817
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25266,
+            "hallucinated_count": 11527,
+            "not_hallucinated_count": 13739,
+            "hallucination_rate": 0.4562257579355656
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25266,
+            "raw_hallucinated": 11527,
+            "raw_not_hallucinated": 13739,
+            "balanced_per_class": 11527,
+            "balanced_total_for_probing": 23054,
+            "train_count_after_split": 16137,
+            "test_count_after_split": 6917
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 25266,
+        "concordant_total_count": 13277,
+        "concordant_hallucinated_count": 1278,
+        "concordant_not_hallucinated_count": 11999,
+        "discordant_count": 11989,
+        "balanced_concordant_per_class": 1278,
+        "balanced_concordant_total_for_alignment": 2556,
+        "alignment_train_count_after_split": 1789,
+        "alignment_val_count_after_split": 767
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 3602,
+        "val_after_prober_split": 635,
+        "source_train_count": 4237
+      }
+    },
+    "LlamaToGemma_BBF": {
+      "dataset": "belief_bank_facts",
+      "trainer": "Llama-3.1-8B-Instruct",
+      "tester": "gemma-2-9b-it",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 1946,
+            "not_hallucinated_count": 25470,
+            "hallucination_rate": 0.07098044937262912
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 1946,
+            "raw_not_hallucinated": 25470,
+            "balanced_per_class": 1946,
+            "balanced_total_for_probing": 3892,
+            "train_count_after_split": 2724,
+            "test_count_after_split": 1168
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 896,
+            "not_hallucinated_count": 26520,
+            "hallucination_rate": 0.03268164575430406
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 896,
+            "raw_not_hallucinated": 26520,
+            "balanced_per_class": 896,
+            "balanced_total_for_probing": 1792,
+            "train_count_after_split": 1254,
+            "test_count_after_split": 538
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 27416,
+        "concordant_total_count": 25080,
+        "concordant_hallucinated_count": 253,
+        "concordant_not_hallucinated_count": 24827,
+        "discordant_count": 2336,
+        "balanced_concordant_per_class": 253,
+        "balanced_concordant_total_for_alignment": 506,
+        "alignment_train_count_after_split": 354,
+        "alignment_val_count_after_split": 152
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 2316,
+        "val_after_prober_split": 408,
+        "source_train_count": 2724
+      }
+    },
+    "LlamaToGemma_HE": {
+      "dataset": "halu_eval",
+      "trainer": "Llama-3.1-8B-Instruct",
+      "tester": "gemma-2-9b-it",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 1922,
+            "not_hallucinated_count": 8078,
+            "hallucination_rate": 0.1922
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 1922,
+            "raw_not_hallucinated": 8078,
+            "balanced_per_class": 1922,
+            "balanced_total_for_probing": 3844,
+            "train_count_after_split": 2690,
+            "test_count_after_split": 1154
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 2479,
+            "not_hallucinated_count": 7521,
+            "hallucination_rate": 0.2479
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 2479,
+            "raw_not_hallucinated": 7521,
+            "balanced_per_class": 2479,
+            "balanced_total_for_probing": 4958,
+            "train_count_after_split": 3470,
+            "test_count_after_split": 1488
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 10000,
+        "concordant_total_count": 8345,
+        "concordant_hallucinated_count": 1373,
+        "concordant_not_hallucinated_count": 6972,
+        "discordant_count": 1655,
+        "balanced_concordant_per_class": 1373,
+        "balanced_concordant_total_for_alignment": 2746,
+        "alignment_train_count_after_split": 1922,
+        "alignment_val_count_after_split": 824
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 2287,
+        "val_after_prober_split": 403,
+        "source_train_count": 2690
+      }
+    },
+    "LlamaToQwen_BBC": {
+      "dataset": "belief_bank_constraints",
+      "trainer": "Llama-3.1-8B-Instruct",
+      "tester": "Qwen2.5-7B",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25476,
+            "hallucinated_count": 3027,
+            "not_hallucinated_count": 22449,
+            "hallucination_rate": 0.1188177107866227
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25476,
+            "raw_hallucinated": 3027,
+            "raw_not_hallucinated": 22449,
+            "balanced_per_class": 3027,
+            "balanced_total_for_probing": 6054,
+            "train_count_after_split": 4237,
+            "test_count_after_split": 1817
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25156,
+            "hallucinated_count": 9803,
+            "not_hallucinated_count": 15353,
+            "hallucination_rate": 0.3896883447288917
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25156,
+            "raw_hallucinated": 9803,
+            "raw_not_hallucinated": 15353,
+            "balanced_per_class": 9803,
+            "balanced_total_for_probing": 19606,
+            "train_count_after_split": 13724,
+            "test_count_after_split": 5882
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 25156,
+        "concordant_total_count": 13310,
+        "concordant_hallucinated_count": 486,
+        "concordant_not_hallucinated_count": 12824,
+        "discordant_count": 11846,
+        "balanced_concordant_per_class": 486,
+        "balanced_concordant_total_for_alignment": 972,
+        "alignment_train_count_after_split": 680,
+        "alignment_val_count_after_split": 292
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 3602,
+        "val_after_prober_split": 635,
+        "source_train_count": 4237
+      }
+    },
+    "LlamaToQwen_BBF": {
+      "dataset": "belief_bank_facts",
+      "trainer": "Llama-3.1-8B-Instruct",
+      "tester": "Qwen2.5-7B",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 1946,
+            "not_hallucinated_count": 25470,
+            "hallucination_rate": 0.07098044937262912
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 1946,
+            "raw_not_hallucinated": 25470,
+            "balanced_per_class": 1946,
+            "balanced_total_for_probing": 3892,
+            "train_count_after_split": 2724,
+            "test_count_after_split": 1168
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 3741,
+            "not_hallucinated_count": 23675,
+            "hallucination_rate": 0.13645316603443244
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 3741,
+            "raw_not_hallucinated": 23675,
+            "balanced_per_class": 3741,
+            "balanced_total_for_probing": 7482,
+            "train_count_after_split": 5237,
+            "test_count_after_split": 2245
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 27416,
+        "concordant_total_count": 21959,
+        "concordant_hallucinated_count": 115,
+        "concordant_not_hallucinated_count": 21844,
+        "discordant_count": 5457,
+        "balanced_concordant_per_class": 115,
+        "balanced_concordant_total_for_alignment": 230,
+        "alignment_train_count_after_split": 161,
+        "alignment_val_count_after_split": 69
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 2316,
+        "val_after_prober_split": 408,
+        "source_train_count": 2724
+      }
+    },
+    "LlamaToQwen_HE": {
+      "dataset": "halu_eval",
+      "trainer": "Llama-3.1-8B-Instruct",
+      "tester": "Qwen2.5-7B",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 1922,
+            "not_hallucinated_count": 8078,
+            "hallucination_rate": 0.1922
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 1922,
+            "raw_not_hallucinated": 8078,
+            "balanced_per_class": 1922,
+            "balanced_total_for_probing": 3844,
+            "train_count_after_split": 2690,
+            "test_count_after_split": 1154
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 2832,
+            "not_hallucinated_count": 7168,
+            "hallucination_rate": 0.2832
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 2832,
+            "raw_not_hallucinated": 7168,
+            "balanced_per_class": 2832,
+            "balanced_total_for_probing": 5664,
+            "train_count_after_split": 3964,
+            "test_count_after_split": 1700
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 10000,
+        "concordant_total_count": 7782,
+        "concordant_hallucinated_count": 1268,
+        "concordant_not_hallucinated_count": 6514,
+        "discordant_count": 2218,
+        "balanced_concordant_per_class": 1268,
+        "balanced_concordant_total_for_alignment": 2536,
+        "alignment_train_count_after_split": 1775,
+        "alignment_val_count_after_split": 761
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 2287,
+        "val_after_prober_split": 403,
+        "source_train_count": 2690
+      }
+    },
+    "QwenToFalcon_BBC": {
+      "dataset": "belief_bank_constraints",
+      "trainer": "Qwen2.5-7B",
+      "tester": "Falcon3-7B-Base",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25156,
+            "hallucinated_count": 9803,
+            "not_hallucinated_count": 15353,
+            "hallucination_rate": 0.3896883447288917
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25156,
+            "raw_hallucinated": 9803,
+            "raw_not_hallucinated": 15353,
+            "balanced_per_class": 9803,
+            "balanced_total_for_probing": 19606,
+            "train_count_after_split": 13724,
+            "test_count_after_split": 5882
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 24980,
+            "hallucinated_count": 11800,
+            "not_hallucinated_count": 13180,
+            "hallucination_rate": 0.4723779023218575
+          },
+          "sampling_counts": {
+            "raw_total_instances": 24980,
+            "raw_hallucinated": 11800,
+            "raw_not_hallucinated": 13180,
+            "balanced_per_class": 11800,
+            "balanced_total_for_probing": 23600,
+            "train_count_after_split": 16520,
+            "test_count_after_split": 7080
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 24980,
+        "concordant_total_count": 17274,
+        "concordant_hallucinated_count": 6924,
+        "concordant_not_hallucinated_count": 10350,
+        "discordant_count": 7706,
+        "balanced_concordant_per_class": 6924,
+        "balanced_concordant_total_for_alignment": 13848,
+        "alignment_train_count_after_split": 9693,
+        "alignment_val_count_after_split": 4155
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 11666,
+        "val_after_prober_split": 2058,
+        "source_train_count": 13724
+      }
+    },
+    "QwenToFalcon_BBF": {
+      "dataset": "belief_bank_facts",
+      "trainer": "Qwen2.5-7B",
+      "tester": "Falcon3-7B-Base",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 3741,
+            "not_hallucinated_count": 23675,
+            "hallucination_rate": 0.13645316603443244
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 3741,
+            "raw_not_hallucinated": 23675,
+            "balanced_per_class": 3741,
+            "balanced_total_for_probing": 7482,
+            "train_count_after_split": 5237,
+            "test_count_after_split": 2245
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 7677,
+            "not_hallucinated_count": 19739,
+            "hallucination_rate": 0.2800189670265538
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 7677,
+            "raw_not_hallucinated": 19739,
+            "balanced_per_class": 7677,
+            "balanced_total_for_probing": 15354,
+            "train_count_after_split": 10747,
+            "test_count_after_split": 4607
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 27416,
+        "concordant_total_count": 22046,
+        "concordant_hallucinated_count": 3024,
+        "concordant_not_hallucinated_count": 19022,
+        "discordant_count": 5370,
+        "balanced_concordant_per_class": 3024,
+        "balanced_concordant_total_for_alignment": 6048,
+        "alignment_train_count_after_split": 4233,
+        "alignment_val_count_after_split": 1815
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 4452,
+        "val_after_prober_split": 785,
+        "source_train_count": 5237
+      }
+    },
+    "QwenToFalcon_HE": {
+      "dataset": "halu_eval",
+      "trainer": "Qwen2.5-7B",
+      "tester": "Falcon3-7B-Base",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 2832,
+            "not_hallucinated_count": 7168,
+            "hallucination_rate": 0.2832
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 2832,
+            "raw_not_hallucinated": 7168,
+            "balanced_per_class": 2832,
+            "balanced_total_for_probing": 5664,
+            "train_count_after_split": 3964,
+            "test_count_after_split": 1700
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Falcon3-7B-Base",
+            "resolved_model_dir": "Falcon3-7B-Base",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 3253,
+            "not_hallucinated_count": 6747,
+            "hallucination_rate": 0.3253
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 3253,
+            "raw_not_hallucinated": 6747,
+            "balanced_per_class": 3253,
+            "balanced_total_for_probing": 6506,
+            "train_count_after_split": 4554,
+            "test_count_after_split": 1952
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 10000,
+        "concordant_total_count": 7751,
+        "concordant_hallucinated_count": 1918,
+        "concordant_not_hallucinated_count": 5833,
+        "discordant_count": 2249,
+        "balanced_concordant_per_class": 1918,
+        "balanced_concordant_total_for_alignment": 3836,
+        "alignment_train_count_after_split": 2685,
+        "alignment_val_count_after_split": 1151
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 3370,
+        "val_after_prober_split": 594,
+        "source_train_count": 3964
+      }
+    },
+    "QwenToGemma_BBC": {
+      "dataset": "belief_bank_constraints",
+      "trainer": "Qwen2.5-7B",
+      "tester": "gemma-2-9b-it",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25156,
+            "hallucinated_count": 9803,
+            "not_hallucinated_count": 15353,
+            "hallucination_rate": 0.3896883447288917
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25156,
+            "raw_hallucinated": 9803,
+            "raw_not_hallucinated": 15353,
+            "balanced_per_class": 9803,
+            "balanced_total_for_probing": 19606,
+            "train_count_after_split": 13724,
+            "test_count_after_split": 5882
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25266,
+            "hallucinated_count": 11527,
+            "not_hallucinated_count": 13739,
+            "hallucination_rate": 0.4562257579355656
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25266,
+            "raw_hallucinated": 11527,
+            "raw_not_hallucinated": 13739,
+            "balanced_per_class": 11527,
+            "balanced_total_for_probing": 23054,
+            "train_count_after_split": 16137,
+            "test_count_after_split": 6917
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 25156,
+        "concordant_total_count": 13633,
+        "concordant_hallucinated_count": 4896,
+        "concordant_not_hallucinated_count": 8737,
+        "discordant_count": 11523,
+        "balanced_concordant_per_class": 4896,
+        "balanced_concordant_total_for_alignment": 9792,
+        "alignment_train_count_after_split": 6854,
+        "alignment_val_count_after_split": 2938
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 11666,
+        "val_after_prober_split": 2058,
+        "source_train_count": 13724
+      }
+    },
+    "QwenToGemma_BBF": {
+      "dataset": "belief_bank_facts",
+      "trainer": "Qwen2.5-7B",
+      "tester": "gemma-2-9b-it",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 3741,
+            "not_hallucinated_count": 23675,
+            "hallucination_rate": 0.13645316603443244
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 3741,
+            "raw_not_hallucinated": 23675,
+            "balanced_per_class": 3741,
+            "balanced_total_for_probing": 7482,
+            "train_count_after_split": 5237,
+            "test_count_after_split": 2245
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 896,
+            "not_hallucinated_count": 26520,
+            "hallucination_rate": 0.03268164575430406
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 896,
+            "raw_not_hallucinated": 26520,
+            "balanced_per_class": 896,
+            "balanced_total_for_probing": 1792,
+            "train_count_after_split": 1254,
+            "test_count_after_split": 538
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 27416,
+        "concordant_total_count": 23397,
+        "concordant_hallucinated_count": 309,
+        "concordant_not_hallucinated_count": 23088,
+        "discordant_count": 4019,
+        "balanced_concordant_per_class": 309,
+        "balanced_concordant_total_for_alignment": 618,
+        "alignment_train_count_after_split": 432,
+        "alignment_val_count_after_split": 186
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 4452,
+        "val_after_prober_split": 785,
+        "source_train_count": 5237
+      }
+    },
+    "QwenToGemma_HE": {
+      "dataset": "halu_eval",
+      "trainer": "Qwen2.5-7B",
+      "tester": "gemma-2-9b-it",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 2832,
+            "not_hallucinated_count": 7168,
+            "hallucination_rate": 0.2832
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 2832,
+            "raw_not_hallucinated": 7168,
+            "balanced_per_class": 2832,
+            "balanced_total_for_probing": 5664,
+            "train_count_after_split": 3964,
+            "test_count_after_split": 1700
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "gemma-2-9b-it",
+            "resolved_model_dir": "gemma-2-9b-it",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 2479,
+            "not_hallucinated_count": 7521,
+            "hallucination_rate": 0.2479
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 2479,
+            "raw_not_hallucinated": 7521,
+            "balanced_per_class": 2479,
+            "balanced_total_for_probing": 4958,
+            "train_count_after_split": 3470,
+            "test_count_after_split": 1488
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 10000,
+        "concordant_total_count": 8077,
+        "concordant_hallucinated_count": 1694,
+        "concordant_not_hallucinated_count": 6383,
+        "discordant_count": 1923,
+        "balanced_concordant_per_class": 1694,
+        "balanced_concordant_total_for_alignment": 3388,
+        "alignment_train_count_after_split": 2371,
+        "alignment_val_count_after_split": 1017
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 3370,
+        "val_after_prober_split": 594,
+        "source_train_count": 3964
+      }
+    },
+    "QwenToLlama_BBC": {
+      "dataset": "belief_bank_constraints",
+      "trainer": "Qwen2.5-7B",
+      "tester": "Llama-3.1-8B-Instruct",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25156,
+            "hallucinated_count": 9803,
+            "not_hallucinated_count": 15353,
+            "hallucination_rate": 0.3896883447288917
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25156,
+            "raw_hallucinated": 9803,
+            "raw_not_hallucinated": 15353,
+            "balanced_per_class": 9803,
+            "balanced_total_for_probing": 19606,
+            "train_count_after_split": 13724,
+            "test_count_after_split": 5882
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "belief_bank_constraints",
+            "structure": "old",
+            "total_instances": 25476,
+            "hallucinated_count": 3027,
+            "not_hallucinated_count": 22449,
+            "hallucination_rate": 0.1188177107866227
+          },
+          "sampling_counts": {
+            "raw_total_instances": 25476,
+            "raw_hallucinated": 3027,
+            "raw_not_hallucinated": 22449,
+            "balanced_per_class": 3027,
+            "balanced_total_for_probing": 6054,
+            "train_count_after_split": 4237,
+            "test_count_after_split": 1817
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 25156,
+        "concordant_total_count": 13310,
+        "concordant_hallucinated_count": 486,
+        "concordant_not_hallucinated_count": 12824,
+        "discordant_count": 11846,
+        "balanced_concordant_per_class": 486,
+        "balanced_concordant_total_for_alignment": 972,
+        "alignment_train_count_after_split": 680,
+        "alignment_val_count_after_split": 292
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 11666,
+        "val_after_prober_split": 2058,
+        "source_train_count": 13724
+      }
+    },
+    "QwenToLlama_BBF": {
+      "dataset": "belief_bank_facts",
+      "trainer": "Qwen2.5-7B",
+      "tester": "Llama-3.1-8B-Instruct",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 3741,
+            "not_hallucinated_count": 23675,
+            "hallucination_rate": 0.13645316603443244
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 3741,
+            "raw_not_hallucinated": 23675,
+            "balanced_per_class": 3741,
+            "balanced_total_for_probing": 7482,
+            "train_count_after_split": 5237,
+            "test_count_after_split": 2245
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "belief_bank_facts",
+            "structure": "old",
+            "total_instances": 27416,
+            "hallucinated_count": 1946,
+            "not_hallucinated_count": 25470,
+            "hallucination_rate": 0.07098044937262912
+          },
+          "sampling_counts": {
+            "raw_total_instances": 27416,
+            "raw_hallucinated": 1946,
+            "raw_not_hallucinated": 25470,
+            "balanced_per_class": 1946,
+            "balanced_total_for_probing": 3892,
+            "train_count_after_split": 2724,
+            "test_count_after_split": 1168
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 27416,
+        "concordant_total_count": 21959,
+        "concordant_hallucinated_count": 115,
+        "concordant_not_hallucinated_count": 21844,
+        "discordant_count": 5457,
+        "balanced_concordant_per_class": 115,
+        "balanced_concordant_total_for_alignment": 230,
+        "alignment_train_count_after_split": 161,
+        "alignment_val_count_after_split": 69
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 4452,
+        "val_after_prober_split": 785,
+        "source_train_count": 5237
+      }
+    },
+    "QwenToLlama_HE": {
+      "dataset": "halu_eval",
+      "trainer": "Qwen2.5-7B",
+      "tester": "Llama-3.1-8B-Instruct",
+      "layer_types": [
+        "attn",
+        "mlp",
+        "hidden"
+      ],
+      "count_logic_reference": "src/o4a/data.py::prepare_shared_data",
+      "stats_layer_type_used_for_new_structure": "attn",
+      "splits": {
+        "train_split": 0.7,
+        "alignment_split": 0.7,
+        "prober_val_split": 0.15
+      },
+      "status": "ok",
+      "models": {
+        "trainer": {
+          "stats": {
+            "model_name": "Qwen2.5-7B",
+            "resolved_model_dir": "Qwen2.5-7B",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 2832,
+            "not_hallucinated_count": 7168,
+            "hallucination_rate": 0.2832
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 2832,
+            "raw_not_hallucinated": 7168,
+            "balanced_per_class": 2832,
+            "balanced_total_for_probing": 5664,
+            "train_count_after_split": 3964,
+            "test_count_after_split": 1700
+          }
+        },
+        "tester": {
+          "stats": {
+            "model_name": "Llama-3.1-8B-Instruct",
+            "resolved_model_dir": "Llama-3.1-8B-Instruct",
+            "dataset": "halu_eval",
+            "structure": "old",
+            "total_instances": 10000,
+            "hallucinated_count": 1922,
+            "not_hallucinated_count": 8078,
+            "hallucination_rate": 0.1922
+          },
+          "sampling_counts": {
+            "raw_total_instances": 10000,
+            "raw_hallucinated": 1922,
+            "raw_not_hallucinated": 8078,
+            "balanced_per_class": 1922,
+            "balanced_total_for_probing": 3844,
+            "train_count_after_split": 2690,
+            "test_count_after_split": 1154
+          }
+        }
+      },
+      "intersection_and_alignment_counts": {
+        "common_instance_ids_count": 10000,
+        "concordant_total_count": 7782,
+        "concordant_hallucinated_count": 1268,
+        "concordant_not_hallucinated_count": 6514,
+        "discordant_count": 2218,
+        "balanced_concordant_per_class": 1268,
+        "balanced_concordant_total_for_alignment": 2536,
+        "alignment_train_count_after_split": 1775,
+        "alignment_val_count_after_split": 761
+      },
+      "trainer_prober_split_counts": {
+        "train_after_prober_split": 3370,
+        "val_after_prober_split": 594,
+        "source_train_count": 3964
+      }
+    }
+  }
+}
