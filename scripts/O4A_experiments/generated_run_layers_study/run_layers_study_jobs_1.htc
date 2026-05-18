@@ -1,0 +1,80 @@
+universe = vanilla
+executable = scripts/O4A_experiments/run_layers_study.sh
+request_cpus = 8
+request_gpus = 0
+request_memory = 16384
+log = logs/run_layers_study_htc/job_$(Cluster)_$(Process).log
+output = logs/run_layers_study_htc/job_$(Cluster)_$(Process).out
+error = logs/run_layers_study_htc/job_$(Cluster)_$(Process).err
+arguments = "Qwen2.5-7B belief_bank_constraints attn 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Qwen2.5-7B belief_bank_constraints mlp 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Qwen2.5-7B belief_bank_constraints hidden 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Qwen2.5-7B belief_bank_facts attn 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Qwen2.5-7B belief_bank_facts mlp 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Qwen2.5-7B belief_bank_facts hidden 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Qwen2.5-7B halu_eval attn 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Qwen2.5-7B halu_eval mlp 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Qwen2.5-7B halu_eval hidden 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Falcon3-7B-Base belief_bank_constraints attn 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Falcon3-7B-Base belief_bank_constraints mlp 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Falcon3-7B-Base belief_bank_constraints hidden 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Falcon3-7B-Base belief_bank_facts attn 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Falcon3-7B-Base belief_bank_facts mlp 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Falcon3-7B-Base belief_bank_facts hidden 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Falcon3-7B-Base halu_eval attn 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Falcon3-7B-Base halu_eval mlp 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Falcon3-7B-Base halu_eval hidden 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "gemma-2-9b-it belief_bank_constraints attn 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "gemma-2-9b-it belief_bank_constraints mlp 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "gemma-2-9b-it belief_bank_constraints hidden 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "gemma-2-9b-it belief_bank_facts attn 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "gemma-2-9b-it belief_bank_facts mlp 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "gemma-2-9b-it belief_bank_facts hidden 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "gemma-2-9b-it halu_eval attn 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "gemma-2-9b-it halu_eval mlp 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "gemma-2-9b-it halu_eval hidden 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Llama-3.1-8B-Instruct belief_bank_constraints attn 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Llama-3.1-8B-Instruct belief_bank_constraints mlp 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Llama-3.1-8B-Instruct belief_bank_constraints hidden 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Llama-3.1-8B-Instruct belief_bank_facts attn 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Llama-3.1-8B-Instruct belief_bank_facts mlp 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Llama-3.1-8B-Instruct belief_bank_facts hidden 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Llama-3.1-8B-Instruct halu_eval attn 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Llama-3.1-8B-Instruct halu_eval mlp 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue
+arguments = "Llama-3.1-8B-Instruct halu_eval hidden 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study"
+queue

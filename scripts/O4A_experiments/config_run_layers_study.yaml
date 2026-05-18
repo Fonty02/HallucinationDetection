@@ -1,0 +1,54 @@
+# Configuration for layer-wise study HTC job generation.
+# One job = one (model, dataset, layer_type), internally evaluated on all split seeds.
+
+common:
+  llms:
+    - Qwen2.5-7B
+    - Falcon3-7B-Base
+    - gemma-2-9b-it
+    - Llama-3.1-8B-Instruct
+
+  datasets:
+    - belief_bank_constraints
+    - belief_bank_facts
+    - halu_eval
+
+  layer_types:
+    - attn
+    - mlp
+    - hidden
+
+  split_seeds:
+    - 2
+    - 4
+    - 24
+    - 42
+    - 64
+    - 67
+    - 104
+    - 123
+    - 420
+    - 511
+
+  test_size: 0.3
+
+runtime:
+  device: cpu
+  max_iter: 10000
+  logreg_n_jobs: -1
+  output_base_dir: results/layers_study
+
+htc:
+  executable: scripts/O4A_experiments/run_layers_study.sh
+  output_dir: scripts/O4A_experiments/generated_run_layers_study
+  logs_dir: logs/run_layers_study_htc
+  max_jobs_per_file: 500
+
+  request_cpus: 8
+  request_gpus: 0
+  request_memory: 32768
+
+  # Optional cluster-specific fields:
+  # initialdir: /lustrehome/fonty/HallucinationDetection
+  # getenv: True
+  # requirements: (CUDAGlobalMemoryMb >= 24000)
