@@ -441,7 +441,7 @@ def main() -> None:
         title_override=args.title,
         axis_quantile=args.axis_quantile,
     )
-    print(f"\nSaved plot: {output_path}")
+    print(f"\nSaved plot in: {output_path}")
 
 
 if __name__ == "__main__":
