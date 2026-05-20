@@ -327,7 +327,7 @@ def plot_multidataset(
         ax.scatter(
             proj[mask_not, 0],
             proj[mask_not, 1],
-            s=8,
+            s=24,
             c="#1F4EFF",
             alpha=0.6,
             linewidths=0,
@@ -336,12 +336,14 @@ def plot_multidataset(
         ax.scatter(
             proj[mask_hall, 0],
             proj[mask_hall, 1],
-            s=8,
+            s=24,
             c="#E52323",
             alpha=0.6,
             linewidths=0,
             rasterized=True,
         )
+
+        ax.set_box_aspect(1)
 
         # Robust axis limits improve readability when a few points are extreme outliers.
         if 0.5 < axis_quantile < 1.0:
@@ -357,20 +359,6 @@ def plot_multidataset(
         ax.set_xlabel("PCA 1")
         ax.set_ylabel("PCA 2")
         ax.grid(True, alpha=0.2, linewidth=0.5)
-
-        n_not = int(mask_not.sum())
-        n_hall = int(mask_hall.sum())
-        ax.text(
-            0.01,
-            0.99,
-            f"Var: {variance[0] * 100:.1f}% / {variance[1] * 100:.1f}%\n"
-            f"N0={n_not}, N1={n_hall}",
-            transform=ax.transAxes,
-            va="top",
-            ha="left",
-            fontsize=8,
-            bbox={"boxstyle": "round,pad=0.25", "facecolor": "white", "alpha": 0.75, "edgecolor": "none"},
-        )
 
     for j in range(n_plots, n_rows * n_cols):
         fig.delaxes(axes[j // n_cols][j % n_cols])

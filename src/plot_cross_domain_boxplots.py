@@ -11,6 +11,24 @@ import seaborn as sns
 LAYER_ORDER = ["attn", "hidden", "mlp"]
 SPLIT_ORDER = ["trainer", "tester"]
 SPLIT_LABEL = {"trainer": "Tr", "tester": "Te"}
+DATASET_CODE = {
+    "belief_bank_facts": "F.",
+    "belief_bank_constraints": "L.",
+    "halu_eval": "C.",
+}
+SCENARIO_ORDER = ["F.->L.", "C.->L.", "L.->F.", "C.->F.", "L.->C.", "F.->C."]
+LAYER_SPLIT_ORDER = [
+    f"{layer} ({SPLIT_LABEL['trainer']})" for layer in LAYER_ORDER
+] + [f"{layer} ({SPLIT_LABEL['tester']})" for layer in LAYER_ORDER]
+
+CUSTOM_PALETTE = {
+    "attn (Tr)": "#1f77b4",     # dark blue
+    "hidden (Tr)": "#2ca02c",   # dark green
+    "mlp (Tr)": "#d62728",      # dark red
+    "attn (Te)": "#aec7e8",     # light blue
+    "hidden (Te)": "#98df8a",   # light green
+    "mlp (Te)": "#ff9896"       # light red
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -83,7 +101,26 @@ def build_long_dataframe(df: pd.DataFrame, metric: str) -> pd.DataFrame:
     if missing:
         raise ValueError(f"Missing cross-domain columns: {missing}")
 
-    id_columns = ["source_experiment", "encoder_experiment", "dataset_activation", "layer_type", "seed"]
+    required_ids = [
+        "teacher_model",
+        "student_model",
+        "dataset_train",
+        "dataset_activation",
+        "layer_type",
+        "seed",
+    ]
+    missing_ids = [col for col in required_ids if col not in df.columns]
+    if missing_ids:
+        raise ValueError(f"Missing cross-domain id columns: {missing_ids}")
+
+    id_columns = [
+        "teacher_model",
+        "student_model",
+        "dataset_train",
+        "dataset_activation",
+        "layer_type",
+        "seed",
+    ]
 
     teacher_df = df[id_columns + [teacher_col]].copy()
     teacher_df = teacher_df.rename(columns={teacher_col: "score"})
@@ -96,10 +133,19 @@ def build_long_dataframe(df: pd.DataFrame, metric: str) -> pd.DataFrame:
     long_df = pd.concat([teacher_df, student_df], ignore_index=True)
     long_df["score"] = pd.to_numeric(long_df["score"], errors="coerce")
     long_df["seed"] = pd.to_numeric(long_df["seed"], errors="coerce")
-    long_df = long_df.dropna(subset=["source_experiment", "layer_type", "split", "score", "seed"])
+    long_df = long_df.dropna(
+        subset=["teacher_model", "student_model", "dataset_train", "dataset_activation", "layer_type", "split", "score", "seed"]
+    )
 
     long_df = long_df[long_df["layer_type"].isin(LAYER_ORDER)]
     long_df = long_df[long_df["split"].isin(SPLIT_ORDER)]
+    long_df["train_code"] = long_df["dataset_train"].map(DATASET_CODE)
+    long_df["activation_code"] = long_df["dataset_activation"].map(DATASET_CODE)
+    long_df = long_df.dropna(subset=["train_code", "activation_code"])
+    long_df = long_df[long_df["train_code"] != long_df["activation_code"]]
+    long_df["scenario"] = long_df["train_code"] + "->" + long_df["activation_code"]
+    long_df = long_df[long_df["scenario"].isin(SCENARIO_ORDER)]
+    long_df["pair_label"] = long_df["teacher_model"] + " -> " + long_df["student_model"]
 
     long_df["layer_split"] = (
         long_df["layer_type"]
@@ -110,39 +156,38 @@ def build_long_dataframe(df: pd.DataFrame, metric: str) -> pd.DataFrame:
     return long_df
 
 
-def plot_source_experiment_boxplot(
-    source_df: pd.DataFrame,
-    source_experiment: str,
+def plot_pair_boxplot(
+    pair_df: pd.DataFrame,
+    pair_label: str,
     metric: str,
     output_dir: Path,
     show_fliers: bool,
 ) -> None:
-    order = [f"{layer} ({SPLIT_LABEL[split]})" for layer in LAYER_ORDER for split in SPLIT_ORDER]
-    title_suffix = source_df["dataset_activation"].iloc[0]
+    scenario_order = [scenario for scenario in SCENARIO_ORDER if scenario in pair_df["scenario"].unique()]
+    if not scenario_order:
+        return
 
     plt.figure(figsize=(8.5, 5.5), dpi=150)
     ax = sns.boxplot(
-        data=source_df,
-        x="layer_split",
+        data=pair_df,
+        x="scenario",
         y="score",
-        order=order,
+        order=scenario_order,
         hue="layer_split",
-        hue_order=order,
-        dodge=False,
-        showfliers=show_fliers,
+        hue_order=LAYER_SPLIT_ORDER,        palette=CUSTOM_PALETTE,        showfliers=show_fliers,
     )
 
-    set_dynamic_ylim(ax, source_df["score"])
-    plt.xlabel("Layer (Model)")
+    set_dynamic_ylim(ax, pair_df["score"])
+    plt.xlabel("Scenario (Train->Activation)")
     plt.ylabel(metric.capitalize())
-    plt.title(f"{source_experiment} [{title_suffix}] - {metric} distribution across seeds")
-    plt.xticks(rotation=20, ha="right")
+    plt.title(f"{pair_label} - {metric} distribution across seeds")
+    plt.xticks(rotation=0)
     handles, labels = ax.get_legend_handles_labels()
     if handles:
         plt.legend(title="Layer (Model)", bbox_to_anchor=(1.02, 1), loc="upper left")
     plt.tight_layout()
 
-    output_path = output_dir / f"{safe_name(source_experiment)}_{metric}_boxplot.pdf"
+    output_path = output_dir / f"{safe_name(pair_label)}_{metric}_boxplot.pdf"
     plt.savefig(output_path, bbox_inches="tight")
     plt.close()
 
@@ -153,23 +198,28 @@ def main() -> None:
 
     df = pd.read_csv(args.csv)
     long_df = build_long_dataframe(df, args.metric)
+    long_df = long_df.sort_values(["teacher_model", "student_model", "scenario", "split", "layer_type", "seed"])
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
-    experiments = sorted(long_df["source_experiment"].unique().tolist())
+    pairs = (
+        long_df[["teacher_model", "student_model", "pair_label"]]
+        .drop_duplicates()
+        .sort_values(["teacher_model", "student_model"])
+    )
 
-    for source_experiment in experiments:
-        subset = long_df[long_df["source_experiment"] == source_experiment]
+    for row in pairs.itertuples(index=False):
+        subset = long_df[long_df["pair_label"] == row.pair_label]
         if subset.empty:
             continue
-        plot_source_experiment_boxplot(
-            source_df=subset,
-            source_experiment=source_experiment,
+        plot_pair_boxplot(
+            pair_df=subset,
+            pair_label=row.pair_label,
             metric=args.metric,
             output_dir=args.out_dir,
             show_fliers=args.show_fliers,
         )
 
-    print(f"Generated {len(experiments)} cross-domain boxplots in: {args.out_dir}")
+    print(f"Generated {len(pairs)} cross-domain boxplots in: {args.out_dir}")
 
 
 if __name__ == "__main__":
