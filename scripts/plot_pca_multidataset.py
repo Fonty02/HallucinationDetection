@@ -291,7 +291,7 @@ def sanitize_filename(text: str) -> str:
 
 
 def build_default_filename(model_dir: str, layer_type: str) -> str:
-    return f"pca_{sanitize_filename(model_dir)}_{layer_type}.png"
+    return f"pca_{sanitize_filename(model_dir)}_{layer_type}.pdf"
 
 
 def build_default_title(model_dir: str, layer_type: str) -> str:
@@ -369,12 +369,10 @@ def plot_multidataset(
     ]
     fig.legend(handles=handles, loc="upper center", ncol=2, frameon=True, bbox_to_anchor=(0.5, 0.995))
 
-    title = title_override if title_override else build_default_title(model_dir, layer_type)
-    fig.suptitle(title, fontsize=15, fontweight="bold", y=1.03)
-    fig.tight_layout(rect=[0, 0, 1, 0.95])
+    fig.tight_layout(rect=[0, 0, 1, 0.95], w_pad=0.2, h_pad=0.2)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output_path, dpi=220, bbox_inches="tight")
+    fig.savefig(output_path, dpi=220, bbox_inches="tight", format="pdf")
     plt.close(fig)
 
 
@@ -432,6 +430,9 @@ def main() -> None:
 
     filename = args.filename if args.filename else build_default_filename(model_dir, args.layer_type)
     output_path = Path(args.output_dir) / filename
+    if output_path.suffix == ".png":
+        output_path = output_path.with_suffix(".pdf")
+        
     plot_multidataset(
         results=results,
         model_dir=model_dir,
