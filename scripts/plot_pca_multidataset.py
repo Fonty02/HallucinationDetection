@@ -369,7 +369,7 @@ def plot_multidataset(
     ]
     fig.legend(handles=handles, loc="upper center", ncol=2, frameon=True, bbox_to_anchor=(0.5, 0.995))
 
-    fig.tight_layout(rect=[0, 0, 1, 0.95], w_pad=0.2, h_pad=0.2)
+    fig.tight_layout(rect=[0, 0, 1, 0.95], w_pad=0.05, h_pad=0.0025)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=220, bbox_inches="tight", format="pdf")
