@@ -8,30 +8,30 @@
   "device": "cuda:0",
   "training": {
     "teacher_pipeline": {
-      "total_epochs": 38,
-      "best_epoch": 23,
-      "best_val_acc": 0.5303030303030303
+      "total_epochs": 45,
+      "best_epoch": 30,
+      "best_val_acc": 0.7306397306397306
     },
     "student_adapter": {
-      "total_epochs": 49,
-      "best_epoch": 34,
-      "best_val_acc": 0.5490483162518301
+      "total_epochs": 46,
+      "best_epoch": 31,
+      "best_val_acc": 0.5900439238653001
     }
   },
   "metrics": {
     "trainer_test": {
-      "accuracy": 0.5076470588235295,
-      "precision": 0.48753117206982544,
-      "recall": 0.4785801713586291,
-      "f1": 0.4830142063001853,
-      "auroc": 0.5011193341936843
+      "accuracy": 0.6735294117647059,
+      "precision": 0.6908344733242134,
+      "recall": 0.605515587529976,
+      "f1": 0.645367412140575,
+      "auroc": 0.7386035744152946
     },
     "tester_test": {
-      "accuracy": 0.5092213114754098,
-      "precision": 0.5054151624548736,
-      "recall": 0.7194244604316546,
-      "f1": 0.5937234944868532,
-      "auroc": 0.5059481380312356
+      "accuracy": 0.5404713114754098,
+      "precision": 0.5510406342913776,
+      "recall": 0.556,
+      "f1": 0.5535092085614733,
+      "auroc": 0.5368419117647059
     }
   },
   "n_samples": {

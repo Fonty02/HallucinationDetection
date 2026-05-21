@@ -8,30 +8,30 @@
   "device": "cuda:0",
   "training": {
     "teacher_pipeline": {
-      "total_epochs": 31,
-      "best_epoch": 16,
-      "best_val_acc": 0.5185185185185185
+      "total_epochs": 46,
+      "best_epoch": 31,
+      "best_val_acc": 0.7239057239057239
     },
     "student_adapter": {
-      "total_epochs": 20,
-      "best_epoch": 5,
-      "best_val_acc": 0.5431918008784773
+      "total_epochs": 49,
+      "best_epoch": 34,
+      "best_val_acc": 0.6017569546120058
     }
   },
   "metrics": {
     "trainer_test": {
-      "accuracy": 0.5023529411764706,
-      "precision": 0.4816223067173637,
-      "recall": 0.46511627906976744,
-      "f1": 0.47322540473225405,
-      "auroc": 0.5132538871738856
+      "accuracy": 0.6864705882352942,
+      "precision": 0.6819830713422007,
+      "recall": 0.6762589928057554,
+      "f1": 0.679108970499699,
+      "auroc": 0.761174201516385
     },
     "tester_test": {
-      "accuracy": 0.5220286885245902,
-      "precision": 0.5201207243460765,
-      "recall": 0.5313463514902363,
-      "f1": 0.5256736146415861,
-      "auroc": 0.5190716243581817
+      "accuracy": 0.5609631147540983,
+      "precision": 0.5832363213038417,
+      "recall": 0.501,
+      "f1": 0.5389994620763852,
+      "auroc": 0.572204831932773
     }
   },
   "n_samples": {
