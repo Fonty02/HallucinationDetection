@@ -36,7 +36,7 @@ from o4a.config import (  # noqa: E402
     SEED,
     TRAIN_SPLIT,
 )
-from o4a.data import DataManager, get_balanced_indices, set_seed  # noqa: E402
+from o4a.data import get_balanced_indices, set_seed  # noqa: E402
 from o4a.methods.one_for_all import _train_student_adapter, _train_teacher_pipeline  # noqa: E402
 
 
@@ -84,6 +84,72 @@ def _predict_with_encoder_head(
     return preds, probs
 
 
+def _to_numpy_float32(tensor_or_array: object) -> np.ndarray:
+    if isinstance(tensor_or_array, torch.Tensor):
+        return tensor_or_array.cpu().numpy().astype(np.float32)
+    return np.asarray(tensor_or_array, dtype=np.float32)
+
+
+def _load_single_layer_with_ids_and_labels(
+    model_name: str,
+    dataset_name: str,
+    layer_idx: int,
+    layer_type: str,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    cache_root = Path(ROOT_DIR) / CACHE_DIR_NAME
+    model_dir = _resolve_model_dir(cache_root, model_name)
+    activation_dir = cache_root / model_dir / dataset_name / f"activation_{layer_type}"
+
+    hall_dir = activation_dir / "hallucinated"
+    non_hall_dir = activation_dir / "not_hallucinated"
+
+    if hall_dir.is_dir() and non_hall_dir.is_dir():
+        hall_act = torch.load(hall_dir / f"layer{layer_idx}_activations.pt", map_location="cpu")
+        non_hall_act = torch.load(non_hall_dir / f"layer{layer_idx}_activations.pt", map_location="cpu")
+        with open(hall_dir / f"layer{layer_idx}_instance_ids.json", "r", encoding="utf-8") as f:
+            hall_ids = json.load(f)
+        with open(non_hall_dir / f"layer{layer_idx}_instance_ids.json", "r", encoding="utf-8") as f:
+            non_hall_ids = json.load(f)
+
+        hall_np = _to_numpy_float32(hall_act)
+        non_hall_np = _to_numpy_float32(non_hall_act)
+
+        x = np.vstack([hall_np, non_hall_np]).astype(np.float32)
+        y = np.concatenate(
+            [
+                np.ones(hall_np.shape[0], dtype=np.int64),
+                np.zeros(non_hall_np.shape[0], dtype=np.int64),
+            ]
+        )
+        ids = np.asarray(hall_ids + non_hall_ids, dtype=np.int64)
+        order = np.argsort(ids)
+        return x[order], y[order], ids[order]
+
+    # Old structure: align labels by real instance_id (from layer*_instance_ids.json when present).
+    act = torch.load(activation_dir / f"layer{layer_idx}_activations.pt", map_location="cpu")
+    x = _to_numpy_float32(act)
+
+    ids_path = activation_dir / f"layer{layer_idx}_instance_ids.json"
+    if ids_path.exists():
+        with open(ids_path, "r", encoding="utf-8") as f:
+            ids_raw = json.load(f)
+        ids = np.asarray([int(v) for v in ids_raw], dtype=np.int64)
+    else:
+        ids = np.arange(x.shape[0], dtype=np.int64)
+
+    labels_by_id = _load_generation_labels(model_name, dataset_name)
+    missing_ids = [int(i) for i in ids if int(i) not in labels_by_id]
+    if missing_ids:
+        raise ValueError(
+            f"Missing {len(missing_ids)} instance_id(s) in hallucination_labels for {model_name}/{dataset_name}. "
+            f"First missing ids: {missing_ids[:10]}"
+        )
+    y = np.asarray([int(labels_by_id[int(i)]["is_hallucination"]) for i in ids], dtype=np.int64)
+
+    order = np.argsort(ids)
+    return x[order], y[order], ids[order]
+
+
 def _load_concatenated_layers_with_ids(
     model_name: str,
     dataset_name: str,
@@ -95,13 +161,12 @@ def _load_concatenated_layers_with_ids(
     common_ids: np.ndarray | None = None
 
     for layer_idx in layer_indices:
-        x_l, y_l, ids_l = DataManager.load_activations_and_labels(
-            model=model_name,
-            dataset=dataset_name,
-            layer=layer_idx,
+        x_l, y_l, ids_l = _load_single_layer_with_ids_and_labels(
+            model_name=model_name,
+            dataset_name=dataset_name,
+            layer_idx=layer_idx,
             layer_type=layer_type,
         )
-        ids_l = np.asarray([int(v) for v in ids_l], dtype=np.int64)
 
         if common_y is None:
             common_y = y_l.astype(np.int64)
@@ -248,6 +313,7 @@ def _build_predictions_json(
 ) -> dict[str, Any]:
     rows: list[dict[str, Any]] = []
     missing = 0
+    gt_mismatch_count = 0
 
     for instance_id, gt, pred, prob in zip(ids_test, y_true, y_pred, y_prob):
         iid = int(instance_id)
@@ -256,13 +322,23 @@ def _build_predictions_json(
             missing += 1
 
         dataset_instance, llm_answer, gold_answer = _build_record_payload(instance, iid)
+        gt_from_labels = None
+        if instance is not None and "is_hallucination" in instance:
+            gt_from_labels = int(instance["is_hallucination"])
+
+        gt_split = int(gt)
+        gt_final = gt_from_labels if gt_from_labels is not None else gt_split
+        if gt_from_labels is not None and gt_from_labels != gt_split:
+            gt_mismatch_count += 1
+
         rows.append(
             {
                 "Istanza Dataset": dataset_instance,
                 "Risposta data dall LLM": llm_answer,
                 "Risposta vera": gold_answer,
                 "Predizione One4All": int(pred),
-                "GroundTruth per One4All": int(gt),
+                "GroundTruth per One4All": gt_final,
+                "GroundTruth split bilanciato": gt_split,
                 "Probabilita One4All": float(prob),
             }
         )
@@ -274,6 +350,7 @@ def _build_predictions_json(
         "seed": SEED,
         "num_records": len(rows),
         "missing_generation_records": missing,
+        "groundtruth_mismatch_between_split_and_labels": gt_mismatch_count,
         "records": rows,
     }
 
