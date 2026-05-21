@@ -7,72 +7,12 @@ log = logs/run_experiments_htc/one4all_halueval_qwen_falcon_$(Cluster)_$(Process
 output = logs/run_experiments_htc/one4all_halueval_qwen_falcon_$(Cluster)_$(Process).out
 error = logs/run_experiments_htc/one4all_halueval_qwen_falcon_$(Cluster)_$(Process).err
 
-arguments = "2 cuda:0 8 true 4 true true false attn"
-queue
-arguments = "2 cuda:0 8 true 4 true true false mlp"
-queue
-arguments = "2 cuda:0 8 true 4 true true false hidden"
-queue
+# Seed unico (cambia qui se vuoi un altro seed)
+SEED = 42
 
-arguments = "4 cuda:0 8 true 4 true true false attn"
-queue
-arguments = "4 cuda:0 8 true 4 true true false mlp"
-queue
-arguments = "4 cuda:0 8 true 4 true true false hidden"
-queue
-
-arguments = "24 cuda:0 8 true 4 true true false attn"
-queue
-arguments = "24 cuda:0 8 true 4 true true false mlp"
-queue
-arguments = "24 cuda:0 8 true 4 true true false hidden"
-queue
-
-arguments = "42 cuda:0 8 true 4 true true false attn"
-queue
-arguments = "42 cuda:0 8 true 4 true true false mlp"
-queue
-arguments = "42 cuda:0 8 true 4 true true false hidden"
-queue
-
-arguments = "64 cuda:0 8 true 4 true true false attn"
-queue
-arguments = "64 cuda:0 8 true 4 true true false mlp"
-queue
-arguments = "64 cuda:0 8 true 4 true true false hidden"
-queue
-
-arguments = "67 cuda:0 8 true 4 true true false attn"
-queue
-arguments = "67 cuda:0 8 true 4 true true false mlp"
-queue
-arguments = "67 cuda:0 8 true 4 true true false hidden"
-queue
-
-arguments = "104 cuda:0 8 true 4 true true false attn"
-queue
-arguments = "104 cuda:0 8 true 4 true true false mlp"
-queue
-arguments = "104 cuda:0 8 true 4 true true false hidden"
-queue
-
-arguments = "123 cuda:0 8 true 4 true true false attn"
-queue
-arguments = "123 cuda:0 8 true 4 true true false mlp"
-queue
-arguments = "123 cuda:0 8 true 4 true true false hidden"
-queue
-
-arguments = "420 cuda:0 8 true 4 true true false attn"
-queue
-arguments = "420 cuda:0 8 true 4 true true false mlp"
-queue
-arguments = "420 cuda:0 8 true 4 true true false hidden"
-queue
-
-arguments = "511 cuda:0 8 true 4 true true false attn"
-queue
-arguments = "511 cuda:0 8 true 4 true true false mlp"
-queue
-arguments = "511 cuda:0 8 true 4 true true false hidden"
-queue
+arguments = "$(SEED) cuda:0 8 true 4 true true false $(LAYER_TYPE)"
+queue LAYER_TYPE from (
+  attn
+  mlp
+  hidden
+)
