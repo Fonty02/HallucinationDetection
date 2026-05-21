@@ -1,0 +1,57 @@
+{
+  "experiment_name": "QwenToFalcon_HE",
+  "trainer_model": "Qwen2.5-7B",
+  "tester_model": "Falcon3-7B-Base",
+  "dataset": "halu_eval",
+  "layer_type": "mlp",
+  "seed": 42,
+  "device": "cuda:0",
+  "training": {
+    "teacher_pipeline": {
+      "total_epochs": 38,
+      "best_epoch": 23,
+      "best_val_acc": 0.5303030303030303
+    },
+    "student_adapter": {
+      "total_epochs": 49,
+      "best_epoch": 34,
+      "best_val_acc": 0.5490483162518301
+    }
+  },
+  "metrics": {
+    "trainer_test": {
+      "accuracy": 0.5076470588235295,
+      "precision": 0.48753117206982544,
+      "recall": 0.4785801713586291,
+      "f1": 0.4830142063001853,
+      "auroc": 0.5011193341936843
+    },
+    "tester_test": {
+      "accuracy": 0.5092213114754098,
+      "precision": 0.5054151624548736,
+      "recall": 0.7194244604316546,
+      "f1": 0.5937234944868532,
+      "auroc": 0.5059481380312356
+    }
+  },
+  "n_samples": {
+    "trainer": {
+      "full": 10000,
+      "balanced": 5664,
+      "train": 3964,
+      "test": 1700
+    },
+    "tester": {
+      "full": 10000,
+      "balanced": 6506,
+      "train": 4554,
+      "test": 1952
+    }
+  },
+  "outputs": {
+    "run_dir": "results/one4all_halueval_qwen_falcon/seed_42/layer_mlp",
+    "weights_dir": "results/one4all_halueval_qwen_falcon/seed_42/layer_mlp/weights",
+    "trainer_predictions_json": "results/one4all_halueval_qwen_falcon/seed_42/layer_mlp/Qwen2.5-7B_test_predictions.json",
+    "tester_predictions_json": "results/one4all_halueval_qwen_falcon/seed_42/layer_mlp/Falcon3-7B-Base_test_predictions.json"
+  }
+}
