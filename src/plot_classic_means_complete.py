@@ -5,8 +5,9 @@ import re
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
-import seaborn as sns
+from matplotlib.patches import Patch
 
 LAYER_ORDER = ["attn", "hidden", "mlp"]
 SPLIT_ORDER = ["trainer", "tester"]
@@ -21,6 +22,38 @@ METHOD_ORDER = [
     "reduced_nonlinear",
     "one_for_all",
 ]
+
+# Colori vividi come nel codice ablation
+COLORS_TRAINER = {
+    "attn":   "#1f77b4",  # blue
+    "hidden": "#2ca02c",  # green
+    "mlp":    "#d62728",  # red
+}
+COLORS_TESTER = {
+    "attn":   "#aec7e8",  # light blue
+    "hidden": "#98df8a",  # light green
+    "mlp":    "#ff9896",  # light red
+}
+
+
+def dataset_to_camel_case(name: str) -> str:
+    parts = name.split("_")
+    return "".join(p.capitalize() for p in parts)
+
+
+def method_to_display_name(method: str) -> str:
+    lower = method.lower()
+    if lower == "cca":
+        return "CCA"
+    if lower == "cka":
+        return "CKA"
+    if method == "full_nonlinear":
+        return "Full_NonLinear"
+    if method == "reduced_nonlinear":
+        return "Reduced_NonLinear"
+    if method == "one_for_all":
+        return "OneForAll"
+    return method.title()
 
 
 def parse_args() -> argparse.Namespace:
@@ -52,13 +85,6 @@ def parse_args() -> argparse.Namespace:
 
 def safe_name(text: str) -> str:
     return re.sub(r"[^a-zA-Z0-9._-]+", "_", text)
-
-
-def get_method_order(values: pd.Series) -> list[str]:
-    seen = set(values.unique().tolist())
-    ordered = [m for m in METHOD_ORDER if m in seen]
-    ordered.extend(sorted(seen - set(ordered)))
-    return ordered
 
 
 def build_long_dataframe(df: pd.DataFrame, metric: str) -> pd.DataFrame:
@@ -97,15 +123,8 @@ def build_long_dataframe(df: pd.DataFrame, metric: str) -> pd.DataFrame:
     )
     long_df = long_df[long_df["layer_type"].isin(LAYER_ORDER)]
     long_df = long_df[long_df["split"].isin(SPLIT_ORDER)]
+    long_df = long_df[long_df["method"].isin(METHOD_ORDER)]
     return long_df
-
-
-def add_layer_split_label(df: pd.DataFrame) -> pd.DataFrame:
-    df = df.copy()
-    df["layer_split"] = (
-        df["layer_type"] + " (" + df["split"].map(SPLIT_LABEL).fillna(df["split"]) + ")"
-    )
-    return df
 
 
 def plot_experiment_mean(
@@ -114,37 +133,105 @@ def plot_experiment_mean(
     metric: str,
     output_dir: Path,
 ) -> None:
-    method_order = get_method_order(experiment_df["method"])
-    hue_order = [f"{layer} ({SPLIT_LABEL[split]})" for layer in LAYER_ORDER for split in SPLIT_ORDER]
+    # Metodi presenti nel dataset, rispettando l'ordine fisso
+    present_methods = [m for m in METHOD_ORDER if m in experiment_df["method"].unique()]
 
-    width = max(12.0, len(method_order) * 1.6)
-    plt.figure(figsize=(width, 6), dpi=150)
-    sns.barplot(
-        data=experiment_df,
-        x="method",
-        y="score",
-        hue="layer_split",
-        order=method_order,
-        hue_order=hue_order,
-        errorbar=None,
+    # Costruzione matrice valori
+    data: dict[str, dict[tuple[str, str], float]] = {}
+    for method in present_methods:
+        data[method] = {}
+        for layer in LAYER_ORDER:
+            for split in SPLIT_ORDER:
+                val = experiment_df[
+                    (experiment_df["method"] == method)
+                    & (experiment_df["layer_type"] == layer)
+                    & (experiment_df["split"] == split)
+                ]["score"].values
+                data[method][(layer, split)] = float(val[0]) if len(val) > 0 else 0.0
+
+    x = np.arange(len(present_methods))
+    bar_width = 0.10  # leggermente più stretto per accomodare 8 metodi
+    offsets = {
+        ("attn",   "trainer"): -2.5 * bar_width,
+        ("attn",   "tester"):  -1.5 * bar_width,
+        ("hidden", "trainer"): -0.5 * bar_width,
+        ("hidden", "tester"):   0.5 * bar_width,
+        ("mlp",    "trainer"):  1.5 * bar_width,
+        ("mlp",    "tester"):   2.5 * bar_width,
+    }
+
+    fig, ax = plt.subplots(figsize=(14, 4))
+    ax.set_facecolor("#fdfdfd")
+
+    for layer in LAYER_ORDER:
+        values_trainer = [data[m].get((layer, "trainer"), 0.0) for m in present_methods]
+        ax.bar(
+            x + offsets[(layer, "trainer")],
+            values_trainer,
+            width=bar_width,
+            color=COLORS_TRAINER[layer],
+            edgecolor="black",
+            linewidth=0.0,
+        )
+
+        values_tester = [data[m].get((layer, "tester"), 0.0) for m in present_methods]
+        ax.bar(
+            x + offsets[(layer, "tester")],
+            values_tester,
+            width=bar_width,
+            color=COLORS_TESTER[layer],
+            edgecolor=COLORS_TRAINER[layer],
+            linewidth=1.0,
+        )
+
+    ax.set_ylim(0.3, 1.0)
+    ax.set_ylabel(metric.capitalize(), fontsize=12, fontweight="bold")
+    ax.set_xticks(x)
+
+    xtick_labels = [method_to_display_name(m).replace("_", "") for m in present_methods]
+    ax.set_xticklabels(xtick_labels, rotation=0, ha="center", fontsize=9, fontweight="bold")
+    for label in ax.get_yticklabels():
+        label.set_fontweight("bold")
+
+    # Legenda con Patch come nell'ablation
+    legend_handles = []
+    for layer in LAYER_ORDER:
+        legend_handles.append(
+            Patch(facecolor=COLORS_TRAINER[layer], label=f"{layer} (Tr)")
+        )
+        legend_handles.append(
+            Patch(
+                facecolor=COLORS_TESTER[layer],
+                edgecolor=COLORS_TRAINER[layer],
+                linewidth=1,
+                label=f"{layer} (Te)",
+            )
+        )
+    ax.legend(
+        handles=legend_handles,
+        title="Layer (Model)",
+        loc="center left",
+        bbox_to_anchor=(1.02, 0.5),
+        frameon=True,
+        prop={"size": 10, "weight": "bold"},
+        title_fontproperties={"weight": "bold", "size": 14},
     )
 
-    plt.ylim(0.0, 1.0)
-    plt.xlabel("Method")
-    plt.ylabel(metric.capitalize())
-    plt.title(f"{experiment_name} - Mean {metric} across seeds")
-    plt.xticks(rotation=20, ha="right")
-    plt.legend(title="Layer (Model)", bbox_to_anchor=(1.02, 1), loc="upper left")
-    plt.tight_layout()
+    """ax.set_title(
+        f"{dataset_to_camel_case(experiment_name)} — Mean {metric.capitalize()} across seeds",
+        fontsize=20,
+        fontweight="bold",
+    )"""
 
+    fig.tight_layout()
     output_path = output_dir / f"{safe_name(experiment_name)}_{metric}_mean.pdf"
     plt.savefig(output_path, bbox_inches="tight")
     plt.close()
+    print(f"Saved: {output_path}")
 
 
 def main() -> None:
     args = parse_args()
-    sns.set_theme(style="whitegrid")
 
     df = pd.read_csv(args.csv)
     long_df = build_long_dataframe(df, args.metric)
@@ -154,7 +241,6 @@ def main() -> None:
         .mean()
         .sort_values(["experiment", "method", "layer_type", "split"])
     )
-    mean_df = add_layer_split_label(mean_df)
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
     experiments = sorted(mean_df["experiment"].unique().tolist())

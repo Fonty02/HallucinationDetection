@@ -231,7 +231,7 @@ def plot_pair_mean(
         lbl.set_fontsize(TICK_FONTSIZE)
         lbl.set_fontweight("bold")
 
-    # — Legend: horizontal, above the plot (identica al primo script) —
+    # — Legend: vertical, on the right —
     legend_handles = []
     for layer in LAYER_ORDER:
         legend_handles.append(
@@ -249,16 +249,16 @@ def plot_pair_mean(
     lg = fig.legend(
         handles=legend_handles,
         title="Layer (Model)",
-        loc="upper center",
-        bbox_to_anchor=(0.5, 1.25),
-        ncol=6,
+        loc="center left",
+        bbox_to_anchor=(0.9, 0.5),
+        ncol=1,
         frameon=True,
         prop=LEGEND_PROP,
     )
     lg.get_title().set_fontweight("bold")
     lg.get_title().set_fontsize(LEGEND_TITLE_FONTSIZE)
 
-    fig.tight_layout(rect=[0, 0, 1, 0.88])
+    fig.tight_layout(rect=[0, 0, 0.86, 1])
 
     output_path = output_dir / f"{safe_name(pair_label)}_{metric}_mean.pdf"
     plt.savefig(output_path, bbox_inches="tight")
