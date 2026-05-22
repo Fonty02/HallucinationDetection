@@ -1,0 +1,6467 @@
+{
+  "model_name": "gemma-2-9b-it",
+  "dataset": "belief_bank_facts",
+  "layer_type": "hidden",
+  "seed": 42,
+  "num_records": 538,
+  "missing_generation_records": 0,
+  "groundtruth_mismatch_between_split_and_labels": 0,
+  "records": [
+    {
+      "Istanza Dataset": {
+        "instance_id": 16105,
+        "question": "a cat is not a door."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.00083755305968225
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17786,
+        "question": "an eagle is not a terrestrial organism."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992445707321167
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10280,
+        "question": "a rat is a meal."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991340041160583
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22188,
+        "question": "a new world blackbird is not alive."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992501139640808
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25248,
+        "question": "a turkey cannot sing to mate."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991891980171204
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10273,
+        "question": "a rat is an amniote."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.9580288529396057
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13028,
+        "question": "a pine is made of cells."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0011086208978667855
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2587,
+        "question": "a chicken is a mineral."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008099916740320623
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13612,
+        "question": "a peony is a religion."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000836120976600796
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26565,
+        "question": "a birch is not growing taller."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992567896842957
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3930,
+        "question": "a duck is a biped."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992426633834839
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 5262,
+        "question": "a german shepherd can sense fear."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0020995221566408873
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25294,
+        "question": "a turkey is not a tree."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008192709647119045
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15779,
+        "question": "a carp is not a virus."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008210004307329655
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8036,
+        "question": "a mink is a meal."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991539716720581
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15544,
+        "question": "a camel is not africa."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992376565933228
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11644,
+        "question": "a turkey is a herb."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9989816546440125
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23476,
+        "question": "a porcupine is not a herb."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992308616638184
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11542,
+        "question": "a turkey can travel across world."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992215633392334
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18547,
+        "question": "a frog is not a soup."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008488156017847359
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17949,
+        "question": "an earthworm does not have a head."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991436004638672
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 19640,
+        "question": "a hippopotamus is not africa."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992213249206543
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 27140,
+        "question": "a daisy is not growing taller."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992469549179077
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8139,
+        "question": "a mink is a vehicle."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000820046931039542
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 435,
+        "question": "an ant is a river."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000812051584944129
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 5587,
+        "question": "a giraffe is a liquid."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008030939497984946
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 19036,
+        "question": "a german shepherd cannot die no more than once."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9990357160568237
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22872,
+        "question": "a peacock is not clothes."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008267281809821725
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 5356,
+        "question": "a german shepherd is an ocean."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008049164898693562
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6653,
+        "question": "a hummingbird is a snake."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008082080748863518
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7327,
+        "question": "a lion is an expert."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.06160358339548111
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3236,
+        "question": "a cock is a meal."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991337656974792
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13946,
+        "question": "a computer is not a structure."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992146492004395
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18216,
+        "question": "an european wolf spider does not have a face."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.99925297498703
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21737,
+        "question": "a mink is not an amniote."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999225378036499
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15510,
+        "question": "a camel cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992415904998779
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26514,
+        "question": "a birch is not a tree."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0013735120883211493
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 1684,
+        "question": "a calf is a tree."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008205906488001347
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15460,
+        "question": "a camel is not a candy."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008364740060642362
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16130,
+        "question": "a cheetah is not a herb."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.8354929089546204
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16393,
+        "question": "a chicken is not a meal."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992227554321289
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21599,
+        "question": "a midge does not have 6 legs."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992414712905884
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10450,
+        "question": "a reptile is a road."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008292134152725339
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24139,
+        "question": "a reptile is not an insect."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0009066806524060667
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15242,
+        "question": "a bull cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992408752441406
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2563,
+        "question": "a chicken is a fish."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008526238962076604
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16423,
+        "question": "a chick cannot sing to other birds."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992579817771912
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23235,
+        "question": "a poodle cannot dig up bone."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992613196372986
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 27352,
+        "question": "a peony is not a road."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008313503349199891
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12070,
+        "question": "a wren is a wren."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008967137546278536
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8756,
+        "question": "an owl can sing to other birds."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999240517616272
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10530,
+        "question": "a robin can grow to larger size."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0017248810036107898
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18086,
+        "question": "an elephant is not a herb."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992146492004395
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 19323,
+        "question": "a giraffe is not a lizard."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008590761572122574
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22699,
+        "question": "an ox is not a lizard."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008354300516657531
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18730,
+        "question": "a gazelle is not a structure."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008561057620681822
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7545,
+        "question": "a llama is water."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008113666553981602
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8480,
+        "question": "a new world blackbird is alive."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992539286613464
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17045,
+        "question": "a crocodile is not an insect."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008450280292890966
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16800,
+        "question": "a cockerel is not europe."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992316961288452
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12256,
+        "question": "a zebra can note food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992325305938721
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7954,
+        "question": "a midge is a body of water."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008970355265773833
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9554,
+        "question": "a poodle can corner cat."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992179870605469
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 19743,
+        "question": "a horse is not an invertebrate."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.001368962344713509
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23956,
+        "question": "a rat is not a dog."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008422075770795345
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17114,
+        "question": "a crocodile is not a vegetable."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008345128153450787
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12079,
+        "question": "a wren is a biped."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992474317550659
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2134,
+        "question": "a carp is food."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9983044862747192
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11116,
+        "question": "a squirrel is a bacterium."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008088447502814233
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16262,
+        "question": "a chicken cannot fly."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9987697005271912
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12636,
+        "question": "an orchid is a lake."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008152370573952794
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2187,
+        "question": "a cat has a tail."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0025451690889894962
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9920,
+        "question": "a puppy can enjoy food."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0010222889250144362
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25787,
+        "question": "a wren is not a biped."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992511868476868
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9577,
+        "question": "a poodle is made of hair."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991482496261597
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 5740,
+        "question": "a hen is a wine."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008239212911576033
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 4015,
+        "question": "a duck is a meal."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991078972816467
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9917,
+        "question": "a puppy can hear whistle."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0014752178685739636
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14282,
+        "question": "an adder is not europe."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992319345474243
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12539,
+        "question": "an orchid has an ovary."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0012325188145041466
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13220,
+        "question": "a rose is an ocean."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008121654391288757
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 1094,
+        "question": "an american bison is a herb."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9728534817695618
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23098,
+        "question": "a pigeon cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992430210113525
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15178,
+        "question": "a buck is not africa."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.004296785686165094
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13439,
+        "question": "a daisy is a bacterium."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008201446617022157
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11701,
+        "question": "a turtle can note food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992251396179199
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18167,
+        "question": "an elephant is not a lake."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008369228453375399
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 27386,
+        "question": "a peony is not an airplane."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008148447959683836
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 47,
+        "question": "an albatross can sing to other birds."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992457628250122
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15349,
+        "question": "a calf cannot fight for life."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992436170578003
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23252,
+        "question": "a poodle cannot hunt cat."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992321729660034
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3948,
+        "question": "a duck can sing to other birds."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992395639419556
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21333,
+        "question": "a magpie cannot sing to other birds."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992673993110657
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24636,
+        "question": "a sparrow hawk is not a rodent."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008627540664747357
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6869,
+        "question": "a ladybug is a house."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008204103796742857
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15338,
+        "question": "a calf is not a herb."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992498755455017
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16225,
+        "question": "a cheetah is not food."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008639011648483574
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12744,
+        "question": "a gladiolus is a carbohydrate."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008311792626045644
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24117,
+        "question": "a reptile is not an art."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008710469119250774
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 4684,
+        "question": "a foxhound is a liquid."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008014166378416121
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21125,
+        "question": "a livestock is not asia."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992338418960571
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 4886,
+        "question": "a frog is a carbohydrate."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008181351004168391
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2557,
+        "question": "a chicken is rising early."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999235987663269
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17104,
+        "question": "a crocodile is not a building."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008284457144327462
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18093,
+        "question": "an elephant is not a living organism."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008774821180850267
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8733,
+        "question": "an owl is a terrestrial organism."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992415904998779
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 1134,
+        "question": "an american bison is an insect."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008081082487478852
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26105,
+        "question": "an oak cannot rain leaves."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992105960845947
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10810,
+        "question": "a sparrow hawk can travel across world."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992284774780273
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12684,
+        "question": "a gladiolus is part of plant."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.001708087045699358
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16774,
+        "question": "a cockerel is not a metal."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008356841281056404
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17432,
+        "question": "a dolphin is not an insect."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008374102180823684
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7277,
+        "question": "a lion is africa."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9989678859710693
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14936,
+        "question": "a baboon is not a herb."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999242901802063
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9884,
+        "question": "a puppy can think about food."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.001411649165675044
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6153,
+        "question": "a hound has two ears."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0014261248288676143
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7942,
+        "question": "a midge is food."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9989499449729919
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 4923,
+        "question": "a gazelle can note food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992358684539795
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 373,
+        "question": "an ant can eating."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992389678955078
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10184,
+        "question": "a rabbit is food."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9990711212158203
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 749,
+        "question": "an ape is a room."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008279362809844315
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13748,
+        "question": "an albatross cannot chirp."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991681575775146
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12569,
+        "question": "an orchid is an art."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991862177848816
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24154,
+        "question": "a reptile is not a meal."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9990991353988647
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6274,
+        "question": "a hound can fight for life."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.001393923070281744
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14067,
+        "question": "an ant does not have a wing."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991074204444885
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8210,
+        "question": "a mullet is fire."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.008646106347441673
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11536,
+        "question": "a turkey can fly."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9990231990814209
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16047,
+        "question": "a cat is not a body of water."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000835378363262862
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17864,
+        "question": "an eagle is not a lake."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008444685372523963
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3627,
+        "question": "a dog is a lizard."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008332287543453276
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16854,
+        "question": "a cock does not have a talon."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992456436157227
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11941,
+        "question": "a whale has hair."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9990565180778503
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7558,
+        "question": "a llama is a publication."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008374394383281469
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2568,
+        "question": "a chicken is an organism."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0010985699482262135
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14776,
+        "question": "a daffodil is not a crustacean."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000829456839710474
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13054,
+        "question": "a pine is a lake."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000819110544398427
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 19537,
+        "question": "a hippopotamus is not a salad."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008493831846863031
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9351,
+        "question": "a pigeon is a reptile."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008251206600107253
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10200,
+        "question": "a rabbit is a wine."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008243682095780969
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21154,
+        "question": "a livestock is not a politician."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008704607607796788
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8690,
+        "question": "an oryx is a president."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008558357367292047
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25803,
+        "question": "a wren cannot travel across world."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992457628250122
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 355,
+        "question": "an ant has an abdomen."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0016893799183890224
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2269,
+        "question": "a cat can very good companion."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.9192156195640564
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 20186,
+        "question": "a howler monkey is not a jellyfish."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008335118182003498
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 19066,
+        "question": "a german shepherd is not a snake."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008193802786991
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26794,
+        "question": "a pine is not an insect."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008340302156284451
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14160,
+        "question": "an ant is not a wheel."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000823922164272517
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15057,
+        "question": "a buck is not an amniote."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992457628250122
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26717,
+        "question": "a pine cannot rain leaves."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992306232452393
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3107,
+        "question": "a cockerel is food."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9990361928939819
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16973,
+        "question": "a cock is not a herb."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.007961158640682697
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15181,
+        "question": "a buck is not a toy."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008650614181533456
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26556,
+        "question": "a birch is not made of leaves."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999173104763031
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22598,
+        "question": "an ox is not an amniote."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992488026618958
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9178,
+        "question": "a penguin is a biped."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992480874061584
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2962,
+        "question": "a chimpanzee is africa."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9989821314811707
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 4616,
+        "question": "an european wolf spider is a vehicle."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008069240138866007
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7675,
+        "question": "a magpie is a crustacean."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008071862393990159
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22945,
+        "question": "a penguin cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992303848266602
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23101,
+        "question": "a pigeon is not a road."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000826449366286397
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22649,
+        "question": "an ox cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999248206615448
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22402,
+        "question": "an oryx is not a structure."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008677754667587578
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8078,
+        "question": "a mink is a molecule."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008085226290859282
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 27151,
+        "question": "a daisy does not have a stamen."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991464614868164
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16129,
+        "question": "a cheetah is not a reptile."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008631693199276924
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7351,
+        "question": "a livestock is a herb."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9990441203117371
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2577,
+        "question": "a chicken can note food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992284774780273
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18528,
+        "question": "a frog is not food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991201758384705
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17805,
+        "question": "an eagle cannot sing to mate."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992066025733948
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 351,
+        "question": "an ant is an ant."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008314771112054586
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16170,
+        "question": "a cheetah is not a cat."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9989058971405029
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26873,
+        "question": "a rose cannot give nectar to hummingbirds."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992695450782776
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8355,
+        "question": "a myna is a molecule."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008090568007901311
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9932,
+        "question": "a puppy can breed several puppies."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992468357086182
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 27384,
+        "question": "a peony is not a turtle."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008242534822784364
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15654,
+        "question": "a carnivore is not a mammal."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9988861680030823
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22662,
+        "question": "an ox is not a car."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008193330722860992
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14737,
+        "question": "a daffodil is not a forest."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008473940542899072
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25311,
+        "question": "a turkey is not a candy."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008382996311411262
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 4237,
+        "question": "an earthworm has a face."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992080330848694
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12133,
+        "question": "a wren is a disease."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008335110615007579
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22174,
+        "question": "a new world blackbird does not have an air sac."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0012137704761698842
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3400,
+        "question": "a crocodile is an acid."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008737018797546625
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 504,
+        "question": "an adder is a squamate."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.998480498790741
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23693,
+        "question": "a puppy is not an amniote."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992412328720093
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6769,
+        "question": "a jaguar is an acid."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008586662006564438
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26461,
+        "question": "a gladiolus is not a palm tree."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008365585235878825
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21046,
+        "question": "a livestock is not an amniote."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992305040359497
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3496,
+        "question": "a dog can mother it's young."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0019132493762299418
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 791,
+        "question": "a cypress can grow branch."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0012872747611254454
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11255,
+        "question": "a starling can travel across world."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992294311523438
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15842,
+        "question": "a carp is not food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9981130361557007
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21148,
+        "question": "a livestock is not africa."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992202520370483
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7229,
+        "question": "a lion can note food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999230146408081
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23487,
+        "question": "a porcupine is not a government."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008303753565996885
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26776,
+        "question": "a pine is not a bridge."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008308799006044865
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10240,
+        "question": "a rat is a placental."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992571473121643
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24792,
+        "question": "a sparrow is not a bicycle."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008214077679440379
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9611,
+        "question": "a poodle is a fish."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008457299554720521
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23176,
+        "question": "a pigeon is not a horse."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008291260455735028
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18134,
+        "question": "an elephant is not a planet."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000842724577523768
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17292,
+        "question": "a dog cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992471933364868
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21517,
+        "question": "a mammal cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992471933364868
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22593,
+        "question": "an ox is not a warm blooded animal."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0012801490956917405
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 19391,
+        "question": "a hen does not have a talon."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991880059242249
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24516,
+        "question": "a sparrow hawk cannot sing to mate."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992316961288452
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12248,
+        "question": "a zebra can eating."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992456436157227
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2604,
+        "question": "a chicken is a protein."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991602897644043
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14672,
+        "question": "a daffodil cannot give nectar to hummingbirds."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999219536781311
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17697,
+        "question": "a duck cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992454051971436
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12537,
+        "question": "an orchid can cast shadow."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.001226600375957787
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22864,
+        "question": "a peacock is not asia."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992424249649048
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13447,
+        "question": "a daisy has a floral leaf."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992491602897644
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13964,
+        "question": "a computer is not a disease."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008213721448555589
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2562,
+        "question": "a chicken can sing to other birds."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992390871047974
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24714,
+        "question": "a sparrow cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992425441741943
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7907,
+        "question": "a midge can note food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992302656173706
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16904,
+        "question": "a cock cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992502331733704
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18580,
+        "question": "a frog is not a house."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008360229548998177
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24666,
+        "question": "a sparrow cannot chirp."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0009584077633917332
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 1933,
+        "question": "a carnivore is a car."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008802723023109138
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21964,
+        "question": "a mullet is not an insect."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008571852813474834
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21924,
+        "question": "a mullet is not a car."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008367363479919732
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8840,
+        "question": "an owl is a vegetable."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008026016294024885
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26677,
+        "question": "a pine is not a tree."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0025467167142778635
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17060,
+        "question": "a crocodile is not a boat."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008440863457508385
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 1204,
+        "question": "an american bison is a room."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008319550543092191
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2560,
+        "question": "a chicken can travel across world."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992128610610962
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6222,
+        "question": "a hound can stand on two legs."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991902709007263
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26334,
+        "question": "an orchid is not a city."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000838249281514436
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3162,
+        "question": "a cock can eating."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992434978485107
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25528,
+        "question": "a vertebrate does not have a head."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0009120852337218821
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16841,
+        "question": "a cock is not an air breathing vertebrate."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992581009864807
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23529,
+        "question": "a porcupine is not a crustacean."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008498895331285894
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 232,
+        "question": "a computer is a mechanical device."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992474317550659
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15541,
+        "question": "a camel is not a bicycle."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008250047103501856
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24141,
+        "question": "a reptile is not europe."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999232292175293
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16040,
+        "question": "a cat cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992477893829346
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6943,
+        "question": "a lamb is a meal."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999099612236023
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3831,
+        "question": "a domestic ass is an artifact."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008424082770943642
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 19835,
+        "question": "a hound does not have one mouth."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992184638977051
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13630,
+        "question": "a peony is a bicycle."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008053109049797058
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23319,
+        "question": "a poodle is not a fish."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008199664880521595
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13455,
+        "question": "a daisy can grow from bulb."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999251663684845
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25387,
+        "question": "a turtle is not quadruped."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992515444755554
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9347,
+        "question": "a pigeon can travel across world."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992241859436035
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 5430,
+        "question": "a giant panda can note food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992297887802124
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23055,
+        "question": "a pigeon cannot travel across world."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992417097091675
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3946,
+        "question": "a duck can travel across world."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992188215255737
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 19691,
+        "question": "a horse is not a very fast animal."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.9982439279556274
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21863,
+        "question": "a mullet is not a mullet."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.9992040991783142
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2558,
+        "question": "a chicken can sing to mate."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992382526397705
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7325,
+        "question": "a lion is a cat."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9978421926498413
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9646,
+        "question": "a poodle is a disease."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008272010018117726
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 27118,
+        "question": "a tulip is not a toy."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008204826735891402
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 27041,
+        "question": "a tulip is not a sport."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991928935050964
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8403,
+        "question": "a myna is an insect."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0009145818185061216
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14189,
+        "question": "an ant is not a toy."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008225172059610486
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7546,
+        "question": "a llama is a jellyfish."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008034115307964385
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24339,
+        "question": "a robin is not asia."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0010733099188655615
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17516,
+        "question": "a domestic ass is not a herb."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992291927337646
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2525,
+        "question": "a cheetah is an insect."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008033426711335778
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26178,
+        "question": "an oak is not europe."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9953592419624329
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6218,
+        "question": "a hound can belong human."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999226450920105
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14648,
+        "question": "a daffodil is not growing taller."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992350339889526
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25252,
+        "question": "a turkey cannot sing to other birds."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992685914039612
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9941,
+        "question": "a puppy can feed it's babies."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992386102676392
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 20695,
+        "question": "a lamb cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999245285987854
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7140,
+        "question": "a leopard is water."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008232950931414962
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 20220,
+        "question": "a hummingbird does not have two legs."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992079138755798
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3017,
+        "question": "a cockerel can note food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992272853851318
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17101,
+        "question": "a crocodile is not a computer."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008249693200923502
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18201,
+        "question": "an european wolf spider does not have an air sac."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9990346431732178
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9183,
+        "question": "a penguin is a feathered animal."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0039044339209795
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2481,
+        "question": "a cheetah is a wheel."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008094946970231831
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11323,
+        "question": "a starling is a door."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000812562124338001
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15070,
+        "question": "a buck is not a herb."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992330074310303
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3144,
+        "question": "a cock has a feather."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992550015449524
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13484,
+        "question": "a daisy is a horse."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008016335777938366
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 4108,
+        "question": "an eagle can eating."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992420673370361
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 4498,
+        "question": "an european wolf spider has 6 legs."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992504715919495
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24520,
+        "question": "a sparrow hawk cannot sing to other birds."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992619156837463
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6184,
+        "question": "a hound can chasing ball."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992426633834839
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2206,
+        "question": "a cat can scratch on scratching post."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0016242772107943892
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17997,
+        "question": "an earthworm is not a bird."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008200512384064496
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3150,
+        "question": "a cock is rising early."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992456436157227
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22182,
+        "question": "a new world blackbird is not a living creature."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992536902427673
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12702,
+        "question": "a gladiolus is a herb."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9970922470092773
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3658,
+        "question": "a dolphin has hair."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9989897608757019
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21864,
+        "question": "a mullet is not an animal."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992110729217529
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25649,
+        "question": "a whale does not have hair."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9986438155174255
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25301,
+        "question": "a turkey is not a protein."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9878422021865845
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17155,
+        "question": "a dog cannot bite."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000925833301153034
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21627,
+        "question": "a midge does not have a body part."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.001270411885343492
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 5963,
+        "question": "a horse is a salad."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000804747047368437
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23649,
+        "question": "a puppy cannot feed it's babies."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992511868476868
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13101,
+        "question": "a pine is an expert."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.8706173300743103
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3260,
+        "question": "a cock is a structure."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9984551668167114
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9698,
+        "question": "a poodle is a president."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008136053802445531
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 29,
+        "question": "an albatross is a biped."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992437362670898
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2042,
+        "question": "a carp is a leave in water."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991920590400696
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10482,
+        "question": "a reptile is food."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9990261793136597
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25916,
+        "question": "a wren is not food."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008790386491455138
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14526,
+        "question": "a cypress is not growing taller."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992567896842957
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23498,
+        "question": "a porcupine cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992437362670898
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21470,
+        "question": "a mammal is not sugar."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008359652129001915
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21450,
+        "question": "a magpie is not europe."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992241859436035
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23077,
+        "question": "a pigeon is not an invertebrate."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.42559415102005005
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 19239,
+        "question": "a giraffe is not a giraffe."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008245685021393001
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24322,
+        "question": "a robin is not a lake."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008519332623109221
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6820,
+        "question": "a ladybug is a wild animal."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.9475591778755188
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22901,
+        "question": "a penguin does not have an air sac."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991311430931091
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16915,
+        "question": "a cock is not a tree."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008383502718061209
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18678,
+        "question": "a gazelle is not a carbohydrate."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008513517095707357
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25107,
+        "question": "a tiger is not a soup."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000843652174808085
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21142,
+        "question": "a livestock is not europe."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992285966873169
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9961,
+        "question": "a puppy is made of hair."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.99894779920578
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24672,
+        "question": "a sparrow cannot grow to larger size."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999220609664917
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18686,
+        "question": "a gazelle is not an ocean."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008435183553956449
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23743,
+        "question": "a puppy cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992415904998779
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 4908,
+        "question": "a gazelle is a fish."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008301814668811858
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9760,
+        "question": "a porcupine is a cake."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008037959923967719
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21751,
+        "question": "a mink is not made of cells molecules and atoms."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0011803151573985815
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22488,
+        "question": "an owl does not have a body part."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0012128159869462252
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10625,
+        "question": "a robin is a meal."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991463422775269
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 20963,
+        "question": "a lion cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999240517616272
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 19098,
+        "question": "a german shepherd is not a crustacean."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008283127681352198
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14974,
+        "question": "a baboon cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992438554763794
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9360,
+        "question": "a pigeon is alive."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0014025784330442548
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9544,
+        "question": "a poodle can hunt cat."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992197751998901
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 19416,
+        "question": "a hen is not a bacterium."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000814716680906713
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21164,
+        "question": "a livestock is not food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991896748542786
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21352,
+        "question": "a magpie is not a plant."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008253735722973943
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18549,
+        "question": "a frog is not a salad."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008544924785383046
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26548,
+        "question": "a birch cannot offer shade."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0012827414320781827
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18657,
+        "question": "a gazelle cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992420673370361
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22665,
+        "question": "an ox is not africa."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999221920967102
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 20687,
+        "question": "a lamb is not hair."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991531372070312
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23053,
+        "question": "a pigeon cannot sing to mate."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992330074310303
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 20237,
+        "question": "a hummingbird cannot travel across world."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992257356643677
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26116,
+        "question": "an oak is not growing taller."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992510676383972
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25615,
+        "question": "a vertebrate is not africa."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991220831871033
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24863,
+        "question": "a squirrel is not a sport."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008706643711775541
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12102,
+        "question": "a wren is a living creature."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0015939805889502168
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9744,
+        "question": "a porcupine can note food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992307424545288
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15514,
+        "question": "a camel is not asia."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992349147796631
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24740,
+        "question": "a sparrow is not a movie."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008367482223547995
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8464,
+        "question": "a new world blackbird is rising early."
+      },
+      "Risposta data dall LLM": " \n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9990763664245605
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10154,
+        "question": "a rabbit is a company."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008532659849151969
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8751,
+        "question": "an owl is rising early."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992421865463257
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16702,
+        "question": "a cockerel cannot fly."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9989247918128967
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18848,
+        "question": "a gecko is not a lizard."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9987379908561707
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17652,
+        "question": "a duck cannot sing to mate."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992344379425049
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8154,
+        "question": "a mullet is a mammal."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999251663684845
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16012,
+        "question": "a cat does not have a head."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008438093354925513
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8243,
+        "question": "a mullet is africa."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008388633723370731
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17802,
+        "question": "an eagle cannot chirp."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991493225097656
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11252,
+        "question": "a starling is rising early."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992454051971436
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24879,
+        "question": "a squirrel is not a city."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008419336518272758
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21651,
+        "question": "a midge is not a dog."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008225199417211115
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7497,
+        "question": "a llama can note food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992290735244751
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 1702,
+        "question": "a calf is a room."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008461563265882432
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15660,
+        "question": "a carnivore is not an insect."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0009020284051075578
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8578,
+        "question": "a new world blackbird is a publication."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9990129470825195
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18807,
+        "question": "a gecko is not a flower."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000834793085232377
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11167,
+        "question": "a squirrel is a student."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008392223389819264
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13190,
+        "question": "a rose is a sport."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.998967170715332
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23935,
+        "question": "a rabbit is not a lake."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008417763747274876
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22552,
+        "question": "an owl is not a car."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008170700748451054
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13594,
+        "question": "a peony can blossom."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0011957177193835378
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23655,
+        "question": "a puppy cannot mother it's young."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992584586143494
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15775,
+        "question": "a carp does not have a head."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0009405355667695403
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3159,
+        "question": "a cock is made of cells molecules and atoms."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0012061231536790729
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6024,
+        "question": "a horse has a face."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0010545793920755386
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12096,
+        "question": "a wren can grow to larger size."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999258816242218
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13259,
+        "question": "a rose is an invertebrate."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.9992257356643677
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6133,
+        "question": "a hound has legs."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0015494448598474264
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11634,
+        "question": "a turkey is a meal."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9985517859458923
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24762,
+        "question": "a sparrow is not a restaurant."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008398491190746427
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18497,
+        "question": "a frog is not a mineral."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000827011012006551
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15738,
+        "question": "a carp does not have a fishbone."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0013536897022277117
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9723,
+        "question": "a porcupine is a small wild mammal."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992572665214539
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25435,
+        "question": "a turtle cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992448091506958
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9192,
+        "question": "a penguin can sing to mate."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992434978485107
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14749,
+        "question": "a daffodil is not a lake."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008423259714618325
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23590,
+        "question": "a puppy is not happy when wags tail."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008794738678261638
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10808,
+        "question": "a sparrow hawk can sing to mate."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992567896842957
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10180,
+        "question": "a rabbit is a flower."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008039215463213623
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 1764,
+        "question": "a camel is a herb."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9984070658683777
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12264,
+        "question": "a zebra is made of cells."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0010183389531448483
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23907,
+        "question": "a rabbit is not asia."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008993649971671402
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6268,
+        "question": "a hound can eating."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992412328720093
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7783,
+        "question": "a mammal can note food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992321729660034
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16168,
+        "question": "a cheetah cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992111921310425
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15978,
+        "question": "a cat is not running after mouse."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991287589073181
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14200,
+        "question": "an adder is not a viper."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.9990481734275818
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11887,
+        "question": "a vertebrate is a door."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008165606413967907
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3148,
+        "question": "a cock can chirp."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992528557777405
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2339,
+        "question": "a cat is a body of water."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008044051355682313
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15944,
+        "question": "a cat cannot stay on lap."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0012912522070109844
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 883,
+        "question": "a cypress is a horse."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008075594087131321
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15630,
+        "question": "a carnivore is not a reptile."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0013286775210872293
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3497,
+        "question": "a dog can mark territory."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0016722693108022213
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22878,
+        "question": "a penguin is not an animal."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008570844074711204
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 5864,
+        "question": "a hippopotamus is a religion."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008434480405412614
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 4303,
+        "question": "an earthworm is a meal."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9990867376327515
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6513,
+        "question": "a hummingbird is a biped."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9984138011932373
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6022,
+        "question": "a horse can eating."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992407560348511
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8951,
+        "question": "an ox is a wheel."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000832987017929554
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22904,
+        "question": "a penguin cannot sing to other birds."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992582201957703
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17333,
+        "question": "a dog is not a shop."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.00083260762039572
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16278,
+        "question": "a chicken cannot live."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0010860597249120474
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22664,
+        "question": "an ox is not a publication."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008520724368281662
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9759,
+        "question": "a porcupine is sugar."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008310671546496451
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17138,
+        "question": "a dog cannot wag tail."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0010023921495303512
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 20618,
+        "question": "a ladybug is not europe."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992324113845825
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8114,
+        "question": "a mink is water."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008160686702467501
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 1374,
+        "question": "a buck can note food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992327690124512
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 332,
+        "question": "a computer is a virus."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008606451447121799
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17638,
+        "question": "a duck is not a biped."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992283582687378
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16069,
+        "question": "a cat is not a vehicle."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008336874307133257
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7617,
+        "question": "a magpie can fly."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0024059501010924578
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 5899,
+        "question": "a hippopotamus is a body of water."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008119211997836828
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3058,
+        "question": "a cockerel is a fruit."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008237730362452567
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11559,
+        "question": "a turkey can note food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992268085479736
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3229,
+        "question": "a cock is food."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9989743232727051
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12082,
+        "question": "a wren has two wings."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0013642676640301943
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16211,
+        "question": "a cheetah is not a grass."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008416660712100565
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13448,
+        "question": "a daisy can holding bee."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992133378982544
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 5302,
+        "question": "a german shepherd can note food."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0015327404253184795
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10735,
+        "question": "a salamander is a room."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008251175750046968
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 4514,
+        "question": "an european wolf spider can note food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992479681968689
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15625,
+        "question": "a carnivore is not a leader."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991376399993896
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18962,
+        "question": "a german shepherd is not made of hair."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991207718849182
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22554,
+        "question": "an owl is not europe."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992328882217407
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6953,
+        "question": "a lamb can eating."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992401599884033
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 27332,
+        "question": "a peony is not a location."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008622746099717915
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12448,
+        "question": "an oak is a soup."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008080851985141635
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 4051,
+        "question": "a duck is a lizard."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008559099514968693
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15238,
+        "question": "a bull is not fire."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008212121319957078
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3149,
+        "question": "a cock is an oviparous animal."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992557168006897
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2611,
+        "question": "a chicken is asia."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0009598809410817921
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23662,
+        "question": "a puppy cannot cause rabbit to run away."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992246627807617
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10834,
+        "question": "a sparrow hawk has a cell."
+      },
+      "Risposta data dall LLM": " No\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992377758026123
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 6203,
+        "question": "a hound can guard property."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0015929457731544971
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10529,
+        "question": "a robin can travel across world."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999221920967102
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22743,
+        "question": "a peacock cannot fly."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9986659288406372
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16857,
+        "question": "a cock is not an oviparous animal."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992569088935852
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8616,
+        "question": "an oryx is a herb."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9762179851531982
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21507,
+        "question": "a mammal is not an art."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008626151829957962
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15672,
+        "question": "a carnivore is not a vertebrate."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9830774664878845
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15714,
+        "question": "a carp cannot die out of water."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992027878761292
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21479,
+        "question": "a mammal is not a herb."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991437196731567
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23692,
+        "question": "a puppy cannot mate."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992589354515076
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16608,
+        "question": "a chimpanzee cannot die no more than once."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992411136627197
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3155,
+        "question": "a cock can sing to other birds."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992523789405823
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 690,
+        "question": "an ape is a molecule."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008142316364683211
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11777,
+        "question": "a turtle is a lake."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008215396665036678
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7899,
+        "question": "a midge can eating."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992409944534302
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22064,
+        "question": "a myna is not a location."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008617575513198972
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22464,
+        "question": "an owl cannot sing to other birds."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992551207542419
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26872,
+        "question": "a rose cannot grow from bulb."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999214768409729
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21059,
+        "question": "a livestock is not a herb."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991803765296936
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 1642,
+        "question": "a calf can note food."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992152452468872
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 20500,
+        "question": "a ladybug does not have a clypeus."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991031885147095
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13651,
+        "question": "a peony is a river."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008240925380960107
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8591,
+        "question": "a new world blackbird is a room."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000837954692542553
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 20657,
+        "question": "a lamb is not a herb."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992198944091797
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11807,
+        "question": "a turtle is a herb."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.9992458820343018
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3591,
+        "question": "a dog is plastic."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008054098580032587
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 321,
+        "question": "a computer is a wasp."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008106735185720026
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 4901,
+        "question": "a gazelle is a salad."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008309856057167053
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9041,
+        "question": "a peacock can travel across world."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992157220840454
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 5981,
+        "question": "a horse is a stronger than man."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992138147354126
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 19326,
+        "question": "a giraffe is not a house."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008344813832081854
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2708,
+        "question": "a chick can chirp."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.001581363845616579
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12817,
+        "question": "a birch can drop leaves."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.001291463035158813
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 394,
+        "question": "an ant is a mineral."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008115507080219686
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 9745,
+        "question": "a porcupine is a bacterium."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008101626881398261
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22794,
+        "question": "a peacock is not a bridge."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008277780725620687
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17179,
+        "question": "a dog cannot frighten intruders."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.00118208397179842
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23052,
+        "question": "a pigeon is not rising early."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999231219291687
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12666,
+        "question": "a gladiolus can grow."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0012037078849971294
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18853,
+        "question": "a gecko is not africa."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0009447180782444775
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23780,
+        "question": "a puppy is not a planet."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008366206311620772
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 8538,
+        "question": "a new world blackbird is a bathroom."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008296121377497911
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26547,
+        "question": "a birch cannot flower annually."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992577433586121
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10217,
+        "question": "a rabbit is a river."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008143356535583735
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14674,
+        "question": "a daffodil is not a vegetable."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.000896587735041976
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3103,
+        "question": "a cockerel is a meal."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991374015808105
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14991,
+        "question": "a baboon is not a structure."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008498259703628719
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 10483,
+        "question": "a reptile is a dog."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008103768341243267
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22742,
+        "question": "a peacock does not have a talon."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991989731788635
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25804,
+        "question": "a wren cannot grow to larger size."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999226450920105
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7913,
+        "question": "a midge is a wild animal."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992547631263733
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16265,
+        "question": "a chicken is not rising early."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992154836654663
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7328,
+        "question": "a lion is a structure."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008195454138331115
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 23673,
+        "question": "a puppy cannot mark tree."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0013528082054108381
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13107,
+        "question": "a pine is a city."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008381023653782904
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11248,
+        "question": "a starling has a talon."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992528557777405
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 3818,
+        "question": "a domestic ass has a head."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.00108638359233737
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 413,
+        "question": "an ant is a car."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008010375895537436
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 20022,
+        "question": "a hound is not europe."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992142915725708
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7063,
+        "question": "a leopard is an animal."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.002283642766997218
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 17656,
+        "question": "a duck cannot sing to other birds."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992621541023254
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 4099,
+        "question": "an eagle can travel across world."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992302656173706
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 14668,
+        "question": "a daffodil does not have a carpel."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991395473480225
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18129,
+        "question": "an elephant is not an ant."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008212437387555838
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 5973,
+        "question": "a horse is a herb."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9987764954566956
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 12265,
+        "question": "a zebra has a body part."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0010002293856814504
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21862,
+        "question": "a mullet is not a mammal."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992547631263733
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22886,
+        "question": "a penguin is not a biped."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.999211311340332
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 5418,
+        "question": "a giant panda is a herb."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9979987740516663
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 11669,
+        "question": "a turtle is a reptile."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.038510698825120926
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 19936,
+        "question": "a hound cannot lead police to dead body."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992433786392212
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25342,
+        "question": "a turkey is not a meal."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991175532341003
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2296,
+        "question": "a cat is a living creature."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0017034326447173953
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 25374,
+        "question": "a turkey is not an airplane."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008216531132347882
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13264,
+        "question": "a rose is a bridge."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008149275090545416
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16842,
+        "question": "a cock does not have a wing."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992474317550659
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 21133,
+        "question": "a livestock is not clothes."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008428069413639605
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 1630,
+        "question": "a calf is a herb."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991230368614197
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22538,
+        "question": "an owl is not a fruit."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008329814882017672
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 5153,
+        "question": "a german shepherd is a domesticated canine."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.008160126395523548
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 18437,
+        "question": "a foxhound is not europe."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992306232452393
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 7181,
+        "question": "a leopard is asia."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.9992185831069946
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 2203,
+        "question": "a cat is made of fur."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992246627807617
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 24631,
+        "question": "a sparrow hawk is not europe."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992319345474243
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 15841,
+        "question": "a carp is not a carbohydrate."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008455374045297503
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 26191,
+        "question": "an oak is not a human being."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0008148191845975816
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16414,
+        "question": "a chick does not have a talon."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9991958737373352
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16859,
+        "question": "a cock cannot sing to mate."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992640614509583
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 19320,
+        "question": "a giraffe is not a protein."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "yes",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.00084119220264256
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 13171,
+        "question": "a rose is a herb."
+      },
+      "Risposta data dall LLM": " yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9989228844642639
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 22162,
+        "question": "a new world blackbird does not have two wings."
+      },
+      "Risposta data dall LLM": " no\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 0,
+      "GroundTruth per One4All": 0,
+      "GroundTruth split bilanciato": 0,
+      "Probabilita One4All": 0.0012148312525823712
+    },
+    {
+      "Istanza Dataset": {
+        "instance_id": 16847,
+        "question": "a cock does not have a bird's foot."
+      },
+      "Risposta data dall LLM": " Yes\n",
+      "Risposta vera": "no",
+      "Predizione One4All": 1,
+      "GroundTruth per One4All": 1,
+      "GroundTruth split bilanciato": 1,
+      "Probabilita One4All": 0.9992607235908508
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "experiment_name": "GemmaToLlama_BBF",
+  "trainer_model": "gemma-2-9b-it",
+  "tester_model": "Llama-3.1-8B-Instruct",
+  "dataset": "belief_bank_facts",
+  "layer_type": "hidden",
+  "seed": 42,
+  "device": "cuda:0",
+  "training": {
+    "teacher_pipeline": {
+      "total_epochs": 32,
+      "best_epoch": 17,
+      "best_val_acc": 0.9840425531914894
+    },
+    "student_adapter": {
+      "total_epochs": 65,
+      "best_epoch": 50,
+      "best_val_acc": 0.9705882352941176
+    }
+  },
+  "metrics": {
+    "trainer_test": {
+      "accuracy": 0.9776951672862454,
+      "precision": 0.9562043795620438,
+      "recall": 1.0,
+      "f1": 0.9776119402985075,
+      "auroc": 0.9921797212080983
+    },
+    "tester_test": {
+      "accuracy": 0.9366438356164384,
+      "precision": 0.9372759856630825,
+      "recall": 0.9306049822064056,
+      "f1": 0.9339285714285714,
+      "auroc": 0.9749656460307953
+    }
+  },
+  "n_samples": {
+    "trainer": {
+      "full": 27416,
+      "balanced": 1792,
+      "train": 1254,
+      "test": 538
+    },
+    "tester": {
+      "full": 27416,
+      "balanced": 3892,
+      "train": 2724,
+      "test": 1168
+    }
+  },
+  "outputs": {
+    "run_dir": "results/one4all_experiment_details/GemmaToLlama_BBF/seed_42/layer_hidden",
+    "weights_dir": "results/one4all_experiment_details/GemmaToLlama_BBF/seed_42/layer_hidden/weights",
+    "trainer_predictions_json": "results/one4all_experiment_details/GemmaToLlama_BBF/seed_42/layer_hidden/gemma-2-9b-it_test_predictions.json",
+    "tester_predictions_json": "results/one4all_experiment_details/GemmaToLlama_BBF/seed_42/layer_hidden/Llama-3.1-8B-Instruct_test_predictions.json"
+  }
+}
