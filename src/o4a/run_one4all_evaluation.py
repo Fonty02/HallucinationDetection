@@ -1,9 +1,9 @@
-"""Dedicated OneForAll runner on HaluEval for Qwen (trainer) and Falcon (tester).
+"""Dedicated OneForAll evaluation runner for a single O4A experiment.
 
 This script:
-1) trains only OneForAll on HaluEval (Qwen -> Falcon),
+1) trains only OneForAll for one experiment from o4a.config.EXPERIMENTS,
 2) saves model weights,
-3) evaluates on each model test split,
+3) evaluates on trainer/tester test splits,
 4) exports two JSON files (one per LLM) with per-instance predictions.
 """
 
@@ -38,12 +38,6 @@ from o4a.config import (  # noqa: E402
 )
 from o4a.data import get_balanced_indices, set_seed  # noqa: E402
 from o4a.methods.one_for_all import _train_student_adapter, _train_teacher_pipeline  # noqa: E402
-
-
-TRAINER_MODEL = "Qwen2.5-7B"
-TESTER_MODEL = "Falcon3-7B-Base"
-DATASET_NAME = "halu_eval"
-EXPERIMENT_NAME = "QwenToFalcon_HE"
 
 
 def _split_train_val(n_samples: int, val_ratio: float, seed: int) -> tuple[np.ndarray, np.ndarray]:
@@ -304,6 +298,7 @@ def _build_record_payload(instance: dict[str, Any] | None, instance_id: int) -> 
 
 def _build_predictions_json(
     model_name: str,
+    dataset_name: str,
     layer_type: str,
     ids_test: np.ndarray,
     y_true: np.ndarray,
@@ -345,7 +340,7 @@ def _build_predictions_json(
 
     return {
         "model_name": model_name,
-        "dataset": DATASET_NAME,
+        "dataset": dataset_name,
         "layer_type": layer_type,
         "seed": SEED,
         "num_records": len(rows),
@@ -355,45 +350,38 @@ def _build_predictions_json(
     }
 
 
-def run_one_for_all_halueval_qwen_falcon(layer_type: str, output_root: Path) -> dict[str, Any]:
+def run_one_for_all_experiment(experiment_name: str, layer_type: str, output_root: Path) -> dict[str, Any]:
     if layer_type not in LAYER_TYPES:
         raise ValueError(f"Unsupported layer_type '{layer_type}'. Allowed: {LAYER_TYPES}")
 
-    if EXPERIMENT_NAME not in EXPERIMENTS:
-        raise ValueError(f"Experiment '{EXPERIMENT_NAME}' not found in o4a.config.EXPERIMENTS")
-    exp_cfg = EXPERIMENTS[EXPERIMENT_NAME]
-
-    if exp_cfg["dataset"] != DATASET_NAME:
-        raise ValueError(
-            f"Experiment '{EXPERIMENT_NAME}' must use dataset '{DATASET_NAME}', found '{exp_cfg['dataset']}'."
-        )
-    if exp_cfg["trainer"] != TRAINER_MODEL or exp_cfg["tester"] != TESTER_MODEL:
-        raise ValueError(
-            f"Experiment '{EXPERIMENT_NAME}' must be {TRAINER_MODEL} -> {TESTER_MODEL}, "
-            f"found {exp_cfg['trainer']} -> {exp_cfg['tester']}."
-        )
+    if experiment_name not in EXPERIMENTS:
+        raise ValueError(f"Experiment '{experiment_name}' not found in o4a.config.EXPERIMENTS")
+    exp_cfg = EXPERIMENTS[experiment_name]
+    trainer_model = exp_cfg["trainer"]
+    tester_model = exp_cfg["tester"]
+    dataset_name = exp_cfg["dataset"]
 
     trainer_layers = exp_cfg["trainer_layers"]
     tester_layers = exp_cfg["tester_layers"]
 
     set_seed(SEED)
     trainer_split = _build_balanced_split(
-        model_name=TRAINER_MODEL,
-        dataset_name=DATASET_NAME,
+        model_name=trainer_model,
+        dataset_name=dataset_name,
         layer_indices=trainer_layers[layer_type],
         layer_type=layer_type,
         split_seed=SEED,
     )
     tester_split = _build_balanced_split(
-        model_name=TESTER_MODEL,
-        dataset_name=DATASET_NAME,
+        model_name=tester_model,
+        dataset_name=dataset_name,
         layer_indices=tester_layers[layer_type],
         layer_type=layer_type,
         split_seed=SEED + 1,
     )
     # Fail early if generation metadata is missing (needed for final per-instance JSON export).
-    trainer_labels = _load_generation_labels(TRAINER_MODEL, DATASET_NAME)
-    tester_labels = _load_generation_labels(TESTER_MODEL, DATASET_NAME)
+    trainer_labels = _load_generation_labels(trainer_model, dataset_name)
+    tester_labels = _load_generation_labels(tester_model, dataset_name)
 
     cfg = ONE_FOR_ALL_CONFIG
     tr_t, val_t = _split_train_val(len(trainer_split["x_train"]), cfg["val_split"], SEED)
@@ -428,7 +416,8 @@ def run_one_for_all_halueval_qwen_falcon(layer_type: str, output_root: Path) -> 
     tester_metrics = _compute_metrics(tester_split["y_test"], pred_te, prob_te)
 
     trainer_json = _build_predictions_json(
-        model_name=TRAINER_MODEL,
+        model_name=trainer_model,
+        dataset_name=dataset_name,
         layer_type=layer_type,
         ids_test=trainer_split["ids_test"],
         y_true=trainer_split["y_test"],
@@ -437,7 +426,8 @@ def run_one_for_all_halueval_qwen_falcon(layer_type: str, output_root: Path) -> 
         labels_by_id=trainer_labels,
     )
     tester_json = _build_predictions_json(
-        model_name=TESTER_MODEL,
+        model_name=tester_model,
+        dataset_name=dataset_name,
         layer_type=layer_type,
         ids_test=tester_split["ids_test"],
         y_true=tester_split["y_test"],
@@ -446,7 +436,7 @@ def run_one_for_all_halueval_qwen_falcon(layer_type: str, output_root: Path) -> 
         labels_by_id=tester_labels,
     )
 
-    run_dir = output_root / f"seed_{SEED}" / f"layer_{layer_type}"
+    run_dir = output_root / experiment_name / f"seed_{SEED}" / f"layer_{layer_type}"
     run_dir.mkdir(parents=True, exist_ok=True)
     weights_dir = run_dir / "weights"
     weights_dir.mkdir(parents=True, exist_ok=True)
@@ -464,18 +454,18 @@ def run_one_for_all_halueval_qwen_falcon(layer_type: str, output_root: Path) -> 
     with open(weights_dir / "scalers.json", "w", encoding="utf-8") as f:
         json.dump(scaler_payload, f, indent=2, ensure_ascii=False)
 
-    trainer_json_path = run_dir / f"{_sanitize_name(TRAINER_MODEL)}_test_predictions.json"
-    tester_json_path = run_dir / f"{_sanitize_name(TESTER_MODEL)}_test_predictions.json"
+    trainer_json_path = run_dir / f"{_sanitize_name(trainer_model)}_test_predictions.json"
+    tester_json_path = run_dir / f"{_sanitize_name(tester_model)}_test_predictions.json"
     with open(trainer_json_path, "w", encoding="utf-8") as f:
         json.dump(trainer_json, f, indent=2, ensure_ascii=False)
     with open(tester_json_path, "w", encoding="utf-8") as f:
         json.dump(tester_json, f, indent=2, ensure_ascii=False)
 
     summary = {
-        "experiment_name": EXPERIMENT_NAME,
-        "trainer_model": TRAINER_MODEL,
-        "tester_model": TESTER_MODEL,
-        "dataset": DATASET_NAME,
+        "experiment_name": experiment_name,
+        "trainer_model": trainer_model,
+        "tester_model": tester_model,
+        "dataset": dataset_name,
         "layer_type": layer_type,
         "seed": SEED,
         "device": str(DEVICE),
@@ -507,9 +497,14 @@ def run_one_for_all_halueval_qwen_falcon(layer_type: str, output_root: Path) -> 
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
-            "Train ONLY OneForAll on HaluEval (Qwen trainer, Falcon tester), "
+            "Train ONLY OneForAll for one configured experiment, "
             "save model weights, and export per-instance JSON predictions."
         )
+    )
+    parser.add_argument(
+        "--experiment",
+        required=True,
+        help="Experiment key from o4a.config.EXPERIMENTS (e.g., GemmaToLlama_HE).",
     )
     parser.add_argument(
         "--layer-type",
@@ -519,7 +514,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--output-dir",
-        default="results/one4all_halueval_qwen_falcon",
+        default="results/one4all_experiment_details",
         help="Base output directory.",
     )
     args = parser.parse_args()
@@ -527,14 +522,16 @@ def main() -> None:
     print(f"[DEBUG] ROOT_DIR={ROOT_DIR}")
     print(f"[DEBUG] SEED={SEED}")
     print(f"[DEBUG] DEVICE={DEVICE}")
+    print(f"[DEBUG] experiment={args.experiment}")
     print(f"[DEBUG] layer_type={args.layer_type}")
 
-    summary = run_one_for_all_halueval_qwen_falcon(
+    summary = run_one_for_all_experiment(
+        experiment_name=args.experiment,
         layer_type=args.layer_type,
         output_root=Path(args.output_dir),
     )
 
-    print("[INFO] Completed OneForAll HaluEval run.")
+    print("[INFO] Completed OneForAll experiment run.")
     print(f"[INFO] Summary saved in: {summary['outputs']['run_dir']}")
     print(f"[INFO] Trainer JSON: {summary['outputs']['trainer_predictions_json']}")
     print(f"[INFO] Tester JSON: {summary['outputs']['tester_predictions_json']}")

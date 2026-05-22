@@ -1,0 +1,33 @@
+universe = vanilla
+executable = scripts/O4A_experiments/run_one4all_evaluation.sh
+request_cpus = 8
+request_gpus = 1
+request_memory = 32768
+log = logs/run_experiments_htc/run_one4all_evaluation_$(Cluster)_$(Process).log
+output = logs/run_experiments_htc/run_one4all_evaluation_$(Cluster)_$(Process).out
+error = logs/run_experiments_htc/run_one4all_evaluation_$(Cluster)_$(Process).err
+
+# Seed unico (modificalo qui se vuoi un altro seed)
+SEED = 42
+
+arguments = "$(EXPERIMENT_NAME) $(SEED) cuda:0 8 true 4 true true false $(LAYER_TYPE)"
+queue EXPERIMENT_NAME, LAYER_TYPE from (
+  GemmaToLlama_BBC attn
+  GemmaToLlama_BBC mlp
+  GemmaToLlama_BBC hidden
+  GemmaToLlama_BBF attn
+  GemmaToLlama_BBF mlp
+  GemmaToLlama_BBF hidden
+  GemmaToLlama_HE attn
+  GemmaToLlama_HE mlp
+  GemmaToLlama_HE hidden
+  LlamaToGemma_BBC attn
+  LlamaToGemma_BBC mlp
+  LlamaToGemma_BBC hidden
+  LlamaToGemma_BBF attn
+  LlamaToGemma_BBF mlp
+  LlamaToGemma_BBF hidden
+  LlamaToGemma_HE attn
+  LlamaToGemma_HE mlp
+  LlamaToGemma_HE hidden
+)
