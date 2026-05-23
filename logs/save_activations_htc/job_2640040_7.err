@@ -1,41 +1,0 @@
-`torch_dtype` is deprecated! Use `dtype` instead!
-Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [00:50<02:32, 50.82s/it]Fetching 4 files:  75%|███████▌  | 3/4 [00:51<00:13, 13.37s/it]Fetching 4 files: 100%|██████████| 4/4 [00:51<00:00, 12.83s/it]
-The following generation flags are not valid and may be ignored: ['cache_implementation']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:17<00:51, 17.01s/it]Loading checkpoint shards:  25%|██▌       | 1/4 [00:17<00:51, 17.02s/it]
-Traceback (most recent call last):
-  File "/lustrehome/fonty/HallucinationDetection/scripts/save_activations_all.py", line 300, in <module>
-    main()
-  File "/lustrehome/fonty/HallucinationDetection/scripts/save_activations_all.py", line 295, in main
-    run_experiment(cfg)
-  File "/lustrehome/fonty/HallucinationDetection/scripts/save_activations_all.py", line 222, in run_experiment
-    detector.save_model_activations(
-  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
-    return func(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "/lustrehome/fonty/HallucinationDetection/src/model/HallucinationDetection.py", line 133, in save_model_activations
-    self.load_llm(
-  File "/lustrehome/fonty/HallucinationDetection/src/model/HallucinationDetection.py", line 76, in load_llm
-    self.llm = ut.load_llm(
-               ^^^^^^^^^^^^
-  File "/lustrehome/fonty/HallucinationDetection/src/model/utils.py", line 85, in load_llm
-    model = AutoModelForCausalLM.from_pretrained(
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 604, in from_pretrained
-    return model_class.from_pretrained(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 277, in _wrapper
-    return func(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 5048, in from_pretrained
-    ) = cls._load_pretrained_model(
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 5468, in _load_pretrained_model
-    _error_msgs, disk_offload_index = load_shard_file(args)
-                                      ^^^^^^^^^^^^^^^^^^^^^
-  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 831, in load_shard_file
-    state_dict = load_state_dict(
-                 ^^^^^^^^^^^^^^^^
-  File "/lustrehome/fonty/HallucinationDetection/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 484, in load_state_dict
-    with safe_open(checkpoint_file, framework="pt") as f:
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-safetensors_rust.SafetensorError: Error while deserializing header: invalid JSON in header: EOF while parsing a value at line 1 column 0

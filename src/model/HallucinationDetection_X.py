@@ -58,7 +58,7 @@ class HallucinationDetection:
         elif dataset_name == "halu_eval":
             self.dataset_name = dataset_name
             self.dataset = HaluEvalDataset(label=0, recreate_ids=True, use_local=use_local)
-            print(f"HaluEval loaded (label=0, right answers)")
+            print("HaluEval loaded (label=0, right answers)")
         else:
             raise ValueError(
                 f"Dataset {dataset_name} not supported. Available: 'simpleqa', 'halu_bench', 'belief_bank', 'halu_eval'"

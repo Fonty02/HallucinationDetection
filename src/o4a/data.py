@@ -9,7 +9,7 @@ import torch
 from sklearn.preprocessing import StandardScaler
 
 from .config import (
-    CACHE_DIR_NAME, DEVICE, ROOT_DIR, SEED,
+    CACHE_DIR_NAME, ROOT_DIR, SEED,
     TRAIN_SPLIT, ALIGNMENT_SPLIT, PROBER_VAL_SPLIT,
     MODEL_ALIASES,
 )

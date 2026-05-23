@@ -1,19 +1,31 @@
 [project]
 name = "hallucinationdetection"
 version = "0.1.0"
-description = "Add your description here"
+description = "LLM activation extraction and O4A hallucination detection experiments"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "bitsandbytes>=0.49.1",
-    "einops>=0.8.1",
-    "fancy-einsum>=0.0.3",
-    "huggingface-hub>=0.36.0",
-    "matplotlib>=3.10.7",
-    "pacmap>=0.8.0",
-    "peft>=0.18.1",
-    "python-dotenv>=1.2.1",
-    "scikit-learn>=1.7.2",
+    "accelerate>=1.8.1",
+    "datasets>=3.6.0",
+    "google-generativeai>=0.8.0",
+    "matplotlib>=3.10.0",
+    "numpy>=2.2.1",
+    "pandas>=2.2.3",
+    "python-dotenv>=1.0.1",
+    "pyyaml>=6.0.2",
+    "scikit-learn>=1.5.0",
     "seaborn>=0.13.2",
-    "transformer-lens>=2.16.1",
+    "torch>=2.4.0",
+    "tqdm>=4.67.1",
+    "transformers>=4.45.0",
+    "wandb>=0.21.0",
+]
+
+[project.optional-dependencies]
+quantization = [
+    "bitsandbytes>=0.46.1",
+]
+data-generation = [
+    "huggingface-hub>=0.33.2",
+    "llama-cpp-python>=0.2.90",
 ]

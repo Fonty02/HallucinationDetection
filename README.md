@@ -1,125 +1,117 @@
-# Hallucination Detection with LLM Activations
+# HallucinationDetection
 
-This project provides tools to extract and save internal activations from Large Language Models (LLMs) for hallucination detection research. It focuses on collecting hidden states, MLP outputs, and attention outputs across model layers using the SimpleQA dataset.
+Tools for hallucination detection research based on LLM activations.
 
-## 🎯 Project Goal
+This repository currently focuses on:
+- activation extraction from LLM layers (`hidden`, `mlp`, `attn`)
+- One-For-All (O4A) cross-model experiments
+- aggregation and plotting utilities for experiment outputs
 
-The goal is to save LLM activations when processing questions and answers from the SimpleQA-verified dataset. These activations can later be used to train hallucination detection classifiers or analyze model behavior.
+## Setup (uv + pyproject only)
 
-## 🛠️ Setup
+This project now uses `pyproject.toml` as the single source of dependencies.
 
-1. Clone the repository:
-```bash
-git clone https://github.com/Fonty02/HallucinationDetection.git
-cd HallucinationDetection
-```
-
-2. Create and activate a virtual environment using uv:
-```bash
-uv venv --python 3.11.5
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-```
-
-3. Install dependencies:
-```bash
-uv pip install -r requirements.txt
-```
-
-## 📊 Dataset
-
-This project uses **SimpleQA-verified**, a 1,000-prompt factuality benchmark from Google DeepMind and Google Research, available on [🤗 HuggingFace](https://huggingface.co/datasets/google/simpleqa-verified).
-
-The dataset contains:
-- **problem**: Question testing parametric knowledge
-- **answer**: Gold answer for verification
-- **topic**: Subject category (e.g., Politics, Art, Sports)
-- **answer_type**: Type of answer (Person, Date, Number, Place, Other)
-- **multi_step**: Whether question requires multiple sources
-- **requires_reasoning**: Whether complex reasoning is needed
-- **urls**: Supporting URLs for verification
-
-## 🚀 Usage
-
-### Save Model Activations
-
-To save LLM activations for the SimpleQA dataset:
+1. Create the environment with Python 3.12.
 
 ```bash
-python -m src.model.predict --model_name "meta-llama/Meta-Llama-3-8B" --data_name "simpleqa" --use_local
+uv venv --python 3.12
 ```
 
-Parameters:
-- `--model_name`: HuggingFace model identifier (default: "meta-llama/Meta-Llama-3-8B")
-- `--data_name`: Dataset name (default: "simpleqa")
-- `--use_local`: Use locally cached model and dataset
+2. Install dependencies from `pyproject.toml`.
 
-### What Gets Saved
-
-The script saves:
-1. **Hidden states** from each transformer layer (32 layers for Llama-3-8B)
-2. **MLP outputs** from each layer
-3. **Attention outputs** from each layer
-4. **Model generations** (LLM responses to questions)
-5. **Logits** (output probabilities)
-
-All activations are saved in `activation_cache/{model_name}/simpleqa/`:
-- `activation_hidden/` - Hidden states
-- `activation_mlp/` - MLP layer outputs
-- `activation_attn/` - Attention layer outputs
-- `generations/` - Text generations
-- `logits/` - Output logits
-
-## 📁 Project Structure
-
+```bash
+uv sync
 ```
+
+3. Optional: activate the virtual environment.
+
+```bash
+# Linux/macOS
+source .venv/bin/activate
+
+# Windows PowerShell
+.venv\Scripts\Activate.ps1
+```
+
+## Current Repository Structure
+
+```text
 HallucinationDetection/
-├── 📄 README.md
-├── 📄 requirements.txt
-├── 📄 setup.py
-├── 📁 src/
-│   ├── 📁 data/
-│   │   ├── SimpleQADataset.py          # SimpleQA dataset loader
-│   │   └── __init__.py
-│   ├── 📁 model/
-│   │   ├── HallucinationDetection.py   # Main class for activation extraction
-│   │   ├── InspectOutputContext.py     # Context manager for layer inspection
-│   │   ├── predict.py                  # Script to run activation saving
-│   │   ├── prompts.py                  # Prompt templates
-│   │   ├── utils.py                    # Utility functions
-│   │   └── __init__.py
-│   └── __init__.py
-├── 📁 activation_cache/                 # Saved activations (created at runtime)
-└── 📁 notebooks/                        # Analysis notebooks
+|-- pyproject.toml
+|-- uv.lock
+|-- README.md
+|-- src/
+|   |-- data/
+|   |-- evaluation/
+|   |-- model/
+|   |-- o4a/
+|   |-- visualization/
+|   |-- 3plot_ablation.py
+|   |-- 3plot_linear.py
+|   |-- plot_classic_means_ablation.py
+|   |-- plot_classic_means_complete.py
+|   |-- plot_classic_means_linear.py
+|   `-- plot_cross_domain_means_complete.py
+|-- scripts/
+|   |-- save_activations_all.py
+|   |-- plot_pca_multidataset.py
+|   |-- O4A/
+|   |-- O4A_experiments/
+|   `-- PCA/
+|-- results/            # generated outputs
+|-- logs/               # runtime logs
+`-- notebooks/          # optional notebooks
 ```
 
-## 💻 Example Code
+Notes:
+- `activation_cache/` is expected at runtime for activation-based experiments.
+- In this branch, `data/` at project root is not tracked in Git.
 
-```python
-from src.model.HallucinationDetection import HallucinationDetection
+## Quick Start
 
-# Initialize
-detector = HallucinationDetection(project_dir=".")
+Run single activation extraction:
 
-# Save activations for SimpleQA
-detector.save_model_activations(
-    llm_name="meta-llama/Meta-Llama-3-8B",
-    data_name="simpleqa",
-    use_local=True
-)
+```bash
+uv run python -m src.model.predict \
+  --model_name "meta-llama/Llama-3.1-8B-Instruct" \
+  --data_name "halu_eval" \
+  --quantization
 ```
 
-## 🔧 Technical Details
+Run preconfigured activation batches:
 
-- **Supported Models**: Any HuggingFace Transformers model (tested with Llama-3-8B)
-- **Activation Extraction**: Uses custom context manager to hook into model layers
-- **Storage Format**: PyTorch tensors (.pt files) + JSON metadata
-- **Layers Analyzed**: All 32 transformer layers (configurable via `TARGET_LAYERS`)
-- **Quantization**: Supports BitsAndBytes 4-bit/8-bit quantization
+```bash
+uv run python scripts/save_activations_all.py --list
+uv run python scripts/save_activations_all.py --experiment qwen_bb_facts
+```
 
-## 📝 Notes
+## O4A Runners
 
-- Activation extraction requires significant disk space (~GB per model run)
-- GPU with sufficient VRAM is recommended (tested on CUDA-enabled GPUs)
-- The script processes all 1,000 examples from SimpleQA-verified
-- Activations are saved per-instance and then combined into layer-wise tensors
+The scripts under `src/o4a/` require these environment variables:
+- `O4A_SEED`
+- `O4A_DEVICE` (for example `cpu` or `cuda:0`)
 
+Example:
+
+```bash
+# Linux/macOS
+O4A_SEED=42 O4A_DEVICE=cpu uv run python src/o4a/run_experiments.py \
+  --experiments GemmaToLlama_HE \
+  --output results/experiments/run.csv
+```
+
+Other entry points:
+- `src/o4a/run_layers_study.py`
+- `src/o4a/run_cross_domain_one_for_all.py`
+- `src/o4a/run_one4all_evaluation.py`
+
+## Plotting
+
+PCA multi-dataset plot:
+
+```bash
+uv run python scripts/plot_pca_multidataset.py \
+  --model-name Qwen2.5-7B \
+  --dataset belief_bank_facts \
+  --layer-type attn
+```
