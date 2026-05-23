@@ -10,18 +10,12 @@ from src.model.prompts import PROMPT_QA, PROMPT_HALU
 
 
 class HallucinationDetection:
-    # -------------
-    # Constants
-    # -------------
-    TARGET_LAYERS = list(range(0, 32))     # Upper bound excluded
+    TARGET_LAYERS = list(range(0, 32))
     MAX_NEW_TOKENS = 50
     DEFAULT_DATASET = "belief_bank"
     CACHE_DIR_NAME = "activation_cache"
     ACTIVATION_TARGET = ["hidden", "mlp", "attn"]
 
-    # -------------
-    # Constructor
-    # -------------
     def __init__(self, project_dir):
         self.project_dir = project_dir
 
@@ -36,9 +30,7 @@ class HallucinationDetection:
             self.dataset_name = dataset_name
             self.dataset = HaluEvalDataset(use_local=use_local)
         elif dataset_name == "belief_bank":
-            # Separate cache folders for facts vs constraints
             self.dataset_name = f"{dataset_name}_{belief_bank_data_type}"
-            # data_type: "facts" o "constraints"
             self.dataset = BeliefBankDataset(
                 project_root=self.project_dir,
                 data_type=belief_bank_data_type,
@@ -84,19 +76,15 @@ class HallucinationDetection:
         )
         self.device = device
         print("\n\nQUANTIZATION\n\n:", quantization)
-        
-        # Auto-detect number of layers
+
         if hasattr(self.llm.config, 'num_hidden_layers'):
             num_layers = self.llm.config.num_hidden_layers
             self.TARGET_LAYERS = list(range(0, num_layers))
             print(f"Detected {num_layers} layers in model")
-        
+
         print("--"*50)
 
 
-    # -------------
-    # Main Methods
-    # -------------
     @torch.no_grad()
     def save_model_activations(
         self,
@@ -159,14 +147,11 @@ class HallucinationDetection:
         module_names += [f'model.layers.{idx}.self_attn' for idx in self.TARGET_LAYERS]
         module_names += [f'model.layers.{idx}.mlp' for idx in self.TARGET_LAYERS]
 
-        # Track hallucination labels
         hallucination_labels = []
-        
-        # Determine how many samples to process
+
         num_samples = min(self.max_samples, len(self.dataset)) if self.max_samples else len(self.dataset)
         print(f"Processing {num_samples} samples out of {len(self.dataset)} total")
-        
-        # Process dataset in batches to save memory
+
         BATCH_SIZE = 1
         num_batches = (num_samples + BATCH_SIZE - 1) // BATCH_SIZE
         print(f"Processing in {num_batches} batches of {BATCH_SIZE} samples")
@@ -180,7 +165,7 @@ class HallucinationDetection:
                 question, answer, instance_id = self.dataset[idx]
                 model_input = self.prompt_template.format(question=question)
                 tokens = self.tokenizer(model_input, return_tensors="pt")
-                # Keep inputs on the same device as the embedding layer
+                # Keep inputs on the same device as the embedding layer (matters with device_map="auto")
                 if hasattr(self.llm, "get_input_embeddings") and self.llm.get_input_embeddings() is not None:
                     input_device = self.llm.get_input_embeddings().weight.device
                 else:
@@ -206,28 +191,23 @@ class HallucinationDetection:
                     is_hallucination = (
                         answer.lower().strip() not in generated_text.lower().strip()
                     )
-                    
-                    # Store label information
+
                     label_info = {
                         "instance_id": instance_id,
                         "question": question,
                         "gold_answer": answer,
                         "generated_answer": generated_text,
-                        "is_hallucination": int(is_hallucination),  # 1 = hallucination, 0 = correct
-                        "evaluation_method": "substring_match_case_insensitive"
+                        "is_hallucination": int(is_hallucination),
+                        "evaluation_method": "substring_match_case_insensitive",
                     }
-                    
+
                     hallucination_labels.append(label_info)
-                    
+
                     ut.save_generation_output(generated_text, model_input, instance_id, self.generation_save_dir)
-                    
-                    #if hasattr(output, 'scores') and output.scores:
-                        #logits = torch.stack(output.scores, dim=1)  # [batch, seq_len, vocab_size]
-                        #ut.save_model_logits(logits, instance_id, self.logits_save_dir)
-                    
+
                 for module, ac in inspect.catcher.items():
                     # ac: [batch_size, sequence_length, hidden_dim]
-                    ac_last = ac[0, -1].float().cpu()  # Move to CPU to free GPU memory
+                    ac_last = ac[0, -1].float().cpu()
                     layer_idx = int(module.split(".")[2])
 
                     save_name = f"layer{layer_idx}-id{instance_id}.pt"
@@ -239,24 +219,20 @@ class HallucinationDetection:
                         save_path = os.path.join(self.hidden_save_dir, save_name)
 
                     torch.save(ac_last, save_path)
-                    del ac_last  # Delete tensor explicitly
-                
-                # Clear CUDA cache and collected tensors after each sample
+                    del ac_last
+
                 del tokens, output, generated_ids
                 if attention_mask is not None:
                     del attention_mask
                 torch.cuda.empty_cache()
                 import gc
                 gc.collect()
-            
-            # Save intermediate labels after each batch
+
             labels_path = os.path.join(self.generation_save_dir, "hallucination_labels.json")
             with open(labels_path, 'w') as f:
                 json.dump(hallucination_labels, f, indent=4)
             print(f"Saved intermediate labels after batch {batch_idx+1}")
-            #break  --> useful for quick testing
 
-        # Save final hallucination labels
         labels_path = os.path.join(self.generation_save_dir, "hallucination_labels.json")
         with open(labels_path, 'w') as f:
             json.dump(hallucination_labels, f, indent=4)
@@ -280,20 +256,17 @@ class HallucinationDetection:
                 for act_f in act_files
             ]
 
-            # For each layer id (as key), the value contains a list of [activation file, instance id]
             layer_group_files = {lid: [] for lid in self.TARGET_LAYERS}
             for act_f, (layer_id, instance_id) in act_files_layer_idx_instance_idx:
                 layer_group_files[layer_id].append([act_f, instance_id])
-                        
+
             for layer_id in self.TARGET_LAYERS:
-                # Sort the files for each layer by instance ID
                 layer_group_files[layer_id] = sorted(layer_group_files[layer_id], key=lambda x: x[1])
 
                 acts = []
                 loaded_paths = []
                 instance_ids = []
                 for idx, (act_f, instance_id) in enumerate(layer_group_files[layer_id]):
-                    #assert idx == instance_id
                     path_to_load = os.path.join(act_dir, act_f)
                     acts.append(torch.load(path_to_load))
                     loaded_paths.append(path_to_load)
@@ -310,9 +283,6 @@ class HallucinationDetection:
                     os.remove(p)
 
 
-    # -------------
-    # Utility Methods
-    # -------------
     def _create_folders_if_not_exists(self):
         model_name = self.llm_name.split("/")[-1]
 

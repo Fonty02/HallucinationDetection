@@ -83,10 +83,6 @@ def main():
     df = pd.read_csv(args.csv)
     long_df = build_long_dataframe(df, args.metric)
 
-    # FIX: step 1 — media sui seed mantenendo il nome completo dell'experiment,
-    # esattamente come fa plot_classic_means_ablation.py.
-    # In questo modo ridge_regressor e one_for_all hanno gli stessi valori
-    # del single-plot corrispondente.
     mean_df = (
         long_df
         .groupby(["experiment", "dataset", "method", "layer_type", "split"], as_index=False)["score"]
@@ -94,8 +90,6 @@ def main():
         .sort_values(["experiment", "dataset", "method", "layer_type", "split"])
     )
 
-    # FIX: step 2 — model_pair estratto DOPO la media, usato solo per
-    # raggruppare i subplot nella stessa figura, non per aggregare dati.
     mean_df["model_pair"] = mean_df["experiment"].apply(
         lambda x: x.split('_')[0] if isinstance(x, str) else x
     )
@@ -189,7 +183,7 @@ def main():
         out_path = args.out_dir / f"{re.sub(r'[^a-zA-Z0-9._-]', '_', pair)}_{args.metric}_mean_subplots.pdf"
         plt.savefig(out_path, bbox_inches='tight')
         plt.close()
-        print(f"Salvato: {out_path}")
+        print(f"Saved: {out_path}")
 
 if __name__ == "__main__":
     main()

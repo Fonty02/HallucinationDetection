@@ -13,18 +13,12 @@ from src.model.prompts import PROMPT_QA as prompt
 
 
 class HallucinationDetection:
-    # -------------
-    # Constants
-    # -------------
-    TARGET_LAYERS = list(range(0, 32))  # Upper bound excluded
+    TARGET_LAYERS = list(range(0, 32))
     MAX_NEW_TOKENS = 5
     DEFAULT_DATASET = "belief_bank"
     CACHE_DIR_NAME = "activation_cache_truthx"
     ACTIVATION_TARGET = ["hidden", "mlp", "attn"]
 
-    # -------------
-    # Constructor
-    # -------------
     def __init__(self, project_dir, cache_dir_name="activation_cache_truthx", device="cuda"):
         self.project_dir = project_dir
         self.cache_dir_name = cache_dir_name
@@ -48,7 +42,6 @@ class HallucinationDetection:
             self.dataset = HaluBenchDataset(use_local=use_local)
         elif dataset_name == "belief_bank":
             self.dataset_name = dataset_name
-            # data_type: "facts" o "constraints"
             self.dataset = BeliefBankDataset(
                 project_root=self.project_dir,
                 data_type=belief_bank_data_type,
@@ -94,7 +87,6 @@ class HallucinationDetection:
         )
         print("\n\nQUANTIZATION\n\n:", quantization)
 
-        # Auto-detect number of layers
         if hasattr(self.llm.config, "num_hidden_layers"):
             num_layers = self.llm.config.num_hidden_layers
             self.TARGET_LAYERS = list(range(0, num_layers))
@@ -102,9 +94,6 @@ class HallucinationDetection:
 
         print("--" * 50)
 
-    # -------------
-    # Main Methods
-    # -------------
     @torch.no_grad()
     def save_model_activations(
         self,
@@ -144,15 +133,14 @@ class HallucinationDetection:
             quantization=quantization,
         )
 
-        # Initialize Gemini autorater if requested
         self.gemini_autorater = None
         if use_gemini_autorater:
             print(f"Initializing Gemini autorater with model: {gemini_model}")
             try:
                 self.gemini_autorater = None
-                print("✓ Gemini autorater initialized successfully")
+                print("Gemini autorater initialized successfully")
             except Exception as e:
-                print(f"⚠ Warning: Could not initialize Gemini autorater: {e}")
+                print(f"Warning: Could not initialize Gemini autorater: {e}")
                 print("Falling back to substring matching")
                 self.gemini_autorater = None
 
@@ -176,10 +164,8 @@ class HallucinationDetection:
         module_names += [f"model.layers.{idx}.self_attn" for idx in self.TARGET_LAYERS]
         module_names += [f"model.layers.{idx}.mlp" for idx in self.TARGET_LAYERS]
 
-        # Track hallucination labels
         hallucination_labels = []
 
-        # Determine how many samples to process
         num_samples = (
             min(self.max_samples, len(self.dataset))
             if self.max_samples
@@ -187,7 +173,6 @@ class HallucinationDetection:
         )
         print(f"Processing {num_samples} samples out of {len(self.dataset)} total")
 
-        # Process dataset in batches to save memory
         BATCH_SIZE = 10000000
         num_batches = (num_samples + BATCH_SIZE - 1) // BATCH_SIZE
         print(f"Processing in {num_batches} batches of {BATCH_SIZE} samples")
@@ -235,9 +220,7 @@ class HallucinationDetection:
                         generated_ids, skip_special_tokens=True
                     )
 
-                    # Determine if this is a hallucination
                     if self.gemini_autorater is not None:
-                        # Use Gemini API for evaluation
                         eval_result = self.gemini_autorater.evaluate(
                             question=question,
                             gold_answer=answer,
@@ -247,22 +230,18 @@ class HallucinationDetection:
                         gemini_response = eval_result["gemini_response"]
                         confidence = eval_result["confidence"]
                     else:
-                        # Fallback to simple substring matching
                         is_hallucination = (
                             answer.lower().strip() not in generated_text.lower().strip()
                         )
                         gemini_response = None
                         confidence = "substring_matching"
 
-                    # Store label information
                     label_info = {
                         "instance_id": instance_id,
                         "question": question,
                         "gold_answer": answer,
                         "generated_answer": generated_text,
-                        "is_hallucination": int(
-                            is_hallucination
-                        ),  # 1 = hallucination, 0 = correct
+                        "is_hallucination": int(is_hallucination),
                         "evaluation_method": "gemini"
                         if self.gemini_autorater
                         else "substring",
@@ -281,13 +260,9 @@ class HallucinationDetection:
                         self.generation_save_dir,
                     )
 
-                    # if hasattr(output, 'scores') and output.scores:
-                    # logits = torch.stack(output.scores, dim=1)  # [batch, seq_len, vocab_size]
-                    # ut.save_model_logits(logits, instance_id, self.logits_save_dir)
-
                 for module, ac in inspect.catcher.items():
                     # ac: [batch_size, sequence_length, hidden_dim]
-                    ac_last = ac[0, -1].float().cpu()  # Move to CPU to free GPU memory
+                    ac_last = ac[0, -1].float().cpu()
                     layer_idx = int(module.split(".")[2])
 
                     save_name = f"layer{layer_idx}-id{instance_id}.pt"
@@ -299,9 +274,8 @@ class HallucinationDetection:
                         save_path = os.path.join(self.hidden_save_dir, save_name)
 
                     torch.save(ac_last, save_path)
-                    del ac_last  # Delete tensor explicitly
+                    del ac_last
 
-                # Clear CUDA cache and collected tensors after each sample
                 del tokens, output, generated_ids
                 if attention_mask is not None:
                     del attention_mask
@@ -310,7 +284,6 @@ class HallucinationDetection:
 
                 gc.collect()
 
-            # Save intermediate labels after each batch
             labels_path = os.path.join(
                 self.generation_save_dir, "hallucination_labels.json"
             )
@@ -318,7 +291,6 @@ class HallucinationDetection:
                 json.dump(hallucination_labels, f, indent=4)
             print(f"Saved intermediate labels after batch {batch_idx + 1}")
 
-        # Save final hallucination labels
         labels_path = os.path.join(
             self.generation_save_dir, "hallucination_labels.json"
         )
@@ -345,13 +317,11 @@ class HallucinationDetection:
                 for act_f in act_files
             ]
 
-            # For each layer id (as key), the value contains a list of [activation file, instance id]
             layer_group_files = {lid: [] for lid in self.TARGET_LAYERS}
             for act_f, (layer_id, instance_id) in act_files_layer_idx_instance_idx:
                 layer_group_files[layer_id].append([act_f, instance_id])
 
             for layer_id in self.TARGET_LAYERS:
-                # Sort the files for each layer by instance ID
                 layer_group_files[layer_id] = sorted(
                     layer_group_files[layer_id], key=lambda x: x[1]
                 )
@@ -360,7 +330,6 @@ class HallucinationDetection:
                 loaded_paths = []
                 instance_ids = []
                 for idx, (act_f, instance_id) in enumerate(layer_group_files[layer_id]):
-                    # assert idx == instance_id
                     path_to_load = os.path.join(act_dir, act_f)
                     acts.append(torch.load(path_to_load))
                     loaded_paths.append(path_to_load)
@@ -377,10 +346,6 @@ class HallucinationDetection:
 
                 for p in loaded_paths:
                     os.remove(p)
-
-    # -------------
-    # Utility Methods
-    # -------------
 
     def _create_folders_if_not_exists(self):
         model_name = self.llm_name.split("/")[-1]

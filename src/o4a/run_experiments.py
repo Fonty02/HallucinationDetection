@@ -203,22 +203,18 @@ def main():
     print(f"[DEBUG] Layer types: {selected_layer_types}")
     print(f"[DEBUG] Output: {args.output}")
 
-    # Filter experiments - MUST be provided
     exps = {k: v for k, v in EXPERIMENTS.items() if k in args.experiments}
     if not exps:
         print(f"ERROR: No matching experiments found.\nRequested: {args.experiments}\nAvailable: {list(EXPERIMENTS.keys())}")
         sys.exit(1)
 
-    # All parameters come from HTC via environment variables set in config.py
-    # SEED and DEVICE are mandatory and enforced in config.py
-    # LAYER_TYPES and METHODS use defaults from config.py
     run_all(
         experiments=exps,
         layer_types=selected_layer_types,
         methods=METHODS,
         output_csv=args.output,
         save_dir=DEFAULT_SAVE_DIR,
-        seeds=[SEED],  # Single seed from O4A_SEED env var (mandatory)
+        seeds=[SEED],
     )
 
 

@@ -23,7 +23,6 @@ METHOD_ORDER = [
     "one_for_all",
 ]
 
-# Colori vividi come nel codice ablation
 COLORS_TRAINER = {
     "attn":   "#1f77b4",  # blue
     "hidden": "#2ca02c",  # green
@@ -133,10 +132,8 @@ def plot_experiment_mean(
     metric: str,
     output_dir: Path,
 ) -> None:
-    # Metodi presenti nel dataset, rispettando l'ordine fisso
     present_methods = [m for m in METHOD_ORDER if m in experiment_df["method"].unique()]
 
-    # Costruzione matrice valori
     data: dict[str, dict[tuple[str, str], float]] = {}
     for method in present_methods:
         data[method] = {}
@@ -150,7 +147,7 @@ def plot_experiment_mean(
                 data[method][(layer, split)] = float(val[0]) if len(val) > 0 else 0.0
 
     x = np.arange(len(present_methods))
-    bar_width = 0.10  # leggermente più stretto per accomodare 8 metodi
+    bar_width = 0.10
     offsets = {
         ("attn",   "trainer"): -2.5 * bar_width,
         ("attn",   "tester"):  -1.5 * bar_width,
@@ -193,7 +190,6 @@ def plot_experiment_mean(
     for label in ax.get_yticklabels():
         label.set_fontweight("bold")
 
-    # Legenda con Patch come nell'ablation
     legend_handles = []
     for layer in LAYER_ORDER:
         legend_handles.append(
@@ -216,12 +212,6 @@ def plot_experiment_mean(
         prop={"size": 10, "weight": "bold"},
         title_fontproperties={"weight": "bold", "size": 14},
     )
-
-    """ax.set_title(
-        f"{dataset_to_camel_case(experiment_name)} — Mean {metric.capitalize()} across seeds",
-        fontsize=20,
-        fontweight="bold",
-    )"""
 
     fig.tight_layout()
     output_path = output_dir / f"{safe_name(experiment_name)}_{metric}_mean.pdf"

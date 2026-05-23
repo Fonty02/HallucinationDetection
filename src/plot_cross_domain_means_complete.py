@@ -9,9 +9,6 @@ import numpy as np
 import pandas as pd
 from matplotlib.patches import Patch
 
-# -----------------------------
-# Constants / ordering
-# -----------------------------
 LAYER_ORDER = ["attn", "hidden", "mlp"]
 SPLIT_ORDER = ["trainer", "tester"]
 SPLIT_LABEL = {"trainer": "Tr", "tester": "Te"}
@@ -22,9 +19,6 @@ DATASET_CODE = {
 }
 SCENARIO_ORDER = ["F.->L.", "C.->L.", "L.->F.", "C.->F.", "L.->C.", "F.->C."]
 
-# -----------------------------
-# Colors  ←  identici al primo script
-# -----------------------------
 COLORS_TRAINER = {
     "attn":   "#1f77b4",
     "hidden": "#2ca02c",
@@ -36,9 +30,6 @@ COLORS_TESTER = {
     "mlp":    "#ff9896",
 }
 
-# -----------------------------
-# Bar-layout  ←  identico al primo script
-# -----------------------------
 BAR_WIDTH = 0.12
 OFFSETS = {
     ("attn",   "trainer"): -2.5 * BAR_WIDTH,
@@ -49,9 +40,6 @@ OFFSETS = {
     ("mlp",    "tester"):   2.5 * BAR_WIDTH,
 }
 
-# -----------------------------
-# Typography  ←  identica al primo script
-# -----------------------------
 LABEL_STYLE   = {"fontsize": 24, "fontweight": "bold"}
 LEGEND_PROP   = {"size": 20, "weight": "bold"}
 TITLE_FONTSIZE = 26
@@ -59,9 +47,6 @@ LEGEND_TITLE_FONTSIZE = 24
 TICK_FONTSIZE  = 24
 
 
-# -----------------------------
-# CLI
-# -----------------------------
 def parse_args() -> argparse.Namespace:
     repo_root = Path(__file__).resolve().parent.parent
     parser = argparse.ArgumentParser(
@@ -93,9 +78,6 @@ def safe_name(text: str) -> str:
     return re.sub(r"[^a-zA-Z0-9._-]+", "_", text)
 
 
-# -----------------------------
-# Data helpers
-# -----------------------------
 def build_long_dataframe(df: pd.DataFrame, metric: str) -> pd.DataFrame:
     teacher_col = f"teacher_on_eval_{metric}"
     student_col = f"student_adapter_on_eval_{metric}"
@@ -151,9 +133,6 @@ def build_long_dataframe(df: pd.DataFrame, metric: str) -> pd.DataFrame:
     return long_df
 
 
-# -----------------------------
-# Plotting  ←  stile identico al primo script
-# -----------------------------
 def plot_pair_mean(
     pair_df: pd.DataFrame,
     pair_label: str,
@@ -170,7 +149,6 @@ def plot_pair_mean(
     ax.set_facecolor("#fdfdfd")
 
     for layer in LAYER_ORDER:
-        # — Trainer bars (solid fill, no visible border) —
         values_trainer = [
             pair_df.loc[
                 (pair_df["scenario"] == sc) &
@@ -193,7 +171,6 @@ def plot_pair_mean(
             linewidth=0.0,
         )
 
-        # — Tester bars (lighter fill, colored border) —
         values_tester = [
             pair_df.loc[
                 (pair_df["scenario"] == sc) &
@@ -216,7 +193,6 @@ def plot_pair_mean(
             linewidth=1,
         )
 
-    # — Axis styling —
     ax.set_ylim(0.0, 1.0)
     ax.set_ylabel(metric.capitalize(), **LABEL_STYLE)
     ax.set_title(pair_label, fontsize=TITLE_FONTSIZE, fontweight="bold")
@@ -231,7 +207,6 @@ def plot_pair_mean(
         lbl.set_fontsize(TICK_FONTSIZE)
         lbl.set_fontweight("bold")
 
-    # — Legend: vertical, on the right —
     legend_handles = []
     for layer in LAYER_ORDER:
         legend_handles.append(
@@ -266,9 +241,6 @@ def plot_pair_mean(
     print(f"Saved: {output_path}")
 
 
-# -----------------------------
-# Main
-# -----------------------------
 def main() -> None:
     args = parse_args()
 

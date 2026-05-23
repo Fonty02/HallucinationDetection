@@ -20,7 +20,6 @@ METHOD_ORDER = [
     "one_for_all",
 ]
 
-# Colori vividi esattamente come nel codice di riferimento
 COLORS_TRAINER = {
     "attn": '#1f77b4',   # blue
     "hidden": '#2ca02c', # green
@@ -48,7 +47,6 @@ def method_to_display_name(method: str) -> str:
         return "Reduced_NonLinear"
     if method == "one_for_all":
         return "OneForAll"
-    # Procrustes, RidgeRegressor, OneForAll restano così
     return method.title()
 
 def parse_args() -> argparse.Namespace:
@@ -117,7 +115,6 @@ def main() -> None:
     df = pd.read_csv(args.csv)
     long_df = build_long_dataframe(df, args.metric)
 
-    # Media su tutti i seed
     mean_df = (
         long_df.groupby(["experiment", "dataset", "method", "layer_type", "split"], as_index=False)["score"]
         .mean()
@@ -133,10 +130,8 @@ def main() -> None:
             continue
         dataset_name = subset["dataset"].iloc[0]
 
-        # Prepara i dati per il plotting stile "crossValScript.py"
-        approaches = METHOD_ORDER  # ordine fisso
+        approaches = METHOD_ORDER
         layers = LAYER_ORDER
-        # Costruiamo una matrice dei valori
         data = {}
         for approach in approaches:
             data[approach] = {}
@@ -147,7 +142,6 @@ def main() -> None:
                                  (subset["split"] == split)]["score"].values
                     data[approach][(layer, split)] = val[0] if len(val) > 0 else 0.0
 
-        # Parametri grafici come nel codice originale
         x = np.arange(len(approaches))
         bar_width = 0.12
         offsets = {
@@ -163,7 +157,6 @@ def main() -> None:
         ax.set_facecolor("#fdfdfd")
 
         for layer in layers:
-            # Trainer bars (nessun bordo)
             values_trainer = [data[approach].get((layer, "trainer"), 0) for approach in approaches]
             ax.bar(
                 x + offsets[(layer, "trainer")],
@@ -171,10 +164,9 @@ def main() -> None:
                 width=bar_width,
                 color=COLORS_TRAINER[layer],
                 edgecolor='black',
-                linewidth=0.0,   # nessun bordo visibile
-                label=f"{layer} (Tr)" if layer == layers[0] else ""  # evita duplicati in legenda
+                linewidth=0.0,
+                label=f"{layer} (Tr)" if layer == layers[0] else "",
             )
-            # Tester bars (con bordo colorato)
             values_tester = [data[approach].get((layer, "tester"), 0) for approach in approaches]
             ax.bar(
                 x + offsets[(layer, "tester")],
@@ -186,16 +178,14 @@ def main() -> None:
                 label=f"{layer} (Te)" if layer == layers[0] else ""
             )
 
-        ax.set_ylim(0.3, 1.0)   # come nel codice originale, se vuoi 0-1 cambia
+        ax.set_ylim(0.3, 1.0)
         ax.set_ylabel(args.metric.capitalize(), fontsize=12, fontweight='bold')
         ax.set_xticks(x)
-        # Nomi dei metodi con CCA/CKA maiuscoli
         xtick_labels = [method_to_display_name(m).replace("_","") for m in approaches]
         ax.set_xticklabels(xtick_labels, rotation=0, ha='center', fontsize=10, fontweight='bold')
         for label in ax.get_yticklabels():
             label.set_fontweight('bold')
 
-        # Legenda come nel codice originale
         legend_handles = []
         for layer in layers:
             legend_handles.append(Patch(facecolor=COLORS_TRAINER[layer], label=f"{layer} (Tr)"))
@@ -213,7 +203,6 @@ def main() -> None:
             title_fontproperties={'weight': 'bold', 'size': 14}
         )
 
-        # Titolo con dataset in CamelCase
         ax.set_title(dataset_to_camel_case(dataset_name), fontsize=20, fontweight='bold')
 
         fig.tight_layout()

@@ -104,7 +104,6 @@ Your evaluation:"""
             
         except Exception as e:
             print(f"Error calling Gemini API: {e}")
-            # Fallback to simple substring matching
             is_hallucination = gold_answer.lower().strip() not in generated_answer.lower().strip()
             return {
                 "is_hallucination": is_hallucination,

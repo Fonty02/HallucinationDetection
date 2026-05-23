@@ -39,11 +39,8 @@ def main():
         convert_to_jsonl(dataset, result_path)
 
     print("--" * 50)
-    
 
-# -----------------
-# Helper functions
-# -----------------
+
 def convert_to_jsonl(df: pd.DataFrame, result_path: str) -> list:
     """
     Converts a DataFrame to a list of dictionaries suitable for JSONL format.
