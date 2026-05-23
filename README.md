@@ -70,7 +70,7 @@ HallucinationDetection/
 |-- saved_models/                      # trained probers / adapters (created at runtime)
 |-- results/                           # generated CSV / JSON outputs
 |-- logs/                              # runtime logs
-`-- notebooks/                         # optional notebooks
+`-- notebooks/                         # optional notebooks (error_analysis.ipynb)
 ```
 
 Notes:
