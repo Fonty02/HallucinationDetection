@@ -63,6 +63,7 @@ HallucinationDetection/
 |-- scripts/
 |   |-- save_activations_all.py        # preconfigured activation extraction batches
 |   |-- plot_pca_multidataset.py       # PCA scatter plots across datasets
+|   |-- error_analysis.py              # error analysis utilities
 |   |-- O4A/                           # HTCondor submit-file generators for activation jobs
 |   |-- O4A_experiments/               # HTCondor submit + aggregation for O4A runners
 |   `-- PCA/                           # HTCondor submit-file generator for PCA plots
@@ -70,7 +71,6 @@ HallucinationDetection/
 |-- saved_models/                      # trained probers / adapters (created at runtime)
 |-- results/                           # generated CSV / JSON outputs
 |-- logs/                              # runtime logs
-`-- notebooks/                         # optional notebooks (error_analysis.ipynb)
 ```
 
 Notes:
