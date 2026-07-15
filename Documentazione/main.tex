@@ -1,12 +1,15 @@
 \documentclass[12pt,twoside]{book}
-\usepackage[margin=1.2in]{geometry}
+%\usepackage[margin=1.2in]{geometry}
+\usepackage[top=3cm, bottom=3cm, inner=3cm, outer=2.5cm, bindingoffset=0.8cm]{geometry}
 \usepackage[toc,page]{appendix}
 \usepackage[square,numbers]{natbib}
 \usepackage{lipsum}
 \usepackage{caption}
 \usepackage{pdfpages}
 \usepackage{url}
-\usepackage{MnSymbol,wasysym}
+\usepackage{MnSymbol}
+\let\mathdollar\undefined
+\usepackage{wasysym}
 \usepackage[table]{xcolor}
 \usepackage{booktabs}
 \usepackage{graphicx}
@@ -16,10 +19,52 @@
 \usepackage{rotating}
 \usepackage{array}
 \usepackage{multirow}
-\usepackage{arydshln}
-\usepackage{amsfonts} 
+\usepackage{amsfonts}
 \usepackage{tikz}
+\usepackage{tabularx}
+\usepackage{ltablex}
+\usepackage{emoji}
+\keepXColumns
+\usepackage{tocloft}
+\newlistof{myequations}{loe}{List of Equations}
+\setlength{\cftmyequationsnumwidth}{2.8em}
+\setlength{\cftmyequationsindent}{1.5em}
+\newcommand{\equationcaption}[1]{%
+  \addcontentsline{loe}{myequations}{\protect\numberline{(\theequation)}#1}%
+}
+\usepackage{etoolbox}
+\usepackage{titlesec}
+\titleformat{\paragraph}[display]
+  {\normalfont\bfseries}{}{0pt}{}
+
+\newcommand{\lu}[1]{\textcolor{magenta}{#1}}
+
 \usetikzlibrary{arrows.meta,positioning,calc,fit,decorations.pathreplacing,shapes.geometric,backgrounds}
+
+% --- Uniform-scale helper for TikZ figures ---------------------------------
+% Renders the content scaled by a single shared factor (\figscale) relative to
+% its own natural width, so that text appears at a consistent size across all
+% diagrams (instead of \resizebox{\textwidth} which couples text size to the
+% diagram's native width). The widest diagram should reach ~\textwidth.
+\newsavebox{\figmeasbox}
+\newcommand{\figscale}{0.75}
+\newcommand{\figuni}[1]{%
+  \sbox{\figmeasbox}{#1}%
+  \ifdim\dimexpr\figscale\wd\figmeasbox\relax>\textwidth
+    \resizebox{\textwidth}{!}{\usebox{\figmeasbox}}%
+  \else
+    \resizebox{\dimexpr\figscale\wd\figmeasbox\relax}{!}{\usebox{\figmeasbox}}%
+  \fi
+}
+
+\AtBeginEnvironment{table}{%
+	\centering
+	\small
+	\setlength{\tabcolsep}{6pt}
+	\renewcommand{\arraystretch}{1.15}%
+}
+
+
 \begin{document}
 
 %\captionsetup[figure]{margin=1.5cm,font=small,labelfont={bf},name={Figure},labelsep=colon,textfont={it}}
@@ -28,28 +73,10 @@
 
 \frontmatter
 
-\begin{titlepage}
 
-% -------------------------------------------------------------------
-% You need to edit the details here
-% -------------------------------------------------------------------
-
-\begin{center}
-{\LARGE University of Bari Aldo Moro}\\[0.25cm]
-{\Large Department of Computer Science}\\[1cm]
-%{\large \emph{A thesis submitted in partial fulfillment of the requirements for the\\degree of Doctor of Philosophy in Computer Science}}\\[2.5cm]
-\linespread{1.2}\huge {\bfseries One-For-All, TruthX and SLiMTruth: A study on the transferability between LLMs for hallucination detection and mitigation}\\[1.5cm]
-\linespread{1}
-\includegraphics[width=3.5cm]{images/uniba-logo.png}\\[1.5cm]
-{\Large\bf Emanuele Fontana}\\[1cm]
-%\large \emph{Supervisor:}\\
-%Dr.~Gennaro Vessio\\[1cm] 
-\vspace{\fill}
-\today
-\end{center}
-
-\end{titlepage}
-
+\pagenumbering{gobble}
+\input{fonty}
+\newgeometry{top=3cm, bottom=3cm, inner=3cm, outer=2.5cm, bindingoffset=0.8cm}
 % -------------------------------------------------------------------
 % Declaration
 % -------------------------------------------------------------------
@@ -85,6 +112,7 @@
 \tableofcontents
 \listoffigures
 \listoftables
+\listofmyequations
 
 % -------------------------------------------------------------------
 % Main sections (as required)
@@ -96,7 +124,6 @@
 \input{sections/2_background.tex}
 \input{sections/3_methodology.tex}
 \input{sections/4_results.tex}
-\input{sections/5_discussion.tex}
 \input{sections/6_conclusion.tex}
 % -------------------------------------------------------------------
 % Bibliography
@@ -109,9 +136,11 @@
 % Appendices
 % -------------------------------------------------------------------
 
-%\begin{appendices}
-%\input{sections/appendixA.tex}
-%\input{sections/appendixB.tex}
-%\end{appendices}
-
+\begin{appendices}
+\input{sections/appendixA.tex}
+%\input{sections/appendixB.tex} rimossa perchè con questa pesa 200MB e su Bibliotela posso arrivare fino a 40Mb.
+\input{sections/appendixC.tex}
+\end{appendices}
+\input{sections/ringraziamenti.tex}
+%\input{sections/ringraziamenti.tex}
 \end{document}

@@ -4,6 +4,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from matplotlib.patches import Patch
 
 DATASET_LABELS = {
     "belief_bank_facts": "BBF",
@@ -45,16 +46,16 @@ CATEGORY_LABELS = {
 }
 
 BASE_COLORS = {
-    "baseline": "#FF6B6B",
-    "slim_standard": "#4169E1",
-    "cross_dataset_from_BBF": "#90BE6D",
-    "cross_dataset_from_BBC": "#43AA8B",
-    "cross_dataset_from_HE": "#4D908E",
-    "cross_model_legacy": "#FFB347",
-    "cross_model_v2": "#FFB6C1",
-    "cross_model_mlp": "#FFD166",
-    "cross_model_mlp2": "#F4A261",
-    "cross_model_procrustes": "#9B5DE5",
+    "baseline": "#d62728",
+    "slim_standard": "#1f77b4",
+    "cross_dataset_from_BBF": "#2ca02c",
+    "cross_dataset_from_BBC": "#ff7f0e",
+    "cross_dataset_from_HE": "#9467bd",
+    "cross_model_legacy": "#8c564b",
+    "cross_model_v2": "#e377c2",
+    "cross_model_mlp": "#7f7f7f",
+    "cross_model_mlp2": "#bcbd22",
+    "cross_model_procrustes": "#17becf",
 }
 
 
@@ -184,6 +185,7 @@ def plot_model_results(plot_data: dict, model_label: str):
 
     fig_width = max(14, 8 + len(categories) * 0.9)
     fig, ax = plt.subplots(figsize=(fig_width, 8))
+    ax.set_facecolor("#fdfdfd")
 
     x_pos = np.arange(len(DATASET_ORDER))
     width = min(0.82 / max(len(categories), 1), 0.16)
@@ -210,47 +212,47 @@ def plot_model_results(plot_data: dict, model_label: str):
         if not values:
             continue
 
-        bars = ax.bar(
+        ax.bar(
             positions,
             values,
             width,
             label=CATEGORY_LABELS.get(category, category),
             color=color_map[category],
             edgecolor="black",
-            linewidth=0.5,
+            linewidth=0.0,
         )
 
-        for bar, rate in zip(bars, values):
-            x = bar.get_x() + bar.get_width() / 2
-            y = bar.get_height()
-            ax.text(
-                x,
-                y + max_rate * 0.01,
-                f"{rate * 100:.2f}%",
-                ha="center",
-                va="bottom",
-                fontsize=7,
-            )
-
-    ax.set_ylabel("Hallucination Rate", fontsize=12)
-    ax.set_title(f"{model_label} - SLiM", fontsize=20, fontweight="bold")
+    ax.set_ylabel("Hallucination Rate", fontsize=12, fontweight="bold")
     ax.set_xticks(x_pos)
     ax.set_xticklabels(
         [DATASET_LABELS[ds] for ds in DATASET_ORDER],
         fontsize=15,
         fontweight="bold",
     )
+    for label in ax.get_yticklabels():
+        label.set_fontweight("bold")
     ax.grid(axis="y", linestyle="--", alpha=0.3)
     ax.set_axisbelow(True)
     ax.set_ylim(0, max_rate * 1.20)
 
+    legend_handles = []
+    for category in categories:
+        legend_handles.append(
+            Patch(
+                facecolor=color_map[category],
+                edgecolor="black",
+                linewidth=0,
+                label=CATEGORY_LABELS.get(category, category),
+            )
+        )
     ax.legend(
-        loc="upper left",
-        bbox_to_anchor=(1.01, 1.0),
-        fontsize=10,
-        framealpha=0.9,
-        title="Legenda",
-        title_fontsize=10,
+        handles=legend_handles,
+        title="Experiment",
+        loc="center left",
+        bbox_to_anchor=(1.02, 0.5),
+        frameon=True,
+        prop={"size": 10, "weight": "bold"},
+        title_fontproperties={"weight": "bold", "size": 14},
     )
 
     plt.tight_layout(rect=[0, 0, 0.82, 1])

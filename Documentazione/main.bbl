@@ -1,4 +1,4 @@
-\begin{thebibliography}{26}
+\begin{thebibliography}{49}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -15,8 +15,21 @@ Joshua Ainslie, James Lee-Thorp, Michiel De~Jong, Yury Zemlyanskiy, Federico
 
 \bibitem[Azaria and Mitchell(2023)]{azaria2023internal}
 Amos Azaria and Tom Mitchell.
-\newblock The internal state of an llm knows when it's lying.
+\newblock The internal state of an {LLM} knows when it's lying.
 \newblock \emph{arXiv preprint arXiv:2304.13734}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2304.13734}.
+
+\bibitem[Balogh(2026)]{BloomFilters}
+Peter Balogh.
+\newblock The anxiety of influence: Bloom filters in transformer attention
+  heads, 2026.
+\newblock URL \url{https://arxiv.org/abs/2602.17526}.
+
+\bibitem[Belinkov(2022)]{Probing}
+Yonatan Belinkov.
+\newblock Probing classifiers: Promises, shortcomings, and advances.
+\newblock \emph{Computational Linguistics}, 48\penalty0 (1):\penalty0 207--219,
+  2022.
 
 \bibitem[Brown et~al.(2020)Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal,
   Neelakantan, Shyam, Sastry, Askell, et~al.]{GPT3}
@@ -51,22 +64,44 @@ Zhongzhi Chen, Xingwu Sun, Xianfeng Jiao, Fengzong Lian, Zhanhui Kang, Di~Wang,
 \newblock \doi{10.1609/aaai.v38i19.30087}.
 \newblock URL \url{https://ojs.aaai.org/index.php/AAAI/article/view/30087}.
 
-\bibitem[Fadeeva et~al.(2024)Fadeeva, Rubashevskii, Shelmanov, Petrakov, Li,
-  Mubarak, Tsymbalov, Kuzmin, Panchenko, Baldwin, et~al.]{CCP}
-Ekaterina Fadeeva, Aleksandr Rubashevskii, Artem Shelmanov, Sergey Petrakov,
-  Haonan Li, Hamdy Mubarak, Evgenii Tsymbalov, Gleb Kuzmin, Alexander
-  Panchenko, Timothy Baldwin, et~al.
-\newblock Fact-checking the output of large language models via token-level
-  uncertainty quantification.
-\newblock \emph{arXiv preprint arXiv:2403.04696}, 2024.
+\bibitem[Cheng and Zhang(2026)]{SinglePositionFails}
+Bryan Cheng and Jasper Zhang.
+\newblock Single-position intervention fails: Distributed output templates
+  drive in-context learning, 2026.
+\newblock URL \url{https://arxiv.org/abs/2605.04061}.
+
+\bibitem[Fadeeva et~al.(2023)Fadeeva, Rubashevskii, Shelmanov, Peyrard,
+  Panchenko, and Gurevych]{CCP}
+Ekaterina Fadeeva, Aleksandr Rubashevskii, Artem Shelmanov, Maxime Peyrard,
+  Alexander Panchenko, and Iryna Gurevych.
+\newblock Fact-checking of {AI}-generated reports.
+\newblock \emph{arXiv preprint arXiv:2307.14634}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2307.14634}.
+\newblock Introduces Claim-Conditioned Probability (CCP).
+
+\bibitem[Fedus et~al.(2021)Fedus, Zoph, and Shazeer]{MoE}
+William Fedus, Barret Zoph, and Noam Shazeer.
+\newblock Switch transformers: Scaling to trillion parameter models with simple
+  and efficient sparsity.
+\newblock \emph{CoRR}, abs/2101.03961, 2021.
+\newblock URL \url{https://arxiv.org/abs/2101.03961}.
 
 \bibitem[Grattafiori et~al.(2024)Grattafiori, Dubey, Jauhri, Pandey, Kadian,
-  Al-Dahle, Letman, Mathur, Schelten, Vaughan, et~al.]{LLama3}
+  Al-Dahle, Letman, Mathur, Schelten, Vaughan, et~al.]{Llama3}
 Aaron Grattafiori, Abhimanyu Dubey, Abhinav Jauhri, Abhinav Pandey, Abhishek
   Kadian, Ahmad Al-Dahle, Aiesha Letman, Akhil Mathur, Alan Schelten, Alex
   Vaughan, et~al.
 \newblock The llama 3 herd of models.
 \newblock \emph{arXiv preprint arXiv:2407.21783}, 2024.
+
+\bibitem[Hasani et~al.(2026)Hasani, Banayeeanzade, Nafisi, Mohammadian, Askari,
+  Bagherian, Izadi, and Baghshah]{MechanisticCounting}
+Hosein Hasani, Mohammadali Banayeeanzade, Ali Nafisi, Sadegh Mohammadian,
+  Fatemeh Askari, Mobin Bagherian, Amirmohammad Izadi, and Mahdieh~Soleymani
+  Baghshah.
+\newblock Mechanistic interpretability of large-scale counting in llms through
+  a system-2 strategy.
+\newblock \emph{arXiv preprint arXiv:2601.02989}, 2026.
 
 \bibitem[Hotelling(1933)]{PCA}
 Harold Hotelling.
@@ -106,10 +141,11 @@ Adam~Tauman Kalai, Ofir Nachum, Santosh~S Vempala, and Edwin Zhang.
 
 \bibitem[Kaplan et~al.(2020)Kaplan, McCandlish, Henighan, Brown, Chess, Child,
   Gray, Radford, Wu, and Amodei]{ScalingLaws}
-Jared Kaplan, Sam McCandlish, Tom Henighan, Tom~B Brown, Benjamin Chess, Rewon
+Jared Kaplan, Sam McCandlish, Tom Henighan, Tom~B. Brown, Benjamin Chess, Rewon
   Child, Scott Gray, Alec Radford, Jeffrey Wu, and Dario Amodei.
 \newblock Scaling laws for neural language models.
 \newblock \emph{arXiv preprint arXiv:2001.08361}, 2020.
+\newblock URL \url{https://arxiv.org/abs/2001.08361}.
 
 \bibitem[Kassner et~al.(2021)Kassner, Tafjord, Sch{\"u}tze, and
   Clark]{BeliefBank}
@@ -123,6 +159,15 @@ Nora Kassner, Oyvind Tafjord, Hinrich Sch{\"u}tze, and Peter Clark.
   Linguistics.
 \newblock \doi{10.18653/v1/2021.emnlp-main.697}.
 \newblock URL \url{https://aclanthology.org/2021.emnlp-main.697/}.
+
+\bibitem[Lewis et~al.(2020)Lewis, Perez, Piktus, Petroni, Karpukhin, Goyal,
+  K{\"u}ttler, Lewis, Yih, Rockt{\"a}schel, et~al.]{RAG}
+Patrick Lewis, Ethan Perez, Aleksandra Piktus, Fabio Petroni, Vladimir
+  Karpukhin, Naman Goyal, Heinrich K{\"u}ttler, Mike Lewis, Wen-tau Yih, Tim
+  Rockt{\"a}schel, et~al.
+\newblock Retrieval-augmented generation for knowledge-intensive nlp tasks.
+\newblock \emph{Advances in neural information processing systems},
+  33:\penalty0 9459--9474, 2020.
 
 \bibitem[Li et~al.(2023{\natexlab{a}})Li, Cheng, Zhao, Nie, and Wen]{Halueval}
 Junyi Li, Xiaoxue Cheng, Wayne~Xin Zhao, Jian-Yun Nie, and Ji-Rong Wen.
@@ -142,11 +187,94 @@ Kenneth Li, Oam Patel, Fernanda Vi\'{e}gas, Hanspeter Pfister, and Martin
 \newblock URL
   \url{https://proceedings.neurips.cc/paper_files/paper/2023/file/81b8390039b7302c909cb769f8b6cd93-Paper-Conference.pdf}.
 
+\bibitem[Li et~al.(2026)Li, Fastowski, Zaradoukas, Prenkaj, and
+  Kasneci]{SafetyPitfalls}
+Yuxiao Li, Alina Fastowski, Efstratios Zaradoukas, Bardh Prenkaj, and Gjergji
+  Kasneci.
+\newblock Analysing the safety pitfalls of steering vectors.
+\newblock \emph{arXiv preprint arXiv:2603.24543}, 2026.
+
 \bibitem[Marks and Tegmark(2023)]{Geometry}
 Samuel Marks and Max Tegmark.
 \newblock The geometry of truth: Emergent linear structure in large language
   model representations of true/false datasets.
 \newblock \emph{arXiv preprint arXiv:2310.06824}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2310.06824}.
+
+\bibitem[Marín(2026)]{GeometricTaxonomy}
+Javier Marín.
+\newblock A geometric taxonomy of hallucinations in llms, 2026.
+\newblock URL \url{https://arxiv.org/abs/2602.13224}.
+
+\bibitem[McDougall et~al.(2023)McDougall, Conmy, Rushing, McGrath, and
+  Nanda]{CopySuppression}
+Callum McDougall, Arthur Conmy, Cody Rushing, Thomas McGrath, and Neel Nanda.
+\newblock Copy suppression: Comprehensively understanding an attention head.
+\newblock \emph{arXiv preprint arXiv:2310.04625}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2310.04625}.
+
+\bibitem[McKenzie et~al.(2026)McKenzie, Pepper, Servaes, Leitgab, Cubuktepe,
+  Vaiana, de~Lucena, Rosenblatt, and Graziano]{EndogenousResistance}
+Alex McKenzie, Keenan Pepper, Stijn Servaes, Martin Leitgab, Murat Cubuktepe,
+  Mike Vaiana, Diogo de~Lucena, Judd Rosenblatt, and Michael~SA Graziano.
+\newblock Endogenous resistance to activation steering in language models.
+\newblock \emph{arXiv preprint arXiv:2602.06941}, 2026.
+
+\bibitem[Meng et~al.(2022)Meng, Bau, Andonian, and
+  Belinkov]{ActivationPatching}
+Kevin Meng, David Bau, Alex Andonian, and Yonatan Belinkov.
+\newblock Locating and editing factual associations in {GPT}.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2022.
+\newblock URL \url{https://arxiv.org/abs/2202.05262}.
+
+\bibitem[Mishra et~al.(2026)Mishra, Khashabi, and Liu]{NonSurjective}
+Aayush Mishra, Daniel Khashabi, and Anqi Liu.
+\newblock Steered llm activations are non-surjective.
+\newblock \emph{arXiv preprint arXiv:2604.09839}, 2026.
+
+\bibitem[Nam et~al.(2025)Nam, Conklin, Yang, Griffiths, Cohen, and
+  Leslie]{CausalHeadGating}
+Andrew Nam, Henry Conklin, Yukang Yang, Thomas Griffiths, Jonathan Cohen, and
+  Sarah-Jane Leslie.
+\newblock Causal head gating: A framework for interpreting roles of attention
+  heads in transformers, 2025.
+\newblock URL \url{https://arxiv.org/abs/2505.13737}.
+
+\bibitem[Nguyen et~al.(2025)Nguyen, Hoang, Attubato, and
+  Hofstätter]{EvaluationAwareness}
+Jord Nguyen, Khiem Hoang, Carlo~Leonardo Attubato, and Felix Hofstätter.
+\newblock Probing and steering evaluation awareness of language models, 2025.
+\newblock URL \url{https://arxiv.org/abs/2507.01786}.
+
+\bibitem[Qiu et~al.(2025)Qiu, Yu, Zhang, Yang, Kokhlikyan, Cancedda,
+  Garcia-Olano, et~al.]{ContrastiveSteering}
+Xinchi Qiu, Lei Yu, Yuchen Zhang, Aobo Yang, Narine Kokhlikyan, Nicola
+  Cancedda, Diego Garcia-Olano, et~al.
+\newblock Hallucination reduction with casal: Contrastive activation steering
+  for amortized learning.
+\newblock \emph{arXiv preprint arXiv:2510.02324}, 2025.
+
+\bibitem[Rafailov et~al.(2023)Rafailov, Sharma, Mitchell, Ermon, Manning, and
+  Finn]{DPO}
+Rafael Rafailov, Archit Sharma, Eric Mitchell, Stefano Ermon, Christopher~D.
+  Manning, and Chelsea Finn.
+\newblock Direct preference optimization: Your language model is secretly a
+  reward model.
+\newblock \emph{arXiv preprint arXiv:2305.18290}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2305.18290}.
+
+\bibitem[Rao et~al.(2026)Rao, Wong, and Callison-Burch]{LegalHallucinations}
+Delip Rao, Eric Wong, and Chris Callison-Burch.
+\newblock Detecting and correcting reference hallucinations in commercial llms
+  and deep research agents.
+\newblock \emph{arXiv preprint arXiv:2604.03173}, 2026.
+
+\bibitem[Rivera(2025)]{DetectSteering}
+Joshua~Fonseca Rivera.
+\newblock Training introspective behavior: Fine-tuning induces reliable
+  internal state detection in a 7b model.
+\newblock \emph{arXiv preprint arXiv:2511.21399}, 2025.
 
 \bibitem[{Sangayya Hiremath} et~al.(2026){Sangayya Hiremath}, Polignano,
   Levantesi, Semeraro, {De Luca}, and Poznanski]{SLiM}
@@ -160,6 +288,12 @@ Basavaraj {Sangayya Hiremath}, Marco Polignano, Marco Levantesi, Giovanni
 \newblock URL
   \url{https://www.sciencedirect.com/science/article/pii/S089360802600170X}.
 
+\bibitem[Sankaranarayanan et~al.(2026)Sankaranarayanan, Zur, Geiger, and
+  Hadfield-Menell]{GCM}
+Aruna Sankaranarayanan, Amir Zur, Atticus Geiger, and Dylan Hadfield-Menell.
+\newblock Activation steering via generative causal mediation.
+\newblock \emph{arXiv preprint arXiv:2602.16080}, 2026.
+
 \bibitem[Sharma et~al.(2023)Sharma, Tong, Korbak, Duvenaud, Askell, Bowman,
   Cheng, Durmus, Hatfield-Dodds, Johnston, et~al.]{sycophancyLLM}
 Mrinank Sharma, Meg Tong, Tomasz Korbak, David Duvenaud, Amanda Askell,
@@ -167,6 +301,18 @@ Mrinank Sharma, Meg Tong, Tomasz Korbak, David Duvenaud, Amanda Askell,
   Johnston, et~al.
 \newblock Towards understanding sycophancy in language models.
 \newblock \emph{arXiv preprint arXiv:2310.13548}, 2023.
+
+\bibitem[Shi et~al.(2023)Shi, Chen, Liu, Zhao, and Wang]{PASTA}
+Qingru Shi, Mingyang Chen, Jianfeng Liu, Tuo Zhao, and Haoming Wang.
+\newblock Tell your model where to attend: Post-hoc attention steering for
+  {LLMs}.
+\newblock \emph{arXiv preprint arXiv:2311.02262}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2311.02262}.
+
+\bibitem[Shou and Guan(2026)]{JealousyConcepts}
+Yitong Shou and Manhao Guan.
+\newblock Mechanistic decoding of cognitive constructs in llms.
+\newblock \emph{arXiv preprint arXiv:2604.14593}, 2026.
 
 \bibitem[Team et~al.(2024)Team, Riviere, Pathak, Sessa, Hardin, Bhupatiraju,
   Hussenot, Mesnard, Shahriari, Ram{\'e}, et~al.]{Gemma2}
@@ -179,9 +325,11 @@ Gemma Team, Morgane Riviere, Shreya Pathak, Pier~Giuseppe Sessa, Cassidy
 \bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
   Kaiser, and Polosukhin]{AttentionIsAllYouNeed}
 Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
-  Aidan~N Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+  Aidan~N. Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
 \newblock Attention is all you need.
-\newblock \emph{Advances in neural information processing systems}, 30, 2017.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~30, 2017.
+\newblock URL \url{https://arxiv.org/abs/1706.03762}.
 
 \bibitem[Wang et~al.(2024)Wang, Chen, Tang, Wu, and
   Zhu]{DisentangledRepresentationLearning}
@@ -190,12 +338,27 @@ Xin Wang, Hong Chen, Si'ao Tang, Zihao Wu, and Wenwu Zhu.
 \newblock \emph{IEEE Transactions on Pattern Analysis and Machine
   Intelligence}, 46\penalty0 (12):\penalty0 9677--9696, 2024.
 
+\bibitem[Wei et~al.(2022)Wei, Wang, Schuurmans, Bosma, Xia, Chi, Le, Zhou,
+  et~al.]{CoT}
+Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Fei Xia, Ed~Chi, Quoc~V
+  Le, Denny Zhou, et~al.
+\newblock Chain-of-thought prompting elicits reasoning in large language
+  models.
+\newblock \emph{Advances in neural information processing systems},
+  35:\penalty0 24824--24837, 2022.
+
 \bibitem[Xu et~al.(2024)Xu, Li, Tao, Shen, Cheng, Li, Xu, Tao, and
   Zhou]{KwowledgeDistillationSurvey}
 Xiaohan Xu, Ming Li, Chongyang Tao, Tao Shen, Reynold Cheng, Jinyang Li, Can
   Xu, Dacheng Tao, and Tianyi Zhou.
 \newblock A survey on knowledge distillation of large language models.
 \newblock \emph{arXiv preprint arXiv:2402.13116}, 2024.
+
+\bibitem[Yuan and Su(2026)]{FARS}
+Aojie Yuan and Zhiyuan Su.
+\newblock Beyond language: Format-agnostic reasoning subspaces in large
+  language models.
+\newblock \emph{arXiv preprint arXiv:2605.09496}, 2026.
 
 \bibitem[Zhang et~al.(2025{\natexlab{a}})Zhang, Yu, Yi, Zhang, Li, and
   Liu]{PRISM}

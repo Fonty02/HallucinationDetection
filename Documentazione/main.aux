@@ -1,316 +1,571 @@
 \relax 
+\gdef \LT@i {\LT@entry 
+    {1}{355.74005pt}\LT@entry 
+    {1}{144.74394pt}}
 \citation{GPT3}
+\citation{surveyHallucination}
+\citation{RAG}
+\citation{CoT}
+\citation{Probing}
 \citation{Geometry}
 \@writefile{toc}{\contentsline {chapter}{\numberline {1}Introduction}{1}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {1.1}Goals and Objectives}{1}{}\protected@file@percent }
 \citation{SteeringDef}
+\citation{TruthForest}
+\citation{TruthX}
+\citation{ITI}
 \citation{Platonic}
-\@writefile{toc}{\contentsline {section}{\numberline {1.2}Document Overview}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.2}Thesis Overview}{2}{}\protected@file@percent }
 \citation{AttentionIsAllYouNeed}
 \@writefile{toc}{\contentsline {chapter}{\numberline {2}Background}{5}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {2.1}Transformer Overview}{5}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1.1}Transformer Architecture}{6}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Transformer Architecture}}{6}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Transformer Architecture.}}{6}{}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:Transformer Architecture}{{2.1}{6}{}{figure.2.1}{}}
+\newlabel{fig:Transformer_Architecture}{{2.1}{6}{Transformer Architecture}{figure.2.1}{}}
 \@writefile{toc}{\contentsline {subsubsection}{Encoder}{6}{}\protected@file@percent }
 \citation{AttentionIsAllYouNeed}
 \@writefile{toc}{\contentsline {subsubsection}{Decoder}{7}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1.2}Self-Attention Mechanism}{7}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Self-Attention Mechanism Representation}}{7}{}\protected@file@percent }
-\newlabel{fig:Self Attention Mechanism}{{2.2}{7}{}{figure.2.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Self-Attention Mechanism Representation.}}{7}{}\protected@file@percent }
+\newlabel{fig:Self_Attention_Mechanism}{{2.2}{7}{Self-Attention Mechanism}{figure.2.2}{}}
+\citation{CausalHeadGating}
+\citation{BloomFilters}
+\citation{CopySuppression}
+\citation{MechanisticCounting}
+\citation{ActivationPatching}
 \citation{ScalingLaws}
+\newlabel{eq:attention}{{2.1}{8}{Self-Attention Mechanism}{equation.2.1}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(2.1)}Scaled Dot-Product Attention}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.3}Mechanistic Interpretability of Attention Heads}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Large Language Models}{8}{}\protected@file@percent }
+\citation{DPO}
+\citation{MoE}
+\citation{GQA}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}LLM Lifecycle}{9}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Modern Architectural Innovations}{9}{}\protected@file@percent }
 \citation{surveyHallucination}
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Large Language Models (LLM)}{8}{}\protected@file@percent }
-\citation{surveyHallucination2}
+\citation{surveyHallucination}
 \citation{sycophancyLLM}
+\citation{surveyHallucination}
+\citation{surveyHallucination2}
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Hallucinations in LLMs}{10}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Taxonomy of Hallucinations}{10}{}\protected@file@percent }
+\citation{GeometricTaxonomy}
+\citation{LegalHallucinations}
 \citation{Geometry}
 \citation{azaria2023internal}
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}Hallucinations in LLMs}{9}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.4}Probing}{9}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Empirical Evidence and Model Comparison}{11}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}Probing}{11}{}\protected@file@percent }
+\citation{SLiM}
+\citation{SinglePositionFails}
 \citation{CCP}
 \citation{PRISM}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Linear Probing}{12}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}Limitations of Correlational Probing}{12}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.3}Advanced Probing Methodologies}{12}{}\protected@file@percent }
 \citation{ICR}
+\citation{EvaluationAwareness}
+\citation{DetectSteering}
+\citation{JealousyConcepts}
+\citation{FARS}
+\citation{ITI}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.4}Advances in Mechanistic Interpretability of Large Language Models}{13}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.5}Steering}{13}{}\protected@file@percent }
 \citation{SLiM}
+\citation{ContrastiveSteering}
+\citation{GCM}
 \citation{TruthX}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.1}Core Mechanisms}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.2}Automated and Causal Steering}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.3}Steering for Hallucination Mitigation}{14}{}\protected@file@percent }
 \citation{TruthForest}
 \citation{ITI}
-\@writefile{toc}{\contentsline {section}{\numberline {2.5}Steering}{10}{}\protected@file@percent }
+\citation{PASTA}
+\citation{NonSurjective}
+\citation{SafetyPitfalls}
+\citation{EndogenousResistance}
+\citation{DetectSteering}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.4}Limitations: Non-Surjectivity and Safety Risks}{15}{}\protected@file@percent }
 \citation{BeliefBank}
 \citation{BeliefBank}
 \citation{Halueval}
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Methodology}{13}{}\protected@file@percent }
+\citation{TruthX}
+\citation{SLiM}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Methodology}{17}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {3.1}Dataset}{13}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.1}Datasets Used}{13}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Belief Bank Facts}{13}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Belief Bank Constraints}{14}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{HaluEval}{14}{}\protected@file@percent }
-\citation{LLama3}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Dataset}{17}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Belief Bank Facts}{17}{}\protected@file@percent }
 \citation{Gemma2}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Hallucination types and corresponding datasets}}{15}{}\protected@file@percent }
-\newlabel{tab:dataset-hallucination-types}{{3.1}{15}{}{figure.3.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Activation Dataset Creation}{15}{}\protected@file@percent }
-\citation{GQA}
+\citation{Llama3}
+\citation{Llama3}
+\@writefile{toc}{\contentsline {subsubsection}{Belief Bank Constraints}{18}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{HaluEval}{18}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Language Models}{18}{}\protected@file@percent }
+\citation{Gemma2}
 \citation{KwowledgeDistillationSurvey}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Pipeline for extraction and saving of internal LLM activations}}{16}{}\protected@file@percent }
-\newlabel{fig:save_acts}{{3.2}{16}{}{figure.3.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}LLMs Used}{16}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Llama-3.1-8B-Instruct}{16}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Gemma-2-9B-IT}{16}{}\protected@file@percent }
+\citation{Llama3}
+\citation{Gemma2}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Hallucination types and corresponding datasets}}{19}{}\protected@file@percent }
+\newlabel{tab:dataset-hallucination-types}{{3.1}{19}{HaluEval}{figure.3.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Llama-3.1-8B-Instruct}{19}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Gemma-2-9B-IT}{19}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Activation}{19}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Collection}{19}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Pipeline for extraction and saving of internal LLM activations}}{20}{}\protected@file@percent }
+\newlabel{fig:save_acts}{{3.2}{20}{Collection}{figure.3.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Hallucination Statistics}{20}{}\protected@file@percent }
 \citation{HallOpenAI}
-\@writefile{toc}{\contentsline {section}{\numberline {3.3}Preliminary Studies}{17}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Hallucination Statistics}{17}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Hallucination statistics for Belief Bank Facts}}{17}{}\protected@file@percent }
-\newlabel{tab:hallucination-stats-bbf}{{3.1}{17}{}{table.3.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces Hallucination statistics for Belief Bank Constraints}}{17}{}\protected@file@percent }
-\newlabel{tab:hallucination-stats-bbc}{{3.2}{17}{}{table.3.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces Hallucination statistics for Halu Eval}}{17}{}\protected@file@percent }
-\newlabel{tab:hallucination-stats-he}{{3.3}{17}{}{table.3.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Study of Individual Layer Components}{17}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Hallucination statistics per dataset and model (best model per dataset in bold)}}{21}{}\protected@file@percent }
+\newlabel{tab:hallucination-stats}{{3.1}{21}{Hallucination Statistics}{table.3.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Preliminary Studies}{21}{}\protected@file@percent }
 \citation{PCA}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Performance of Gemma-2-9B-IT layers across the datasets}}{18}{}\protected@file@percent }
-\newlabel{fig:gemma-layer-performance-comparison}{{3.3}{18}{}{figure.3.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Performance of Llama-3.1-8B-Instruct layers across the datasets}}{18}{}\protected@file@percent }
-\newlabel{fig:llama-layer-performance-comparison}{{3.4}{18}{}{figure.3.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces PCA of Attention activations of Gemma-2-9B-IT across all datasets}}{19}{}\protected@file@percent }
-\newlabel{fig:gemma-pca-attn}{{3.5}{19}{}{figure.3.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces PCA of Attention activations of Llama-3.1-8B-Instruct across all datasets}}{19}{}\protected@file@percent }
-\newlabel{fig:gemma-pca-attn}{{3.6}{19}{}{figure.3.6}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.4}{\ignorespaces Layers chosen for Belief Bank Facts}}{19}{}\protected@file@percent }
-\newlabel{tab:layer-config-belief-bank-facts}{{3.4}{19}{}{table.3.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.5}{\ignorespaces Layers chosen for Belief Bank Constraints}}{20}{}\protected@file@percent }
-\newlabel{tab:layer-config-belief-bank-constraints}{{3.5}{20}{}{table.3.5}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.6}{\ignorespaces Layers chosen for Halu Eval}}{20}{}\protected@file@percent }
-\newlabel{tab:layer-config-halu-eval}{{3.6}{20}{}{table.3.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.4}Methodologies for Building the Universal Prober}{20}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.7}{\ignorespaces Methods executed in the experiment runner and corresponding methodological names used in this chapter.}}{21}{}\protected@file@percent }
-\newlabel{tab:method-mapping-runner}{{3.7}{21}{}{table.3.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}RidgeRegressor Approach}{21}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Experimental Pipeline}{22}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces RidgeRegressor experimental pipeline}}{22}{}\protected@file@percent }
-\newlabel{fig:linear-pipeline}{{3.7}{22}{}{figure.3.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Procrustes Approach}{22}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces Procrustes approach experimental pipeline}}{22}{}\protected@file@percent }
-\newlabel{fig:procrustes-pipeline}{{3.8}{22}{}{figure.3.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.3}CKA Approach}{23}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces CKA approach experimental pipeline}}{23}{}\protected@file@percent }
-\newlabel{fig:cka-pipeline}{{3.9}{23}{}{figure.3.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.4}CCA Approach}{23}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces CCA approach experimental pipeline}}{24}{}\protected@file@percent }
-\newlabel{fig:cca-pipeline}{{3.10}{24}{}{figure.3.10}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.5}AdapterMLP Approach}{24}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Architecture and Loss}{24}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.11}{\ignorespaces AlignmentNetwork architecture of the AdapterMLP approach}}{24}{}\protected@file@percent }
-\newlabel{fig:alignmentnetwork-architecture-hybrid}{{3.11}{24}{}{figure.3.11}{}}
+\gdef \LT@ii {\LT@entry 
+    {1}{250.14642pt}\LT@entry 
+    {1}{61.63205pt}\LT@entry 
+    {1}{61.63205pt}\LT@entry 
+    {1}{61.63205pt}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Accuracy comparison of attention modules across the datasets}}{22}{}\protected@file@percent }
+\newlabel{fig:attn-layer-performance-comparison_accuracy}{{3.3}{22}{Preliminary Studies}{figure.3.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Accuracy comparison of hidden modules across the datasets}}{22}{}\protected@file@percent }
+\newlabel{fig:hidden-layer-performance-comparison_accuracy}{{3.4}{22}{Preliminary Studies}{figure.3.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Accuracy comparison of mlp modules across the datasets}}{23}{}\protected@file@percent }
+\newlabel{fig:mlp-layer-performance-comparison_accuracy}{{3.5}{23}{Preliminary Studies}{figure.3.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces PCA of Attention activations of Gemma-2-9B-IT across all datasets}}{23}{}\protected@file@percent }
+\newlabel{fig:gemma-pca-attn}{{3.6}{23}{Preliminary Studies}{figure.3.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces Layers chosen for Belief Bank Facts, Belief Bank Constraints, and Halu Eval.}}{23}{}\protected@file@percent }
+\newlabel{tab:layer-config-combined}{{3.3}{23}{Preliminary Studies}{table.3.3}{}}
+\gdef \LT@iii {\LT@entry 
+    {1}{129.948pt}\LT@entry 
+    {1}{305.09457pt}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces PCA of Attention activations of Llama-3.1-8B-Instruct across all datasets}}{24}{}\protected@file@percent }
+\newlabel{fig:llama-pca-attn}{{3.7}{24}{Preliminary Studies}{figure.3.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}Building the Universal Prober}{24}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.5}{\ignorespaces Methods executed in the experiment runner and corresponding methodological names used in this chapter.}}{25}{}\protected@file@percent }
+\newlabel{tab:method-mapping-runner}{{3.5}{25}{Building the Universal Prober}{table.3.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}RidgeRegressor}{25}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Experimental Pipeline}{25}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.12}{\ignorespaces AdapterMLP approach experimental pipeline}}{25}{}\protected@file@percent }
-\newlabel{fig:hybrid-pipeline}{{3.12}{25}{}{figure.3.12}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.8}{\ignorespaces AlignmentNetwork hyperparameter values apply to all combinations of Trainer, Tester and Layer Type.}}{26}{}\protected@file@percent }
-\newlabel{tab:hyperparameters-common}{{3.8}{26}{}{table.3.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.6}Full Non-linear Approach}{26}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Architecture, Components and Loss}{26}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.13}{\ignorespaces MLP Prober architecture of the full non-linear approach}}{26}{}\protected@file@percent }
-\newlabel{fig:mlp-prober-architecture-full}{{3.13}{26}{}{figure.3.13}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Experimental Pipeline}{27}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.14}{\ignorespaces Full non-linear approach experimental pipeline}}{27}{}\protected@file@percent }
-\newlabel{fig:non-linear-complete-pipeline}{{3.14}{27}{}{figure.3.14}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.9}{\ignorespaces AlignmentNetwork hyperparameters for the full non-linear approach.}}{27}{}\protected@file@percent }
-\newlabel{tab:hyperparams-align-loss-clean}{{3.9}{27}{}{table.3.9}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.10}{\ignorespaces MLP Prober hyperparameters for the full non-linear approach.}}{28}{}\protected@file@percent }
-\newlabel{tab:hyperparams-prober-clean}{{3.10}{28}{}{table.3.10}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.7}Reduced Non-linear Approach}{28}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Architecture and Main Components}{28}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.15}{\ignorespaces Autoencoder architecture of the reduced non-linear approach}}{28}{}\protected@file@percent }
-\newlabel{fig:autoencoder-architecture}{{3.15}{28}{}{figure.3.15}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.16}{\ignorespaces MLP Prober architecture of the reduced non-linear approach}}{28}{}\protected@file@percent }
-\newlabel{fig:mlp-prober-architecture-reduced}{{3.16}{28}{}{figure.3.16}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.17}{\ignorespaces AlignmentNetwork architecture of the reduced non-linear approach}}{28}{}\protected@file@percent }
-\newlabel{fig:alignmentnetwork-architecture-reduced}{{3.17}{28}{}{figure.3.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces RidgeRegressor experimental pipeline}}{26}{}\protected@file@percent }
+\newlabel{fig:linear-pipeline}{{3.8}{26}{Experimental Pipeline}{figure.3.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}Procrustes}{26}{}\protected@file@percent }
+\newlabel{eq:procrustes_svd}{{3.1}{26}{Procrustes}{equation.3.1}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.1)}Procrustes SVD decomposition}{26}{}\protected@file@percent }
+\newlabel{eq:procrustes_affine}{{3.2}{26}{Procrustes}{equation.3.2}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.2)}Procrustes affine transformation}{26}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.3}CKA}{26}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces Procrustes approach experimental pipeline}}{27}{}\protected@file@percent }
+\newlabel{fig:procrustes-pipeline}{{3.9}{27}{Procrustes}{figure.3.9}{}}
+\newlabel{eq:cka}{{3.3}{27}{CKA}{equation.3.3}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.3)}Linear CKA similarity score}{27}{}\protected@file@percent }
+\newlabel{eq:cka_map}{{3.4}{27}{CKA}{equation.3.4}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.4)}CKA-scaled linear alignment map}{27}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.4}CCA}{27}{}\protected@file@percent }
+\newlabel{eq:cca}{{3.5}{27}{CCA}{equation.3.5}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.5)}Canonical Correlation Analysis}{27}{}\protected@file@percent }
+\newlabel{eq:cca_components}{{3.6}{27}{CCA}{equation.3.6}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.6)}CCA number of components}{27}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces CKA approach experimental pipeline}}{28}{}\protected@file@percent }
+\newlabel{fig:cka-pipeline}{{3.10}{28}{CKA}{figure.3.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.5}AdapterMLP}{28}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Architecture and Loss}{28}{}\protected@file@percent }
+\newlabel{eq:mixed_loss}{{3.7}{28}{Architecture and Loss}{equation.3.7}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.7)}Mixed alignment loss (MSE + cosine similarity)}{28}{}\protected@file@percent }
+\newlabel{eq:mse_def}{{3.8}{28}{Architecture and Loss}{equation.3.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.11}{\ignorespaces CCA approach experimental pipeline}}{29}{}\protected@file@percent }
+\newlabel{fig:cca-pipeline}{{3.11}{29}{CCA}{figure.3.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.12}{\ignorespaces AdapterMLP architecture}}{29}{}\protected@file@percent }
+\newlabel{fig:alignmentnetwork-architecture-hybrid}{{3.12}{29}{Architecture and Loss}{figure.3.12}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.8)}Mean Squared Error}{29}{}\protected@file@percent }
+\newlabel{eq:cosine_sim}{{3.9}{29}{Architecture and Loss}{equation.3.9}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.9)}Cosine similarity}{29}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Experimental Pipeline}{29}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.18}{\ignorespaces Reduced non-linear approach experimental pipeline}}{30}{}\protected@file@percent }
-\newlabel{fig:non-linear-reduced-pipeline}{{3.18}{30}{}{figure.3.18}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.11}{\ignorespaces AutoEncoder hyperparameters (Trainer and Tester).}}{30}{}\protected@file@percent }
-\newlabel{tab:hyperparams-autoencoder-clean}{{3.11}{30}{}{table.3.11}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.12}{\ignorespaces AlignmentNetwork hyperparameters for the reduced approach.}}{31}{}\protected@file@percent }
-\newlabel{tab:hyperparams-alignment-clean-reduced}{{3.12}{31}{}{table.3.12}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.13}{\ignorespaces MLP Prober hyperparameters (on latent space).}}{31}{}\protected@file@percent }
-\newlabel{tab:hyperparams-prober-clean-reduced}{{3.13}{31}{}{table.3.13}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.8}One-For-All Approach (Frozen Head)}{31}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Architecture and main components}{31}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.19}{\ignorespaces One-For-All encoder architecture}}{31}{}\protected@file@percent }
-\newlabel{fig:OfA-architecture}{{3.19}{31}{}{figure.3.19}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.20}{\ignorespaces One-For-All Classification Head architecture}}{32}{}\protected@file@percent }
-\newlabel{fig:OfA-head-architecture}{{3.20}{32}{}{figure.3.20}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Experimental pipeline}{32}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.21}{\ignorespaces One-For-All experimental pipeline}}{32}{}\protected@file@percent }
-\newlabel{fig:OfA-pipeline}{{3.21}{32}{}{figure.3.21}{}}
+\gdef \LT@iv {\LT@entry 
+    {1}{321.13855pt}\LT@entry 
+    {1}{113.90402pt}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.13}{\ignorespaces AdapterMLP approach experimental pipeline}}{30}{}\protected@file@percent }
+\newlabel{fig:hybrid-pipeline}{{3.13}{30}{Experimental Pipeline}{figure.3.13}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.7}{\ignorespaces AdapterMLP hyperparameter values apply to all combinations of Trainer, Tester and Layer Type.}}{30}{}\protected@file@percent }
+\newlabel{tab:hyperparameters-common}{{3.7}{30}{Experimental Pipeline}{table.3.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.6}Full Non-linear}{30}{}\protected@file@percent }
+\gdef \LT@v {\LT@entry 
+    {1}{389.99458pt}\LT@entry 
+    {1}{45.04799pt}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.14}{\ignorespaces MLP Prober architecture of the full non-linear approach}}{31}{}\protected@file@percent }
+\newlabel{fig:mlp-prober-architecture-full}{{3.14}{31}{Architecture and Loss}{figure.3.14}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Architecture and Loss}{31}{}\protected@file@percent }
+\newlabel{eq:cross_entropy}{{3.10}{31}{Architecture and Loss}{equation.3.10}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.10)}Binary Cross-Entropy with Logits loss}{31}{}\protected@file@percent }
+\newlabel{eq:sigmoid}{{3.11}{31}{Architecture and Loss}{equation.3.11}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.11)}Sigmoid activation function}{31}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Experimental Pipeline}{31}{}\protected@file@percent }
+\gdef \LT@vi {\LT@entry 
+    {1}{321.13855pt}\LT@entry 
+    {1}{113.90402pt}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.15}{\ignorespaces Full non-linear approach experimental pipeline}}{32}{}\protected@file@percent }
+\newlabel{fig:non-linear-complete-pipeline}{{3.15}{32}{Experimental Pipeline}{figure.3.15}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.9}{\ignorespaces AlignmentNetwork hyperparameters for the full non-linear approach.}}{32}{}\protected@file@percent }
+\newlabel{tab:hyperparams-align-loss-clean}{{3.9}{32}{Experimental Pipeline}{table.3.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.11}{\ignorespaces MLP Prober hyperparameters for the full non-linear approach.}}{32}{}\protected@file@percent }
+\newlabel{tab:hyperparams-prober-clean}{{3.11}{32}{Experimental Pipeline}{table.3.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.16}{\ignorespaces Autoencoder architecture of the reduced non-linear approach}}{33}{}\protected@file@percent }
+\newlabel{fig:autoencoder-architecture}{{3.16}{33}{Architecture and Loss}{figure.3.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.17}{\ignorespaces MLP Prober architecture of the reduced non-linear approach}}{33}{}\protected@file@percent }
+\newlabel{fig:mlp-prober-architecture-reduced}{{3.17}{33}{Architecture and Loss}{figure.3.17}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.7}Reduced Non-linear Approach}{33}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Architecture and Loss}{33}{}\protected@file@percent }
+\newlabel{eq:mse}{{3.12}{33}{Architecture and Loss}{equation.3.12}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.12)}Mean Squared Error (AutoEncoder loss)}{33}{}\protected@file@percent }
+\gdef \LT@vii {\LT@entry 
+    {1}{375.27055pt}\LT@entry 
+    {1}{59.77202pt}}
+\gdef \LT@viii {\LT@entry 
+    {1}{389.99458pt}\LT@entry 
+    {1}{45.04799pt}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.18}{\ignorespaces AlignmentNetwork architecture of the reduced non-linear approach}}{34}{}\protected@file@percent }
+\newlabel{fig:alignmentnetwork-architecture-reduced}{{3.18}{34}{Architecture and Loss}{figure.3.18}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Experimental Pipeline}{34}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.13}{\ignorespaces AutoEncoder hyperparameters (Trainer and Tester).}}{34}{}\protected@file@percent }
+\newlabel{tab:hyperparams-autoencoder-clean}{{3.13}{34}{Experimental Pipeline}{table.3.13}{}}
+\gdef \LT@ix {\LT@entry 
+    {1}{317.75453pt}\LT@entry 
+    {1}{117.28804pt}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.19}{\ignorespaces Reduced non-linear approach experimental pipeline}}{35}{}\protected@file@percent }
+\newlabel{fig:non-linear-reduced-pipeline}{{3.19}{35}{Experimental Pipeline}{figure.3.19}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.15}{\ignorespaces AlignmentNetwork hyperparameters for the reduced approach.}}{35}{}\protected@file@percent }
+\newlabel{tab:hyperparams-alignment-clean-reduced}{{3.15}{35}{Experimental Pipeline}{table.3.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.20}{\ignorespaces One-For-All encoder architecture}}{36}{}\protected@file@percent }
+\newlabel{fig:OfA-architecture}{{3.20}{36}{Architecture}{figure.3.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.21}{\ignorespaces One-For-All Classification Head architecture}}{36}{}\protected@file@percent }
+\newlabel{fig:OfA-head-architecture}{{3.21}{36}{Architecture}{figure.3.21}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.17}{\ignorespaces MLP Prober hyperparameters (on latent space).}}{36}{}\protected@file@percent }
+\newlabel{tab:hyperparams-prober-clean-reduced}{{3.17}{36}{Experimental Pipeline}{table.3.17}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.8}One-For-All Approach}{36}{}\protected@file@percent }
+\gdef \LT@x {\LT@entry 
+    {1}{381.27055pt}\LT@entry 
+    {1}{53.77202pt}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.22}{\ignorespaces One-For-All experimental pipeline}}{37}{}\protected@file@percent }
+\newlabel{fig:OfA-pipeline}{{3.22}{37}{Experimental pipeline}{figure.3.22}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Architecture}{37}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Experimental pipeline}{37}{}\protected@file@percent }
+\gdef \LT@xi {\LT@entry 
+    {1}{389.99458pt}\LT@entry 
+    {1}{45.04799pt}}
+\citation{TruthX}
+\citation{SLiM}
+\@writefile{lot}{\contentsline {table}{\numberline {3.19}{\ignorespaces Encoder hyperparameters (Trainer and Tester Adapter).}}{38}{}\protected@file@percent }
+\newlabel{tab:hyperparams-OfA-encoder-clean}{{3.19}{38}{Experimental pipeline}{table.3.19}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.21}{\ignorespaces Classification Head hyperparameters (Shared/Frozen).}}{38}{}\protected@file@percent }
+\newlabel{tab:hyperparams-OfA-head-clean}{{3.21}{38}{Experimental pipeline}{table.3.21}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.6}Hallucination mitigation steering}{38}{}\protected@file@percent }
+\gdef \LT@xii {\LT@entry 
+    {1}{93.22665pt}\LT@entry 
+    {1}{62.136pt}\LT@entry 
+    {1}{93.22665pt}\LT@entry 
+    {1}{93.22665pt}\LT@entry 
+    {1}{93.22665pt}}
 \citation{DisentangledRepresentationLearning}
-\@writefile{lot}{\contentsline {table}{\numberline {3.14}{\ignorespaces Encoder hyperparameters (Trainer and Tester Adapter).}}{33}{}\protected@file@percent }
-\newlabel{tab:hyperparams-OfA-encoder-clean}{{3.14}{33}{}{table.3.14}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.15}{\ignorespaces Classification Head hyperparameters (Shared/Frozen).}}{33}{}\protected@file@percent }
-\newlabel{tab:hyperparams-OfA-head-clean}{{3.15}{33}{}{table.3.15}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.5}Methodology for hallucination mitigation steering}{33}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.16}{\ignorespaces Description of pairs for each dataset used in steering experiments.}}{34}{}\protected@file@percent }
-\newlabel{tab:datasets-pairs}{{3.16}{34}{}{table.3.16}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}TruthX Steering Technique}{34}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Dataset Preparation: Paired Activations}{34}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.22}{\ignorespaces TruthX extraction overview}}{35}{}\protected@file@percent }
-\newlabel{fig:truthx-ext-pipeline}{{3.22}{35}{}{figure.3.22}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Autoencoder Architecture}{35}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.23}{\ignorespaces TruthX model architecture overview}}{36}{}\protected@file@percent }
-\newlabel{fig:truthx-model-architecture}{{3.23}{36}{}{figure.3.23}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Loss Function}{36}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Reconstruction Loss ($\mathcal  {L}_{\mathrm  {recon}}$, Eq. 3):}{36}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Semantic Contrastive Loss ($\mathcal  {L}_{\mathrm  {sem}}$, Eq. 6):}{36}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Truthful Contrastive Loss ($\mathcal  {L}_{\mathrm  {truth}}$, Eq. 5):}{37}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Editing Loss ($\mathcal  {L}_{\mathrm  {edit}}$, Eq. 10):}{37}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Training Procedure}{37}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.17}{\ignorespaces TruthX Autoencoder training hyperparameters.}}{37}{}\protected@file@percent }
-\newlabel{tab:hyperparams-truthx-ae}{{3.17}{37}{}{table.3.17}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Steering Vector Computation and Layer Selection}{38}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Inference-Time Editing}{38}{}\protected@file@percent }
-\newlabel{sec:truthx-inference}{{3.5.1}{38}{}{table.3.17}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Cross-Model TruthX via Alignment}{39}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Layer Selection via Linear CKA.}{39}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Procrustes Aligner.}{40}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Cross-Model Inference Pipeline.}{40}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}SLiMTruth Steering Technique}{41}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Dataset Preparation: Paired Samples}{41}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{SLiMTruth Architecture}{41}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{State Projector (\texttt  {StateBlock}).}{42}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Low-Rank Scale (\texttt  {LowRankLinear}).}{42}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Low-Rank Shift (\texttt  {LowRankLinear}).}{42}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{FiLM Modulation.}{42}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.24}{\ignorespaces SLiMTruth architecture}}{43}{}\protected@file@percent }
-\newlabel{fig:slimtruth-architecture}{{3.24}{43}{}{figure.3.24}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Loss Function}{43}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Cross-Entropy Loss ($\mathcal  {L}_{\mathrm  {CE}}$).}{43}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{InfoNCE Contrastive Loss ($\mathcal  {L}_{\mathrm  {InfoNCE}}$).}{43}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Regularization Loss ($\mathcal  {L}_{\mathrm  {Reg}}$).}{44}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Training Procedure}{44}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.18}{\ignorespaces SLiMTruth training hyperparameters.}}{45}{}\protected@file@percent }
-\newlabel{tab:hyperparams-slim}{{3.18}{45}{}{table.3.18}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Inference-Time Modulation}{45}{}\protected@file@percent }
-\newlabel{sec:slim-inference}{{3.5.2}{45}{}{table.3.18}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Cross-Model SLiMTruth via Procrustes Alignment}{45}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Layer Selection.}{46}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Cross-Model Inference.}{46}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Results}{47}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.23}{\ignorespaces Description of pairs for each dataset used in steering experiments.}}{39}{}\protected@file@percent }
+\newlabel{tab:datasets-pairs}{{3.23}{39}{Hallucination mitigation steering}{table.3.23}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.1}TruthX}{39}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Dataset Preparation}{39}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.23}{\ignorespaces TruthX model architecture overview}}{40}{}\protected@file@percent }
+\newlabel{fig:truthx-model-architecture}{{3.23}{40}{TruthX}{figure.3.23}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Autoencoder Architecture}{40}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.24}{\ignorespaces TruthX extraction overview}}{41}{}\protected@file@percent }
+\newlabel{fig:truthx-ext-pipeline}{{3.24}{41}{Dataset Preparation}{figure.3.24}{}}
+\newlabel{eq:cross_attention}{{3.13}{41}{Autoencoder Architecture}{equation.3.13}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.13)}Cross-attention latent combination}{41}{}\protected@file@percent }
+\newlabel{eq:decoder_recon}{{3.14}{41}{Autoencoder Architecture}{equation.3.14}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.14)}Autoencoder reconstruction}{41}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Loss Function}{41}{}\protected@file@percent }
+\newlabel{eq:truthx_loss}{{3.15}{41}{Loss Function}{equation.3.15}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.15)}TruthX total training loss}{41}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Reconstruction Loss ($\mathcal  {L}_{\mathrm  {recon}}$, Eq. 3):}{41}{}\protected@file@percent }
+\newlabel{eq:truthx_recon_loss}{{3.16}{41}{Reconstruction Loss ($\mathcal  {L}_{\mathrm  {recon}}$, Eq. 3):}{equation.3.16}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.16)}TruthX reconstruction loss}{41}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Semantic Contrastive Loss ($\mathcal  {L}_{\mathrm  {sem}}$, Eq. 6):}{41}{}\protected@file@percent }
+\newlabel{eq:truthx_sem_loss}{{3.17}{41}{Semantic Contrastive Loss ($\mathcal  {L}_{\mathrm  {sem}}$, Eq. 6):}{equation.3.17}{}}
+\gdef \LT@xiii {\LT@entry 
+    {1}{263.07048pt}\LT@entry 
+    {1}{171.97209pt}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.17)}TruthX semantic contrastive loss}{42}{}\protected@file@percent }
+\newlabel{eq:ctr_function}{{3.18}{42}{Semantic Contrastive Loss ($\mathcal  {L}_{\mathrm  {sem}}$, Eq. 6):}{equation.3.18}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.18)}Contrastive function CTR}{42}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Truthful Contrastive Loss ($\mathcal  {L}_{\mathrm  {truth}}$, Eq. 5):}{42}{}\protected@file@percent }
+\newlabel{eq:truthx_truth_loss}{{3.19}{42}{Truthful Contrastive Loss ($\mathcal  {L}_{\mathrm  {truth}}$, Eq. 5):}{equation.3.19}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.19)}TruthX truthful contrastive loss}{42}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Editing Loss ($\mathcal  {L}_{\mathrm  {edit}}$, Eq. 10):}{42}{}\protected@file@percent }
+\newlabel{eq:truthx_edit_pos_neg}{{3.20}{42}{Editing Loss ($\mathcal  {L}_{\mathrm  {edit}}$, Eq. 10):}{equation.3.20}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.20)}TruthX positive-to-negative edited reconstruction}{42}{}\protected@file@percent }
+\newlabel{eq:truthx_edit_neg_pos}{{3.21}{42}{Editing Loss ($\mathcal  {L}_{\mathrm  {edit}}$, Eq. 10):}{equation.3.21}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.21)}TruthX negative-to-positive edited reconstruction}{42}{}\protected@file@percent }
+\newlabel{eq:truthx_edit_loss}{{3.22}{42}{Editing Loss ($\mathcal  {L}_{\mathrm  {edit}}$, Eq. 10):}{equation.3.22}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.22)}TruthX editing loss}{42}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Training Procedure}{42}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.25}{\ignorespaces TruthX Autoencoder training hyperparameters.}}{43}{}\protected@file@percent }
+\newlabel{tab:hyperparams-truthx-ae}{{3.25}{43}{Training Procedure}{table.3.25}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Steering Vector Computation and Layer Selection}{43}{}\protected@file@percent }
+\newlabel{eq:truth_centers}{{3.23}{43}{Steering Vector Computation and Layer Selection}{equation.3.23}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.23)}Truthful representation centers}{43}{}\protected@file@percent }
+\newlabel{eq:steering_vector}{{3.24}{43}{Steering Vector Computation and Layer Selection}{equation.3.24}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.24)}TruthX steering vector}{43}{}\protected@file@percent }
+\newlabel{eq:probing_classifier}{{3.25}{43}{Steering Vector Computation and Layer Selection}{equation.3.25}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.25)}Probing-based layer selection classifier}{43}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Inference-Time Editing}{44}{}\protected@file@percent }
+\newlabel{sec:truthx-inference}{{3.6.1}{44}{Inference-Time Editing}{equation.3.25}{}}
+\newlabel{eq:truthx_edit_xpos}{{3.26}{44}{Inference-Time Editing}{equation.3.26}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.26)}TruthX positive edited reconstruction (inference)}{44}{}\protected@file@percent }
+\newlabel{eq:truthx_edit_xneg}{{3.27}{44}{Inference-Time Editing}{equation.3.27}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.27)}TruthX negative edited reconstruction (inference)}{44}{}\protected@file@percent }
+\newlabel{eq:edit_direction}{{3.28}{44}{Inference-Time Editing}{equation.3.28}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.28)}TruthX editing direction}{44}{}\protected@file@percent }
+\newlabel{eq:steering_apply}{{3.29}{44}{Inference-Time Editing}{equation.3.29}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.29)}TruthX steering application}{44}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Cross-Model TruthX via Alignment}{44}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Layer Selection}{45}{}\protected@file@percent }
+\newlabel{eq:cka_crossmodel}{{3.30}{45}{Layer Selection}{equation.3.30}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.30)}Linear CKA for cross-model layer alignment}{45}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Procrustes Aligner.}{45}{}\protected@file@percent }
+\newlabel{eq:procrustes_xm_svd}{{3.31}{45}{Procrustes Aligner.}{equation.3.31}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.31)}Procrustes cross-covariance SVD (cross-model)}{45}{}\protected@file@percent }
+\newlabel{eq:procrustes_xm_rot}{{3.32}{45}{Procrustes Aligner.}{equation.3.32}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.32)}Procrustes optimal rotation and scale}{45}{}\protected@file@percent }
+\newlabel{eq:procrustes_xm_affine}{{3.33}{45}{Procrustes Aligner.}{equation.3.33}{}}
+\citation{SLiM}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.33)}Procrustes full affine transformation}{46}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Cross-Model Inference Pipeline.}{46}{}\protected@file@percent }
+\newlabel{eq:prealignment}{{3.34}{46}{Cross-Model Inference Pipeline.}{equation.3.34}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.34)}Pre-alignment mapping (target $\to $ trainer space)}{46}{}\protected@file@percent }
+\newlabel{eq:postalignment}{{3.35}{46}{Cross-Model Inference Pipeline.}{equation.3.35}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.35)}Post-alignment mapping (trainer $\to $ target space)}{46}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Experimental Configuration}{46}{}\protected@file@percent }
+\newlabel{sec:truthx-experimental-config}{{3.6.1}{46}{Experimental Configuration}{equation.3.35}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.25}{\ignorespaces SLiMTruth architecture}}{47}{}\protected@file@percent }
+\newlabel{fig:slimtruth-architecture}{{3.25}{47}{SLiMTruth}{figure.3.25}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.2}SLiMTruth}{47}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Dataset Preparation}{48}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Architecture}{48}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{State Projector (\texttt  {StateBlock}).}{48}{}\protected@file@percent }
+\newlabel{eq:slim_state}{{3.36}{48}{State Projector (\texttt  {StateBlock}).}{equation.3.36}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.36)}SLiMTruth state projector}{48}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Low-Rank Scale (\texttt  {LowRankLinear}).}{48}{}\protected@file@percent }
+\newlabel{eq:slim_gamma}{{3.37}{48}{Low-Rank Scale (\texttt  {LowRankLinear}).}{equation.3.37}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.37)}SLiMTruth multiplicative modulation (scale)}{48}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Low-Rank Shift (\texttt  {LowRankLinear}).}{48}{}\protected@file@percent }
+\newlabel{eq:slim_beta}{{3.38}{48}{Low-Rank Shift (\texttt  {LowRankLinear}).}{equation.3.38}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.38)}SLiMTruth additive modulation (shift)}{48}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{FiLM Modulation.}{49}{}\protected@file@percent }
+\newlabel{eq:slim_delta}{{3.39}{49}{FiLM Modulation.}{equation.3.39}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.39)}SLiMTruth FiLM modulation}{49}{}\protected@file@percent }
+\newlabel{eq:slim_apply}{{3.40}{49}{FiLM Modulation.}{equation.3.40}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.40)}SLiMTruth hidden state update}{49}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Loss Function}{49}{}\protected@file@percent }
+\newlabel{eq:slimtruth_loss}{{3.41}{49}{Loss Function}{equation.3.41}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.41)}SLiMTruth total training loss}{49}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Cross-Entropy Loss ($\mathcal  {L}_{\mathrm  {CE}}$).}{49}{}\protected@file@percent }
+\newlabel{eq:slimtruth_ce}{{3.42}{49}{Cross-Entropy Loss ($\mathcal  {L}_{\mathrm  {CE}}$).}{equation.3.42}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.42)}SLiMTruth cross-entropy loss}{49}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{InfoNCE Contrastive Loss ($\mathcal  {L}_{\mathrm  {InfoNCE}}$).}{49}{}\protected@file@percent }
+\newlabel{eq:slimtruth_nce}{{3.43}{49}{InfoNCE Contrastive Loss ($\mathcal  {L}_{\mathrm  {InfoNCE}}$).}{equation.3.43}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.43)}SLiMTruth InfoNCE contrastive loss}{49}{}\protected@file@percent }
+\gdef \LT@xiv {\LT@entry 
+    {1}{315.49852pt}\LT@entry 
+    {1}{119.54405pt}}
+\@writefile{toc}{\contentsline {paragraph}{Regularization Loss ($\mathcal  {L}_{\mathrm  {Reg}}$).}{50}{}\protected@file@percent }
+\newlabel{eq:slimtruth_reg}{{3.44}{50}{Regularization Loss ($\mathcal  {L}_{\mathrm  {Reg}}$).}{equation.3.44}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.44)}SLiMTruth regularization loss (L2)}{50}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Training Procedure}{50}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.27}{\ignorespaces SLiMTruth training hyperparameters.}}{51}{}\protected@file@percent }
+\newlabel{tab:hyperparams-slim}{{3.27}{51}{Training Procedure}{table.3.27}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Inference-Time Modulation}{51}{}\protected@file@percent }
+\newlabel{sec:slim-inference}{{3.6.2}{51}{Inference-Time Modulation}{table.3.27}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Cross-Model SLiMTruth via Alignment}{52}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Layer Selection.}{52}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Cross-Model Inference.}{52}{}\protected@file@percent }
+\newlabel{eq:slim_crossmodel}{{3.45}{52}{Cross-Model Inference.}{equation.3.45}{}}
+\@writefile{loe}{\contentsline {myequations}{\numberline {(3.45)}SLiMTruth cross-model FiLM modulation}{52}{}\protected@file@percent }
+\gdef \LT@xv {\LT@entry 
+    {1}{75.0275pt}\LT@entry 
+    {1}{75.0275pt}\LT@entry 
+    {1}{75.0275pt}\LT@entry 
+    {5}{37.016pt}\LT@entry 
+    {1}{37.85602pt}\LT@entry 
+    {1}{38.29602pt}\LT@entry 
+    {1}{48.17603pt}\LT@entry 
+    {1}{48.61603pt}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Results and Discussion}{53}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Hallucination Detection}{48}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}LLama-3.1-8B-Instruct and Gemma-2-9B-IT on BeliefBankFacts}{48}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on BeliefBankFacts}}{48}{}\protected@file@percent }
-\newlabel{tab:results-bbf-llama-gemma}{{4.1}{48}{}{table.4.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}LLama-3.1-8B-Instruct and Gemma-2-9B-IT on BeliefBankConstraints}{49}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on BeliefBankConstraints}}{49}{}\protected@file@percent }
-\newlabel{tab:results-bbc-llama-gemma}{{4.2}{49}{}{table.4.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.3}LLama-3.1-8B-Instruct and Gemma-2-9B-IT on HaluEval}{50}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on HaluEval}}{50}{}\protected@file@percent }
-\newlabel{tab:results-he-llama-gemma}{{4.3}{50}{}{table.4.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Gemma-2-9B-IT as Trainer, Llama-3.1-8B-Instruct as Tester}}{51}{}\protected@file@percent }
-\newlabel{fig:gemma-to-llama-accuracy-bars}{{4.1}{51}{}{figure.4.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Llama-3.1-8B-Instruct as Trainer, Gemma-2-9B-IT as Tester}}{51}{}\protected@file@percent }
-\newlabel{fig:llama-to-gemma-accuracy-bars}{{4.2}{51}{}{figure.4.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.4}Cross-Domain Results}{51}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces Cross-Domain Results (One-For-All). Tr=Trainer, Te=Tester, BBC=BeliefBankConstraints, BBF=BeliefBankFacts, HE=HaluEval}}{52}{}\protected@file@percent }
-\newlabel{tab:cross-domain-results}{{4.4}{52}{}{table.4.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Cross-Domain Transfer: Gemma-2-9B-IT as Trainer, Llama-3.1-8B-Instruct as Tester}}{53}{}\protected@file@percent }
-\newlabel{fig:cross-domain-gemma-to-llama}{{4.3}{53}{}{figure.4.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Cross-Domain Transfer: Llama-3.1-8B-Instruct as Trainer, Gemma-2-9B-IT as Tester}}{53}{}\protected@file@percent }
-\newlabel{fig:cross-domain-llama-to-gemma}{{4.4}{53}{}{figure.4.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Mitigation of Hallucinations}{53}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}TruthX Results}{53}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Baseline vs.\ Standard TruthX}{54}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Baseline vs.\ Standard TruthX — Hallucination Rate}}{54}{}\protected@file@percent }
-\newlabel{tab:truthx-baseline-standard}{{4.5}{54}{}{table.4.5}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Cross-Dataset Transfer}{54}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.6}{\ignorespaces Cross-Dataset TruthX — Hallucination Rate}}{54}{}\protected@file@percent }
-\newlabel{tab:truthx-cross-dataset}{{4.6}{54}{}{table.4.6}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Cross-Model Transfer}{55}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.7}{\ignorespaces Cross-Model TruthX: Gemma $\to $ Llama — Hallucination Rate}}{55}{}\protected@file@percent }
-\newlabel{tab:truthx-cross-model-gemma-to-llama}{{4.7}{55}{}{table.4.7}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.8}{\ignorespaces Cross-Model TruthX: Llama $\to $ Gemma — Hallucination Rate}}{55}{}\protected@file@percent }
-\newlabel{tab:truthx-cross-model-llama-to-gemma}{{4.8}{55}{}{table.4.8}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces TruthX: Gemma}}{56}{}\protected@file@percent }
-\newlabel{fig:TruthX-Gemma}{{4.5}{56}{}{figure.4.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces TruthX: Llama}}{57}{}\protected@file@percent }
-\newlabel{fig:TruthX-Llama}{{4.6}{57}{}{figure.4.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}SLiMTruth results}{57}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Baseline vs.\ Standard SLiMTruth}{58}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.9}{\ignorespaces Baseline vs.\ Standard SLiMTruth — Hallucination Rate}}{58}{}\protected@file@percent }
-\newlabel{tab:slim-baseline-standard}{{4.9}{58}{}{table.4.9}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Cross-Dataset Transfer}{58}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.10}{\ignorespaces Cross-Dataset SLiMTruth — Hallucination Rate}}{58}{}\protected@file@percent }
-\newlabel{tab:slim-cross-dataset}{{4.10}{58}{}{table.4.10}{}}
-\@writefile{toc}{\contentsline {subsubsection}{Cross-Model Transfer}{59}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.11}{\ignorespaces Cross-Model SLiMTruth: Gemma $\to $ Llama — Hallucination Rate}}{59}{}\protected@file@percent }
-\newlabel{tab:slim-cross-model-gemma-to-llama}{{4.11}{59}{}{table.4.11}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.12}{\ignorespaces Cross-Model SLiMTruth: Llama $\to $ Gemma — Hallucination Rate}}{59}{}\protected@file@percent }
-\newlabel{tab:slim-cross-model-llama-to-gemma}{{4.12}{59}{}{table.4.12}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces SLiMTruth: Gemma}}{59}{}\protected@file@percent }
-\newlabel{fig:SLiMTruth-Gemma}{{4.7}{59}{}{figure.4.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces SLiMTruth: Llama}}{60}{}\protected@file@percent }
-\newlabel{fig:SLiMTruth-Llama}{{4.8}{60}{}{figure.4.8}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Discussion}{61}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Hallucination Detection}{53}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}In-Domain Transfer}{53}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on BeliefBankFacts}}{53}{}\protected@file@percent }
+\newlabel{tab:results-bbf-llama-gemma}{{4.1}{53}{In-Domain Transfer}{table.4.1}{}}
+\gdef \LT@xvi {\LT@entry 
+    {1}{75.0275pt}\LT@entry 
+    {1}{75.0275pt}\LT@entry 
+    {1}{75.0275pt}\LT@entry 
+    {5}{37.016pt}\LT@entry 
+    {1}{37.85602pt}\LT@entry 
+    {1}{38.29602pt}\LT@entry 
+    {1}{48.17603pt}\LT@entry 
+    {1}{48.61603pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on BeliefBankConstraints}}{55}{}\protected@file@percent }
+\newlabel{tab:results-bbc-llama-gemma}{{4.2}{55}{In-Domain Transfer}{table.4.2}{}}
+\gdef \LT@xvii {\LT@entry 
+    {1}{75.0275pt}\LT@entry 
+    {1}{75.0275pt}\LT@entry 
+    {1}{75.0275pt}\LT@entry 
+    {5}{37.016pt}\LT@entry 
+    {1}{37.85602pt}\LT@entry 
+    {1}{38.29602pt}\LT@entry 
+    {1}{48.17603pt}\LT@entry 
+    {1}{48.61603pt}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Results for pair (LLama-3.1-8B-Instruct, Gemma-2-9B-IT) on HaluEval}}{57}{}\protected@file@percent }
+\newlabel{tab:results-he-llama-gemma}{{4.3}{57}{In-Domain Transfer}{table.4.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Gemma-2-9B-IT as Trainer, Llama-3.1-8B-Instruct as Tester on BeliefBankFacts}}{59}{}\protected@file@percent }
+\newlabel{fig:gemma-to-llama-accuracy-bars-bbf}{{4.1}{59}{In-Domain Transfer}{figure.4.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Llama-3.1-8B-Instruct as Trainer, Gemma-2-9B-IT as Tester on BeliefBankConstraints}}{59}{}\protected@file@percent }
+\newlabel{fig:gemma-to-llama-accuracy-bars-bbc}{{4.2}{59}{In-Domain Transfer}{figure.4.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Gemma-2-9B-IT as Trainer, Llama-3.1-8B-Instruct as Tester on HaluEval}}{60}{}\protected@file@percent }
+\newlabel{fig:gemma-to-llama-accuracy-bars-he}{{4.3}{60}{In-Domain Transfer}{figure.4.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Llama-3.1-8B-Instruct as Trainer, Gemma-2-9B-IT as Tester on BeliefBankFacts}}{60}{}\protected@file@percent }
+\newlabel{fig:llama-to-gemma-accuracy-bars-bbf}{{4.4}{60}{In-Domain Transfer}{figure.4.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Llama-3.1-8B-Instruct as Trainer, Gemma-2-9B-IT as Tester on BeliefBankConstraints}}{60}{}\protected@file@percent }
+\newlabel{fig:llama-to-gemma-accuracy-bars-bbc}{{4.5}{60}{In-Domain Transfer}{figure.4.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Llama-3.1-8B-Instruct as Trainer, Gemma-2-9B-IT as Tester on HaluEval}}{61}{}\protected@file@percent }
+\newlabel{fig:llama-to-gemma-accuracy-bars-he}{{4.6}{61}{In-Domain Transfer}{figure.4.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces Error Type Breakdown for the One-For-All}}{61}{}\protected@file@percent }
+\newlabel{fig:error-type-breakdown-one-for-all}{{4.7}{61}{In-Domain Transfer}{figure.4.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Cross-Domain Transfer}{62}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces Cross-Domain Results (One-For-All)}}{63}{}\protected@file@percent }
+\newlabel{tab:cross-domain-results}{{4.4}{63}{Cross-Domain Transfer}{table.4.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Cross-Domain Transfer: Gemma-2-9B-IT as Trainer, Llama-3.1-8B-Instruct as Tester}}{64}{}\protected@file@percent }
+\newlabel{fig:cross-domain-gemma-to-llama}{{4.8}{64}{Cross-Domain Transfer}{figure.4.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces Cross-Domain Transfer: Llama-3.1-8B-Instruct as Trainer, Gemma-2-9B-IT as Tester}}{64}{}\protected@file@percent }
+\newlabel{fig:cross-domain-llama-to-gemma}{{4.9}{64}{Cross-Domain Transfer}{figure.4.9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Hallucination Mitigation}{65}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}TruthX}{65}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Standard Setting}{65}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Baseline vs.\ standard TruthX hallucination rate. The green row is the best result in the table (most favourable $\Delta $, i.e.\ better), the red row the worst (least favourable $\Delta $, i.e.\ worse).}}{65}{}\protected@file@percent }
+\newlabel{tab:truthx-baseline-standard}{{4.5}{65}{Standard Setting}{table.4.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Cross-Dataset Transfer}{66}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.6}{\ignorespaces Cross-dataset TruthX hallucination rate. The green row is the best result in the table (most favourable $\Delta $, i.e.\ better), the red row the worst (least favourable $\Delta $, i.e.\ worse).}}{66}{}\protected@file@percent }
+\newlabel{tab:truthx-cross-dataset}{{4.6}{66}{Cross-Dataset Transfer}{table.4.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Cross-Model Transfer}{66}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.7}{\ignorespaces Cross-model TruthX, Gemma $\to $ Llama, hallucination rate. The green row is the best result in the table (most favourable $\Delta $, i.e.\ better), the red row the worst (least favourable $\Delta $, i.e.\ worse).}}{67}{}\protected@file@percent }
+\newlabel{tab:truthx-cross-model-gemma-to-llama}{{4.7}{67}{Cross-Model Transfer}{table.4.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.8}{\ignorespaces Cross-model TruthX, Llama $\to $ Gemma, hallucination rate. The green row is the best result in the table (most favourable $\Delta $, i.e.\ better), the red row the worst (least favourable $\Delta $, i.e.\ worse).}}{67}{}\protected@file@percent }
+\newlabel{tab:truthx-cross-model-llama-to-gemma}{{4.8}{67}{Cross-Model Transfer}{table.4.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces TruthX: Gemma}}{68}{}\protected@file@percent }
+\newlabel{fig:TruthX-Gemma}{{4.10}{68}{Cross-Model Transfer}{figure.4.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces TruthX: Llama}}{69}{}\protected@file@percent }
+\newlabel{fig:TruthX-Llama}{{4.11}{69}{Cross-Model Transfer}{figure.4.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}SLiMTruth}{69}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Standard Setting}{69}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.9}{\ignorespaces Baseline vs.\ standard SLiMTruth hallucination rate. The green row is the best result in the table (most favourable $\Delta $, i.e.\ better), the red row the worst (least favourable $\Delta $, i.e.\ worse).}}{70}{}\protected@file@percent }
+\newlabel{tab:slim-baseline-standard}{{4.9}{70}{Standard Setting}{table.4.9}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Cross-Dataset Transfer}{70}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.10}{\ignorespaces Cross-dataset SLiMTruth hallucination rate. The green row is the best result in the table (most favourable $\Delta $, i.e.\ better), the red row the worst (least favourable $\Delta $, i.e.\ worse).}}{70}{}\protected@file@percent }
+\newlabel{tab:slim-cross-dataset}{{4.10}{70}{Cross-Dataset Transfer}{table.4.10}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Cross-Model Transfer}{71}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.11}{\ignorespaces Cross-model SLiMTruth, Gemma $\to $ Llama, hallucination rate. The green row is the best result in the table (most favourable $\Delta $, i.e.\ better), the red row the worst (least favourable $\Delta $, i.e.\ worse).}}{71}{}\protected@file@percent }
+\newlabel{tab:slim-cross-model-gemma-to-llama}{{4.11}{71}{Cross-Model Transfer}{table.4.11}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.12}{\ignorespaces Cross-model SLiMTruth, Llama $\to $ Gemma, hallucination rate. The green row is the best result in the table (most favourable $\Delta $, i.e.\ better), the red row the worst (least favourable $\Delta $, i.e.\ worse).}}{71}{}\protected@file@percent }
+\newlabel{tab:slim-cross-model-llama-to-gemma}{{4.12}{71}{Cross-Model Transfer}{table.4.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.12}{\ignorespaces SLiMTruth: Gemma}}{72}{}\protected@file@percent }
+\newlabel{fig:SLiMTruth-Gemma}{{4.12}{72}{Cross-Model Transfer}{figure.4.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.13}{\ignorespaces SLiMTruth: Llama}}{73}{}\protected@file@percent }
+\newlabel{fig:SLiMTruth-Llama}{{4.13}{73}{Cross-Model Transfer}{figure.4.13}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Comparative Analysis: TruthX vs.\ SLiMTruth}{73}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusions}{75}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Hallucination Detection}{61}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}Comparison Between Methods}{61}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.2}Dataset and Directional Analysis}{61}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.3}Layer Analysis}{62}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.4}Cross-Domain Analysis}{62}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Hallucination Mitigation}{63}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}TruthX}{63}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Standard Setting}{63}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Cross-Dataset Transfer}{63}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Cross-Model Transfer}{63}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}SLiMTruth}{63}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Standard Setting}{63}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Cross-Dataset Transfer}{63}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Cross-Model Transfer}{64}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Comparative Analysis: TruthX vs.\ SLiMTruth}{64}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{The BBF Vulnerability}{64}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Transferability Hierarchy}{64}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusions}{65}{}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Summary of Results}{65}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}Hallucination Detection}{65}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Summary of Results}{75}{}\protected@file@percent }
 \bibstyle{plainnat}
 \bibdata{main}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Hallucination Mitigation}{66}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Future Work}{66}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Future Work}{76}{}\protected@file@percent }
 \bibcite{GQA}{{1}{2023}{{Ainslie et~al.}}{{Ainslie, Lee-Thorp, De~Jong, Zemlyanskiy, Lebr{\'o}n, and Sanghai}}}
 \bibcite{azaria2023internal}{{2}{2023}{{Azaria and Mitchell}}{{}}}
-\bibcite{GPT3}{{3}{2020}{{Brown et~al.}}{{Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal, Neelakantan, Shyam, Sastry, Askell, et~al.}}}
-\bibcite{SteeringDef}{{4}{2024}{{Cao et~al.}}{{Cao, Zhang, Cao, Yin, Lin, Ma, and Chen}}}
-\bibcite{TruthForest}{{5}{2024}{{Chen et~al.}}{{Chen, Sun, Jiao, Lian, Kang, Wang, and Xu}}}
-\bibcite{CCP}{{6}{2024}{{Fadeeva et~al.}}{{Fadeeva, Rubashevskii, Shelmanov, Petrakov, Li, Mubarak, Tsymbalov, Kuzmin, Panchenko, Baldwin, et~al.}}}
-\bibcite{LLama3}{{7}{2024}{{Grattafiori et~al.}}{{Grattafiori, Dubey, Jauhri, Pandey, Kadian, Al-Dahle, Letman, Mathur, Schelten, Vaughan, et~al.}}}
-\bibcite{PCA}{{8}{1933}{{Hotelling}}{{}}}
-\bibcite{surveyHallucination}{{9}{2025}{{Huang et~al.}}{{Huang, Yu, Ma, Zhong, Feng, Wang, Chen, Peng, Feng, Qin, et~al.}}}
-\bibcite{Platonic}{{10}{2024}{{Huh et~al.}}{{Huh, Cheung, Wang, and Isola}}}
-\bibcite{surveyHallucination2}{{11}{2023}{{Ji et~al.}}{{Ji, Lee, Frieske, Yu, Su, Xu, Ishii, Bang, Madotto, and Fung}}}
-\bibcite{HallOpenAI}{{12}{2025}{{Kalai et~al.}}{{Kalai, Nachum, Vempala, and Zhang}}}
-\bibcite{ScalingLaws}{{13}{2020}{{Kaplan et~al.}}{{Kaplan, McCandlish, Henighan, Brown, Chess, Child, Gray, Radford, Wu, and Amodei}}}
-\bibcite{BeliefBank}{{14}{2021}{{Kassner et~al.}}{{Kassner, Tafjord, Sch{\"u}tze, and Clark}}}
-\bibcite{Halueval}{{15}{2023{}}{{Li et~al.}}{{Li, Cheng, Zhao, Nie, and Wen}}}
-\bibcite{ITI}{{16}{2023{}}{{Li et~al.}}{{Li, Patel, Vi\'{e}gas, Pfister, and Wattenberg}}}
-\bibcite{Geometry}{{17}{2023}{{Marks and Tegmark}}{{}}}
-\bibcite{SLiM}{{18}{2026}{{{Sangayya Hiremath} et~al.}}{{{Sangayya Hiremath}, Polignano, Levantesi, Semeraro, {De Luca}, and Poznanski}}}
-\bibcite{sycophancyLLM}{{19}{2023}{{Sharma et~al.}}{{Sharma, Tong, Korbak, Duvenaud, Askell, Bowman, Cheng, Durmus, Hatfield-Dodds, Johnston, et~al.}}}
-\bibcite{Gemma2}{{20}{2024}{{Team et~al.}}{{Team, Riviere, Pathak, Sessa, Hardin, Bhupatiraju, Hussenot, Mesnard, Shahriari, Ram{\'e}, et~al.}}}
-\bibcite{AttentionIsAllYouNeed}{{21}{2017}{{Vaswani et~al.}}{{Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin}}}
-\bibcite{DisentangledRepresentationLearning}{{22}{2024}{{Wang et~al.}}{{Wang, Chen, Tang, Wu, and Zhu}}}
-\bibcite{KwowledgeDistillationSurvey}{{23}{2024}{{Xu et~al.}}{{Xu, Li, Tao, Shen, Cheng, Li, Xu, Tao, and Zhou}}}
-\bibcite{PRISM}{{24}{2025{}}{{Zhang et~al.}}{{Zhang, Yu, Yi, Zhang, Li, and Liu}}}
-\bibcite{TruthX}{{25}{2024}{{Zhang et~al.}}{{Zhang, Yu, and Feng}}}
-\bibcite{ICR}{{26}{2025{}}{{Zhang et~al.}}{{Zhang, Hu, Zhang, Zhang, and Wan}}}
-\gdef \@abspage@last{79}
+\bibcite{BloomFilters}{{3}{2026}{{Balogh}}{{}}}
+\bibcite{Probing}{{4}{2022}{{Belinkov}}{{}}}
+\bibcite{GPT3}{{5}{2020}{{Brown et~al.}}{{Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal, Neelakantan, Shyam, Sastry, Askell, et~al.}}}
+\bibcite{SteeringDef}{{6}{2024}{{Cao et~al.}}{{Cao, Zhang, Cao, Yin, Lin, Ma, and Chen}}}
+\bibcite{TruthForest}{{7}{2024}{{Chen et~al.}}{{Chen, Sun, Jiao, Lian, Kang, Wang, and Xu}}}
+\bibcite{SinglePositionFails}{{8}{2026}{{Cheng and Zhang}}{{}}}
+\bibcite{CCP}{{9}{2023}{{Fadeeva et~al.}}{{Fadeeva, Rubashevskii, Shelmanov, Peyrard, Panchenko, and Gurevych}}}
+\bibcite{MoE}{{10}{2021}{{Fedus et~al.}}{{Fedus, Zoph, and Shazeer}}}
+\bibcite{Llama3}{{11}{2024}{{Grattafiori et~al.}}{{Grattafiori, Dubey, Jauhri, Pandey, Kadian, Al-Dahle, Letman, Mathur, Schelten, Vaughan, et~al.}}}
+\bibcite{MechanisticCounting}{{12}{2026}{{Hasani et~al.}}{{Hasani, Banayeeanzade, Nafisi, Mohammadian, Askari, Bagherian, Izadi, and Baghshah}}}
+\bibcite{PCA}{{13}{1933}{{Hotelling}}{{}}}
+\bibcite{surveyHallucination}{{14}{2025}{{Huang et~al.}}{{Huang, Yu, Ma, Zhong, Feng, Wang, Chen, Peng, Feng, Qin, et~al.}}}
+\bibcite{Platonic}{{15}{2024}{{Huh et~al.}}{{Huh, Cheung, Wang, and Isola}}}
+\bibcite{surveyHallucination2}{{16}{2023}{{Ji et~al.}}{{Ji, Lee, Frieske, Yu, Su, Xu, Ishii, Bang, Madotto, and Fung}}}
+\bibcite{HallOpenAI}{{17}{2025}{{Kalai et~al.}}{{Kalai, Nachum, Vempala, and Zhang}}}
+\bibcite{ScalingLaws}{{18}{2020}{{Kaplan et~al.}}{{Kaplan, McCandlish, Henighan, Brown, Chess, Child, Gray, Radford, Wu, and Amodei}}}
+\bibcite{BeliefBank}{{19}{2021}{{Kassner et~al.}}{{Kassner, Tafjord, Sch{\"u}tze, and Clark}}}
+\bibcite{RAG}{{20}{2020}{{Lewis et~al.}}{{Lewis, Perez, Piktus, Petroni, Karpukhin, Goyal, K{\"u}ttler, Lewis, Yih, Rockt{\"a}schel, et~al.}}}
+\bibcite{Halueval}{{21}{2023{}}{{Li et~al.}}{{Li, Cheng, Zhao, Nie, and Wen}}}
+\bibcite{ITI}{{22}{2023{}}{{Li et~al.}}{{Li, Patel, Vi\'{e}gas, Pfister, and Wattenberg}}}
+\bibcite{SafetyPitfalls}{{23}{2026}{{Li et~al.}}{{Li, Fastowski, Zaradoukas, Prenkaj, and Kasneci}}}
+\bibcite{Geometry}{{24}{2023}{{Marks and Tegmark}}{{}}}
+\bibcite{GeometricTaxonomy}{{25}{2026}{{Marín}}{{}}}
+\bibcite{CopySuppression}{{26}{2023}{{McDougall et~al.}}{{McDougall, Conmy, Rushing, McGrath, and Nanda}}}
+\bibcite{EndogenousResistance}{{27}{2026}{{McKenzie et~al.}}{{McKenzie, Pepper, Servaes, Leitgab, Cubuktepe, Vaiana, de~Lucena, Rosenblatt, and Graziano}}}
+\bibcite{ActivationPatching}{{28}{2022}{{Meng et~al.}}{{Meng, Bau, Andonian, and Belinkov}}}
+\bibcite{NonSurjective}{{29}{2026}{{Mishra et~al.}}{{Mishra, Khashabi, and Liu}}}
+\bibcite{CausalHeadGating}{{30}{2025}{{Nam et~al.}}{{Nam, Conklin, Yang, Griffiths, Cohen, and Leslie}}}
+\bibcite{EvaluationAwareness}{{31}{2025}{{Nguyen et~al.}}{{Nguyen, Hoang, Attubato, and Hofstätter}}}
+\bibcite{ContrastiveSteering}{{32}{2025}{{Qiu et~al.}}{{Qiu, Yu, Zhang, Yang, Kokhlikyan, Cancedda, Garcia-Olano, et~al.}}}
+\bibcite{DPO}{{33}{2023}{{Rafailov et~al.}}{{Rafailov, Sharma, Mitchell, Ermon, Manning, and Finn}}}
+\bibcite{LegalHallucinations}{{34}{2026}{{Rao et~al.}}{{Rao, Wong, and Callison-Burch}}}
+\bibcite{DetectSteering}{{35}{2025}{{Rivera}}{{}}}
+\bibcite{SLiM}{{36}{2026}{{{Sangayya Hiremath} et~al.}}{{{Sangayya Hiremath}, Polignano, Levantesi, Semeraro, {De Luca}, and Poznanski}}}
+\bibcite{GCM}{{37}{2026}{{Sankaranarayanan et~al.}}{{Sankaranarayanan, Zur, Geiger, and Hadfield-Menell}}}
+\bibcite{sycophancyLLM}{{38}{2023}{{Sharma et~al.}}{{Sharma, Tong, Korbak, Duvenaud, Askell, Bowman, Cheng, Durmus, Hatfield-Dodds, Johnston, et~al.}}}
+\bibcite{PASTA}{{39}{2023}{{Shi et~al.}}{{Shi, Chen, Liu, Zhao, and Wang}}}
+\bibcite{JealousyConcepts}{{40}{2026}{{Shou and Guan}}{{}}}
+\bibcite{Gemma2}{{41}{2024}{{Team et~al.}}{{Team, Riviere, Pathak, Sessa, Hardin, Bhupatiraju, Hussenot, Mesnard, Shahriari, Ram{\'e}, et~al.}}}
+\bibcite{AttentionIsAllYouNeed}{{42}{2017}{{Vaswani et~al.}}{{Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, and Polosukhin}}}
+\bibcite{DisentangledRepresentationLearning}{{43}{2024}{{Wang et~al.}}{{Wang, Chen, Tang, Wu, and Zhu}}}
+\bibcite{CoT}{{44}{2022}{{Wei et~al.}}{{Wei, Wang, Schuurmans, Bosma, Xia, Chi, Le, Zhou, et~al.}}}
+\bibcite{KwowledgeDistillationSurvey}{{45}{2024}{{Xu et~al.}}{{Xu, Li, Tao, Shen, Cheng, Li, Xu, Tao, and Zhou}}}
+\bibcite{FARS}{{46}{2026}{{Yuan and Su}}{{}}}
+\bibcite{PRISM}{{47}{2025{}}{{Zhang et~al.}}{{Zhang, Yu, Yi, Zhang, Li, and Liu}}}
+\bibcite{TruthX}{{48}{2024}{{Zhang et~al.}}{{Zhang, Yu, and Feng}}}
+\bibcite{ICR}{{49}{2025{}}{{Zhang et~al.}}{{Zhang, Hu, Zhang, Zhang, and Wan}}}
+\@writefile{toc}{\contentsline {chapter}{Appendices}{83}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Layers' study}{85}{}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {A.1}F1\-Score}{85}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces F1\-Score comparison of attention modules across the datasets}}{85}{}\protected@file@percent }
+\newlabel{fig:attn-layer-performance-comparison_f1}{{A.1}{85}{F1\-Score}{figure.1.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.2}{\ignorespaces F1\-Score comparison of hidden modules across the datasets}}{85}{}\protected@file@percent }
+\newlabel{fig:hidden-layer-performance-comparison_f1}{{A.2}{85}{F1\-Score}{figure.1.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.3}{\ignorespaces F1\-Score comparison of mlp modules across the datasets}}{86}{}\protected@file@percent }
+\newlabel{fig:mlp-layer-performance-comparison_f1}{{A.3}{86}{F1\-Score}{figure.1.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.2}Auroc Score}{86}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {A.4}{\ignorespaces Auroc comparison of attention modules across the datasets}}{86}{}\protected@file@percent }
+\newlabel{fig:attn-layer-performance-comparison_auroc}{{A.4}{86}{Auroc Score}{figure.1.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.5}{\ignorespaces Auroc comparison of hidden modules across the datasets}}{86}{}\protected@file@percent }
+\newlabel{fig:hidden-layer-performance-comparison_auroc}{{A.5}{86}{Auroc Score}{figure.1.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.6}{\ignorespaces Auroc comparison of mlp modules across the datasets}}{87}{}\protected@file@percent }
+\newlabel{fig:mlp-layer-performance-comparison_auroc}{{A.6}{87}{Auroc Score}{figure.1.6}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {B}Error type analysis}{89}{}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{lof}{\contentsline {figure}{\numberline {B.1}{\ignorespaces Error Type Breakdown for the One-For-All on BeliefBankFacts}}{89}{}\protected@file@percent }
+\newlabel{fig:error-type-breakdown-one-for-all-bbf}{{B.1}{89}{Auroc Score}{figure.2.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {B.2}{\ignorespaces Error Type Breakdown for the One-For-All on BeliefBankConstraints}}{90}{}\protected@file@percent }
+\newlabel{fig:error-type-breakdown-one-for-all-bbc}{{B.2}{90}{Auroc Score}{figure.2.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {B.3}{\ignorespaces Error Type Breakdown for the One-For-All on HaluEval}}{90}{}\protected@file@percent }
+\newlabel{fig:error-type-breakdown-one-for-all-he}{{B.3}{90}{Auroc Score}{figure.2.3}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Ringraziamenti}{91}{}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\gdef \@abspage@last{106}

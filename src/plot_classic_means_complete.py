@@ -53,6 +53,8 @@ def method_to_display_name(method: str) -> str:
         return "Reduced_NonLinear"
     if method == "one_for_all":
         return "OneForAll"
+    if method == "hybrid":
+        return "AdMLP"
     return method.title()
 
 
@@ -235,6 +237,7 @@ def main() -> None:
 
     df = pd.read_csv(args.csv)
     long_df = build_long_dataframe(df, args.metric)
+    long_df = long_df[long_df["seed"] == 42]
 
     mean_df = (
         long_df.groupby(["experiment", "method", "layer_type", "split"], as_index=False)["score"]

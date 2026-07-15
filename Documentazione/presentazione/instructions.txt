@@ -1,0 +1,23 @@
+Make slides according to @main.tex and the included one. Follow this structure: 1) Title
+2) What is an LLM, platonic representation hypothesis,  what is an Hallucination with related problems
+3) Hallucination taxonomy
+4) What is probing, what is steering. Problem: they are LLM dependent
+5) Introduction to work: Probing and steering to detect and reduce hallucination and transferability
+6) Model, dataset and hallucination rate for each of them
+7) Preliminar Study (takes images/grafici/mini_accuracy_attn_models_by_dataset.pdf, images/grafici/mini_accuracy_hidden_models_by_dataset.pdf and images/grafici/mini_accuracy_mlp_models_by_dataset.pdf as assets, if you can't use a PDF convert them into PNG
+8) Probing methodology: List of strategy used. Create an image in SVG that rapresent the general pipeline "Train classifier on trainer" -> "train aligner" -> "evaluate tester on trainer"  and the another for OneForAll pipeline "end-to-end training encoder-classifier on teacher" -> "train tester encoder attached to frozen classifier"
+9) Probing: use as assets images/TruthX and images/SLiMTruth and put also the loss used
+10)Put images\grafici\GemmaToLlama_BBC_accuracy_mean.pdf and\images\grafici\GemmaToLlama_HE_accuracy_mean.pdf as assets (again, convert into image if you can't use pdf)
+11) Use images\grafici\Gemma_results.pdf and images\grafici\Gemma_slim_results.pdf
+12) Finding and future directions: Transferable hallucination detection is feasible — especially with One-For-All on structured datasets
+Latent space alignment learned in simple contexts is surprisingly robust and transfers to harder ones
+SLiMTruth excels in-domain; TruthX is the safer cross-model choice
+Source/target direction is a critical but under-explored design variable
+Future Directions
+Extend probing and steering to VLLMs — vision-language models
+Explore combination with RAG for retrieval-augmented factual grounding
+Test on datasets with open-answer format beyond binary true/false labels
+
+
+
+You can find all the material in thee latex sourcers

@@ -1,125 +1,129 @@
-\chapter{Model Alignment}
-In this appendix, the results of the alignment phase for the various approaches are shown.
+\chapter{Models activation}
 
-\section{Linear Approach}
+The following figures show PCA representations of the activations extracted from LLM models. The activations were obtained from three types of layers: Attention, MLP, and Hidden. Hallucinatory instances are shown in red, while truthful ones are shown in blue.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_all_layers_Llama-3.1-8B-Instruct_gemma-2-9b-it_belief_bank_constraints.pdf}
-    \caption{Alignment between Llama-3.1-8B-Instruct and Gemma-2-9B-IT for Belief Bank Constraints}
-    \label{fig:alignment-llama-gemma-constraints}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/gemma-2-9b-it_belief_bank_facts_attn_activations_PCA_CLEAN.pdf}
+    \label{fig:gemma-pca-attn-facts-full}
+    \caption{PCA of the Attention activations from the Gemma-2-9B-IT layer for Belief Bank Facts}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_all_layers_Llama-3.1-8B-Instruct_gemma-2-9b-it_belief_bank_facts.pdf}
-    \caption{Alignment between Llama-3.1-8B-Instruct and Gemma-2-9B-IT for Belief Bank Facts}
-    \label{fig:alignment-llama-gemma-facts}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/gemma-2-9b-it_belief_bank_facts_hidden_activations_PCA_CLEAN.pdf}
+    \label{fig:gemma-pca-hidden-facts-full}
+    \caption{PCA of the Hidden activations from the Gemma-2-9B-IT layer for Belief Bank Facts}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_all_layers_Llama-3.1-8B-Instruct_gemma-2-9b-it_halu_eval.pdf}
-    \caption{Alignment between Llama-3.1-8B-Instruct and Gemma-2-9B-IT for Halu Eval}
-    \label{fig:alignment-llama-gemma-halu}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/gemma-2-9b-it_belief_bank_facts_mlp_activations_PCA_CLEAN.pdf}
+    \label{fig:gemma-pca-mlp-facts-full}
+    \caption{PCA of the MLP activations from the Gemma-2-9B-IT layer for Belief Bank Facts}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_all_layers_Qwen2.5-7B_Falcon3-7B-Base_belief_bank_facts.pdf}
-    \caption{Alignment between Qwen2.5-7B and Falcon3-7B-Base for Belief Bank Facts}
-    \label{fig:alignment-qwen-falcon-facts}
-\end{figure}
-
-\section{Approach 1}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_approach1_all_layers_Llama-3.1-8B-Instruct_gemma-2-9b-it_belief_bank_constraints.pdf}
-    \caption{Alignment (Approach 1) between Llama-3.1-8B-Instruct and Gemma-2-9B-IT for Belief Bank Constraints}
-    \label{fig:alignment-app1-llama-gemma-constraints}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Llama-3.1-8B-Instruct_belief_bank_facts_attn_activations_PCA_CLEAN.pdf}
+    \label{fig:llama-pca-attn-facts-full}
+    \caption{PCA of the Attention activations from the Llama-3.1-8B-Instruct layer for Belief Bank Facts}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_approach1_all_layers_Llama-3.1-8B-Instruct_gemma-2-9b-it_belief_bank_facts.pdf}
-    \caption{Alignment (Approach 1) between Llama-3.1-8B-Instruct and Gemma-2-9B-IT for Belief Bank Facts}
-    \label{fig:alignment-app1-llama-gemma-facts}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Llama-3.1-8B-Instruct_belief_bank_facts_hidden_activations_PCA_CLEAN.pdf}
+    \label{fig:llama-pca-hidden-facts-full}
+    \caption{PCA of the Hidden activations from the Llama-3.1-8B-Instruct layer for Belief Bank Facts}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_approach1_all_layers_Llama-3.1-8B-Instruct_gemma-2-9b-it_halu_eval.pdf}
-    \caption{Alignment (Approach 1) between Llama-3.1-8B-Instruct and Gemma-2-9B-IT for Halu Eval}
-    \label{fig:alignment-app1-llama-gemma-halu}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Llama-3.1-8B-Instruct_belief_bank_facts_mlp_activations_PCA_CLEAN.pdf}
+    \label{fig:llama-pca-mlp-facts-full}
+    \caption{PCA of the MLP activations from the Llama-3.1-8B-Instruct layer for Belief Bank Facts}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_approach1_all_layers_Qwen2.5-7B_Falcon3-7B-Base_belief_bank_facts.pdf}
-    \caption{Alignment (Approach 1) between Qwen2.5-7B and Falcon3-7B-Base for Belief Bank Facts}
-    \label{fig:alignment-app1-qwen-falcon-facts}
-\end{figure}
-
-\section{Hybrid Approach}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_hybrid_all_layers_Llama-3.1-8B-Instruct_gemma-2-9b-it_belief_bank_constraints.pdf}
-    \caption{Hybrid Alignment between Llama-3.1-8B-Instruct and Gemma-2-9B-IT for Belief Bank Constraints}
-    \label{fig:alignment-hybrid-llama-gemma-constraints}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/gemma-2-9b-it_belief_bank_constraints_attn_activations_PCA_CLEAN.pdf}
+    \label{fig:gemma-pca-attn-constraints-full}
+    \caption{PCA of the Attention activations from the Gemma-2-9B-IT layer for Belief Bank Constraints}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_hybrid_all_layers_Llama-3.1-8B-Instruct_gemma-2-9b-it_belief_bank_facts.pdf}
-    \caption{Hybrid Alignment between Llama-3.1-8B-Instruct and Gemma-2-9B-IT for Belief Bank Facts}
-    \label{fig:alignment-hybrid-llama-gemma-facts}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/gemma-2-9b-it_belief_bank_constraints_hidden_activations_PCA_CLEAN.pdf}
+    \label{fig:gemma-pca-hidden-constraints-full}
+    \caption{PCA of the Hidden activations from the Gemma-2-9B-IT layer for Belief Bank Constraints}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_hybrid_all_layers_Llama-3.1-8B-Instruct_gemma-2-9b-it_halu_eval.pdf}
-    \caption{Hybrid Alignment between Llama-3.1-8B-Instruct and Gemma-2-9B-IT for Halu Eval}
-    \label{fig:alignment-hybrid-llama-gemma-halu}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/gemma-2-9b-it_belief_bank_constraints_mlp_activations_PCA_CLEAN.pdf}
+    \label{fig:gemma-pca-mlp-constraints-full}
+    \caption{PCA of the MLP activations from the Gemma-2-9B-IT layer for Belief Bank Constraints}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_hybrid_all_layers_Qwen2.5-7B_Falcon3-7B-Base_belief_bank_facts.pdf}
-    \caption{Hybrid Alignment between Qwen2.5-7B and Falcon3-7B-Base for Belief Bank Facts}
-    \label{fig:alignment-hybrid-qwen-falcon-facts}
-\end{figure}
-
-\section{Projected Approach}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_projected_all_layers_Llama-3.1-8B-Instruct_gemma-2-9b-it_belief_bank_constraints.pdf}
-    \caption{Projected Alignment between Llama-3.1-8B-Instruct and Gemma-2-9B-IT for Belief Bank Constraints}
-    \label{fig:alignment-proj-llama-gemma-constraints}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Llama-3.1-8B-Instruct_belief_bank_constraints_attn_activations_PCA_CLEAN.pdf}
+    \label{fig:llama-pca-attn-constraints-full}
+    \caption{PCA of the Attention activations from the Llama-3.1-8B-Instruct layer for Belief Bank Constraints}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_projected_all_layers_Llama-3.1-8B-Instruct_gemma-2-9b-it_belief_bank_facts.pdf}
-    \caption{Projected Alignment between Llama-3.1-8B-Instruct and Gemma-2-9B-IT for Belief Bank Facts}
-    \label{fig:alignment-proj-llama-gemma-facts}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Llama-3.1-8B-Instruct_belief_bank_constraints_hidden_activations_PCA_CLEAN.pdf}
+    \label{fig:llama-pca-hidden-constraints-full}
+    \caption{PCA of the Hidden activations from the Llama-3.1-8B-Instruct layer for Belief Bank Constraints}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_projected_all_layers_Llama-3.1-8B-Instruct_gemma-2-9b-it_halu_eval.pdf}
-    \caption{Projected Alignment between Llama-3.1-8B-Instruct and Gemma-2-9B-IT for Halu Eval}
-    \label{fig:alignment-proj-llama-gemma-halu}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Llama-3.1-8B-Instruct_belief_bank_constraints_mlp_activations_PCA_CLEAN.pdf}
+    \label{fig:llama-pca-mlp-constraints-full}
+    \caption{PCA of the MLP activations from the Llama-3.1-8B-Instruct layer for Belief Bank Constraints}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.9\textheight, keepaspectratio]{images/align_plot/alignment_projected_all_layers_Qwen2.5-7B_Falcon3-7B-Base_belief_bank_facts.pdf}
-    \caption{Projected Alignment between Qwen2.5-7B and Falcon3-7B-Base for Belief Bank Facts}
-    \label{fig:alignment-proj-qwen-falcon-facts}
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/gemma-2-9b-it_halu_eval_attn_activations_PCA_CLEAN.pdf}
+    \label{fig:gemma-pca-attn-he-full}
+    \caption{PCA of the Attention activations from the Gemma-2-9B-IT layer for Halu Eval}
 \end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/gemma-2-9b-it_halu_eval_hidden_activations_PCA_CLEAN.pdf}
+    \label{fig:gemma-pca-hidden-he-full}
+    \caption{PCA of the Hidden activations from the Gemma-2-9B-IT layer for Halu Eval}
+\end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/gemma-2-9b-it_halu_eval_mlp_activations_PCA_CLEAN.pdf}
+    \label{fig:gemma-pca-mlp-he-full}
+    \caption{PCA of the MLP activations from the Gemma-2-9B-IT layer for Halu Eval}
+\end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Llama-3.1-8B-Instruct_halu_eval_attn_activations_PCA_CLEAN.pdf}
+    \label{fig:llama-pca-attn-he-full}
+    \caption{PCA of the Attention activations from the Llama-3.1-8B-Instruct layer for Halu Eval}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Llama-3.1-8B-Instruct_halu_eval_hidden_activations_PCA_CLEAN.pdf}
+    \label{fig:llama-pca-hidden-he-full}
+    \caption{PCA of the Hidden activations from the Llama-3.1-8B-Instruct layer for Halu Eval}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=1\textheight, keepaspectratio]{images/PCA_Plots/Llama-3.1-8B-Instruct_halu_eval_mlp_activations_PCA_CLEAN.pdf}
+    \label{fig:llama-pca-mlp-he-full}
+    \caption{PCA of the MLP activations from the Llama-3.1-8B-Instruct layer for Halu Eval}
+\end{figure}
