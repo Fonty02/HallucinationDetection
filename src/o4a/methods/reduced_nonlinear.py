@@ -1,10 +1,12 @@
 """ReducedNonLinear: Autoencoder → alignment in latent space → MLPProber."""
 
+import time
+
 import torch
 
 from ..config import DEVICE, SEED, REDUCED_NONLINEAR_CONFIG
 from .training import (
-    compute_metrics, split_train_val,
+    compute_metrics, count_params, split_train_val,
     train_alignment_network, train_autoencoder, train_mlp_prober,
 )
 
@@ -30,15 +32,23 @@ def run_reduced_nonlinear(shared_data: dict, config: dict = None, save_dir: str 
     pr_tr_idx = prober_split["train_idx"]
     pr_val_idx = prober_split["val_idx"]
 
-    # 1. Train autoencoders
+    # 1. Train autoencoders (timed separately)
+    t0_ae_trainer = time.time()
     ae_trainer, ae_trainer_info = train_autoencoder(
         trainer["X_train"][ae_tr_t], trainer["X_train"][ae_val_t],
         trainer["X_train"].shape[1], cfg,
     )
+    ae_trainer_time = time.time() - t0_ae_trainer
+
+    t0_ae_tester = time.time()
     ae_tester, ae_tester_info = train_autoencoder(
         tester["X_train"][ae_tr_s], tester["X_train"][ae_val_s],
         tester["X_train"].shape[1], cfg,
     )
+    ae_tester_time = time.time() - t0_ae_tester
+
+    ae_trainer_params = count_params(ae_trainer)
+    ae_tester_params = count_params(ae_tester)
 
     ae_trainer.eval()
     ae_tester.eval()
@@ -51,21 +61,31 @@ def run_reduced_nonlinear(shared_data: dict, config: dict = None, save_dir: str 
         z_align_tester_val = ae_tester.encode(torch.tensor(alignment["X_tester_val"], dtype=torch.float32, device=DEVICE)).cpu().numpy()
 
     # 3. Train alignment in latent space (tester_latent → trainer_latent)
+    t0_aligner = time.time()
     align_model, align_info = train_alignment_network(
         z_align_tester_train, z_align_trainer_train,
         z_align_tester_val, z_align_trainer_val, cfg,
     )
+    aligner_time = time.time() - t0_aligner
+
+    aligner_params = count_params(align_model)
+    aligner_train_n = int(z_align_tester_train.shape[0])
 
     # 4. Encode trainer data & train prober in latent space
     with torch.no_grad():
         z_trainer_train = ae_trainer.encode(torch.tensor(trainer["X_train"], dtype=torch.float32, device=DEVICE)).cpu().numpy()
         z_trainer_test = ae_trainer.encode(torch.tensor(trainer["X_test"], dtype=torch.float32, device=DEVICE)).cpu().numpy()
 
+    t0_detector = time.time()
     prober, prober_info = train_mlp_prober(
         z_trainer_train[pr_tr_idx], trainer["y_train"][pr_tr_idx],
         z_trainer_train[pr_val_idx], trainer["y_train"][pr_val_idx],
         input_dim=cfg["autoencoder_latent_dim"], cfg=cfg,
     )
+    detector_time = time.time() - t0_detector
+
+    detector_params = count_params(prober)
+    detector_train_n = int(len(pr_tr_idx))
 
     # 5. Evaluate trainer
     prober.eval()
@@ -85,4 +105,19 @@ def run_reduced_nonlinear(shared_data: dict, config: dict = None, save_dir: str 
         proba_s = torch.sigmoid(prober(zs)).cpu().numpy()
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
 
-    return {"trainer": metrics_trainer, "tester": metrics_tester}
+    return {
+        "trainer": metrics_trainer,
+        "tester": metrics_tester,
+        "_meta": {
+            "detector_params": detector_params,
+            "detector_time_s": detector_time,
+            "detector_train_n": detector_train_n,
+            "aligner_params": aligner_params,
+            "aligner_time_s": aligner_time,
+            "aligner_train_n": aligner_train_n,
+            "ae_trainer_params": ae_trainer_params,
+            "ae_trainer_time_s": ae_trainer_time,
+            "ae_tester_params": ae_tester_params,
+            "ae_tester_time_s": ae_tester_time,
+        },
+    }

@@ -45,6 +45,7 @@ from o4a.methods.one_for_all import (  # noqa: E402
     _train_student_adapter,
     _train_teacher_pipeline,
 )
+from o4a.methods.training import count_params  # noqa: E402
 
 
 def _split_train_val(n_samples: int, val_ratio: float, seed: int) -> tuple[np.ndarray, np.ndarray]:
@@ -99,6 +100,7 @@ def _train_encoder_domain_bundle(exp_cfg: dict[str, Any], layer_type: str, cfg: 
     tr_t, val_t = _split_train_val(len(trainer["X_train"]), cfg["val_split"], SEED)
     tr_s, val_s = _split_train_val(len(tester["X_train"]), cfg["val_split"], SEED + 100)
 
+    t0_teacher = time.time()
     teacher_encoder, shared_head, teacher_info = _train_teacher_pipeline(
         trainer["X_train"][tr_t],
         trainer["y_train"][tr_t],
@@ -107,7 +109,12 @@ def _train_encoder_domain_bundle(exp_cfg: dict[str, Any], layer_type: str, cfg: 
         input_dim=trainer["X_train"].shape[1],
         cfg=cfg,
     )
+    teacher_time = time.time() - t0_teacher
 
+    teacher_params = count_params(teacher_encoder) + count_params(shared_head)
+    teacher_train_n = int(len(tr_t))
+
+    t0_student = time.time()
     student_encoder, student_info = _train_student_adapter(
         tester["X_train"][tr_s],
         tester["y_train"][tr_s],
@@ -117,6 +124,10 @@ def _train_encoder_domain_bundle(exp_cfg: dict[str, Any], layer_type: str, cfg: 
         frozen_head=shared_head,
         cfg=cfg,
     )
+    student_time = time.time() - t0_student
+
+    student_params = count_params(student_encoder)
+    student_train_n = int(len(tr_s))
 
     return {
         "teacher_encoder": teacher_encoder,
@@ -127,6 +138,14 @@ def _train_encoder_domain_bundle(exp_cfg: dict[str, Any], layer_type: str, cfg: 
         "training_info": {
             "teacher_pipeline": teacher_info,
             "student_adapter": student_info,
+        },
+        "meta": {
+            "detector_params": teacher_params,
+            "detector_time_s": teacher_time,
+            "detector_train_n": teacher_train_n,
+            "aligner_params": student_params,
+            "aligner_time_s": student_time,
+            "aligner_train_n": student_train_n,
         },
     }
 
@@ -232,6 +251,7 @@ def run_cross_domain_one_for_all(
                     "mode": "same_as_encoder_domain",
                     "teacher_pipeline": encoder_bundle["training_info"]["teacher_pipeline"],
                 },
+                **encoder_bundle["meta"],
                 "n_samples": {
                     "teacher_eval": int(len(y_t)),
                     "student_eval": int(len(y_s)),
@@ -284,6 +304,12 @@ def _build_csv_header() -> list[str]:
         "runtime_seconds",
         "teacher_eval_samples",
         "student_eval_samples",
+        "detector_params",
+        "detector_time_s",
+        "detector_train_n",
+        "aligner_params",
+        "aligner_time_s",
+        "aligner_train_n",
     ]
     metric_cols = []
     for role in ("teacher_on_eval", "student_adapter_on_eval"):
@@ -309,6 +335,12 @@ def _result_to_csv_row(result: dict[str, Any]) -> dict[str, Any]:
         "runtime_seconds": result.get("runtime_seconds", ""),
         "teacher_eval_samples": result.get("n_samples", {}).get("teacher_eval", ""),
         "student_eval_samples": result.get("n_samples", {}).get("student_eval", ""),
+        "detector_params": result.get("detector_params", ""),
+        "detector_time_s": result.get("detector_time_s", ""),
+        "detector_train_n": result.get("detector_train_n", ""),
+        "aligner_params": result.get("aligner_params", ""),
+        "aligner_time_s": result.get("aligner_time_s", ""),
+        "aligner_train_n": result.get("aligner_train_n", ""),
     }
 
     eval_metrics = result.get("eval", {})

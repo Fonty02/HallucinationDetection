@@ -1,8 +1,10 @@
 """RidgeRegressor method: LogisticRegression prober + Ridge alignment."""
+import time
+
 from sklearn.linear_model import LogisticRegression, Ridge
 
 from ..config import SEED, RIDGE_REGRESSOR_CONFIG
-from .training import compute_metrics
+from .training import compute_metrics, count_params
 
 
 def run_ridge_regressor(shared_data: dict, config: dict = None, save_dir: str = None) -> dict:
@@ -28,7 +30,12 @@ def run_ridge_regressor(shared_data: dict, config: dict = None, save_dir: str = 
         n_jobs=-1,
         random_state=SEED,
     )
+    t0_detector = time.time()
     clf.fit(trainer["X_train"][tr_idx], trainer["y_train"][tr_idx])
+    detector_time = time.time() - t0_detector
+
+    detector_params = count_params(clf)
+    detector_train_n = int(len(tr_idx))
 
     # 2. Trainer eval
     pred_t = clf.predict(trainer["X_test"])
@@ -37,7 +44,12 @@ def run_ridge_regressor(shared_data: dict, config: dict = None, save_dir: str = 
 
     # 3. Ridge alignment: tester → trainer space
     aligner = Ridge(alpha=cfg["ridge_alpha"], fit_intercept=False)
+    t0_aligner = time.time()
     aligner.fit(alignment["X_tester_train"], alignment["X_trainer_train"])
+    aligner_time = time.time() - t0_aligner
+
+    aligner_params = count_params(aligner)
+    aligner_train_n = int(alignment["X_tester_train"].shape[0])
 
     # 4. Project tester test & evaluate
     X_tester_scaled = alignment["scaler_tester"].transform(tester["X_test_raw"])
@@ -46,4 +58,15 @@ def run_ridge_regressor(shared_data: dict, config: dict = None, save_dir: str = 
     proba_s = clf.predict_proba(X_tester_proj)[:, 1]
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
 
-    return {"trainer": metrics_trainer, "tester": metrics_tester}
+    return {
+        "trainer": metrics_trainer,
+        "tester": metrics_tester,
+        "_meta": {
+            "detector_params": detector_params,
+            "detector_time_s": detector_time,
+            "detector_train_n": detector_train_n,
+            "aligner_params": aligner_params,
+            "aligner_time_s": aligner_time,
+            "aligner_train_n": aligner_train_n,
+        },
+    }

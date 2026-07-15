@@ -1,5 +1,7 @@
 """OneForAll: shared ClassificationHead, separate Encoders. No alignment needed."""
 
+import time
+
 import numpy as np
 import torch
 import torch.nn as nn
@@ -10,7 +12,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from ..config import DEVICE, SEED, ONE_FOR_ALL_CONFIG, NOTEBOOK_COMPAT
 from ..data import set_seed, get_generator
 from ..models import Encoder, ClassificationHead
-from .training import compute_metrics
+from .training import compute_metrics, count_params
 
 
 def _capture_state_dict(model: nn.Module):
@@ -173,11 +175,16 @@ def run_one_for_all(shared_data: dict, config: dict = None, save_dir: str = None
     tr_s, val_s = perm_s[vs:], perm_s[:vs]
 
     # Phase 1: Train trainer pipeline
+    t0_detector = time.time()
     enc_trainer, head, teacher_info = _train_teacher_pipeline(
         trainer["X_train"][tr_t], trainer["y_train"][tr_t],
         trainer["X_train"][val_t], trainer["y_train"][val_t],
         input_dim=trainer["X_train"].shape[1], cfg=cfg,
     )
+    detector_time = time.time() - t0_detector
+
+    detector_params = count_params(enc_trainer) + count_params(head)
+    detector_train_n = int(len(tr_t))
 
     # Eval trainer
     enc_trainer.eval(); head.eval()
@@ -188,11 +195,16 @@ def run_one_for_all(shared_data: dict, config: dict = None, save_dir: str = None
     metrics_trainer = compute_metrics(trainer["y_test"], pred_t, proba_t)
 
     # Phase 2: Train tester encoder with frozen head
+    t0_aligner = time.time()
     enc_tester, student_info = _train_student_adapter(
         tester["X_train"][tr_s], tester["y_train"][tr_s],
         tester["X_train"][val_s], tester["y_train"][val_s],
         input_dim=tester["X_train"].shape[1], frozen_head=head, cfg=cfg,
     )
+    aligner_time = time.time() - t0_aligner
+
+    aligner_params = count_params(enc_tester)
+    aligner_train_n = int(len(tr_s))
 
     # Eval tester
     enc_tester.eval()
@@ -202,4 +214,15 @@ def run_one_for_all(shared_data: dict, config: dict = None, save_dir: str = None
         proba_s = torch.sigmoid(head(enc_tester(X_s))).cpu().numpy()
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
 
-    return {"trainer": metrics_trainer, "tester": metrics_tester}
+    return {
+        "trainer": metrics_trainer,
+        "tester": metrics_tester,
+        "_meta": {
+            "detector_params": detector_params,
+            "detector_time_s": detector_time,
+            "detector_train_n": detector_train_n,
+            "aligner_params": aligner_params,
+            "aligner_time_s": aligner_time,
+            "aligner_train_n": aligner_train_n,
+        },
+    }

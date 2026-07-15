@@ -1,9 +1,11 @@
 """CCA method: LogisticRegression prober + CCA alignment."""
+import time
+
 from sklearn.cross_decomposition import CCA
 from sklearn.linear_model import LinearRegression, LogisticRegression
 
 from ..config import SEED, CCA_CONFIG
-from .training import compute_metrics
+from .training import compute_metrics, count_params
 
 
 class CCAAligner:
@@ -72,7 +74,12 @@ def run_cca(shared_data: dict, config: dict = None, save_dir: str = None) -> dic
         n_jobs=-1,
         random_state=SEED,
     )
+    t0_detector = time.time()
     clf.fit(trainer["X_train"][tr_idx], trainer["y_train"][tr_idx])
+    detector_time = time.time() - t0_detector
+
+    detector_params = count_params(clf)
+    detector_train_n = int(len(tr_idx))
 
     # 2. Trainer eval
     pred_t = clf.predict(trainer["X_test"])
@@ -91,12 +98,17 @@ def run_cca(shared_data: dict, config: dict = None, save_dir: str = None) -> dic
     if n_components < 1:
         raise ValueError("Not enough samples/features for CCA alignment.")
 
+    t0_aligner = time.time()
     aligner = CCAAligner(
         n_components=int(n_components),
         max_iter=cfg["cca_max_iter"],
         tol=cfg["cca_tol"],
         scale=cfg["cca_scale"],
     ).fit(X_align, Y_align)
+    aligner_time = time.time() - t0_aligner
+
+    aligner_params = count_params(aligner)
+    aligner_train_n = int(X_align.shape[0])
 
     # 4. Project tester test & evaluate
     X_tester_scaled = alignment["scaler_tester"].transform(tester["X_test_raw"])
@@ -105,4 +117,15 @@ def run_cca(shared_data: dict, config: dict = None, save_dir: str = None) -> dic
     proba_s = clf.predict_proba(X_tester_proj)[:, 1]
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
 
-    return {"trainer": metrics_trainer, "tester": metrics_tester}
+    return {
+        "trainer": metrics_trainer,
+        "tester": metrics_tester,
+        "_meta": {
+            "detector_params": detector_params,
+            "detector_time_s": detector_time,
+            "detector_train_n": detector_train_n,
+            "aligner_params": aligner_params,
+            "aligner_time_s": aligner_time,
+            "aligner_train_n": aligner_train_n,
+        },
+    }

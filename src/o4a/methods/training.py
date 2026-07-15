@@ -14,6 +14,37 @@ from ..data import set_seed, get_generator
 from ..models import AlignmentNetwork, Autoencoder, MixedLoss, MLPProber
 
 
+def count_params(model) -> int:
+    """Return number of learned parameters for a torch module or sklearn estimator."""
+    import torch
+    if isinstance(model, torch.nn.Module):
+        return sum(p.numel() for p in model.parameters())
+    if hasattr(model, "coef_"):
+        n = int(model.coef_.size)
+        if hasattr(model, "intercept_") and model.intercept_ is not None:
+            n += int(model.intercept_.size)
+        return n
+    # CCA-like wrappers: sum parameters of internal components
+    total = 0
+    for attr in ("cca", "regressor", "encoder", "head", "net"):
+        comp = getattr(model, attr, None)
+        if comp is not None:
+            total += count_params(comp)
+    if total > 0:
+        return total
+    # numpy/torch tensor (e.g. Procrustes/CKA matrix)
+    for attr in dir(model):
+        if attr.startswith("_"):
+            continue
+        val = getattr(model, attr, None)
+        if isinstance(val, (torch.Tensor,)):
+            return int(val.numel())
+        import numpy as np
+        if isinstance(val, np.ndarray):
+            return int(val.size)
+    return 0
+
+
 def compute_metrics(y_true, y_pred, y_proba):
     return {
         "accuracy": accuracy_score(y_true, y_pred),

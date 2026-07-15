@@ -1,9 +1,11 @@
 """FullNonLinear method: AlignmentNetwork + MLPProber (both non-linear, full dim)."""
 
+import time
+
 import torch
 
 from ..config import DEVICE, FULL_NONLINEAR_CONFIG
-from .training import compute_metrics, train_alignment_network, train_mlp_prober
+from .training import compute_metrics, count_params, train_alignment_network, train_mlp_prober
 
 
 def run_full_nonlinear(shared_data: dict, config: dict = None, save_dir: str = None) -> dict:
@@ -19,11 +21,16 @@ def run_full_nonlinear(shared_data: dict, config: dict = None, save_dir: str = N
     val_idx = prober_split["val_idx"]
 
     # Train prober on trainer
+    t0_detector = time.time()
     prober, prober_info = train_mlp_prober(
         trainer["X_train"][tr_idx], trainer["y_train"][tr_idx],
         trainer["X_train"][val_idx], trainer["y_train"][val_idx],
         input_dim=trainer["X_train"].shape[1], cfg=cfg,
     )
+    detector_time = time.time() - t0_detector
+
+    detector_params = count_params(prober)
+    detector_train_n = int(len(tr_idx))
 
     # Evaluate trainer
     prober.eval()
@@ -34,10 +41,15 @@ def run_full_nonlinear(shared_data: dict, config: dict = None, save_dir: str = N
     metrics_trainer = compute_metrics(trainer["y_test"], pred_t, proba_t)
 
     # Train alignment (tester → trainer)
+    t0_aligner = time.time()
     align_model, align_info = train_alignment_network(
         alignment["X_tester_train"], alignment["X_trainer_train"],
         alignment["X_tester_val"], alignment["X_trainer_val"], cfg,
     )
+    aligner_time = time.time() - t0_aligner
+
+    aligner_params = count_params(align_model)
+    aligner_train_n = int(alignment["X_tester_train"].shape[0])
 
     # Project tester & evaluate
     align_model.eval()
@@ -49,4 +61,15 @@ def run_full_nonlinear(shared_data: dict, config: dict = None, save_dir: str = N
         proba_s = torch.sigmoid(prober(X_proj_t)).cpu().numpy()
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
 
-    return {"trainer": metrics_trainer, "tester": metrics_tester}
+    return {
+        "trainer": metrics_trainer,
+        "tester": metrics_tester,
+        "_meta": {
+            "detector_params": detector_params,
+            "detector_time_s": detector_time,
+            "detector_train_n": detector_train_n,
+            "aligner_params": aligner_params,
+            "aligner_time_s": aligner_time,
+            "aligner_train_n": aligner_train_n,
+        },
+    }

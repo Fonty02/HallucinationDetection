@@ -54,6 +54,16 @@ ROLES = ["trainer", "tester"]
 DEFAULT_SAVE_DIR = os.path.join(ROOT_DIR, "saved_models")
 
 
+META_SUFFIXES = [
+    "detector_params", "detector_time_s", "detector_train_n",
+    "aligner_params", "aligner_time_s", "aligner_train_n",
+]
+EXTRA_SUFFIXES = [
+    "ae_trainer_params", "ae_trainer_time_s",
+    "ae_tester_params", "ae_tester_time_s",
+]
+
+
 def _build_csv_header():
     """Build the CSV header row."""
     info_cols = [
@@ -65,6 +75,10 @@ def _build_csv_header():
         for role in ROLES:
             for metric in METRICS:
                 metric_cols.append(f"{method}_{role}_{metric}")
+        for suffix in META_SUFFIXES:
+            metric_cols.append(f"{method}_{suffix}")
+        for suffix in EXTRA_SUFFIXES:
+            metric_cols.append(f"{method}_{suffix}")
     return info_cols + metric_cols
 
 
@@ -162,6 +176,11 @@ def run_all(
                             for metric in METRICS:
                                 key = f"{method_name}_{role}_{metric}"
                                 row[key] = result[role].get(metric, "")
+                        meta = result.get("_meta", {})
+                        for suffix in META_SUFFIXES:
+                            row[f"{method_name}_{suffix}"] = meta.get(suffix, "")
+                        for suffix in EXTRA_SUFFIXES:
+                            row[f"{method_name}_{suffix}"] = meta.get(suffix, "")
                     except Exception:
                         elapsed = time.time() - t0
                         print(f"FAILED ({elapsed:.1f}s)")

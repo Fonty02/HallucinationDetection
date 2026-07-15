@@ -1,10 +1,12 @@
 """CKA method: LogisticRegression prober + CKA-based linear alignment."""
 
+import time
+
 import torch
 from sklearn.linear_model import LinearRegression, LogisticRegression
 
 from ..config import SEED, CKA_CONFIG
-from .training import compute_metrics
+from .training import compute_metrics, count_params
 
 
 def _fit_cka_linear_map(x, y, eps=1e-12):
@@ -55,6 +57,11 @@ def _build_linear_regressor_from_map(A, b):
     return model
 
 
+def _cka_matrix_params(A, b):
+    """Return number of learned parameters in the CKA transformation matrix."""
+    return int(A.numel()) + int(b.numel())
+
+
 def run_cka(shared_data: dict, config: dict = None, save_dir: str = None) -> dict:
     """
     1. Train LogisticRegression on trainer scaled data.
@@ -78,7 +85,12 @@ def run_cka(shared_data: dict, config: dict = None, save_dir: str = None) -> dic
         n_jobs=-1,
         random_state=SEED,
     )
+    t0_detector = time.time()
     clf.fit(trainer["X_train"][tr_idx], trainer["y_train"][tr_idx])
+    detector_time = time.time() - t0_detector
+
+    detector_params = count_params(clf)
+    detector_train_n = int(len(tr_idx))
 
     # 2. Trainer eval
     pred_t = clf.predict(trainer["X_test"])
@@ -86,10 +98,15 @@ def run_cka(shared_data: dict, config: dict = None, save_dir: str = None) -> dic
     metrics_trainer = compute_metrics(trainer["y_test"], pred_t, proba_t)
 
     # 3. CKA alignment: tester -> trainer space
+    t0_aligner = time.time()
     A, b, cka = _fit_cka_linear_map(
         alignment["X_tester_train"], alignment["X_trainer_train"]
     )
     aligner = _build_linear_regressor_from_map(A, b)
+    aligner_time = time.time() - t0_aligner
+
+    aligner_params = _cka_matrix_params(A, b)
+    aligner_train_n = int(alignment["X_tester_train"].shape[0])
 
     # 4. Project tester test & evaluate
     X_tester_scaled = alignment["scaler_tester"].transform(tester["X_test_raw"])
@@ -98,4 +115,15 @@ def run_cka(shared_data: dict, config: dict = None, save_dir: str = None) -> dic
     proba_s = clf.predict_proba(X_tester_proj)[:, 1]
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
 
-    return {"trainer": metrics_trainer, "tester": metrics_tester}
+    return {
+        "trainer": metrics_trainer,
+        "tester": metrics_tester,
+        "_meta": {
+            "detector_params": detector_params,
+            "detector_time_s": detector_time,
+            "detector_train_n": detector_train_n,
+            "aligner_params": aligner_params,
+            "aligner_time_s": aligner_time,
+            "aligner_train_n": aligner_train_n,
+        },
+    }
