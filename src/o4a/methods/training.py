@@ -22,7 +22,11 @@ def count_params(model) -> int:
     if hasattr(model, "coef_"):
         n = int(model.coef_.size)
         if hasattr(model, "intercept_") and model.intercept_ is not None:
-            n += int(model.intercept_.size)
+            intercept = model.intercept_
+            if isinstance(intercept, (int, float)):
+                n += 1
+            else:
+                n += int(np.asarray(intercept).size)
         return n
     # CCA-like wrappers: sum parameters of internal components
     total = 0
@@ -39,7 +43,6 @@ def count_params(model) -> int:
         val = getattr(model, attr, None)
         if isinstance(val, (torch.Tensor,)):
             return int(val.numel())
-        import numpy as np
         if isinstance(val, np.ndarray):
             return int(val.size)
     return 0
