@@ -628,9 +628,9 @@ CKA_CONFIG = {
 }
 
 CCA_CONFIG = {
-    "cca_components": 64,
-    "cca_max_iter": 500,
-    "cca_tol": 1e-06,
+    "cca_components": 32,
+    "cca_max_iter": 100,
+    "cca_tol": 1e-04,
     "cca_scale": False,
     "probe_max_iter": 10000,
     "probe_solver": "lbfgs",
