@@ -26,7 +26,7 @@ class HallucinationDetection:
         self.project_dir = project_dir
 
     
-    def load_dataset(self, dataset_name=DEFAULT_DATASET, use_local=False, belief_bank_data_type="facts"):
+    def load_dataset(self, dataset_name=DEFAULT_DATASET, use_local=True, belief_bank_data_type="facts"):
         print("--"*50)
         print(f"Loading dataset {dataset_name}")
         print("--"*50)
@@ -102,7 +102,7 @@ class HallucinationDetection:
         self,
         llm_name,
         data_name=DEFAULT_DATASET,
-        use_local=False,
+        use_local=True,
         dtype=torch.bfloat16,
         use_device_map=True,
         use_flash_attn=False,
