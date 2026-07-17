@@ -51,6 +51,25 @@ htc:
   # requirements: (CUDAGlobalMemoryMb >= 24000)
   # +GPUJobLength: "long"
 
+leonardo:
+  executable: scripts/O4A_experiments/run_experiments.sh
+  output_dir: scripts/O4A_experiments/generated_leonardo_run_experiments
+  logs_dir: logs/run_experiments_leonardo
+  max_jobs_per_file: 24
+  job_name: o4a_run_exp
+
+  # SLURM resource allocation
+  account: IscrC_IMCAI
+  partition: boost_usr_prod
+  qos: normal
+  time: "24:00:00"
+  nodes: 1
+  ntasks: 1
+  cpus_per_task: 8
+  gpus_per_task: 1
+  mem: 32000
+  mail_user: l.laraspata3@phd.uniba.it
+
 # Performance optimization flags passed to the script
 optimization:
   # DataLoader settings for high-throughput data loading

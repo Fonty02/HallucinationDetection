@@ -28,13 +28,13 @@ EXPERIMENT_FALCON_BB_FACTS = {
     "llm_name": "tiiuae/Falcon3-7B-Base",
     "data_name": "belief_bank",
     "belief_bank_data_type": "facts",
-    "use_local": False,
+    "use_local": True,
     "dtype": "bfloat16",
     "use_device_map": True,
     "use_flash_attn": False,
     "max_samples": None,
     "quantization": True,
-    "device": "cuda:2",
+    "device": "cuda:0",
 }
 EXPERIMENT_FALCON_BB_CONSTRAINTS = {
     "name": "Falcon3-7B / belief_bank constraints",
@@ -42,13 +42,13 @@ EXPERIMENT_FALCON_BB_CONSTRAINTS = {
     "llm_name": "tiiuae/Falcon3-7B-Base",
     "data_name": "belief_bank",
     "belief_bank_data_type": "constraints",
-    "use_local": False,
+    "use_local": True,
     "dtype": "bfloat16",
     "use_device_map": True,
     "use_flash_attn": False,
     "max_samples": None,
     "quantization": True,
-    "device": "cuda:2",
+    "device": "cuda:0",
 }
 EXPERIMENT_FALCON_HALU = {
     "name": "Falcon3-7B / halu_eval",
@@ -56,13 +56,13 @@ EXPERIMENT_FALCON_HALU = {
     "llm_name": "tiiuae/Falcon3-7B-Base",
     "data_name": "halu_eval",
     "belief_bank_data_type": "facts",
-    "use_local": False,
+    "use_local": True,
     "dtype": "bfloat16",
     "use_device_map": True,
     "use_flash_attn": False,
     "max_samples": None,
     "quantization": True,
-    "device": "cuda:2",
+    "device": "cuda:0",
 }
 EXPERIMENT_QWEN_BB_CONSTRAINTS = {
     "name": "Qwen2.5-7B / belief_bank constraints",
@@ -70,13 +70,13 @@ EXPERIMENT_QWEN_BB_CONSTRAINTS = {
     "llm_name": "Qwen/Qwen2.5-7B",
     "data_name": "belief_bank",
     "belief_bank_data_type": "constraints",
-    "use_local": False,
+    "use_local": True,
     "dtype": "bfloat16",
     "use_device_map": True,
     "use_flash_attn": False,
     "max_samples": None,
     "quantization": True,
-    "device": "cuda:2",
+    "device": "cuda:0",
 }
 EXPERIMENT_QWEN_BB_FACTS = {
     "name": "Qwen2.5-7B / belief_bank facts",
@@ -84,13 +84,13 @@ EXPERIMENT_QWEN_BB_FACTS = {
     "llm_name": "Qwen/Qwen2.5-7B",
     "data_name": "belief_bank",
     "belief_bank_data_type": "facts",
-    "use_local": False,
+    "use_local": True,
     "dtype": "bfloat16",
     "use_device_map": True,
     "use_flash_attn": False,
     "max_samples": None,
     "quantization": True,
-    "device": "cuda:2",
+    "device": "cuda:0",
 }
 EXPERIMENT_QWEN_HALU = {
     "name": "Qwen2.5-7B / halu_eval",
@@ -98,13 +98,13 @@ EXPERIMENT_QWEN_HALU = {
     "llm_name": "Qwen/Qwen2.5-7B",
     "data_name": "halu_eval",
     "belief_bank_data_type": "facts",
-    "use_local": False,
+    "use_local": True,
     "dtype": "bfloat16",
     "use_device_map": True,
     "use_flash_attn": False,
     "max_samples": None,
     "quantization": True,
-    "device": "cuda:2",
+    "device": "cuda:0",
 }
 EXPERIMENT_GEMMA_BB_FACTS = {
     "name": "gemma-2-9b-it / belief_bank facts",
@@ -112,13 +112,13 @@ EXPERIMENT_GEMMA_BB_FACTS = {
     "llm_name": "google/gemma-2-9b-it",
     "data_name": "belief_bank",
     "belief_bank_data_type": "facts",
-    "use_local": False,
+    "use_local": True,
     "dtype": "bfloat16",
     "use_device_map": True,
     "use_flash_attn": False,
     "max_samples": None,
     "quantization": True,
-    "device": "cuda:2",
+    "device": "cuda:0",
 }
 EXPERIMENT_GEMMA_BB_CONSTRAINTS = {
     "name": "gemma-2-9b-it / belief_bank constraints",
@@ -126,13 +126,13 @@ EXPERIMENT_GEMMA_BB_CONSTRAINTS = {
     "llm_name": "google/gemma-2-9b-it",
     "data_name": "belief_bank",
     "belief_bank_data_type": "constraints",
-    "use_local": False,
+    "use_local": True,
     "dtype": "bfloat16",
     "use_device_map": True,
     "use_flash_attn": False,
     "max_samples": None,
     "quantization": True,
-    "device": "cuda:2",
+    "device": "cuda:0",
 }
 EXPERIMENT_GEMMA_HALU = {
     "name": "gemma-2-9b-it / halu_eval",
@@ -140,13 +140,13 @@ EXPERIMENT_GEMMA_HALU = {
     "llm_name": "google/gemma-2-9b-it",
     "data_name": "halu_eval",
     "belief_bank_data_type": "facts",
-    "use_local": False,
+    "use_local": True,
     "dtype": "bfloat16",
     "use_device_map": True,
     "use_flash_attn": False,
     "max_samples": None,
     "quantization": True,
-    "device": "cuda:2",
+    "device": "cuda:0",
 }
 EXPERIMENT_LLAMA_BB_FACTS = {
     "name": "Llama-3.1-8B-Instruct / belief_bank facts",
@@ -154,13 +154,13 @@ EXPERIMENT_LLAMA_BB_FACTS = {
     "llm_name": "meta-llama/Llama-3.1-8B-Instruct",
     "data_name": "belief_bank",
     "belief_bank_data_type": "facts",
-    "use_local": False,
+    "use_local": True,
     "dtype": "bfloat16",
     "use_device_map": True,
     "use_flash_attn": False,
     "max_samples": None,
     "quantization": True,
-    "device": "cuda:2",
+    "device": "cuda:0",
 }
 EXPERIMENT_LLAMA_BB_CONSTRAINTS = {
     "name": "Llama-3.1-8B-Instruct / belief_bank constraints",
@@ -168,13 +168,13 @@ EXPERIMENT_LLAMA_BB_CONSTRAINTS = {
     "llm_name": "meta-llama/Llama-3.1-8B-Instruct",
     "data_name": "belief_bank",
     "belief_bank_data_type": "constraints",
-    "use_local": False,
+    "use_local": True,
     "dtype": "bfloat16",
     "use_device_map": True,
     "use_flash_attn": False,
     "max_samples": None,
     "quantization": True,
-    "device": "cuda:2",
+    "device": "cuda:0",
 }
 EXPERIMENT_LLAMA_HALU = {
     "name": "Llama-3.1-8B-Instruct / halu_eval",
@@ -182,13 +182,13 @@ EXPERIMENT_LLAMA_HALU = {
     "llm_name": "meta-llama/Llama-3.1-8B-Instruct",
     "data_name": "halu_eval",
     "belief_bank_data_type": "facts",
-    "use_local": False,
+    "use_local": True,
     "dtype": "bfloat16",
     "use_device_map": True,
     "use_flash_attn": False,
     "max_samples": None,
     "quantization": True,
-    "device": "cuda:2",
+    "device": "cuda:0",
 }
 
 
@@ -271,7 +271,7 @@ def parse_args() -> argparse.Namespace:
         "--device",
         type=str,
         default=None,
-        help="Optional device override (example: cuda:0, cuda:1, cpu).",
+        help="Optional device override (example: cuda:0, cuda:0, cpu).",
     )
     return parser.parse_args()
 
