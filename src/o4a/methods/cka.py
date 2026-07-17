@@ -1,8 +1,10 @@
 """CKA method: LogisticRegression prober + CKA-based linear alignment."""
 
+import os
 import time
 
 import torch
+from joblib import dump
 from sklearn.linear_model import LinearRegression, LogisticRegression
 
 from ..config import SEED, CKA_CONFIG
@@ -112,6 +114,13 @@ def run_cka(shared_data: dict, config: dict = None, save_dir: str = None) -> dic
     pred_s = clf.predict(X_tester_proj)
     proba_s = clf.predict_proba(X_tester_proj)[:, 1]
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
+
+    # Save models
+    if save_dir is not None:
+        os.makedirs(save_dir, exist_ok=True)
+        dump(clf, os.path.join(save_dir, "detector.joblib"))
+        torch.save({"A": A, "b": b, "cka": cka}, os.path.join(save_dir, "aligner_map.pt"))
+        dump(aligner, os.path.join(save_dir, "aligner.joblib"))
 
     return {
         "trainer": metrics_trainer,

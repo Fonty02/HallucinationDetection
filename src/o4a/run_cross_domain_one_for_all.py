@@ -10,6 +10,7 @@ import os
 import sys
 import time
 import traceback
+from pathlib import Path
 from typing import Any
 
 import numpy as np
@@ -102,7 +103,7 @@ def _load_stratified_test_set(
     return X_full[test_idx], y[test_idx]
 
 
-def _train_encoder_domain_bundle(exp_cfg: dict[str, Any], layer_type: str, cfg: dict[str, Any]) -> dict[str, Any]:
+def _train_encoder_domain_bundle(exp_cfg: dict[str, Any], layer_type: str, cfg: dict[str, Any], save_dir: str | None = None) -> dict[str, Any]:
     shared_data = prepare_shared_data(exp_cfg, layer_type)
     trainer = shared_data["trainer"]
     tester = shared_data["tester"]
@@ -138,6 +139,14 @@ def _train_encoder_domain_bundle(exp_cfg: dict[str, Any], layer_type: str, cfg: 
 
     student_params = count_params(student_encoder)
     student_train_n = int(len(tr_s))
+
+    # Save models
+    if save_dir is not None:
+        out = Path(save_dir)
+        out.mkdir(parents=True, exist_ok=True)
+        torch.save(teacher_encoder.state_dict(), out / "teacher_encoder.pt")
+        torch.save(shared_head.state_dict(), out / "shared_head.pt")
+        torch.save(student_encoder.state_dict(), out / "student_encoder.pt")
 
     return {
         "teacher_encoder": teacher_encoder,
@@ -179,6 +188,8 @@ def run_cross_domain_one_for_all(
     layer_types: list[str],
     activation_dataset: str | None,
     head_experiment: str | None = None,
+    output_csv: str | None = None,
+    save_dir: str | None = None,
 ) -> list[dict[str, Any]]:
     enc_cfg = _validate_experiment_args(encoder_experiment, head_experiment)
     activation_dataset = activation_dataset or enc_cfg["dataset"]
@@ -186,6 +197,19 @@ def run_cross_domain_one_for_all(
 
     teacher_model = enc_cfg["trainer"]
     student_model = enc_cfg["tester"]
+
+    # Load existing completed layer types from CSV (if resuming)
+    completed_layers: set[str] = set()
+    if output_csv and os.path.exists(output_csv):
+        try:
+            with open(output_csv, "r", newline="", encoding="utf-8") as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    if row.get("status") == "ok" and row.get("encoder_experiment") == encoder_experiment:
+                        completed_layers.add(row.get("layer_type", ""))
+        except Exception:
+            pass
+        print(f"[RESUME] {len(completed_layers)} layer types already completed in {output_csv}")
 
     results: list[dict[str, Any]] = []
 
@@ -195,6 +219,11 @@ def run_cross_domain_one_for_all(
     print(f"[INFO] Trainer/Tester:     {teacher_model} -> {student_model}")
 
     for layer_type in layer_types:
+        if layer_type in completed_layers:
+            print(f"\n[SKIP] {layer_type} — already completed in CSV")
+            # Still append previous result to keep output consistent
+            continue
+
         print(f"\n{'=' * 72}")
         print(f"[LAYER] {layer_type}")
         print(f"{'=' * 72}")
@@ -217,7 +246,10 @@ def run_cross_domain_one_for_all(
         encoder_bundle = None
         try:
             set_seed(SEED)
-            encoder_bundle = _train_encoder_domain_bundle(enc_cfg, layer_type, model_cfg)
+            bundle_save_dir = None
+            if save_dir is not None:
+                bundle_save_dir = os.path.join(save_dir, encoder_experiment, layer_type, str(SEED))
+            encoder_bundle = _train_encoder_domain_bundle(enc_cfg, layer_type, model_cfg, save_dir=bundle_save_dir)
 
             teacher_layers = enc_cfg["trainer_layers"][layer_type]
             student_layers = enc_cfg["tester_layers"][layer_type]
@@ -295,6 +327,18 @@ def run_cross_domain_one_for_all(
                 torch.cuda.empty_cache()
 
         results.append(out)
+
+        # Persist incrementally
+        if output_csv is not None:
+            out_dir = os.path.dirname(output_csv)
+            if out_dir:
+                os.makedirs(out_dir, exist_ok=True)
+            header = _build_csv_header()
+            with open(output_csv, "w", newline="", encoding="utf-8") as f:
+                writer = csv.DictWriter(f, fieldnames=header)
+                writer.writeheader()
+                for r in results:
+                    writer.writerow(_result_to_csv_row(r))
 
     return results
 
@@ -422,22 +466,16 @@ def main() -> None:
     print(f"[DEBUG] Device: {DEVICE}")
     print(f"[DEBUG] Layer types: {selected_layer_types}")
 
+    default_save_dir = os.path.join(ROOT_DIR, "saved_models", "cross_domain")
+
     results = run_cross_domain_one_for_all(
         encoder_experiment=args.encoder_experiment,
         layer_types=selected_layer_types,
         activation_dataset=args.activation_dataset,
         head_experiment=args.head_experiment,
+        output_csv=args.output,
+        save_dir=default_save_dir,
     )
-
-    out_dir = os.path.dirname(args.output)
-    if out_dir:
-        os.makedirs(out_dir, exist_ok=True)
-    header = _build_csv_header()
-    with open(args.output, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=header)
-        writer.writeheader()
-        for result in results:
-            writer.writerow(_result_to_csv_row(result))
 
     ok_count = sum(1 for r in results if r.get("status") == "ok")
     print(f"\n[INFO] Saved {len(results)} layer result row(s) to CSV: {args.output}")

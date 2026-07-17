@@ -64,7 +64,7 @@ EXTRA_SUFFIXES = [
 ]
 
 
-def _build_csv_header():
+def _build_csv_header() -> list:
     """Build the CSV header row."""
     info_cols = [
         "experiment", "seed", "dataset", "trainer", "tester",
@@ -80,6 +80,43 @@ def _build_csv_header():
         for suffix in EXTRA_SUFFIXES:
             metric_cols.append(f"{method}_{suffix}")
     return info_cols + metric_cols
+
+
+def _load_existing_rows(output_csv: str) -> tuple[list, dict, list]:
+    """
+    Load existing CSV rows. Returns:
+      - existing_rows: list[dict] of parsed rows
+      - completed_keys: set of (experiment, layer_type, seed) tuples that are fully complete
+      - header: header list or None if file doesn't exist
+    """
+    if not os.path.exists(output_csv):
+        return [], set(), None
+
+    header = _build_csv_header()
+    info_cols = header[:8]  # first 8 are info cols
+    method_cols = header[8:]
+
+    rows = []
+    with open(output_csv, "r", newline="") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            rows.append(dict(row))
+
+    completed = set()
+    for row in rows:
+        key = (row.get("experiment", ""), row.get("layer_type", ""), int(row.get("seed", 0)))
+        # A row is complete if all method columns have non-ERROR, non-empty values
+        row_complete = True
+        for col in method_cols:
+            val = row.get(col, "")
+            if not val or val == "ERROR":
+                row_complete = False
+                break
+        if row_complete:
+            completed.add(key)
+
+    print(f"[RESUME] Loaded {len(rows)} existing rows, {len(completed)} fully complete.")
+    return rows, completed, header
 
 
 def run_all(
@@ -112,24 +149,32 @@ def run_all(
     seeds_to_run = seeds
 
     header = _build_csv_header()
-    rows = []
+    info_cols = header[:8]
+    method_cols = header[8:]
 
-    # Prepare output file early so results are persisted incrementally.
+    # Load existing results for resume support
+    existing_rows, completed_keys, _ = _load_existing_rows(output_csv)
+    all_rows = list(existing_rows)
+
     out_dir = os.path.dirname(output_csv)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
-    out_f = open(output_csv, "w", newline="")
-    writer = csv.DictWriter(out_f, fieldnames=header)
-    writer.writeheader()
-    out_f.flush()
 
     total = len(experiments) * len(layer_types) * len(seeds_to_run)
     done = 0
+    skipped = 0
 
     for exp_name, exp_cfg in experiments.items():
         for lt in layer_types:
             for seed in seeds_to_run:
                 done += 1
+                key = (exp_name, lt, seed)
+
+                if key in completed_keys:
+                    print(f"\n[SKIP {done}/{total}] {exp_name}  |  layer_type={lt}  |  seed={seed}  (already complete)")
+                    skipped += 1
+                    continue
+
                 print(f"\n{'='*70}")
                 print(f"[{done}/{total}] {exp_name}  |  layer_type={lt}  |  seed={seed}")
                 print(f"{'='*70}")
@@ -154,6 +199,20 @@ def run_all(
                     "trainer_layers": str(exp_cfg["trainer_layers"][lt]),
                     "tester_layers": str(exp_cfg["tester_layers"][lt]),
                 }
+                # Initialize method columns to empty
+                for col in method_cols:
+                    row[col] = ""
+
+                # Restore any previously computed method values for this key
+                for existing in existing_rows:
+                    if (existing.get("experiment", "") == exp_name and
+                        existing.get("layer_type", "") == lt and
+                        int(existing.get("seed", 0)) == seed):
+                        for col in method_cols:
+                            val = existing.get(col, "")
+                            if val and val != "ERROR":
+                                row[col] = val
+                        break
 
                 exp_methods = methods if methods_override else exp_cfg.get("methods", methods)
                 for method_name in exp_methods:
@@ -190,14 +249,15 @@ def run_all(
                                 key = f"{method_name}_{role}_{metric}"
                                 row[key] = "ERROR"
 
-                rows.append(row)
-                # Persist immediately for crash-safety / long runs.
-                writer.writerow(row)
-                out_f.flush()
+                all_rows.append(row)
+                # Persist incrementally
+                with open(output_csv, "w", newline="") as out_f:
+                    writer = csv.DictWriter(out_f, fieldnames=header)
+                    writer.writeheader()
+                    writer.writerows(all_rows)
 
-    out_f.close()
-    print(f"\nResults written to {output_csv}  ({len(rows)} rows)")
-    return rows
+    print(f"\nResults written to {output_csv}  ({len(all_rows)} rows, {skipped} skipped)")
+    return all_rows
 
 
 def main():

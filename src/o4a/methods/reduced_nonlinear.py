@@ -1,5 +1,6 @@
 """ReducedNonLinear: Autoencoder → alignment in latent space → MLPProber."""
 
+import os
 import time
 
 import torch
@@ -100,6 +101,14 @@ def run_reduced_nonlinear(shared_data: dict, config: dict = None, save_dir: str 
         pred_s = prober.predict(zs).cpu().numpy()
         proba_s = torch.sigmoid(prober(zs)).cpu().numpy()
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
+
+    # Save models
+    if save_dir is not None:
+        os.makedirs(save_dir, exist_ok=True)
+        torch.save(ae_trainer.state_dict(), os.path.join(save_dir, "ae_trainer.pt"))
+        torch.save(ae_tester.state_dict(), os.path.join(save_dir, "ae_tester.pt"))
+        torch.save(align_model.state_dict(), os.path.join(save_dir, "aligner.pt"))
+        torch.save(prober.state_dict(), os.path.join(save_dir, "detector.pt"))
 
     return {
         "trainer": metrics_trainer,

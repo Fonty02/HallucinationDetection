@@ -514,6 +514,20 @@ def main() -> None:
     if not (0.0 < args.test_size < 1.0):
         raise ValueError(f"test_size must be in (0,1), got {args.test_size}")
 
+    output_path = Path(args.output).resolve()
+
+    # Check if already completed
+    if output_path.exists():
+        try:
+            with open(output_path, "r", encoding="utf-8") as f:
+                existing = json.load(f)
+            if "layers" in existing and len(existing["layers"]) > 0 and "rankings" in existing:
+                print(f"[SKIP] Output already exists and appears complete: {output_path}")
+                print(f"       ({len(existing['layers'])} layers, {len(existing.get('rankings', {}))} rankings)")
+                return
+        except Exception:
+            print(f"[RESUME] Output exists but is incomplete/corrupt, re-running: {output_path}")
+
     result_payload = run_study(
         model_name=args.model,
         dataset_name=args.dataset,
@@ -525,7 +539,6 @@ def main() -> None:
         logreg_n_jobs=args.logreg_n_jobs,
     )
 
-    output_path = Path(args.output).resolve()
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as file:
         json.dump(result_payload, file, indent=2)

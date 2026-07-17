@@ -1,5 +1,6 @@
 """FullNonLinear method: AlignmentNetwork + MLPProber (both non-linear, full dim)."""
 
+import os
 import time
 
 import torch
@@ -55,6 +56,12 @@ def run_full_nonlinear(shared_data: dict, config: dict = None, save_dir: str = N
         pred_s = prober.predict(X_proj_t).cpu().numpy()
         proba_s = torch.sigmoid(prober(X_proj_t)).cpu().numpy()
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
+
+    # Save models
+    if save_dir is not None:
+        os.makedirs(save_dir, exist_ok=True)
+        torch.save(prober.state_dict(), os.path.join(save_dir, "detector.pt"))
+        torch.save(align_model.state_dict(), os.path.join(save_dir, "aligner.pt"))
 
     return {
         "trainer": metrics_trainer,

@@ -1,6 +1,8 @@
 """CCA method: LogisticRegression prober + CCA alignment."""
+import os
 import time
 
+from joblib import dump
 from sklearn.cross_decomposition import CCA
 from sklearn.linear_model import LinearRegression, LogisticRegression
 
@@ -114,6 +116,12 @@ def run_cca(shared_data: dict, config: dict = None, save_dir: str = None) -> dic
     pred_s = clf.predict(X_tester_proj)
     proba_s = clf.predict_proba(X_tester_proj)[:, 1]
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
+
+    # Save models
+    if save_dir is not None:
+        os.makedirs(save_dir, exist_ok=True)
+        dump(clf, os.path.join(save_dir, "detector.joblib"))
+        dump(aligner, os.path.join(save_dir, "aligner.joblib"))
 
     return {
         "trainer": metrics_trainer,

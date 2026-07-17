@@ -1,5 +1,6 @@
 """OneForAll: shared ClassificationHead, separate Encoders. No alignment needed."""
 
+import os
 import time
 
 import numpy as np
@@ -200,6 +201,13 @@ def run_one_for_all(shared_data: dict, config: dict = None, save_dir: str = None
         pred_s = head.predict(enc_tester(X_s)).cpu().numpy()
         proba_s = torch.sigmoid(head(enc_tester(X_s))).cpu().numpy()
     metrics_tester = compute_metrics(tester["y_test"], pred_s, proba_s)
+
+    # Save models
+    if save_dir is not None:
+        os.makedirs(save_dir, exist_ok=True)
+        torch.save(enc_trainer.state_dict(), os.path.join(save_dir, "enc_trainer.pt"))
+        torch.save(head.state_dict(), os.path.join(save_dir, "head.pt"))
+        torch.save(enc_tester.state_dict(), os.path.join(save_dir, "enc_tester.pt"))
 
     return {
         "trainer": metrics_trainer,
