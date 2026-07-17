@@ -161,30 +161,17 @@ def run_one_for_all(shared_data: dict, config: dict = None, save_dir: str = None
     trainer = shared_data["trainer"]
     tester = shared_data["tester"]
 
-    # 85/15 val split inside train sets
-    n_t = len(trainer["X_train"])
-    rng_t = np.random.RandomState(SEED)
-    perm_t = rng_t.permutation(n_t)
-    vt = int(cfg["val_split"] * n_t)
-    tr_t, val_t = perm_t[vt:], perm_t[:vt]
-
-    n_s = len(tester["X_train"])
-    rng_s = np.random.RandomState(SEED + 100)
-    perm_s = rng_s.permutation(n_s)
-    vs = int(cfg["val_split"] * n_s)
-    tr_s, val_s = perm_s[vs:], perm_s[:vs]
-
-    # Phase 1: Train trainer pipeline
+    # Phase 1: Train trainer pipeline (shared split: balanced train, imbalanced val)
     t0_detector = time.time()
     enc_trainer, head, teacher_info = _train_teacher_pipeline(
-        trainer["X_train"][tr_t], trainer["y_train"][tr_t],
-        trainer["X_train"][val_t], trainer["y_train"][val_t],
+        trainer["X_train"], trainer["y_train"],
+        trainer["X_val"], trainer["y_val"],
         input_dim=trainer["X_train"].shape[1], cfg=cfg,
     )
     detector_time = time.time() - t0_detector
 
     detector_params = count_params(enc_trainer) + count_params(head)
-    detector_train_n = int(len(tr_t))
+    detector_train_n = int(len(trainer["y_train"]))
 
     # Eval trainer
     enc_trainer.eval(); head.eval()
@@ -197,14 +184,14 @@ def run_one_for_all(shared_data: dict, config: dict = None, save_dir: str = None
     # Phase 2: Train tester encoder with frozen head
     t0_aligner = time.time()
     enc_tester, student_info = _train_student_adapter(
-        tester["X_train"][tr_s], tester["y_train"][tr_s],
-        tester["X_train"][val_s], tester["y_train"][val_s],
+        tester["X_train"], tester["y_train"],
+        tester["X_val"], tester["y_val"],
         input_dim=tester["X_train"].shape[1], frozen_head=head, cfg=cfg,
     )
     aligner_time = time.time() - t0_aligner
 
     aligner_params = count_params(enc_tester)
-    aligner_train_n = int(len(tr_s))
+    aligner_train_n = int(len(tester["y_train"]))
 
     # Eval tester
     enc_tester.eval()

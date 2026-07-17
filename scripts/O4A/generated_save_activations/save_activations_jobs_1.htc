@@ -5,6 +5,18 @@ request_gpus = 1
 log = logs/save_activations_htc/job_$(Cluster)_$(Process).log
 output = logs/save_activations_htc/job_$(Cluster)_$(Process).out
 error = logs/save_activations_htc/job_$(Cluster)_$(Process).err
+arguments = "qwen_bb_facts None cuda:0"
+queue
+arguments = "qwen_bb_constraints None cuda:0"
+queue
+arguments = "qwen_halu None cuda:0"
+queue
+arguments = "falcon_bb_facts None cuda:0"
+queue
+arguments = "falcon_bb_constraints None cuda:0"
+queue
+arguments = "falcon_halu None cuda:0"
+queue
 arguments = "gemma_bb_facts None cuda:0"
 queue
 arguments = "gemma_bb_constraints None cuda:0"

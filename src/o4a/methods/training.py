@@ -195,7 +195,7 @@ def train_mlp_prober(X_train, y_train, X_val, y_val, input_dim, cfg):
                               shuffle=True, generator=get_generator(SEED))
     val_loader = DataLoader(val_ds, batch_size=cfg["prober_batch_size"], shuffle=False)
 
-    best_state, best_acc, patience = None, 0.0, 0
+    best_state, best_f1, patience = None, 0.0, 0
     best_epoch, total_epochs = 0, 0
     min_delta = cfg.get("prober_min_delta", 0.0)
 
@@ -218,10 +218,10 @@ def train_mlp_prober(X_train, y_train, X_val, y_val, input_dim, cfg):
                 preds = prober.predict(xb.to(DEVICE)).cpu().numpy()
                 all_preds.extend(preds)
                 all_labels.extend(yb.numpy())
-        acc = accuracy_score(all_labels, all_preds)
+        f1 = f1_score(all_labels, all_preds, zero_division=0)
 
-        if acc > best_acc + min_delta:
-            best_acc, patience = acc, 0
+        if f1 > best_f1 + min_delta:
+            best_f1, patience = f1, 0
             best_epoch = epoch + 1
             best_state = _capture_state_dict(prober)
         else:
@@ -234,7 +234,7 @@ def train_mlp_prober(X_train, y_train, X_val, y_val, input_dim, cfg):
     training_info = {
         "total_epochs": total_epochs,
         "best_epoch": best_epoch,
-        "best_val_acc": best_acc,
+        "best_val_f1": best_f1,
     }
     return prober, training_info
 

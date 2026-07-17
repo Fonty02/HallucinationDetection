@@ -37,10 +37,10 @@ from o4a.config import (  # noqa: E402
 )
 from o4a.data import (  # noqa: E402
     DataManager,
-    get_undersampled_indices_per_model,
     prepare_shared_data,
     set_seed,
 )
+from sklearn.model_selection import train_test_split  # noqa: E402
 from o4a.methods.one_for_all import (  # noqa: E402
     _train_student_adapter,
     _train_teacher_pipeline,
@@ -79,17 +79,27 @@ def _predict_with_encoder_head(encoder: torch.nn.Module, head: torch.nn.Module, 
     return preds, probs
 
 
-def _load_balanced_eval_set(
+def _load_stratified_test_set(
     model_name: str,
     dataset_name: str,
     layer_indices: list[int],
     layer_type: str,
-    seed: int,
+    test_size: float = 0.15,
+    seed: int = SEED,
 ) -> tuple[np.ndarray, np.ndarray]:
-    X_full, _ = DataManager.load_concatenated_layers(model_name, dataset_name, layer_indices, layer_type)
+    """Load a stratified test split from the activation dataset (imbalanced, preserves original class proportions)."""
+    X_full, _, _ = DataManager.load_concatenated_layers(model_name, dataset_name, layer_indices, layer_type)
     stats = DataManager.get_stats(model_name, dataset_name, layer_type=layer_type)
-    idx_bal, y_bal = get_undersampled_indices_per_model(stats, seed=seed)
-    return X_full[idx_bal], y_bal.astype(np.int64)
+
+    # Build label array in positional order (same approach as get_undersampled_indices_per_model)
+    hall_set = set(stats["hallucinated_ids"])
+    y = np.array([1 if i in hall_set else 0 for i in range(stats["total"])], dtype=np.int8)
+
+    all_idx = np.arange(stats["total"])
+    _, test_idx = train_test_split(
+        all_idx, test_size=test_size, random_state=seed, stratify=y,
+    )
+    return X_full[test_idx], y[test_idx]
 
 
 def _train_encoder_domain_bundle(exp_cfg: dict[str, Any], layer_type: str, cfg: dict[str, Any]) -> dict[str, Any]:
@@ -135,6 +145,8 @@ def _train_encoder_domain_bundle(exp_cfg: dict[str, Any], layer_type: str, cfg: 
         "shared_head": shared_head,
         "teacher_scaler": trainer["scaler"],
         "student_scaler": tester["scaler"],
+        "teacher_test": (trainer["X_test_raw"], trainer["y_test"]),
+        "student_test": (tester["X_test_raw"], tester["y_test"]),
         "training_info": {
             "teacher_pipeline": teacher_info,
             "student_adapter": student_info,
@@ -214,23 +226,23 @@ def run_cross_domain_one_for_all(
             encoder_bundle["student_encoder"].eval()
             encoder_bundle["shared_head"].eval()
 
-            X_t, y_t = _load_balanced_eval_set(
-                teacher_model,
-                activation_dataset,
-                teacher_layers,
-                layer_type,
-                seed=SEED,
-            )
-            X_s, y_s = _load_balanced_eval_set(
-                student_model,
-                activation_dataset,
-                student_layers,
-                layer_type,
-                seed=SEED,
-            )
-
-            X_t = encoder_bundle["teacher_scaler"].transform(X_t).astype(np.float32)
-            X_s = encoder_bundle["student_scaler"].transform(X_s).astype(np.float32)
+            if activation_dataset == enc_cfg["dataset"]:
+                # Same domain: use proper test split from prepare_shared_data (no leakage)
+                X_t_raw, y_t = encoder_bundle["teacher_test"]
+                X_s_raw, y_s = encoder_bundle["student_test"]
+                X_t = encoder_bundle["teacher_scaler"].transform(X_t_raw).astype(np.float32)
+                X_s = encoder_bundle["student_scaler"].transform(X_s_raw).astype(np.float32)
+            else:
+                # Cross domain: load a stratified test split from activation dataset
+                # (preserves original class proportions, no training overlap — different dataset)
+                X_t_raw, y_t = _load_stratified_test_set(
+                    teacher_model, activation_dataset, teacher_layers, layer_type, seed=SEED,
+                )
+                X_s_raw, y_s = _load_stratified_test_set(
+                    student_model, activation_dataset, student_layers, layer_type, seed=SEED,
+                )
+                X_t = encoder_bundle["teacher_scaler"].transform(X_t_raw).astype(np.float32)
+                X_s = encoder_bundle["student_scaler"].transform(X_s_raw).astype(np.float32)
 
             pred_t, prob_t = _predict_with_encoder_head(
                 encoder_bundle["teacher_encoder"],

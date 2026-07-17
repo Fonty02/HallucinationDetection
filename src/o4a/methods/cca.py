@@ -64,9 +64,7 @@ def run_cca(shared_data: dict, config: dict = None, save_dir: str = None) -> dic
     tester = shared_data["tester"]
     alignment = shared_data["alignment"]
 
-    # 1. Trainer prober (shared prober split)
-    prober_split = shared_data["prober_split"]
-    tr_idx = prober_split["train_idx"]
+    # 1. Trainer prober (trained on all balanced training data)
     clf = LogisticRegression(
         max_iter=cfg["probe_max_iter"],
         class_weight="balanced",
@@ -75,11 +73,11 @@ def run_cca(shared_data: dict, config: dict = None, save_dir: str = None) -> dic
         random_state=SEED,
     )
     t0_detector = time.time()
-    clf.fit(trainer["X_train"][tr_idx], trainer["y_train"][tr_idx])
+    clf.fit(trainer["X_train"], trainer["y_train"])
     detector_time = time.time() - t0_detector
 
     detector_params = count_params(clf)
-    detector_train_n = int(len(tr_idx))
+    detector_train_n = int(len(trainer["y_train"]))
 
     # 2. Trainer eval
     pred_t = clf.predict(trainer["X_test"])

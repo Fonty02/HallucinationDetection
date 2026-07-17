@@ -27,11 +27,6 @@ def run_reduced_nonlinear(shared_data: dict, config: dict = None, save_dir: str 
     ae_tr_t, ae_val_t = split_train_val(len(trainer["X_train"]), seed=SEED)
     ae_tr_s, ae_val_s = split_train_val(len(tester["X_train"]), seed=SEED)
 
-    # Shared prober split (fixed across methods)
-    prober_split = shared_data["prober_split"]
-    pr_tr_idx = prober_split["train_idx"]
-    pr_val_idx = prober_split["val_idx"]
-
     # 1. Train autoencoders (timed separately)
     t0_ae_trainer = time.time()
     ae_trainer, ae_trainer_info = train_autoencoder(
@@ -74,18 +69,19 @@ def run_reduced_nonlinear(shared_data: dict, config: dict = None, save_dir: str 
     # 4. Encode trainer data & train prober in latent space
     with torch.no_grad():
         z_trainer_train = ae_trainer.encode(torch.tensor(trainer["X_train"], dtype=torch.float32, device=DEVICE)).cpu().numpy()
+        z_trainer_val = ae_trainer.encode(torch.tensor(trainer["X_val"], dtype=torch.float32, device=DEVICE)).cpu().numpy()
         z_trainer_test = ae_trainer.encode(torch.tensor(trainer["X_test"], dtype=torch.float32, device=DEVICE)).cpu().numpy()
 
     t0_detector = time.time()
     prober, prober_info = train_mlp_prober(
-        z_trainer_train[pr_tr_idx], trainer["y_train"][pr_tr_idx],
-        z_trainer_train[pr_val_idx], trainer["y_train"][pr_val_idx],
+        z_trainer_train, trainer["y_train"],
+        z_trainer_val, trainer["y_val"],
         input_dim=cfg["autoencoder_latent_dim"], cfg=cfg,
     )
     detector_time = time.time() - t0_detector
 
     detector_params = count_params(prober)
-    detector_train_n = int(len(pr_tr_idx))
+    detector_train_n = int(z_trainer_train.shape[0])
 
     # 5. Evaluate trainer
     prober.eval()

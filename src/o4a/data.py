@@ -6,11 +6,12 @@ import random
 
 import numpy as np
 import torch
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 from .config import (
     CACHE_DIR_NAME, DEVICE, ROOT_DIR, SEED,
-    TRAIN_SPLIT, ALIGNMENT_SPLIT, PROBER_VAL_SPLIT,
+    TRAIN_SPLIT, ALIGNMENT_SPLIT,
     MODEL_ALIASES,
 )
 
@@ -204,16 +205,19 @@ class DataManager:
 
     @classmethod
     def load_concatenated_layers(cls, model: str, dataset: str, layer_indices: list, layer_type: str):
-        """Load & concatenate activations for the requested layers. Returns (X, y)."""
-        combined, common_y = [], None
+        """Load & concatenate activations for the requested layers. Returns (X, y, ids)."""
+        combined, common_y, common_ids = [], None, None
         for idx in layer_indices:
-            X_l, y_l, _ = cls.load_activations_and_labels(model, dataset, idx, layer_type)
+            X_l, y_l, ids_l = cls.load_activations_and_labels(model, dataset, idx, layer_type)
             if common_y is None:
                 common_y = y_l
+                common_ids = ids_l
             elif not np.array_equal(common_y, y_l):
                 raise ValueError(f"Label mismatch at layer {idx} for {model}")
+            elif not np.array_equal(common_ids, ids_l):
+                raise ValueError(f"Instance id mismatch at layer {idx} for {model}")
             combined.append(X_l)
-        return np.concatenate(combined, axis=1), common_y
+        return np.concatenate(combined, axis=1), common_y, common_ids
 
 
 # ==================================================================
@@ -283,33 +287,18 @@ def prepare_shared_data(experiment: dict, layer_type: str):
     trainer_layers = experiment["trainer_layers"][layer_type]
     tester_layers = experiment["tester_layers"][layer_type]
 
-    # ---- load full activations ----
-    X_trainer_full, _ = DataManager.load_concatenated_layers(
+    # ---- load full activations (with instance ids for alignment mapping) ----
+    X_trainer_full, _, trainer_ids = DataManager.load_concatenated_layers(
         trainer_name, dataset, trainer_layers, layer_type
     )
-    X_tester_full, _ = DataManager.load_concatenated_layers(
+    X_tester_full, _, tester_ids = DataManager.load_concatenated_layers(
         tester_name, dataset, tester_layers, layer_type
     )
 
-    # ---- stats for concordant alignment ----
+    # ---- stats for concordant alignment (from full dataset) ----
     stats_trainer = DataManager.get_stats(trainer_name, dataset)
     stats_tester = DataManager.get_stats(tester_name, dataset)
-    align_indices, _ = get_concordant_indices_and_undersample(stats_trainer, stats_tester, SEED)
-
-    # Use unique seed for alignment split (independent from probing splits)
-    rng_align = np.random.RandomState(SEED + 10)
-    perm_align = rng_align.permutation(len(align_indices))
-    split_a = int(ALIGNMENT_SPLIT * len(align_indices))
-    align_train_local = perm_align[:split_a]
-    align_val_local = perm_align[split_a:]
-
-    X_align_trainer = X_trainer_full[align_indices]
-    X_align_tester = X_tester_full[align_indices]
-
-    X_align_trainer_train = X_align_trainer[align_train_local]
-    X_align_trainer_val = X_align_trainer[align_val_local]
-    X_align_tester_train = X_align_tester[align_train_local]
-    X_align_tester_val = X_align_tester[align_val_local]
+    align_ids, _ = get_concordant_indices_and_undersample(stats_trainer, stats_tester, SEED)
 
     # ---- per-model splits for probing ----
     # Build full label arrays from stats (preserves natural distribution)
@@ -322,17 +311,22 @@ def prepare_shared_data(experiment: dict, layer_type: str):
         [1 if i in hall_set_s else 0 for i in range(stats_tester["total"])], dtype=np.int8
     )
 
-    # Step 1: train/test split on ALL data first (test stays imbalanced, real distribution)
-    rng_t_split = np.random.RandomState(SEED + 20)
-    rng_s_split = np.random.RandomState(SEED + 21)
-    perm_t_all = rng_t_split.permutation(stats_trainer["total"])
-    perm_s_all = rng_s_split.permutation(stats_tester["total"])
-    sp_t = int(TRAIN_SPLIT * stats_trainer["total"])
-    sp_s = int(TRAIN_SPLIT * stats_tester["total"])
-    train_t_pos = perm_t_all[:sp_t]
-    test_t_pos = perm_t_all[sp_t:]
-    train_s_pos = perm_s_all[:sp_s]
-    test_s_pos = perm_s_all[sp_s:]
+    # Step 1: stratified train/val/test split (70/15/15) — all preserve class ratios
+    all_idx_t = np.arange(stats_trainer["total"])
+    all_idx_s = np.arange(stats_tester["total"])
+
+    train_t_pos, valtest_t_pos = train_test_split(
+        all_idx_t, test_size=1.0 - TRAIN_SPLIT, random_state=SEED + 20, stratify=y_trainer_all,
+    )
+    val_t_pos, test_t_pos = train_test_split(
+        valtest_t_pos, test_size=0.5, random_state=SEED + 24, stratify=y_trainer_all[valtest_t_pos],
+    )
+    train_s_pos, valtest_s_pos = train_test_split(
+        all_idx_s, test_size=1.0 - TRAIN_SPLIT, random_state=SEED + 21, stratify=y_tester_all,
+    )
+    val_s_pos, test_s_pos = train_test_split(
+        valtest_s_pos, test_size=0.5, random_state=SEED + 25, stratify=y_tester_all[valtest_s_pos],
+    )
 
     # Step 2: balance only the training portion (undersample to minority class)
     rng_t_bal = np.random.RandomState(SEED + 22)
@@ -362,25 +356,61 @@ def prepare_shared_data(experiment: dict, layer_type: str):
             sel_s.extend(cls_pos)
     train_s_bal_pos = np.sort(np.array(sel_s))
 
-    # Extract activations — balanced train, imbalanced test
+    # ---- concordant alignment (constrained to training split only) ----
+    # Filter alignment ids to only samples present in both training splits
+    trainer_train_ids = set(str(id_val) for id_val in trainer_ids[train_t_pos])
+    tester_train_ids = set(str(id_val) for id_val in tester_ids[train_s_pos])
+    common_train_ids = trainer_train_ids & tester_train_ids
+    align_ids_train = np.array([id_val for id_val in align_ids if str(id_val) in common_train_ids])
+
+    if len(align_ids_train) == 0:
+        raise ValueError("No concordant alignment samples in the training split. "
+                         f"Trainer train ids: {len(trainer_train_ids)}, "
+                         f"Tester train ids: {len(tester_train_ids)}, "
+                         f"Common: {len(common_train_ids)}")
+
+    # Map instance ids → positional indices for both models
+    trainer_id_to_pos = {str(id_val): pos for pos, id_val in enumerate(trainer_ids)}
+    tester_id_to_pos = {str(id_val): pos for pos, id_val in enumerate(tester_ids)}
+    align_pos_trainer = np.array([trainer_id_to_pos[str(id_val)] for id_val in align_ids_train])
+    align_pos_tester = np.array([tester_id_to_pos[str(id_val)] for id_val in align_ids_train])
+
+    # Use unique seed for alignment split (independent from probing splits)
+    rng_align = np.random.RandomState(SEED + 10)
+    perm_align = rng_align.permutation(len(align_ids_train))
+    split_a = int(ALIGNMENT_SPLIT * len(align_ids_train))
+    align_train_local = perm_align[:split_a]
+    align_val_local = perm_align[split_a:]
+
+    X_align_trainer = X_trainer_full[align_pos_trainer]
+    X_align_tester = X_tester_full[align_pos_tester]
+
+    X_align_trainer_train = X_align_trainer[align_train_local]
+    X_align_trainer_val = X_align_trainer[align_val_local]
+    X_align_tester_train = X_align_tester[align_train_local]
+    X_align_tester_val = X_align_tester[align_val_local]
+
+    # ---- Extract activations — balanced train, imbalanced val, imbalanced test ----
     X_trainer_train_raw = X_trainer_full[train_t_bal_pos]
+    X_trainer_val_raw = X_trainer_full[val_t_pos]
     X_trainer_test_raw = X_trainer_full[test_t_pos]
     y_trainer_train = y_trainer_all[train_t_bal_pos]
+    y_trainer_val = y_trainer_all[val_t_pos]
     y_trainer_test = y_trainer_all[test_t_pos]
 
     X_tester_train_raw = X_tester_full[train_s_bal_pos]
+    X_tester_val_raw = X_tester_full[val_s_pos]
     X_tester_test_raw = X_tester_full[test_s_pos]
     y_tester_train = y_tester_all[train_s_bal_pos]
+    y_tester_val = y_tester_all[val_s_pos]
     y_tester_test = y_tester_all[test_s_pos]
 
     # ---- prober split (shared across methods) ----
-    rng_p = np.random.RandomState(SEED + 30)
-    perm_p = rng_p.permutation(len(X_trainer_train_raw))
-    v_p = int(PROBER_VAL_SPLIT * len(X_trainer_train_raw))
-    prober_val_idx = perm_p[:v_p]
-    prober_train_idx = perm_p[v_p:]
+    # train_idx → all of balanced train; val_idx → all of imbalanced val
+    prober_train_idx = np.arange(len(X_trainer_train_raw))
+    prober_val_idx = np.arange(len(X_trainer_val_raw))
 
-    # ---- scalers ----
+    # ---- scalers (fit on balanced train only) ----
     scaler_trainer = StandardScaler().fit(X_trainer_train_raw)
     scaler_tester = StandardScaler().fit(X_tester_train_raw)
     scaler_align_trainer = StandardScaler().fit(X_align_trainer_train)
@@ -393,26 +423,32 @@ def prepare_shared_data(experiment: dict, layer_type: str):
         "layer_type": layer_type,
         "trainer": {
             "X_train": scaler_trainer.transform(X_trainer_train_raw),
+            "X_val": scaler_trainer.transform(X_trainer_val_raw),
             "X_test": scaler_trainer.transform(X_trainer_test_raw),
             "X_train_raw": X_trainer_train_raw,
+            "X_val_raw": X_trainer_val_raw,
             "X_test_raw": X_trainer_test_raw,
             "y_train": y_trainer_train,
+            "y_val": y_trainer_val,
             "y_test": y_trainer_test,
             "scaler": scaler_trainer,
         },
         "tester": {
             "X_train": scaler_tester.transform(X_tester_train_raw),
+            "X_val": scaler_tester.transform(X_tester_val_raw),
             "X_test": scaler_tester.transform(X_tester_test_raw),
             "X_train_raw": X_tester_train_raw,
+            "X_val_raw": X_tester_val_raw,
             "X_test_raw": X_tester_test_raw,
             "y_train": y_tester_train,
+            "y_val": y_tester_val,
             "y_test": y_tester_test,
             "scaler": scaler_tester,
         },
         "prober_split": {
             "train_idx": prober_train_idx,
             "val_idx": prober_val_idx,
-            "val_ratio": PROBER_VAL_SPLIT,
+            "val_ratio": 1.0 - TRAIN_SPLIT,  # imbalanced val
         },
         "alignment": {
             "X_trainer_train": scaler_align_trainer.transform(X_align_trainer_train),

@@ -15,22 +15,17 @@ def run_full_nonlinear(shared_data: dict, config: dict = None, save_dir: str = N
     tester = shared_data["tester"]
     alignment = shared_data["alignment"]
 
-    # Shared prober split (fixed across methods)
-    prober_split = shared_data["prober_split"]
-    tr_idx = prober_split["train_idx"]
-    val_idx = prober_split["val_idx"]
-
-    # Train prober on trainer
+    # Train prober on trainer (balanced train, imbalanced val for early stopping)
     t0_detector = time.time()
     prober, prober_info = train_mlp_prober(
-        trainer["X_train"][tr_idx], trainer["y_train"][tr_idx],
-        trainer["X_train"][val_idx], trainer["y_train"][val_idx],
+        trainer["X_train"], trainer["y_train"],
+        trainer["X_val"], trainer["y_val"],
         input_dim=trainer["X_train"].shape[1], cfg=cfg,
     )
     detector_time = time.time() - t0_detector
 
     detector_params = count_params(prober)
-    detector_train_n = int(len(tr_idx))
+    detector_train_n = int(len(trainer["y_train"]))
 
     # Evaluate trainer
     prober.eval()
