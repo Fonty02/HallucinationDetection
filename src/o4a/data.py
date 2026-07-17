@@ -296,7 +296,8 @@ def prepare_shared_data(experiment: dict, layer_type: str):
     stats_tester = DataManager.get_stats(tester_name, dataset)
     align_indices, _ = get_concordant_indices_and_undersample(stats_trainer, stats_tester, SEED)
 
-    rng_align = np.random.RandomState(SEED)
+    # Use unique seed for alignment split (independent from probing splits)
+    rng_align = np.random.RandomState(SEED + 10)
     perm_align = rng_align.permutation(len(align_indices))
     split_a = int(ALIGNMENT_SPLIT * len(align_indices))
     align_train_local = perm_align[:split_a]
@@ -310,35 +311,70 @@ def prepare_shared_data(experiment: dict, layer_type: str):
     X_align_tester_train = X_align_tester[align_train_local]
     X_align_tester_val = X_align_tester[align_val_local]
 
-    # ---- per-model balanced indices for probing ----
-    idx_trainer_bal, y_trainer_bal = get_undersampled_indices_per_model(stats_trainer, SEED)
-    idx_tester_bal, y_tester_bal = get_undersampled_indices_per_model(stats_tester, SEED)
+    # ---- per-model splits for probing ----
+    # Build full label arrays from stats (preserves natural distribution)
+    hall_set_t = set(stats_trainer["hallucinated_ids"])
+    hall_set_s = set(stats_tester["hallucinated_ids"])
+    y_trainer_all = np.array(
+        [1 if i in hall_set_t else 0 for i in range(stats_trainer["total"])], dtype=np.int8
+    )
+    y_tester_all = np.array(
+        [1 if i in hall_set_s else 0 for i in range(stats_tester["total"])], dtype=np.int8
+    )
 
-    X_trainer_bal = X_trainer_full[idx_trainer_bal]
-    X_tester_bal = X_tester_full[idx_tester_bal]
+    # Step 1: train/test split on ALL data first (test stays imbalanced, real distribution)
+    rng_t_split = np.random.RandomState(SEED + 20)
+    rng_s_split = np.random.RandomState(SEED + 21)
+    perm_t_all = rng_t_split.permutation(stats_trainer["total"])
+    perm_s_all = rng_s_split.permutation(stats_tester["total"])
+    sp_t = int(TRAIN_SPLIT * stats_trainer["total"])
+    sp_s = int(TRAIN_SPLIT * stats_tester["total"])
+    train_t_pos = perm_t_all[:sp_t]
+    test_t_pos = perm_t_all[sp_t:]
+    train_s_pos = perm_s_all[:sp_s]
+    test_s_pos = perm_s_all[sp_s:]
 
-    # train/test split
-    rng_t = np.random.RandomState(SEED)
-    rng_s = np.random.RandomState(SEED + 1)
+    # Step 2: balance only the training portion (undersample to minority class)
+    rng_t_bal = np.random.RandomState(SEED + 22)
+    rng_s_bal = np.random.RandomState(SEED + 23)
 
-    perm_t = rng_t.permutation(len(X_trainer_bal))
-    perm_s = rng_s.permutation(len(X_tester_bal))
+    y_trainer_train_part = y_trainer_all[train_t_pos]
+    unique_t, counts_t = np.unique(y_trainer_train_part, return_counts=True)
+    min_t = counts_t.min()
+    sel_t = []
+    for cls in unique_t:
+        cls_pos = train_t_pos[np.where(y_trainer_train_part == cls)[0]]
+        if len(cls_pos) > min_t:
+            sel_t.extend(rng_t_bal.choice(cls_pos, size=min_t, replace=False))
+        else:
+            sel_t.extend(cls_pos)
+    train_t_bal_pos = np.sort(np.array(sel_t))
 
-    sp_t = int(TRAIN_SPLIT * len(X_trainer_bal))
-    sp_s = int(TRAIN_SPLIT * len(X_tester_bal))
+    y_tester_train_part = y_tester_all[train_s_pos]
+    unique_s, counts_s = np.unique(y_tester_train_part, return_counts=True)
+    min_s = counts_s.min()
+    sel_s = []
+    for cls in unique_s:
+        cls_pos = train_s_pos[np.where(y_tester_train_part == cls)[0]]
+        if len(cls_pos) > min_s:
+            sel_s.extend(rng_s_bal.choice(cls_pos, size=min_s, replace=False))
+        else:
+            sel_s.extend(cls_pos)
+    train_s_bal_pos = np.sort(np.array(sel_s))
 
-    X_trainer_train_raw = X_trainer_bal[perm_t[:sp_t]]
-    X_trainer_test_raw = X_trainer_bal[perm_t[sp_t:]]
-    y_trainer_train = y_trainer_bal[perm_t[:sp_t]]
-    y_trainer_test = y_trainer_bal[perm_t[sp_t:]]
+    # Extract activations — balanced train, imbalanced test
+    X_trainer_train_raw = X_trainer_full[train_t_bal_pos]
+    X_trainer_test_raw = X_trainer_full[test_t_pos]
+    y_trainer_train = y_trainer_all[train_t_bal_pos]
+    y_trainer_test = y_trainer_all[test_t_pos]
 
-    X_tester_train_raw = X_tester_bal[perm_s[:sp_s]]
-    X_tester_test_raw = X_tester_bal[perm_s[sp_s:]]
-    y_tester_train = y_tester_bal[perm_s[:sp_s]]
-    y_tester_test = y_tester_bal[perm_s[sp_s:]]
+    X_tester_train_raw = X_tester_full[train_s_bal_pos]
+    X_tester_test_raw = X_tester_full[test_s_pos]
+    y_tester_train = y_tester_all[train_s_bal_pos]
+    y_tester_test = y_tester_all[test_s_pos]
 
     # ---- prober split (shared across methods) ----
-    rng_p = np.random.RandomState(SEED)
+    rng_p = np.random.RandomState(SEED + 30)
     perm_p = rng_p.permutation(len(X_trainer_train_raw))
     v_p = int(PROBER_VAL_SPLIT * len(X_trainer_train_raw))
     prober_val_idx = perm_p[:v_p]
