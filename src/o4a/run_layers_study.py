@@ -203,25 +203,30 @@ def build_split_indices(
     split_cache: dict[int, dict[str, object]] = {}
 
     for split_seed in split_seeds:
-        balanced_indices = get_balanced_indices(y_reference, split_seed)
-        y_balanced = y_reference[balanced_indices]
-
+        # Step 1: stratified train/test split on ALL data (preserves original proportions)
+        all_idx = np.arange(len(y_reference))
         train_rel_idx, test_rel_idx = train_test_split(
-            np.arange(len(balanced_indices)),
+            all_idx,
             test_size=test_size,
             random_state=split_seed,
-            stratify=y_balanced,
+            stratify=y_reference,
         )
-        train_indices = balanced_indices[train_rel_idx]
-        test_indices = balanced_indices[test_rel_idx]
+        # Step 2: undersample only the training portion (balanced 50/50 for classifier)
+        y_train_part = y_reference[train_rel_idx]
+        bal_train = get_balanced_indices(y_train_part, split_seed)
+        train_indices = train_rel_idx[bal_train]
+        test_indices = test_rel_idx
 
         split_cache[split_seed] = {
-            "balanced_indices": balanced_indices,
             "train_indices": train_indices,
             "test_indices": test_indices,
-            "balanced_class_distribution": {
-                "hallucination_1": int(np.sum(y_balanced == 1)),
-                "not_hallucination_0": int(np.sum(y_balanced == 0)),
+            "train_class_distribution": {
+                "hallucination_1": int(np.sum(y_train_part[bal_train] == 1)),
+                "not_hallucination_0": int(np.sum(y_train_part[bal_train] == 0)),
+            },
+            "test_class_distribution": {
+                "hallucination_1": int(np.sum(y_reference[test_indices] == 1)),
+                "not_hallucination_0": int(np.sum(y_reference[test_indices] == 0)),
             },
             "train_size": int(len(train_indices)),
             "test_size": int(len(test_indices)),
@@ -291,7 +296,8 @@ def compute_layer_metrics(
                 "split_seed": int(split_seed),
                 "train_size": int(split_data["train_size"]),
                 "test_size": int(split_data["test_size"]),
-                "balanced_class_distribution": split_data["balanced_class_distribution"],
+                "train_class_distribution": split_data["train_class_distribution"],
+                "test_class_distribution": split_data["test_class_distribution"],
                 "metrics": metric_payload,
             }
         )
