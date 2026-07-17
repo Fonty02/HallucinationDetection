@@ -2,7 +2,8 @@
 
 For a given (model, dataset, layer_type), this script:
 1) loads activations layer-by-layer from activation_cache
-2) builds 10 deterministic balanced train/test splits (via split seeds)
+2) builds 10 deterministic stratified train/test splits (via split seeds),
+   then undersamples only the training portion for balanced classifier training
 3) trains Logistic Regression per layer and per split seed
 4) stores per-seed metrics and aggregated stats in a JSON file
 """
@@ -429,7 +430,8 @@ def run_study(
         str(split_seed): {
             "train_size": int(split_data["train_size"]),
             "test_size": int(split_data["test_size"]),
-            "balanced_class_distribution": split_data["balanced_class_distribution"],
+            "train_class_distribution": split_data["train_class_distribution"],
+            "test_class_distribution": split_data["test_class_distribution"],
         }
         for split_seed, split_data in split_cache.items()
     }
@@ -481,7 +483,7 @@ def parse_args() -> argparse.Namespace:
         "--test-size",
         type=float,
         default=0.3,
-        help="Test split ratio after balancing (default: 0.3).",
+        help="Test split ratio on original imbalanced data (default: 0.3).",
     )
     parser.add_argument(
         "--device",
