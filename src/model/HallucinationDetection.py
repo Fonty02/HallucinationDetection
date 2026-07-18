@@ -266,55 +266,55 @@ class HallucinationDetection:
 
 
     def combine_activations(self):
-    results_dir = os.path.join(self.project_dir, self.CACHE_DIR_NAME)
-    model_name = self.llm_name.split("/")[-1]
+        results_dir = os.path.join(self.project_dir, self.CACHE_DIR_NAME)
+        model_name = self.llm_name.split("/")[-1]
 
-    for aa in self.ACTIVATION_TARGET:
-        act_dir = os.path.join(results_dir, model_name, self.dataset_name, f"activation_{aa}")
+        for aa in self.ACTIVATION_TARGET:
+            act_dir = os.path.join(results_dir, model_name, self.dataset_name, f"activation_{aa}")
 
-        act_files = list(os.listdir(act_dir))
+            act_files = list(os.listdir(act_dir))
 
-        act_files = [f for f in act_files if len(f.split("-")) == 2]
+            act_files = [f for f in act_files if len(f.split("-")) == 2]
 
-        act_files_layer_idx_instance_idx = [
-            [act_f, ut.parse_layer_id_and_instance_id(os.path.basename(act_f))]
-            for act_f in act_files
-        ]
+            act_files_layer_idx_instance_idx = [
+                [act_f, ut.parse_layer_id_and_instance_id(os.path.basename(act_f))]
+                for act_f in act_files
+            ]
 
-        # For each layer id (as key), the value contains a list of [activation file, instance id]
-        layer_group_files = {lid: [] for lid in self.TARGET_LAYERS}
-        for act_f, (layer_id, instance_id) in act_files_layer_idx_instance_idx:
-            layer_group_files[layer_id].append([act_f, instance_id])
+            # For each layer id (as key), the value contains a list of [activation file, instance id]
+            layer_group_files = {lid: [] for lid in self.TARGET_LAYERS}
+            for act_f, (layer_id, instance_id) in act_files_layer_idx_instance_idx:
+                layer_group_files[layer_id].append([act_f, instance_id])
 
-        for layer_id in self.TARGET_LAYERS:
-            save_path = os.path.join(act_dir, f"layer{layer_id}_activations.pt")
-            ids_save_path = os.path.join(act_dir, f"layer{layer_id}_instance_ids.json")
+            for layer_id in self.TARGET_LAYERS:
+                save_path = os.path.join(act_dir, f"layer{layer_id}_activations.pt")
+                ids_save_path = os.path.join(act_dir, f"layer{layer_id}_instance_ids.json")
 
-            # Skip this layer if the final output already exists
-            if os.path.exists(save_path) and os.path.exists(ids_save_path):
-                print(f"Skipping layer {layer_id} for activation_{aa}: output already exists")
-                continue
+                # Skip this layer if the final output already exists
+                if os.path.exists(save_path) and os.path.exists(ids_save_path):
+                    print(f"Skipping layer {layer_id} for activation_{aa}: output already exists")
+                    continue
 
-            # Sort the files for each layer by instance ID
-            layer_group_files[layer_id] = sorted(layer_group_files[layer_id], key=lambda x: x[1])
+                # Sort the files for each layer by instance ID
+                layer_group_files[layer_id] = sorted(layer_group_files[layer_id], key=lambda x: x[1])
 
-            acts = []
-            loaded_paths = []
-            instance_ids = []
-            for idx, (act_f, instance_id) in enumerate(layer_group_files[layer_id]):
-                #assert idx == instance_id
-                path_to_load = os.path.join(act_dir, act_f)
-                acts.append(torch.load(path_to_load))
-                loaded_paths.append(path_to_load)
-                instance_ids.append(instance_id)
+                acts = []
+                loaded_paths = []
+                instance_ids = []
+                for idx, (act_f, instance_id) in enumerate(layer_group_files[layer_id]):
+                    #assert idx == instance_id
+                    path_to_load = os.path.join(act_dir, act_f)
+                    acts.append(torch.load(path_to_load))
+                    loaded_paths.append(path_to_load)
+                    instance_ids.append(instance_id)
 
-            acts = torch.stack(acts)
-            torch.save(acts, save_path)
+                acts = torch.stack(acts)
+                torch.save(acts, save_path)
 
-            json.dump(instance_ids, open(ids_save_path, "w"), indent=4)
+                json.dump(instance_ids, open(ids_save_path, "w"), indent=4)
 
-            for p in loaded_paths:
-                os.remove(p)
+                for p in loaded_paths:
+                    os.remove(p)
 
 
     # -------------
