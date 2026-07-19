@@ -43,7 +43,7 @@ SAFE_LAYER="${LAYER_TYPE//\//__}"
 
 OUTPUT_DIR="${OUTPUT_BASE_DIR}/${SAFE_MODEL}/${SAFE_DATASET}"
 mkdir -p "$OUTPUT_DIR"
-OUTPUT_JSON="${OUTPUT_DIR}/layer_study_${SAFE_MODEL}_${SAFE_DATASET}_${SAFE_LAYER}.json"
+OUTPUT_CSV="${OUTPUT_DIR}/layer_study_${SAFE_MODEL}_${SAFE_DATASET}_${SAFE_LAYER}.csv"
 
 CMD=(
     python -u -W ignore
@@ -56,7 +56,7 @@ CMD=(
     --device "$DEVICE"
     --max-iter "$MAX_ITER"
     --logreg-n-jobs "$LOGREG_N_JOBS"
-    --output "$OUTPUT_JSON"
+    --output "$OUTPUT_CSV"
 )
 
 echo "========================================"
@@ -69,7 +69,7 @@ echo "Test size: $TEST_SIZE"
 echo "Device: $DEVICE"
 echo "Max iter: $MAX_ITER"
 echo "LogReg n_jobs: $LOGREG_N_JOBS"
-echo "Output: $OUTPUT_JSON"
+echo "Output: $OUTPUT_CSV"
 echo "========================================"
 
 time "${CMD[@]}"
