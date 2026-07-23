@@ -1,0 +1,65 @@
+{
+  "model": "Falcon3-7B-Base",
+  "train_dataset": "belief_bank_constraints",
+  "layer_type": "attn",
+  "created_at_utc": "2026-07-22T15:12:16.901392+00:00",
+  "evaluations": {
+    "belief_bank_constraints": {
+      "type": "in_domain",
+      "metrics": {
+        "mean": {
+          "accuracy": 0.5333333333333333,
+          "f1": 0.26666666666666666,
+          "auroc": 0.4,
+          "precision": 0.25,
+          "recall": 0.3
+        },
+        "std": {
+          "accuracy": 0.30550504633038933,
+          "f1": 0.4163331998932266,
+          "auroc": 0.37416573867739417,
+          "precision": 0.4031128874149275,
+          "recall": 0.45825756949558394
+        }
+      }
+    },
+    "belief_bank_facts": {
+      "type": "cross_domain",
+      "metrics": {
+        "mean": {
+          "accuracy": 0.5447658301721623,
+          "f1": 0.3212375574887972,
+          "auroc": 0.5158290455556884,
+          "precision": 0.2821995920502925,
+          "recall": 0.4437408734899774
+        },
+        "std": {
+          "accuracy": 0.1132029909673606,
+          "f1": 0.09233102161670069,
+          "auroc": 0.0214899514011144,
+          "precision": 0.04686180009084784,
+          "recall": 0.2644691986201463
+        }
+      }
+    },
+    "halu_eval": {
+      "type": "cross_domain",
+      "metrics": {
+        "mean": {
+          "accuracy": 0.55482,
+          "f1": 0.31291526889595406,
+          "auroc": 0.5034039772280102,
+          "precision": 0.3321506260038949,
+          "recall": 0.35630561521939247
+        },
+        "std": {
+          "accuracy": 0.08207096685186546,
+          "f1": 0.08892777784172941,
+          "auroc": 0.0037071936290605347,
+          "precision": 0.00459730053743729,
+          "recall": 0.23147403684577192
+        }
+      }
+    }
+  }
+}
