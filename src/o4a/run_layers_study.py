@@ -105,28 +105,35 @@ def get_activation_dir(model_name: str, dataset_name: str, layer_type: str) -> P
         PROJECT_ROOT / CACHE_DIR_NAME / resolved_model / dataset_name / f"activation_{layer_type}"
     )
     if not activation_dir.exists():
+        print(f"[get_activation_dir] MISSING: {activation_dir}")
         raise FileNotFoundError(f"Activation directory not found: {activation_dir}")
+    print(f"[get_activation_dir] model={model_name!r} (resolved={resolved_model!r}) "
+          f"dataset={dataset_name!r} layer_type={layer_type!r} -> {activation_dir}")
     return activation_dir
 
 
 def detect_structure_type(model_name: str, dataset_name: str, layer_type: str) -> str:
     activation_dir = get_activation_dir(model_name, dataset_name, layer_type)
-    if (activation_dir / "hallucinated").is_dir():
-        return "new"
-    return "old"
+    structure = "new" if (activation_dir / "hallucinated").is_dir() else "old"
+    print(f"[detect_structure_type] dataset={dataset_name!r} layer_type={layer_type!r} -> structure={structure!r}")
+    return structure
 
 
 def discover_other_datasets(model_name: str) -> list[str]:
     """List all dataset directories for a model in activation_cache."""
     resolved_model = resolve_model_name(model_name)
     model_cache_dir = PROJECT_ROOT / CACHE_DIR_NAME / resolved_model
+    print(f"[discover_other_datasets] scanning: {model_cache_dir}")
     if not model_cache_dir.is_dir():
+        print(f"[discover_other_datasets] not a directory, returning []: {model_cache_dir}")
         return []
-    return sorted(
+    datasets = sorted(
         d.name
         for d in model_cache_dir.iterdir()
         if d.is_dir() and d.name != "generations"
     )
+    print(f"[discover_other_datasets] found {len(datasets)} dataset(s): {datasets}")
+    return datasets
 
 
 def extract_layer_index(file_name: str) -> int | None:
@@ -153,6 +160,8 @@ def list_available_layers(model_name: str, dataset_name: str, layer_type: str) -
             f"No layer activation files found for model={model_name}, "
             f"dataset={dataset_name}, layer_type={layer_type} in {source_dir}"
         )
+    print(f"[list_available_layers] dataset={dataset_name!r} layer_type={layer_type!r} "
+          f"source_dir={source_dir} -> {len(unique_layers)} layer(s): {unique_layers}")
     return unique_layers
 
 
@@ -178,6 +187,12 @@ def load_activations_and_labels(
         non_hall_act_path = activation_dir / "not_hallucinated" / f"layer{layer_idx}_activations.pt"
         non_hall_ids_path = activation_dir / "not_hallucinated" / f"layer{layer_idx}_instance_ids.json"
 
+        print(f"[load_activations_and_labels] (new structure) layer={layer_idx} reading:")
+        print(f"    hall_act_path      = {hall_act_path}")
+        print(f"    hall_ids_path      = {hall_ids_path}")
+        print(f"    non_hall_act_path  = {non_hall_act_path}")
+        print(f"    non_hall_ids_path  = {non_hall_ids_path}")
+
         hall_activations = torch.load(hall_act_path, map_location=map_location)
         non_hall_activations = torch.load(non_hall_act_path, map_location=map_location)
 
@@ -198,11 +213,11 @@ def load_activations_and_labels(
         )
         ids_concat = np.asarray(hall_ids + non_hall_ids)
         sort_idx = np.argsort(ids_concat)
+        print(f"[load_activations_and_labels] layer={layer_idx} hall_shape={hall_np.shape} "
+              f"non_hall_shape={non_hall_np.shape} total={x_concat.shape}")
         return x_concat[sort_idx], y_concat[sort_idx], ids_concat[sort_idx]
 
     act_path = activation_dir / f"layer{layer_idx}_activations.pt"
-    activations = torch.load(act_path, map_location=map_location)
-    x_np = _to_numpy_float32(activations)
 
     resolved_model = resolve_model_name(model_name)
     labels_path = (
@@ -213,11 +228,19 @@ def load_activations_and_labels(
         / "generations"
         / "hallucination_labels.json"
     )
+    print(f"[load_activations_and_labels] (old structure) layer={layer_idx} reading:")
+    print(f"    act_path    = {act_path}")
+    print(f"    labels_path = {labels_path}")
+
+    activations = torch.load(act_path, map_location=map_location)
+    x_np = _to_numpy_float32(activations)
+
     with open(labels_path, "r", encoding="utf-8") as file:
         labels_data = json.load(file)
 
     y_np = np.asarray([int(item["is_hallucination"]) for item in labels_data], dtype=np.int64)
     ids_np = np.arange(len(y_np))
+    print(f"[load_activations_and_labels] layer={layer_idx} x_shape={x_np.shape} num_labels={len(y_np)}")
     return x_np, y_np, ids_np
 
 
@@ -486,6 +509,7 @@ def run_study(
     all_rows: list[dict[str, object]] = []
 
     # Pre-load cross-domain data for each eval dataset (all layers)
+    print(f"[run_study] Pre-loading cross-domain data for {len(cross_domain_datasets)} dataset(s)...")
     cd_data: dict[str, dict[int, tuple[np.ndarray, np.ndarray]]] = {}
     for cd_dataset in cross_domain_datasets:
         try:
@@ -493,6 +517,9 @@ def run_study(
             cd_data[cd_dataset] = {}
             for layer_idx in available_layers:
                 cd_layer = layer_idx if layer_idx in cd_available else cd_available[0]
+                if cd_layer != layer_idx:
+                    print(f"  [cross-domain] {cd_dataset}: layer {layer_idx} not available, "
+                          f"falling back to layer {cd_layer}")
                 x_cd, y_cd, _ = load_activations_and_labels(
                     model_name=model_name,
                     dataset_name=cd_dataset,
@@ -501,6 +528,7 @@ def run_study(
                     map_location=device,
                 )
                 cd_data[cd_dataset][layer_idx] = (x_cd, y_cd)
+            print(f"  [cross-domain] loaded {cd_dataset}: {len(cd_data[cd_dataset])} layer(s)")
         except FileNotFoundError as e:
             print(f"  [WARN] Cannot load cross-domain dataset {cd_dataset}: {e}")
 
@@ -700,6 +728,7 @@ def _write_csv(output_path: str, rows: list[dict[str, object]]):
     out_dir = os.path.dirname(output_path)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
+    print(f"[_write_csv] writing {len(rows)} row(s) to: {output_path}")
     with open(output_path, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=CSV_COLUMNS, extrasaction="ignore")
         writer.writeheader()
@@ -807,8 +836,24 @@ def main() -> None:
 
     output_path = Path(args.output).resolve()
 
+    print("=" * 80)
+    print("[main] Arguments:")
+    print(f"    model           = {args.model}")
+    print(f"    dataset         = {args.dataset}")
+    print(f"    layer_type      = {args.layer_type}")
+    print(f"    split_seeds     = {split_seeds}")
+    print(f"    test_size       = {args.test_size}")
+    print(f"    device          = {args.device}")
+    print(f"    max_iter        = {args.max_iter}")
+    print(f"    logreg_n_jobs   = {args.logreg_n_jobs}")
+    print(f"    no_cross_domain = {args.no_cross_domain}")
+    print(f"    output (resolved) = {output_path}")
+    print(f"    PROJECT_ROOT       = {PROJECT_ROOT}")
+    print("=" * 80)
+
     # Check if already completed
     if output_path.exists():
+        print(f"[main] Output file already exists, checking if complete: {output_path}")
         try:
             with open(output_path, "r", newline="") as f:
                 reader = csv.DictReader(f)
@@ -821,6 +866,8 @@ def main() -> None:
                     return
         except Exception:
             print(f"[RESUME] Output exists but is incomplete/corrupt, re-running: {output_path}")
+    else:
+        print(f"[main] No existing output found at: {output_path}")
 
     if not args.no_cross_domain:
         all_datasets = discover_other_datasets(args.model)

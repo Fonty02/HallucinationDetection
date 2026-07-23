@@ -8,7 +8,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
 #SBATCH --gpus-per-task=1
-#SBATCH --mem=32000
+#SBATCH --mem=123000
 #SBATCH --job-name=o4a_run_exp_22
 #SBATCH --output=logs/run_experiments_leonardo/run_experiments_22_%j.out
 #SBATCH --error=logs/run_experiments_leonardo/run_experiments_22_%j.err

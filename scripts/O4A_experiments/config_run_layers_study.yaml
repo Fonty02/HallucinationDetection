@@ -52,3 +52,22 @@ htc:
   # initialdir: /lustrehome/fonty/HallucinationDetection
   # getenv: True
   # requirements: (CUDAGlobalMemoryMb >= 24000)
+
+leonardo:
+  executable: scripts/O4A_experiments/run_layers_study.sh
+  output_dir: scripts/O4A_experiments/generated_leonardo_run_layers_study
+  logs_dir: logs/run_layers_study_leonardo
+  max_jobs_per_file: 24
+  job_name: o4a_layers_study
+
+  # SLURM resource allocation
+  account: IscrC_IMCAI
+  partition: boost_usr_prod
+  qos: normal
+  time: "24:00:00"
+  nodes: 1
+  ntasks: 1
+  cpus_per_task: 8
+  gpus_per_task: 0
+  mem: 123000
+  mail_user: l.laraspata3@phd.uniba.it
