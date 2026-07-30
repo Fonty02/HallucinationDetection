@@ -159,108 +159,119 @@ class HallucinationDetection:
         module_names += [f'model.layers.{idx}.self_attn' for idx in self.TARGET_LAYERS]
         module_names += [f'model.layers.{idx}.mlp' for idx in self.TARGET_LAYERS]
 
-        # # Track hallucination labels
-        # hallucination_labels = []
-        # 
-        # # Determine how many samples to process
-        # num_samples = min(self.max_samples, len(self.dataset)) if self.max_samples else len(self.dataset)
-        # print(f"Processing {num_samples} samples out of {len(self.dataset)} total")
-        # 
-        # # Process dataset in batches to save memory
-        # BATCH_SIZE = 1
-        # num_batches = (num_samples + BATCH_SIZE - 1) // BATCH_SIZE
-        # print(f"Processing in {num_batches} batches of {BATCH_SIZE} samples")
-# 
-        # for batch_idx in range(num_batches):
-        #     start_idx = batch_idx * BATCH_SIZE
-        #     end_idx = min(start_idx + BATCH_SIZE, num_samples)
-        #     print(f"\nProcessing batch {batch_idx+1}/{num_batches}: samples {start_idx} to {end_idx-1}")
-        #     
-        #     for idx in tqdm(range(start_idx, end_idx), desc=f"Batch {batch_idx+1}/{num_batches}"):
-        #         question, answer, instance_id = self.dataset[idx]
-        #         model_input = self.prompt_template.format(question=question)
-        #         tokens = self.tokenizer(model_input, return_tensors="pt")
-        #         # Keep inputs on the same device as the embedding layer
-        #         if hasattr(self.llm, "get_input_embeddings") and self.llm.get_input_embeddings() is not None:
-        #             input_device = self.llm.get_input_embeddings().weight.device
-        #         else:
-        #             input_device = next(self.llm.parameters()).device
-        #         attention_mask = tokens["attention_mask"].to(input_device) if "attention_mask" in tokens else None
-# 
-        #         with InspectOutputContext(self.llm, module_names, save_generation=True, save_dir=self.generation_save_dir) as inspect:
-        #             output = self.llm.generate(
-        #                 input_ids=tokens["input_ids"].to(input_device),
-        #                 max_new_tokens=self.MAX_NEW_TOKENS,
-        #                 attention_mask=attention_mask,
-        #                 do_sample=False,
-        #                 top_p=0.95,
-        #                 temperature=0.1,
-        #                 pad_token_id=self.tokenizer.eos_token_id,
-        #                 return_dict_in_generate=True,
-        #                 output_scores=False
-        #             )
-        #             
-        #             generated_ids = output.sequences[0][tokens["input_ids"].shape[1]:]
-        #             generated_text = self.tokenizer.decode(generated_ids, skip_special_tokens=True)
-        #             
-        #             is_hallucination = (
-        #                 answer.lower().strip() not in generated_text.lower().strip()
-        #             )
-        #             
-        #             # Store label information
-        #             label_info = {
-        #                 "instance_id": instance_id,
-        #                 "question": question,
-        #                 "gold_answer": answer,
-        #                 "generated_answer": generated_text,
-        #                 "is_hallucination": int(is_hallucination),  # 1 = hallucination, 0 = correct
-        #                 "evaluation_method": "substring_match_case_insensitive"
-        #             }
-        #             
-        #             hallucination_labels.append(label_info)
-        #             
-        #             ut.save_generation_output(generated_text, model_input, instance_id, self.generation_save_dir)
-        #             
-        #             #if hasattr(output, 'scores') and output.scores:
-        #                 #logits = torch.stack(output.scores, dim=1)  # [batch, seq_len, vocab_size]
-        #                 #ut.save_model_logits(logits, instance_id, self.logits_save_dir)
-        #             
-        #         for module, ac in inspect.catcher.items():
-        #             # ac: [batch_size, sequence_length, hidden_dim]
-        #             ac_last = ac[0, -1].float().cpu()  # Move to CPU to free GPU memory
-        #             layer_idx = int(module.split(".")[2])
-# 
-        #             save_name = f"layer{layer_idx}-id{instance_id}.pt"
-        #             if "mlp" in module:
-        #                 save_path = os.path.join(self.mlp_save_dir, save_name)
-        #             elif "self_attn" in module:
-        #                 save_path = os.path.join(self.attn_save_dir, save_name)
-        #             else:
-        #                 save_path = os.path.join(self.hidden_save_dir, save_name)
-# 
-        #             torch.save(ac_last, save_path)
-        #             del ac_last  # Delete tensor explicitly
-        #         
-        #         # Clear CUDA cache and collected tensors after each sample
-        #         del tokens, output, generated_ids
-        #         if attention_mask is not None:
-        #             del attention_mask
-        #         torch.cuda.empty_cache()
-        #         import gc
-        #         gc.collect()
-        #     
-        #     # Save intermediate labels after each batch
-        #     labels_path = os.path.join(self.generation_save_dir, "hallucination_labels.json")
-        #     with open(labels_path, 'w') as f:
-        #         json.dump(hallucination_labels, f, indent=4)
-        #     print(f"Saved intermediate labels after batch {batch_idx+1}")
-        #     #break  --> useful for quick testing
-# 
-        # # Save final hallucination labels
-        # labels_path = os.path.join(self.generation_save_dir, "hallucination_labels.json")
-        # with open(labels_path, 'w') as f:
-        #     json.dump(hallucination_labels, f, indent=4)
-        # print(f"\nSaved hallucination labels to: {labels_path}")
+        # Resume support: load any previously saved labels so we don't lose them
+        # and skip the instances they already cover (batch_id == instance_id since BATCH_SIZE = 1)
+        labels_path = os.path.join(self.generation_save_dir, "hallucination_labels.json")
+        if os.path.exists(labels_path):
+            with open(labels_path, 'r') as f:
+                hallucination_labels = json.load(f)
+            processed_ids = {entry["instance_id"] for entry in hallucination_labels}
+            print(f"Found {len(processed_ids)} already processed instances, resuming from there")
+        else:
+            hallucination_labels = []
+            processed_ids = set()
+
+        # Determine how many samples to process
+        num_samples = min(self.max_samples, len(self.dataset)) if self.max_samples else len(self.dataset)
+        print(f"Processing {num_samples} samples out of {len(self.dataset)} total")
+
+        # Process dataset in batches to save memory
+        BATCH_SIZE = 1
+        num_batches = (num_samples + BATCH_SIZE - 1) // BATCH_SIZE
+        print(f"Processing in {num_batches} batches of {BATCH_SIZE} samples")
+
+        for batch_idx in range(num_batches):
+            start_idx = batch_idx * BATCH_SIZE
+            end_idx = min(start_idx + BATCH_SIZE, num_samples)
+            print(f"\nProcessing batch {batch_idx+1}/{num_batches}: samples {start_idx} to {end_idx-1}")
+
+            for idx in tqdm(range(start_idx, end_idx), desc=f"Batch {batch_idx+1}/{num_batches}"):
+                question, answer, instance_id = self.dataset[idx]
+
+                if instance_id in processed_ids:
+                    continue
+
+                model_input = self.prompt_template.format(question=question)
+                tokens = self.tokenizer(model_input, return_tensors="pt")
+                # Keep inputs on the same device as the embedding layer
+                if hasattr(self.llm, "get_input_embeddings") and self.llm.get_input_embeddings() is not None:
+                    input_device = self.llm.get_input_embeddings().weight.device
+                else:
+                    input_device = next(self.llm.parameters()).device
+                attention_mask = tokens["attention_mask"].to(input_device) if "attention_mask" in tokens else None
+
+                with InspectOutputContext(self.llm, module_names, save_generation=True, save_dir=self.generation_save_dir) as inspect:
+                    output = self.llm.generate(
+                        input_ids=tokens["input_ids"].to(input_device),
+                        max_new_tokens=self.MAX_NEW_TOKENS,
+                        attention_mask=attention_mask,
+                        do_sample=False,
+                        top_p=0.95,
+                        temperature=0.1,
+                        pad_token_id=self.tokenizer.eos_token_id,
+                        return_dict_in_generate=True,
+                        output_scores=False
+                    )
+                    
+                    generated_ids = output.sequences[0][tokens["input_ids"].shape[1]:]
+                    generated_text = self.tokenizer.decode(generated_ids, skip_special_tokens=True)
+                    
+                    is_hallucination = (
+                        answer.lower().strip() not in generated_text.lower().strip()
+                    )
+                    
+                    # Store label information
+                    label_info = {
+                        "instance_id": instance_id,
+                        "question": question,
+                        "gold_answer": answer,
+                        "generated_answer": generated_text,
+                        "is_hallucination": int(is_hallucination),  # 1 = hallucination, 0 = correct
+                        "evaluation_method": "substring_match_case_insensitive"
+                    }
+                    
+                    hallucination_labels.append(label_info)
+                    
+                    ut.save_generation_output(generated_text, model_input, instance_id, self.generation_save_dir)
+                    
+                    #if hasattr(output, 'scores') and output.scores:
+                        #logits = torch.stack(output.scores, dim=1)  # [batch, seq_len, vocab_size]
+                        #ut.save_model_logits(logits, instance_id, self.logits_save_dir)
+                    
+                for module, ac in inspect.catcher.items():
+                    # ac: [batch_size, sequence_length, hidden_dim]
+                    ac_last = ac[0, -1].float().cpu()  # Move to CPU to free GPU memory
+                    layer_idx = int(module.split(".")[2])
+
+                    save_name = f"layer{layer_idx}-id{instance_id}.pt"
+                    if "mlp" in module:
+                        save_path = os.path.join(self.mlp_save_dir, save_name)
+                    elif "self_attn" in module:
+                        save_path = os.path.join(self.attn_save_dir, save_name)
+                    else:
+                        save_path = os.path.join(self.hidden_save_dir, save_name)
+
+                    torch.save(ac_last, save_path)
+                    del ac_last  # Delete tensor explicitly
+                
+                # Clear CUDA cache and collected tensors after each sample
+                del tokens, output, generated_ids
+                if attention_mask is not None:
+                    del attention_mask
+                torch.cuda.empty_cache()
+                import gc
+                gc.collect()
+            
+            # Save intermediate labels after each batch
+            with open(labels_path, 'w') as f:
+                json.dump(hallucination_labels, f, indent=4)
+            print(f"Saved intermediate labels after batch {batch_idx+1}")
+            #break  --> useful for quick testing
+
+        # Save final hallucination labels
+        with open(labels_path, 'w') as f:
+            json.dump(hallucination_labels, f, indent=4)
+        print(f"\nSaved hallucination labels to: {labels_path}")
 
         self.combine_activations()
 
@@ -269,7 +280,7 @@ class HallucinationDetection:
         results_dir = os.path.join(self.project_dir, self.CACHE_DIR_NAME)
         model_name = self.llm_name.split("/")[-1]
 
-        for aa in self.ACTIVATION_TARGET:
+        for aa in tqdm(self.ACTIVATION_TARGET, desc="Combining activations"):
             act_dir = os.path.join(results_dir, model_name, self.dataset_name, f"activation_{aa}")
 
             act_files = list(os.listdir(act_dir))
@@ -286,7 +297,7 @@ class HallucinationDetection:
             for act_f, (layer_id, instance_id) in act_files_layer_idx_instance_idx:
                 layer_group_files[layer_id].append([act_f, instance_id])
 
-            for layer_id in self.TARGET_LAYERS:
+            for layer_id in tqdm(self.TARGET_LAYERS, desc=f"Combining activations for layer {layer_id}"):
                 save_path = os.path.join(act_dir, f"layer{layer_id}_activations.pt")
                 ids_save_path = os.path.join(act_dir, f"layer{layer_id}_instance_ids.json")
 
