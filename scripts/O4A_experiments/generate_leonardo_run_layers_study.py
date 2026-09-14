@@ -83,7 +83,7 @@ def main() -> None:
     print(f"  - Layer types: {len(layer_types)} ({', '.join(layer_types)})")
     print(f"  - Split seeds per job: {len(split_seeds)} ({split_seeds_csv})")
 
-    max_jobs_per_file = 2 #int(leonardo.get("max_jobs_per_file", 24))
+    max_jobs_per_file = 1 #int(leonardo.get("max_jobs_per_file", 24))
     job_name = leonardo.get("job_name", "o4a_layers_study")
 
     # Remove stale files from previous generations.

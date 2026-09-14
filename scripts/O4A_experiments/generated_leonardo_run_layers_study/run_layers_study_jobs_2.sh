@@ -7,7 +7,7 @@
 #SBATCH -N 1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --gpus-per-task=1
+#SBATCH --gpus-per-task=0
 #SBATCH --mem=123000
 #SBATCH --job-name=o4a_layers_study_2
 #SBATCH --output=logs/run_layers_study_leonardo/run_layers_study_2_%j.out
@@ -18,5 +18,4 @@
 
 source .venv/bin/activate
 
-srun -u bash scripts/O4A_experiments/run_layers_study.sh Qwen2.5-7B belief_bank_constraints hidden 2,4,24,42,64,67,104,123,420,511 0.3 cuda:0 10000 -1 results/layers_study
-srun -u bash scripts/O4A_experiments/run_layers_study.sh Qwen2.5-7B belief_bank_facts attn 2,4,24,42,64,67,104,123,420,511 0.3 cuda:0 10000 -1 results/layers_study
+srun -u bash scripts/O4A_experiments/run_layers_study.sh Qwen2.5-7B belief_bank_constraints mlp 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study

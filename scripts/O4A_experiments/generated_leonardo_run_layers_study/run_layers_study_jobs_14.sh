@@ -7,7 +7,7 @@
 #SBATCH -N 1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --gpus-per-task=1
+#SBATCH --gpus-per-task=0
 #SBATCH --mem=123000
 #SBATCH --job-name=o4a_layers_study_14
 #SBATCH --output=logs/run_layers_study_leonardo/run_layers_study_14_%j.out
@@ -18,4 +18,4 @@
 
 source .venv/bin/activate
 
-srun -u bash scripts/O4A_experiments/run_layers_study.sh gemma-2-9b-it halu_eval hidden 2,4,24,42,64,67,104,123,420,511 0.3 cuda:0 10000 -1 results/layers_study
+srun -u bash scripts/O4A_experiments/run_layers_study.sh Falcon3-7B-Base belief_bank_facts mlp 2,4,24,42,64,67,104,123,420,511 0.3 cpu 10000 -1 results/layers_study
