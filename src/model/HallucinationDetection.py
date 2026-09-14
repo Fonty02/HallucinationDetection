@@ -159,17 +159,8 @@ class HallucinationDetection:
         module_names += [f'model.layers.{idx}.self_attn' for idx in self.TARGET_LAYERS]
         module_names += [f'model.layers.{idx}.mlp' for idx in self.TARGET_LAYERS]
 
-        # Resume support: load any previously saved labels so we don't lose them
-        # and skip the instances they already cover (batch_id == instance_id since BATCH_SIZE = 1)
         labels_path = os.path.join(self.generation_save_dir, "hallucination_labels.json")
-        if os.path.exists(labels_path):
-            with open(labels_path, 'r') as f:
-                hallucination_labels = json.load(f)
-            processed_ids = {entry["instance_id"] for entry in hallucination_labels}
-            print(f"Found {len(processed_ids)} already processed instances, resuming from there")
-        else:
-            hallucination_labels = []
-            processed_ids = set()
+        processed_ids, hallucination_labels = self._check_processed_instances(labels_path)
 
         # Determine how many samples to process
         num_samples = min(self.max_samples, len(self.dataset)) if self.max_samples else len(self.dataset)
@@ -283,6 +274,11 @@ class HallucinationDetection:
         for aa in tqdm(self.ACTIVATION_TARGET, desc="Combining activations"):
             act_dir = os.path.join(results_dir, model_name, self.dataset_name, f"activation_{aa}")
 
+            layers_to_combine = self._check_combined_layers(act_dir)
+            if not layers_to_combine:
+                print(f"Skipping activation_{aa}: all layers already combined")
+                continue
+
             act_files = list(os.listdir(act_dir))
 
             act_files = [f for f in act_files if len(f.split("-")) == 2]
@@ -292,19 +288,15 @@ class HallucinationDetection:
                 for act_f in act_files
             ]
 
-            # For each layer id (as key), the value contains a list of [activation file, instance id]
-            layer_group_files = {lid: [] for lid in self.TARGET_LAYERS}
+            # For each remaining layer id (as key), the value contains a list of [activation file, instance id]
+            layer_group_files = {lid: [] for lid in layers_to_combine}
             for act_f, (layer_id, instance_id) in act_files_layer_idx_instance_idx:
-                layer_group_files[layer_id].append([act_f, instance_id])
+                if layer_id in layer_group_files:
+                    layer_group_files[layer_id].append([act_f, instance_id])
 
-            for layer_id in tqdm(self.TARGET_LAYERS, desc=f"Combining activations for layer {layer_id}"):
+            for layer_id in tqdm(layers_to_combine, desc=f"Combining activations for activation_{aa}"):
                 save_path = os.path.join(act_dir, f"layer{layer_id}_activations.pt")
                 ids_save_path = os.path.join(act_dir, f"layer{layer_id}_instance_ids.json")
-
-                # Skip this layer if the final output already exists
-                if os.path.exists(save_path) and os.path.exists(ids_save_path):
-                    print(f"Skipping layer {layer_id} for activation_{aa}: output already exists")
-                    continue
 
                 # Sort the files for each layer by instance ID
                 layer_group_files[layer_id] = sorted(layer_group_files[layer_id], key=lambda x: x[1])
@@ -331,6 +323,37 @@ class HallucinationDetection:
     # -------------
     # Utility Methods
     # -------------
+    def _check_processed_instances(self, labels_path):
+        """Resume support for save_activations: load previously saved labels (if any)
+        and return the set of instance ids they already cover, so that instance can be skipped."""
+        if os.path.exists(labels_path):
+            with open(labels_path, 'r') as f:
+                hallucination_labels = json.load(f)
+            processed_ids = {entry["instance_id"] for entry in hallucination_labels}
+            print(f"Found {len(processed_ids)} already processed instances, resuming from there")
+        else:
+            hallucination_labels = []
+            processed_ids = set()
+        return processed_ids, hallucination_labels
+
+
+    def _check_combined_layers(self, act_dir):
+        """Resume support for combine_activations: return the list of target layers that
+        still need to be combined, skipping any layer whose combined output already exists."""
+        remaining_layers = []
+        for layer_id in self.TARGET_LAYERS:
+            save_path = os.path.join(act_dir, f"layer{layer_id}_activations.pt")
+            ids_save_path = os.path.join(act_dir, f"layer{layer_id}_instance_ids.json")
+            if os.path.exists(save_path) and os.path.exists(ids_save_path):
+                continue
+            remaining_layers.append(layer_id)
+
+        num_done = len(self.TARGET_LAYERS) - len(remaining_layers)
+        if num_done:
+            print(f"Found {num_done} already combined layers in {act_dir}, resuming from there")
+        return remaining_layers
+
+
     def _create_folders_if_not_exists(self):
         model_name = self.llm_name.split("/")[-1]
 
@@ -344,8 +367,8 @@ class HallucinationDetection:
         self.logits_save_dir = os.path.join(results_dir, model_name, self.dataset_name, "logits")
         
         for sd in [self.hidden_save_dir, self.mlp_save_dir, self.attn_save_dir, self.generation_save_dir, self.logits_save_dir]:
-            print(f"Creating directory: {sd}")
             if not os.path.exists(sd):
+                print(f"Creating directory: {sd}")
                 os.makedirs(sd)
 
         print("\n\n")
