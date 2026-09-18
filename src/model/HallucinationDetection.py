@@ -274,13 +274,7 @@ class HallucinationDetection:
         for aa in tqdm(self.ACTIVATION_TARGET, desc="Combining activations"):
             act_dir = os.path.join(results_dir, model_name, self.dataset_name, f"activation_{aa}")
 
-            layers_to_combine = self._check_combined_layers(act_dir)
-            if not layers_to_combine:
-                print(f"Skipping activation_{aa}: all layers already combined")
-                continue
-
             act_files = list(os.listdir(act_dir))
-
             act_files = [f for f in act_files if len(f.split("-")) == 2]
 
             act_files_layer_idx_instance_idx = [
@@ -288,32 +282,50 @@ class HallucinationDetection:
                 for act_f in act_files
             ]
 
-            # For each remaining layer id (as key), the value contains a list of [activation file, instance id]
-            layer_group_files = {lid: [] for lid in layers_to_combine}
+            # For each layer id (as key), the value contains a list of [activation file, instance id]
+            # for the newly produced per-instance files still on disk (not yet merged).
+            layer_group_files = {lid: [] for lid in self.TARGET_LAYERS}
             for act_f, (layer_id, instance_id) in act_files_layer_idx_instance_idx:
                 if layer_id in layer_group_files:
                     layer_group_files[layer_id].append([act_f, instance_id])
 
-            for layer_id in tqdm(layers_to_combine, desc=f"Combining activations for activation_{aa}"):
+            layers_with_new_files = [lid for lid, files in layer_group_files.items() if files]
+            if not layers_with_new_files:
+                print(f"Skipping activation_{aa}: no new instances to combine")
+                continue
+
+            for layer_id in tqdm(layers_with_new_files, desc=f"Combining activations for activation_{aa}"):
                 save_path = os.path.join(act_dir, f"layer{layer_id}_activations.pt")
                 ids_save_path = os.path.join(act_dir, f"layer{layer_id}_instance_ids.json")
 
-                # Sort the files for each layer by instance ID
-                layer_group_files[layer_id] = sorted(layer_group_files[layer_id], key=lambda x: x[1])
+                # Load the previously combined activations/ids (if any) so we extend them
+                # instead of overwriting the layer's aggregate file.
+                existing_acts = []
+                existing_ids = []
+                if os.path.exists(save_path) and os.path.exists(ids_save_path):
+                    existing_acts = list(torch.unbind(torch.load(save_path)))
+                    existing_ids = json.load(open(ids_save_path))
 
-                acts = []
+                new_files = sorted(layer_group_files[layer_id], key=lambda x: x[1])
+
+                new_acts = []
                 loaded_paths = []
-                instance_ids = []
-                for idx, (act_f, instance_id) in enumerate(layer_group_files[layer_id]):
-                    #assert idx == instance_id
+                new_ids = []
+                for act_f, instance_id in new_files:
                     path_to_load = os.path.join(act_dir, act_f)
-                    acts.append(torch.load(path_to_load))
+                    new_acts.append(torch.load(path_to_load))
                     loaded_paths.append(path_to_load)
-                    instance_ids.append(instance_id)
+                    new_ids.append(instance_id)
 
-                acts = torch.stack(acts)
+                # Merge existing + new, then sort by instance id for a consistent ordering.
+                combined = sorted(
+                    zip(existing_ids + new_ids, existing_acts + new_acts),
+                    key=lambda x: x[0]
+                )
+                instance_ids = [instance_id for instance_id, _ in combined]
+                acts = torch.stack([act for _, act in combined])
+
                 torch.save(acts, save_path)
-
                 json.dump(instance_ids, open(ids_save_path, "w"), indent=4)
 
                 for p in loaded_paths:
@@ -335,23 +347,6 @@ class HallucinationDetection:
             hallucination_labels = []
             processed_ids = set()
         return processed_ids, hallucination_labels
-
-
-    def _check_combined_layers(self, act_dir):
-        """Resume support for combine_activations: return the list of target layers that
-        still need to be combined, skipping any layer whose combined output already exists."""
-        remaining_layers = []
-        for layer_id in self.TARGET_LAYERS:
-            save_path = os.path.join(act_dir, f"layer{layer_id}_activations.pt")
-            ids_save_path = os.path.join(act_dir, f"layer{layer_id}_instance_ids.json")
-            if os.path.exists(save_path) and os.path.exists(ids_save_path):
-                continue
-            remaining_layers.append(layer_id)
-
-        num_done = len(self.TARGET_LAYERS) - len(remaining_layers)
-        if num_done:
-            print(f"Found {num_done} already combined layers in {act_dir}, resuming from there")
-        return remaining_layers
 
 
     def _create_folders_if_not_exists(self):
