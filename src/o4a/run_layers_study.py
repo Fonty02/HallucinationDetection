@@ -16,6 +16,7 @@ import json
 import os
 import random
 import re
+import shutil
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -456,6 +457,66 @@ def _build_aggregate_rows(
     return rows
 
 
+def get_checkpoint_dir(output_path: Path) -> Path:
+    """Directory holding per-layer partial results for a given output CSV."""
+    return output_path.with_name(f"{output_path.stem}_partial")
+
+
+def _json_default(obj):
+    if isinstance(obj, np.generic):
+        return obj.item()
+    raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
+
+
+def _atomic_write_json(path: Path, payload: object) -> None:
+    tmp_path = path.with_name(path.name + ".tmp")
+    with open(tmp_path, "w") as f:
+        json.dump(payload, f, default=_json_default)
+    os.replace(tmp_path, path)
+
+
+def _load_checkpoint(
+    checkpoint_dir: Path,
+    meta: dict[str, object],
+) -> tuple[dict[int, list[dict[str, object]]], str | None]:
+    """
+    Load completed layers from checkpoint_dir. Returns ({layer_idx: rows}, created_at_utc).
+    If the stored run configuration differs from `meta`, the checkpoint is discarded.
+    """
+    meta_path = checkpoint_dir / "meta.json"
+    if not meta_path.is_file():
+        if checkpoint_dir.exists():
+            shutil.rmtree(checkpoint_dir)
+        return {}, None
+
+    with open(meta_path, "r") as f:
+        stored_meta = json.load(f)
+    stored_created_at = stored_meta.pop("created_at_utc", None)
+    if stored_meta != meta:
+        print(f"[checkpoint] configuration changed, discarding partial results in: {checkpoint_dir}")
+        for key in sorted(set(stored_meta) | set(meta)):
+            if stored_meta.get(key) != meta.get(key):
+                print(f"    {key}: stored={stored_meta.get(key)!r}  current={meta.get(key)!r}")
+        shutil.rmtree(checkpoint_dir)
+        return {}, None
+
+    completed: dict[int, list[dict[str, object]]] = {}
+    for layer_path in sorted(checkpoint_dir.glob("layer_*.json")):
+        match = re.fullmatch(r"layer_(\d+)\.json", layer_path.name)
+        if not match:
+            continue
+        try:
+            with open(layer_path, "r") as f:
+                completed[int(match.group(1))] = json.load(f)
+        except (OSError, json.JSONDecodeError) as e:
+            print(f"[checkpoint] unreadable layer file, will recompute: {layer_path} ({e})")
+    return completed, stored_created_at
+
+
+def _save_layer_checkpoint(checkpoint_dir: Path, layer_idx: int, rows: list[dict[str, object]]) -> None:
+    _atomic_write_json(checkpoint_dir / f"layer_{layer_idx}.json", rows)
+
+
 def run_study(
     model_name: str,
     dataset_name: str,
@@ -466,10 +527,14 @@ def run_study(
     max_iter: int,
     logreg_n_jobs: int,
     no_cross_domain: bool = False,
+    checkpoint_dir: Path | None = None,
 ) -> list[dict[str, object]]:
     """
     Run in-domain layer study, then automatically cross-domain on all
     other datasets found in activation_cache. Returns flat CSV rows.
+
+    If checkpoint_dir is given, each finished layer's rows are saved there and
+    already-finished layers are skipped when the study is re-run.
     """
     t0_study = time.time()
     set_seed(42)
@@ -494,6 +559,35 @@ def run_study(
         print("Cross-domain:  none (no other datasets found)")
     print("=" * 80)
 
+    # Resume from per-layer checkpoints of a previous (interrupted) run
+    completed_layers: dict[int, list[dict[str, object]]] = {}
+    if checkpoint_dir is not None:
+        checkpoint_meta = {
+            "model": resolved_model,
+            "train_dataset": dataset_name,
+            "layer_type": layer_type,
+            "split_seeds": list(split_seeds),
+            "test_size": test_size,
+            "max_iter": max_iter,
+            "cross_domain_datasets": list(cross_domain_datasets),
+            "available_layers": [int(l) for l in available_layers],
+        }
+        completed_layers, stored_created_at = _load_checkpoint(checkpoint_dir, checkpoint_meta)
+        completed_layers = {l: r for l, r in completed_layers.items() if l in available_layers}
+        if stored_created_at:
+            created_at_utc = stored_created_at
+        checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        _atomic_write_json(checkpoint_dir / "meta.json", {**checkpoint_meta, "created_at_utc": created_at_utc})
+        if completed_layers:
+            # Keep runtimes cumulative across resumed runs
+            prior_runtime_s = max(float(r["total_runtime_s"]) for rows in completed_layers.values() for r in rows)
+            t0_study -= prior_runtime_s
+            print(f"[checkpoint] resuming: {len(completed_layers)}/{len(available_layers)} layer(s) already done "
+                  f"({sorted(completed_layers)}), prior runtime {prior_runtime_s:.1f}s")
+        else:
+            print(f"[checkpoint] no previous progress, saving per-layer results to: {checkpoint_dir}")
+    pending_layers = [l for l in available_layers if l not in completed_layers]
+
     # Build split indices from training dataset (shared for all)
     first_layer = available_layers[0]
     _, y_reference, ids_reference = load_activations_and_labels(
@@ -515,7 +609,7 @@ def run_study(
         try:
             cd_available = list_available_layers(model_name, cd_dataset, layer_type)
             cd_data[cd_dataset] = {}
-            for layer_idx in available_layers:
+            for layer_idx in pending_layers:
                 cd_layer = layer_idx if layer_idx in cd_available else cd_available[0]
                 if cd_layer != layer_idx:
                     print(f"  [cross-domain] {cd_dataset}: layer {layer_idx} not available, "
@@ -534,7 +628,12 @@ def run_study(
 
     # Process layers
     for pos, layer_idx in enumerate(available_layers, start=1):
+        if layer_idx in completed_layers:
+            print(f"[{pos}/{len(available_layers)}] Layer {layer_idx} already done (checkpoint), skipping")
+            all_rows.extend(completed_layers[layer_idx])
+            continue
         print(f"[{pos}/{len(available_layers)}] Processing layer {layer_idx} ...")
+        layer_rows: list[dict[str, object]] = []
         x_layer, y_layer, ids_layer = load_activations_and_labels(
             model_name=model_name,
             dataset_name=dataset_name,
@@ -597,7 +696,7 @@ def run_study(
                 created_at_utc=created_at_utc,
             )
             in_domain_seed_rows.append(row)
-            all_rows.append(row)
+            layer_rows.append(row)
             del x_train, y_train, x_test, y_test
             gc.collect()
 
@@ -628,7 +727,7 @@ def run_study(
             created_at_utc=created_at_utc,
         )
         agg_rows = _build_aggregate_rows(in_domain_seed_rows, base_row, round(time.time() - t0_study, 3), num_splits)
-        all_rows.extend(agg_rows)
+        layer_rows.extend(agg_rows)
 
         # ---- CROSS-DOMAIN ----
         for cd_dataset in cross_domain_datasets:
@@ -674,7 +773,7 @@ def run_study(
                     created_at_utc=created_at_utc,
                 )
                 cd_seed_rows.append(row)
-                all_rows.append(row)
+                layer_rows.append(row)
                 del x_train, x_test, y_train, y_test
                 gc.collect()
 
@@ -704,7 +803,12 @@ def run_study(
                 created_at_utc=created_at_utc,
             )
             cd_agg = _build_aggregate_rows(cd_seed_rows, cd_base_row, round(time.time() - t0_study, 3), num_splits)
-            all_rows.extend(cd_agg)
+            layer_rows.extend(cd_agg)
+
+        all_rows.extend(layer_rows)
+        if checkpoint_dir is not None:
+            _save_layer_checkpoint(checkpoint_dir, layer_idx, layer_rows)
+            print(f"[checkpoint] saved layer {layer_idx} ({len(layer_rows)} rows)")
 
         del x_layer, y_layer, ids_layer
         gc.collect()
@@ -835,6 +939,7 @@ def main() -> None:
         raise ValueError(f"test_size must be in (0,1), got {args.test_size}")
 
     output_path = Path(args.output).resolve()
+    checkpoint_dir = get_checkpoint_dir(output_path)
 
     print("=" * 80)
     print("[main] Arguments:")
@@ -848,6 +953,7 @@ def main() -> None:
     print(f"    logreg_n_jobs   = {args.logreg_n_jobs}")
     print(f"    no_cross_domain = {args.no_cross_domain}")
     print(f"    output (resolved) = {output_path}")
+    print(f"    checkpoint_dir    = {checkpoint_dir}")
     print(f"    PROJECT_ROOT       = {PROJECT_ROOT}")
     print("=" * 80)
 
@@ -863,6 +969,9 @@ def main() -> None:
                 if has_mean_std:
                     print(f"[SKIP] Output already exists and appears complete: {output_path}")
                     print(f"       ({len(existing)} rows)")
+                    if checkpoint_dir.exists():
+                        shutil.rmtree(checkpoint_dir)
+                        print(f"[SKIP] Removed leftover checkpoint dir: {checkpoint_dir}")
                     return
         except Exception:
             print(f"[RESUME] Output exists but is incomplete/corrupt, re-running: {output_path}")
@@ -884,10 +993,15 @@ def main() -> None:
         max_iter=args.max_iter,
         logreg_n_jobs=args.logreg_n_jobs,
         no_cross_domain=args.no_cross_domain,
+        checkpoint_dir=checkpoint_dir,
     )
 
     _write_csv(str(output_path), rows)
     _write_summary_json(rows, str(output_path))
+
+    if checkpoint_dir.exists():
+        shutil.rmtree(checkpoint_dir)
+        print(f"[checkpoint] final outputs written, removed: {checkpoint_dir}")
 
     print("=" * 80)
     print(f"Study completed. CSV written to: {output_path}  ({len(rows)} rows)")
