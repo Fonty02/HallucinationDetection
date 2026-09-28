@@ -71,6 +71,9 @@ EXTRA_SUFFIXES = [
     "ae_trainer_params", "ae_trainer_time_s",
     "ae_tester_params", "ae_tester_time_s",
 ]
+# Methods without an autoencoder stage don't report EXTRA_SUFFIXES: they have
+# zero AE params and zero AE training time.
+EXTRA_DEFAULT = 0
 
 
 def _load_stratified_test_set(
@@ -261,7 +264,7 @@ def run_cross_domain_one_for_all(
             traceback.print_exc()
             row["status"] = "data_error"
             row["runtime_seconds"] = round(time.time() - t0_layer, 3)
-            all_rows.append(row)
+            all_rows = _replace_row(all_rows, row)
             _persist_csv(output_csv, header, all_rows)
             continue
 
@@ -294,16 +297,16 @@ def run_cross_domain_one_for_all(
                     for suffix in META_SUFFIXES:
                         row[f"{method_name}_{suffix}"] = meta.get(suffix, "")
                     for suffix in EXTRA_SUFFIXES:
-                        row[f"{method_name}_{suffix}"] = meta.get(suffix, "")
+                        row[f"{method_name}_{suffix}"] = meta.get(suffix, EXTRA_DEFAULT)
 
                 except Exception:
                     elapsed = time.time() - t0_m
                     print(f"FAILED ({elapsed:.1f}s)")
                     traceback.print_exc()
                     all_methods_ok = False
-                    for role in ROLES:
-                        for metric in METRICS:
-                            row[f"{method_name}_{role}_{metric}"] = "ERROR"
+                    for col in method_cols:
+                        if col.startswith(f"{method_name}_"):
+                            row[col] = "ERROR"
         finally:
             if shared_data is not None:
                 del shared_data
@@ -313,11 +316,22 @@ def run_cross_domain_one_for_all(
 
         row["runtime_seconds"] = round(time.time() - t0_layer, 3)
         row["status"] = "ok" if all_methods_ok else "partial_error"
-        all_rows.append(row)
+        all_rows = _replace_row(all_rows, row)
         _persist_csv(output_csv, header, all_rows)
 
     print(f"\nResults written to {output_csv}  ({len(all_rows)} rows, {skipped} skipped)")
     return all_rows
+
+
+def _replace_row(rows: list[dict[str, Any]], row: dict[str, Any]) -> list[dict[str, Any]]:
+    """Drop any previous (incomplete) row with the same (experiment, layer_type, seed), then append."""
+    key = (row["experiment"], row["layer_type"], int(row["seed"]))
+    kept = [
+        r for r in rows
+        if (r.get("experiment", ""), r.get("layer_type", ""), int(r.get("seed", 0) or 0)) != key
+    ]
+    kept.append(row)
+    return kept
 
 
 def _persist_csv(output_csv: str | None, header: list[str], rows: list[dict[str, Any]]):

@@ -62,6 +62,9 @@ EXTRA_SUFFIXES = [
     "ae_trainer_params", "ae_trainer_time_s",
     "ae_tester_params", "ae_tester_time_s",
 ]
+# Methods without an autoencoder stage don't report EXTRA_SUFFIXES: they have
+# zero AE params and zero AE training time.
+EXTRA_DEFAULT = 0
 
 
 def _build_csv_header() -> list:
@@ -239,16 +242,22 @@ def run_all(
                         for suffix in META_SUFFIXES:
                             row[f"{method_name}_{suffix}"] = meta.get(suffix, "")
                         for suffix in EXTRA_SUFFIXES:
-                            row[f"{method_name}_{suffix}"] = meta.get(suffix, "")
+                            row[f"{method_name}_{suffix}"] = meta.get(suffix, EXTRA_DEFAULT)
                     except Exception:
                         elapsed = time.time() - t0
                         print(f"FAILED ({elapsed:.1f}s)")
                         traceback.print_exc()
-                        for role in ROLES:
-                            for metric in METRICS:
-                                key = f"{method_name}_{role}_{metric}"
-                                row[key] = "ERROR"
+                        for col in method_cols:
+                            if col.startswith(f"{method_name}_"):
+                                row[col] = "ERROR"
 
+                # Replace any previous (incomplete) row for this key instead of duplicating it
+                all_rows = [
+                    r for r in all_rows
+                    if not (r.get("experiment", "") == exp_name and
+                            r.get("layer_type", "") == lt and
+                            int(r.get("seed", 0)) == seed)
+                ]
                 all_rows.append(row)
                 # Persist incrementally
                 with open(output_csv, "w", newline="") as out_f:
