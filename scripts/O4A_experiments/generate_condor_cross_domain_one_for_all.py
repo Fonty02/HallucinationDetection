@@ -9,9 +9,13 @@ Each job is defined by:
 """
 
 import itertools
+import sys
 from pathlib import Path
 
 import yaml
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from src.o4a.experiments import experiment_name as generate_experiment_name  # noqa: E402
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -25,28 +29,6 @@ def _to_cli_value(value):
     if isinstance(value, bool):
         return "true" if value else "false"
     return str(value)
-
-
-def generate_experiment_name(trainer: str, tester: str, dataset: str) -> str:
-    """
-    Generate experiment name matching o4a.config.EXPERIMENTS naming.
-    Example: LlamaToGemma_BBF
-    """
-    model_short = {
-        "Qwen2.5-7B": "Qwen",
-        "Falcon3-7B-Base": "Falcon",
-        "gemma-2-9b-it": "Gemma",
-        "Llama-3.1-8B-Instruct": "Llama",
-    }
-    dataset_short = {
-        "belief_bank_constraints": "BBC",
-        "belief_bank_facts": "BBF",
-        "halu_eval": "HE",
-    }
-    trainer_short = model_short.get(trainer, trainer.split("-")[0])
-    tester_short = model_short.get(tester, tester.split("-")[0])
-    ds_short = dataset_short.get(dataset, dataset[:3].upper())
-    return f"{trainer_short}To{tester_short}_{ds_short}"
 
 
 def main() -> None:

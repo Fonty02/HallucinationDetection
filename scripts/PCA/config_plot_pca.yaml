@@ -8,7 +8,7 @@ common:
     - belief_bank_constraints
     - belief_bank_facts
     - halu_eval
-  layer_source_config: src/o4a/config.py
+  layer_source_config: src/o4a/selected_layers.json
   layer_types:
     - attn
     - mlp

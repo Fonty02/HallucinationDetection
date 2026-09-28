@@ -1,8 +1,12 @@
 import ast
 import itertools
+import sys
 from pathlib import Path
 
 import yaml
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
+from o4a.experiments import build_experiments, load_selected_layers  # noqa: E402
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -33,7 +37,9 @@ def _sanitize(text: str) -> str:
     )
 
 
-def _load_experiments_from_python(config_path: Path) -> dict:
+def _load_experiments(config_path: Path) -> dict:
+    if config_path.suffix == ".json":
+        return build_experiments(load_selected_layers(config_path))
     source = config_path.read_text(encoding="utf-8")
     module = ast.parse(source, filename=str(config_path))
     for node in module.body:
@@ -115,9 +121,9 @@ def main() -> None:
     cache_dirs = _as_list(common.get("cache_dirs", ["activation_cache"]))
     dataset_layers_specs_override = _as_list(common.get("dataset_layers_specs", []))
 
-    layer_source_cfg = common.get("layer_source_config", "src/o4a/config.py")
+    layer_source_cfg = common.get("layer_source_config", "src/o4a/selected_layers.json")
     layer_source_cfg_path = (PROJECT_ROOT / layer_source_cfg).resolve()
-    experiments = _load_experiments_from_python(layer_source_cfg_path)
+    experiments = _load_experiments(layer_source_cfg_path)
     first_layer_lookup = _build_first_layer_lookup(experiments)
 
     submit_lines = []

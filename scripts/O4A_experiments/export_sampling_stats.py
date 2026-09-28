@@ -14,8 +14,12 @@ from __future__ import annotations
 import argparse
 import ast
 import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from src.o4a.experiments import EXPERIMENTS  # noqa: E402
 
 
 def parse_args() -> argparse.Namespace:
@@ -24,7 +28,7 @@ def parse_args() -> argparse.Namespace:
         "--config-path",
         type=str,
         default="src/o4a/config.py",
-        help="Path to O4A config.py containing EXPERIMENTS and split constants.",
+        help="Path to O4A config.py containing split constants (EXPERIMENTS comes from o4a.experiments).",
     )
     parser.add_argument(
         "--cache-dir",
@@ -68,7 +72,7 @@ def _literal_from_config(tree: ast.Module, name: str):
 def load_o4a_config_literals(config_path: Path) -> dict:
     tree = ast.parse(config_path.read_text(encoding="utf-8"), filename=str(config_path))
     return {
-        "EXPERIMENTS": _literal_from_config(tree, "EXPERIMENTS"),
+        "EXPERIMENTS": EXPERIMENTS,
         "MODEL_ALIASES": _literal_from_config(tree, "MODEL_ALIASES"),
         "CACHE_DIR_NAME": _literal_from_config(tree, "CACHE_DIR_NAME"),
         "LAYER_TYPES": _literal_from_config(tree, "LAYER_TYPES"),
