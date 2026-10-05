@@ -1,7 +1,7 @@
 #!/bin/bash
 # Submit all generated SLURM job files
 
-SCRIPT_DIR="scripts/O4A_experiments/generated_leonardo_run_experiments"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 sbatch "$SCRIPT_DIR/run_experiments_jobs_1.sh"
 sbatch "$SCRIPT_DIR/run_experiments_jobs_2.sh"
