@@ -267,6 +267,92 @@ def get_undersampled_indices_per_model(stats: dict, seed: int = SEED):
 # SHARED DATA PREPARATION
 # ==================================================================
 
+def split_and_balance(y_all: np.ndarray, split_seed: int, test_seed: int, balance_seed: int):
+    """
+    Stratified train/val/test split (70/15/15) preserving class ratios, then
+    undersample only the training portion to the minority class.
+
+    Returns (train_pos, train_bal_pos, val_pos, test_pos) as positional indices into y_all.
+    """
+    all_idx = np.arange(len(y_all))
+    train_pos, valtest_pos = train_test_split(
+        all_idx, test_size=1.0 - TRAIN_SPLIT, random_state=split_seed, stratify=y_all,
+    )
+    val_pos, test_pos = train_test_split(
+        valtest_pos, test_size=0.5, random_state=test_seed, stratify=y_all[valtest_pos],
+    )
+
+    rng_bal = np.random.RandomState(balance_seed)
+    y_train_part = y_all[train_pos]
+    unique, counts = np.unique(y_train_part, return_counts=True)
+    min_count = counts.min()
+    selected = []
+    for cls in unique:
+        cls_pos = train_pos[np.where(y_train_part == cls)[0]]
+        if len(cls_pos) > min_count:
+            selected.extend(rng_bal.choice(cls_pos, size=min_count, replace=False))
+        else:
+            selected.extend(cls_pos)
+    train_bal_pos = np.sort(np.array(selected))
+    return train_pos, train_bal_pos, val_pos, test_pos
+
+
+def labels_from_stats(stats: dict) -> np.ndarray:
+    """Full label array (natural distribution) indexed by instance id."""
+    hall_set = set(stats["hallucinated_ids"])
+    return np.array([1 if i in hall_set else 0 for i in range(stats["total"])], dtype=np.int8)
+
+
+def load_stratified_test_set(
+    model_name: str,
+    dataset_name: str,
+    layer_indices: list[int],
+    layer_type: str,
+    test_size: float = 0.15,
+    seed: int = SEED,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Load a stratified test split from an activation dataset (used as cross-domain target)."""
+    X_full, _, _ = DataManager.load_concatenated_layers(model_name, dataset_name, layer_indices, layer_type)
+    stats = DataManager.get_stats(model_name, dataset_name, layer_type=layer_type)
+    y = labels_from_stats(stats)
+    all_idx = np.arange(stats["total"])
+    _, test_idx = train_test_split(all_idx, test_size=test_size, random_state=seed, stratify=y)
+    return X_full[test_idx], y[test_idx]
+
+
+def prepare_single_model_data(model: str, dataset: str, layer_indices: list[int], layer_type: str) -> dict:
+    """
+    Single-LLM counterpart of prepare_shared_data: the same splits/scaling used
+    for the trainer side (balanced train, imbalanced val, imbalanced test), so
+    single-LLM prober results are directly comparable to trainer metrics.
+    """
+    set_seed(SEED)
+    X_full, _, _ = DataManager.load_concatenated_layers(model, dataset, layer_indices, layer_type)
+    y_all = labels_from_stats(DataManager.get_stats(model, dataset))
+
+    _, train_bal_pos, val_pos, test_pos = split_and_balance(
+        y_all, split_seed=SEED + 20, test_seed=SEED + 24, balance_seed=SEED + 22,
+    )
+
+    X_train_raw = X_full[train_bal_pos]
+    X_val_raw = X_full[val_pos]
+    X_test_raw = X_full[test_pos]
+    scaler = StandardScaler().fit(X_train_raw)
+
+    return {
+        "model": model,
+        "dataset": dataset,
+        "layer_type": layer_type,
+        "X_train": scaler.transform(X_train_raw),
+        "X_val": scaler.transform(X_val_raw),
+        "X_test": scaler.transform(X_test_raw),
+        "X_test_raw": X_test_raw,
+        "y_train": y_all[train_bal_pos],
+        "y_val": y_all[val_pos],
+        "y_test": y_all[test_pos],
+        "scaler": scaler,
+    }
+
 def prepare_shared_data(experiment: dict, layer_type: str):
     """
     Prepare ALL data splits ONCE for a given (experiment, layer_type).
@@ -302,59 +388,16 @@ def prepare_shared_data(experiment: dict, layer_type: str):
 
     # ---- per-model splits for probing ----
     # Build full label arrays from stats (preserves natural distribution)
-    hall_set_t = set(stats_trainer["hallucinated_ids"])
-    hall_set_s = set(stats_tester["hallucinated_ids"])
-    y_trainer_all = np.array(
-        [1 if i in hall_set_t else 0 for i in range(stats_trainer["total"])], dtype=np.int8
-    )
-    y_tester_all = np.array(
-        [1 if i in hall_set_s else 0 for i in range(stats_tester["total"])], dtype=np.int8
-    )
+    y_trainer_all = labels_from_stats(stats_trainer)
+    y_tester_all = labels_from_stats(stats_tester)
 
-    # Step 1: stratified train/val/test split (70/15/15) — all preserve class ratios
-    all_idx_t = np.arange(stats_trainer["total"])
-    all_idx_s = np.arange(stats_tester["total"])
-
-    train_t_pos, valtest_t_pos = train_test_split(
-        all_idx_t, test_size=1.0 - TRAIN_SPLIT, random_state=SEED + 20, stratify=y_trainer_all,
+    # Stratified train/val/test split (70/15/15), then balance only the training portion
+    train_t_pos, train_t_bal_pos, val_t_pos, test_t_pos = split_and_balance(
+        y_trainer_all, split_seed=SEED + 20, test_seed=SEED + 24, balance_seed=SEED + 22,
     )
-    val_t_pos, test_t_pos = train_test_split(
-        valtest_t_pos, test_size=0.5, random_state=SEED + 24, stratify=y_trainer_all[valtest_t_pos],
+    train_s_pos, train_s_bal_pos, val_s_pos, test_s_pos = split_and_balance(
+        y_tester_all, split_seed=SEED + 21, test_seed=SEED + 25, balance_seed=SEED + 23,
     )
-    train_s_pos, valtest_s_pos = train_test_split(
-        all_idx_s, test_size=1.0 - TRAIN_SPLIT, random_state=SEED + 21, stratify=y_tester_all,
-    )
-    val_s_pos, test_s_pos = train_test_split(
-        valtest_s_pos, test_size=0.5, random_state=SEED + 25, stratify=y_tester_all[valtest_s_pos],
-    )
-
-    # Step 2: balance only the training portion (undersample to minority class)
-    rng_t_bal = np.random.RandomState(SEED + 22)
-    rng_s_bal = np.random.RandomState(SEED + 23)
-
-    y_trainer_train_part = y_trainer_all[train_t_pos]
-    unique_t, counts_t = np.unique(y_trainer_train_part, return_counts=True)
-    min_t = counts_t.min()
-    sel_t = []
-    for cls in unique_t:
-        cls_pos = train_t_pos[np.where(y_trainer_train_part == cls)[0]]
-        if len(cls_pos) > min_t:
-            sel_t.extend(rng_t_bal.choice(cls_pos, size=min_t, replace=False))
-        else:
-            sel_t.extend(cls_pos)
-    train_t_bal_pos = np.sort(np.array(sel_t))
-
-    y_tester_train_part = y_tester_all[train_s_pos]
-    unique_s, counts_s = np.unique(y_tester_train_part, return_counts=True)
-    min_s = counts_s.min()
-    sel_s = []
-    for cls in unique_s:
-        cls_pos = train_s_pos[np.where(y_tester_train_part == cls)[0]]
-        if len(cls_pos) > min_s:
-            sel_s.extend(rng_s_bal.choice(cls_pos, size=min_s, replace=False))
-        else:
-            sel_s.extend(cls_pos)
-    train_s_bal_pos = np.sort(np.array(sel_s))
 
     # ---- concordant alignment (constrained to training split only) ----
     # Filter alignment ids to only samples present in both training splits

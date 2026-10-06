@@ -11,9 +11,7 @@ import time
 import traceback
 from typing import Any
 
-import numpy as np
 import torch
-from sklearn.model_selection import train_test_split
 
 _SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _SRC_DIR not in sys.path:
@@ -37,7 +35,7 @@ from o4a.config import (  # noqa: E402
     ONE_FOR_ALL_CONFIG,
 )
 from o4a.data import (  # noqa: E402
-    DataManager,
+    load_stratified_test_set,
     prepare_shared_data,
     set_seed,
 )
@@ -76,24 +74,6 @@ EXTRA_SUFFIXES = [
 EXTRA_DEFAULT = 0
 
 
-def _load_stratified_test_set(
-    model_name: str,
-    dataset_name: str,
-    layer_indices: list[int],
-    layer_type: str,
-    test_size: float = 0.15,
-    seed: int = SEED,
-) -> tuple[np.ndarray, np.ndarray]:
-    """Load a stratified test split from the activation dataset."""
-    X_full, _, _ = DataManager.load_concatenated_layers(model_name, dataset_name, layer_indices, layer_type)
-    stats = DataManager.get_stats(model_name, dataset_name, layer_type=layer_type)
-    hall_set = set(stats["hallucinated_ids"])
-    y = np.array([1 if i in hall_set else 0 for i in range(stats["total"])], dtype=np.int8)
-    all_idx = np.arange(stats["total"])
-    _, test_idx = train_test_split(all_idx, test_size=test_size, random_state=seed, stratify=y)
-    return X_full[test_idx], y[test_idx]
-
-
 def _prepare_cross_domain_shared_data(
     exp_cfg: dict[str, Any],
     layer_type: str,
@@ -108,10 +88,10 @@ def _prepare_cross_domain_shared_data(
     trainer_layers = exp_cfg["trainer_layers"][layer_type]
     tester_layers = exp_cfg["tester_layers"][layer_type]
 
-    X_trainer_test_raw, y_trainer_test = _load_stratified_test_set(
+    X_trainer_test_raw, y_trainer_test = load_stratified_test_set(
         exp_cfg["trainer"], activation_dataset, trainer_layers, layer_type, seed=SEED,
     )
-    X_tester_test_raw, y_tester_test = _load_stratified_test_set(
+    X_tester_test_raw, y_tester_test = load_stratified_test_set(
         exp_cfg["tester"], activation_dataset, tester_layers, layer_type, seed=SEED,
     )
 

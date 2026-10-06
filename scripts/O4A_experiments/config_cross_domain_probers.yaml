@@ -1,0 +1,89 @@
+# Configuration for single-LLM cross-domain prober job generation.
+# Each job trains every prober (the detector of each run_experiments method) on one model's
+# activations from the train dataset (selected layers), then evaluates on a different
+# activation dataset. No cross-LLM alignment.
+
+common:
+  # LLMs (one job per model, no trainer/tester pairs)
+  llms:
+    - Qwen2.5-7B
+    - Falcon3-7B-Base
+    - gemma-2-9b-it
+    - Llama-3.1-8B-Instruct
+
+  # Domains/datasets (one job per ordered train -> activation pair)
+  datasets:
+    - belief_bank_constraints
+    - belief_bank_facts
+    - halu_eval
+
+  # Seeds (one job per seed)
+  seeds:
+    - 2
+    - 4
+    - 24
+    - 42
+    - 64
+    - 67
+    - 104
+    - 123
+    - 420
+    - 511
+
+  # Device
+  device: cuda:0
+
+  # Optional subset of probers (method names from run_experiments): ridge_regressor, procrustes,
+  # cka, cca, hybrid, full_nonlinear, reduced_nonlinear, one_for_all.
+  # Set to [] or omit to run all of them.
+  probers: []
+
+  # Optional fixed subset of layer types.
+  # Set to [] or omit to run all default layer types from o4a.config (attn/mlp/hidden).
+  layer_types: []
+
+htc:
+  executable: scripts/O4A_experiments/run_cross_domain_probers.sh
+  output_dir: scripts/O4A_experiments/generated_run_cross_domain_probers
+  logs_dir: logs/run_cross_domain_probers_htc
+  max_jobs_per_file: 10
+
+  # Resource allocation
+  request_cpus: 8
+  request_gpus: 1
+  request_memory: 16000
+
+  # Optional cluster-specific fields:
+  # initialdir: /lustrehome/fonty/HallucinationDetection
+  # getenv: True
+  # requirements: (CUDAGlobalMemoryMb >= 24000)
+
+leonardo:
+  executable: scripts/O4A_experiments/run_cross_domain_probers.sh
+  output_dir: scripts/O4A_experiments/generated_leonardo_run_cross_domain_probers
+  logs_dir: logs/run_cross_domain_probers_leonardo
+  max_jobs_per_file: 10
+  job_name: o4a_cd_probers
+
+  # SLURM resource allocation
+  account: IscrC_IMCAI
+  partition: boost_usr_prod
+  qos: normal
+  time: "24:00:00"
+  nodes: 1
+  ntasks: 1
+  cpus_per_task: 8
+  gpus_per_task: 1
+  mem: 123000
+  mail_user: l.laraspata3@phd.uniba.it
+
+optimization:
+  # DataLoader settings
+  num_workers: 8
+  pin_memory: true
+  prefetch_factor: 4
+
+  # Training/runtime flags
+  cudnn_benchmark: true
+  use_amp: true
+  compile_model: false
