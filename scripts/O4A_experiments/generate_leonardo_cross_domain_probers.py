@@ -1,8 +1,10 @@
 """
-Generate Leonardo (SLURM) submit files for single-LLM cross-domain prober jobs.
+Generate Leonardo (SLURM) submit files for cross-domain prober jobs.
 
-Same jobs as generate_condor_cross_domain_probers.py (model, train dataset,
-activation dataset, seed), emitted as sbatch scripts instead of HTCondor submit files.
+Same jobs as generate_condor_cross_domain_probers.py, emitted as sbatch scripts instead
+of HTCondor submit files: single-LLM jobs (model, train dataset, activation dataset, seed;
+all probers) and cross-LLM jobs (trainer -> tester, train dataset, activation dataset, seed;
+all probers), toggled by common.single_llm / common.cross_llm in the config.
 """
 
 from pathlib import Path

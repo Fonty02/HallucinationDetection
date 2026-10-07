@@ -18,13 +18,7 @@
 
 source .venv/bin/activate
 
-srun -u bash scripts/O4A_experiments/run_cross_domain_probers.sh gemma-2-9b-it belief_bank_constraints halu_eval 2 cuda:0 8 true 4 true true false all
-srun -u bash scripts/O4A_experiments/run_cross_domain_probers.sh gemma-2-9b-it belief_bank_constraints halu_eval 4 cuda:0 8 true 4 true true false all
-srun -u bash scripts/O4A_experiments/run_cross_domain_probers.sh gemma-2-9b-it belief_bank_constraints halu_eval 24 cuda:0 8 true 4 true true false all
-srun -u bash scripts/O4A_experiments/run_cross_domain_probers.sh gemma-2-9b-it belief_bank_constraints halu_eval 42 cuda:0 8 true 4 true true false all
-srun -u bash scripts/O4A_experiments/run_cross_domain_probers.sh gemma-2-9b-it belief_bank_constraints halu_eval 64 cuda:0 8 true 4 true true false all
-srun -u bash scripts/O4A_experiments/run_cross_domain_probers.sh gemma-2-9b-it belief_bank_constraints halu_eval 67 cuda:0 8 true 4 true true false all
-srun -u bash scripts/O4A_experiments/run_cross_domain_probers.sh gemma-2-9b-it belief_bank_constraints halu_eval 104 cuda:0 8 true 4 true true false all
-srun -u bash scripts/O4A_experiments/run_cross_domain_probers.sh gemma-2-9b-it belief_bank_constraints halu_eval 123 cuda:0 8 true 4 true true false all
-srun -u bash scripts/O4A_experiments/run_cross_domain_probers.sh gemma-2-9b-it belief_bank_constraints halu_eval 420 cuda:0 8 true 4 true true false all
-srun -u bash scripts/O4A_experiments/run_cross_domain_probers.sh gemma-2-9b-it belief_bank_constraints halu_eval 511 cuda:0 8 true 4 true true false all
+srun -u bash scripts/O4A_experiments/run_cross_domain_probers.sh Qwen2.5-7B none halu_eval belief_bank_facts 24 cuda:0 8 true 4 true true false all
+srun -u bash scripts/O4A_experiments/run_cross_domain_probers.sh Qwen2.5-7B none halu_eval belief_bank_facts 42 cuda:0 8 true 4 true true false all
+srun -u bash scripts/O4A_experiments/run_cross_domain_probers.sh Qwen2.5-7B none halu_eval belief_bank_facts 64 cuda:0 8 true 4 true true false all
+srun -u bash scripts/O4A_experiments/run_cross_domain_probers.sh Qwen2.5-7B none halu_eval belief_bank_facts 67 cuda:0 8 true 4 true true false all

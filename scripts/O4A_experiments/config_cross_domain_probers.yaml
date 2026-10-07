@@ -1,10 +1,20 @@
-# Configuration for single-LLM cross-domain prober job generation.
-# Each job trains every prober (the detector of each run_experiments method) on one model's
-# activations from the train dataset (selected layers), then evaluates on a different
+# Configuration for cross-domain prober job generation.
+# Single-LLM jobs train every prober (the detector of each run_experiments method) on one model's
+# activations from the train dataset (selected layers), then evaluate on a different
 # activation dataset. No cross-LLM alignment.
+# Cross-LLM jobs are cross-LLM and cross-domain at the same time: every method trains its detector
+# on the trainer LLM and its cross-LLM stage (aligner / student encoder) towards the tester LLM, both
+# on the train dataset; evaluation on a different activation dataset (same mechanism as
+# run_cross_domain_one_for_all).
 
 common:
-  # LLMs (one job per model, no trainer/tester pairs)
+  # Job families to generate.
+  # single_llm: one job per (model, train -> activation, seed), all probers.
+  # cross_llm:  one job per (trainer -> tester, train -> activation, seed), all probers.
+  single_llm: true
+  cross_llm: true
+
+  # LLMs (single-LLM: one job per model; cross-LLM: every ordered trainer -> tester pair)
   llms:
     - Qwen2.5-7B
     - Falcon3-7B-Base
@@ -35,7 +45,7 @@ common:
 
   # Optional subset of probers (method names from run_experiments): ridge_regressor, procrustes,
   # cka, cca, hybrid, full_nonlinear, reduced_nonlinear, one_for_all.
-  # Set to [] or omit to run all of them.
+  # Set to [] or omit to run all of them. Applies to single-LLM and cross-LLM jobs.
   probers: []
 
   # Optional fixed subset of layer types.
@@ -62,7 +72,8 @@ leonardo:
   executable: scripts/O4A_experiments/run_cross_domain_probers.sh
   output_dir: scripts/O4A_experiments/generated_leonardo_run_cross_domain_probers
   logs_dir: logs/run_cross_domain_probers_leonardo
-  max_jobs_per_file: 10
+  # Jobs in a file run sequentially within `time`: cross-LLM Falcon pairs take up to ~4.6h per job.
+  max_jobs_per_file: 4
   job_name: o4a_cd_probers
 
   # SLURM resource allocation

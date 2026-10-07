@@ -1,10 +1,15 @@
 """
-Generate HTCondor submit files for single-LLM cross-domain prober jobs.
+Generate HTCondor submit files for cross-domain prober jobs.
 
-Each job is defined by:
+Each single-LLM job is defined by:
 - model (single LLM, no trainer/tester pair)
 - train dataset (domain the probers are trained on)
 - activation dataset (domain used for evaluation), train_dataset != activation_dataset
+- seed
+
+Each cross-LLM job (cross-LLM and cross-domain at the same time, all probers) is defined by:
+- trainer -> tester model pair
+- train dataset, activation dataset (train_dataset != activation_dataset)
 - seed
 """
 
@@ -32,33 +37,44 @@ def load_config() -> dict:
         return yaml.safe_load(f)
 
 
+def _common_cli_args(cfg: dict) -> list[str]:
+    """Runtime/optimization positional arguments shared by every job."""
+    opt = cfg.get("optimization", {})
+    return [
+        _to_cli_value(cfg["common"].get("device", "cuda:0")),
+        str(opt.get("num_workers", 4)),
+        _to_cli_value(opt.get("pin_memory", True)),
+        str(opt.get("prefetch_factor", 2)),
+        _to_cli_value(opt.get("cudnn_benchmark", True)),
+        _to_cli_value(opt.get("use_amp", True)),
+        _to_cli_value(opt.get("compile_model", False)),
+    ]
+
+
+def _model_pairs(cfg: dict) -> list[tuple[str, str]]:
+    """(model, tester_model) pairs: tester 'none' for single-LLM, ordered pairs for cross-LLM."""
+    common = cfg["common"]
+    pairs = []
+    if common.get("single_llm", True):
+        pairs.extend((model, "none") for model in common["llms"])
+    if common.get("cross_llm", False):
+        pairs.extend(itertools.permutations(common["llms"], 2))
+    return pairs
+
+
 def build_job_args(cfg: dict) -> list[list[str]]:
     """Positional arguments for run_cross_domain_probers.sh, one list per job."""
     common = cfg["common"]
-    opt = cfg.get("optimization", {})
-
-    device = common.get("device", "cuda:0")
     probers = common.get("probers", []) or []
     layer_types = common.get("layer_types", []) or []
+    runtime_args = _common_cli_args(cfg)
+    probers_arg = ",".join(probers) if probers else "all"
 
     jobs = []
-    for model in common["llms"]:
+    for model, tester in _model_pairs(cfg):
         for train_ds, activation_ds in itertools.permutations(common["datasets"], 2):
             for seed in common["seeds"]:
-                args = [
-                    model,
-                    train_ds,
-                    activation_ds,
-                    str(seed),
-                    _to_cli_value(device),
-                    str(opt.get("num_workers", 4)),
-                    _to_cli_value(opt.get("pin_memory", True)),
-                    str(opt.get("prefetch_factor", 2)),
-                    _to_cli_value(opt.get("cudnn_benchmark", True)),
-                    _to_cli_value(opt.get("use_amp", True)),
-                    _to_cli_value(opt.get("compile_model", False)),
-                    ",".join(probers) if probers else "all",
-                ]
+                args = [model, tester, train_ds, activation_ds, str(seed), *runtime_args, probers_arg]
                 args.extend(layer_types)
                 jobs.append(args)
     return jobs
@@ -67,11 +83,14 @@ def build_job_args(cfg: dict) -> list[list[str]]:
 def print_summary(cfg: dict, job_count: int) -> None:
     common = cfg["common"]
     datasets = common["datasets"]
+    llms = common["llms"]
     print(f"Total jobs to generate: {job_count}")
-    print(f"  - LLMs: {len(common['llms'])}")
+    print(f"  - Single-LLM jobs: {'on' if common.get('single_llm', True) else 'off'} ({len(llms)} LLMs)")
+    print(f"  - Cross-LLM jobs:  {'on' if common.get('cross_llm', False) else 'off'} "
+          f"({len(llms) * (len(llms) - 1)} LLM pairs)")
+    print(f"  - Probers: {common.get('probers') or 'all'}")
     print(f"  - Domain pairs (train->activation): {len(datasets) * (len(datasets) - 1)}")
     print(f"  - Seeds: {len(common['seeds'])}")
-    print(f"  - Probers: {common.get('probers') or 'all'}")
     print(f"  - Layer types: {common.get('layer_types') or 'all'}")
 
 
